@@ -1,0 +1,1825 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE rfc SYSTEM "rfc2629-xhtml.ent">
+
+<!-- Compiles with XML2RFC v3 https://xml2rfc.tools.ietf.org/cgi-bin/xml2rfc-dev.cgi -->
+
+<?rfc toc="yes"?>
+<?rfc tocompact="yes"?>
+<?rfc tocdepth="3"?>
+<?rfc tocindent="yes"?>
+<?rfc symrefs="yes"?>
+<?rfc sortrefs="yes"?>
+<?rfc comments="yes"?>
+<?rfc inline="yes"?>
+<?rfc compact="no"?>
+<?rfc subcompact="no"?>
+<?rfc authorship="yes"?>
+<?rfc tocappendix="yes"?>
+<rfc xmlns:xi="http://www.w3.org/2001/XInclude" category="info" docName="draft-pthubert-raw-architecture-06"
+     ipr="trust200902" obsoletes="" updates="" submissionType="IETF" xml:lang="en" version="3">
+  <front>
+    <title abbrev="RAW Architecture/Framework">Reliable and Available Wireless Architecture/Framework</title>
+    <author initials="P" surname="Thubert" fullname="Pascal Thubert" role="editor">
+      <organization abbrev="Cisco Systems">Cisco Systems, Inc</organization>
+      <address>
+    <postal>
+      <street>Building D</street>
+      <street>45 Allee des Ormes - BP1200 </street>
+      <city>MOUGINS - Sophia Antipolis</city>
+      <code>06254</code>
+      <country>France</country>
+    </postal>
+    <phone>+33 497 23 26 34</phone>
+    <email>pthubert@cisco.com</email>
+      </address>
+    </author>
+
+    <author initials="G.Z." surname="Papadopoulos" fullname="Georgios Z. Papadopoulos">
+      <organization>IMT Atlantique</organization>
+      <address>
+    <postal>
+      <street>Office B00 - 114A</street>
+      <street>2 Rue de la Chataigneraie</street>
+      <city>Cesson-Sevigne - Rennes</city>
+      <code>35510</code>
+      <country>France</country>
+    </postal>
+    <phone>+33 299 12 70 04</phone>
+    <email>georgios.papadopoulos@imt-atlantique.fr</email>
+      </address>
+    </author>
+
+
+
+    <author initials="R." surname="Buddenberg" fullname="Rex Buddenberg">
+       <organization/>
+       <address>
+    <postal>
+       <street/><city/>
+       <region>CA</region>
+       <code/>
+        <country>USA</country>
+    </postal>
+      <phone/>
+      <email>buddenbergr@gmail.com</email>
+       </address>
+      </author>
+
+    <date/>
+    <area>Routing Area</area>
+    <workgroup>RAW</workgroup>
+    <keyword>Draft</keyword>
+    <abstract>
+      <t>Due to uncontrolled interferences, including the self-induced multipath fading, deterministic networking can only be approached on wireless links. The radio conditions may change -way- faster than a centralized routing can adapt and reprogram, in particular when the controller is distant and connectivity is slow and limited. RAW separates the routing time scale at which a complex path is recomputed from the forwarding time scale at which the forwarding decision is taken for an individual packet. RAW operates at the forwarding time scale. The RAW problem is to decide, within the redundant solutions that are proposed by the routing, which will be used for each individual packet to provide a DetNet service while minimizing the waste of resources.
+      </t>
+    </abstract>
+  </front>
+  <middle>
+
+    <section numbered="true" toc="default">
+      <name>Introduction</name>
+      <t>
+   Bringing determinism in a packet network means eliminating the statistical
+   effects of multiplexing that result in probabilistic jitter and loss.
+   This can be approached with a tight control of the physical resources to
+   maintain the amount of traffic within a budgetted volume of data per unit of
+   time that fits the physical capabilities of the underlying technology, and
+   the use of time-shared resources (bandwidth and buffers) per circuit, and/or
+   by shaping and/or scheduling the packets at every hop.
+
+      </t>
+      <t>
+   Wireless networks operate on a shared medium where uncontrolled interference,
+   including the self-induced multipath fading, cause random transmission losses
+   and add new dimensions to the statistical effects that affect the delivery.
+   Scheduling can alleviate those effects by enabling diverse transmissions
+   in the spatial, time, code, and frequency domains. Reliable and Available
+   Wireless (RAW) leverages scheduling and all possible forms of diversity to
+   defeat the possible causes of transmission loss while preserving energy
+   and optimizing the use of the shared spectrum.
+
+      </t>
+      <t>
+   Deterministic Networking is an attempt to emulate the properties of a serial
+   link over a switched fabric, by providing a bounded latency and eliminating congestion loss, even when co-existing with best-effort traffic.
+   This innovation was introduced on wired networks with IEEE 802.1 TSN (for Ethernet LANs) and IETF DetNet.
+   It is getting traction in various industries including professional A/V, manufacturing, online gaming, and smartgrid automation, enabling cost and
+   performance optimizations (e.g., vs. loads of P2P cables).
+
+
+   </t><t>
+   The wireless and wired media are fundamentally different at the physical
+   level, and while the generic <xref target="RFC8557">"Deterministic Networking
+   Problem Statement"</xref> applies to both the wired and the wireless media,
+   the methods to achieve RAW must extend those used to support time-sensitive
+   networking over wires, as a RAW solution has to address less consistent
+   transmissions, energy conservation and shared spectrum efficiency.
+
+   </t><t>
+   Uncontrolled interference and transmission obstacles may impede the wireless transmission, causing rapid variations of the throughput and packet delivery
+   ratio (PDR) of the link. This uncertainty limits the volume and/or duration
+   of traffic that can be safely transmitted on the same link while conforming
+   to a RAW Service Level Agreement (SLA). Techniques such as beamforming with
+   Multi-User MIMO can only alleviate some of those issues, and the term deterministic is usually not associated with a short range radio link, in
+   particular one operated in the ISM band.
+      </t>
+      <t>
+   This increased complexity explains why the development of deterministic
+   wireless technologies has been lagging behind the similar efforts for wired systems, both at the IEEE and the IETF. But recent progress on scheduled
+   radios such as TSCH and OFDMA indicates that wireless is finally catching up
+   at the lower layers. Sitting at the layer above,
+   RAW takes up the challenge of providing highly available and reliable
+   end-to-end performances in a network with scheduled wireless segments.
+
+      </t>
+      <t>
+   RAW provides DetNet elements that are specialized for short range radios.
+   From this inheritance, RAW stays agnostic to the radio
+   layer underneath though the capability to schedule transmissions is assumed.
+   How the PHY is programmed to do so, and whether the radio is single-hop
+   or meshed, are unknown at the IP layer and not part of the RAW abstraction.
+
+      </t>
+      <t>
+   The <xref target="RFC8655">"Deterministic Networking Architecture"</xref> is
+   composed of three planes: the Application (User) Plane, the Controller Plane,
+   and the Network Plane. The RAW Architecture extends the DetNet Network Plane,
+   to accomodate one or multiple hops of homogeneous or heterogeneous wireless
+   technologies, e.g. a Wi-Fi6 Mesh or parallel CBRS access links federated by a
+   5G backhaul.
+      </t>
+
+      <t>
+   The establishment of a path is not in-scope for RAW. It may be the product of
+   a centralized Controller Plane as described for DetNet. As opposed to wired
+   networks, the action of installing a path over a set of wireless links
+   may be very slow relative to the speed at which the radio conditions vary,
+   and it makes sense in the wireless case to provide redundant forwarding
+   solutions along a complex path and to leave it to the Network Plane to
+   select which of those forwarding solutions are to be used for a given packet
+   based on the current conditions.
+      </t>
+      <t>
+   RAW distinguishes the longer time scale at which routes are computed from the
+   the shorter forwarding time scale where per-packet decisions are made.
+   RAW operates within the Network Plane at the forwarding time scale on one
+   DetNet flow over a complex path called a Track. The Track is preestablished
+   and installed by means outside of the scope of RAW; it may be strict or loose depending on whether each or just a subset of the hops are observed and
+   controlled by RAW.
+      </t>
+      <t>
+   The RAW Architecture covers Network Plane protocol elements such as
+   Operations, Administration and Maintenance (OAM) to observe some or all hops along a Track as well as the end-to-end packet delivery, and in-band control
+   to optimize the use of redundancy to achieve the required SLA with minimal
+   use of constrained resources.
+      </t>
+
+    </section>
+    <!-- Introduction -->
+    <!--  000000000000000000000    -->
+
+    <section numbered="true" toc="default">
+      <name>The RAW problem</name>
+
+   <section anchor="terms" numbered="true" toc="default">
+      <name>Terminology</name>
+
+    <t>RAW reuses terminology defined for DetNet in the <xref target="RFC8655">
+    "Deterministic Networking Architecture"</xref>, e.g., PREOF for Packet
+    Replication, Elimination and Ordering Functions.
+    </t><t>
+    RAW also reuses terminology defined for 6TiSCH in <xref target=
+    "I-D.ietf-6tisch-architecture" format="default"/> such as the term Track.
+    A Track as a complex path with associated PAREO operations. The concept is
+    abstract to the underlaying technology and applies to any fully or partially
+    wireless mesh, including, e.g., a Wi-Fi mesh.
+    RAW specifies strict and loose Tracks depending on whether the path is fully
+    controlled by RAW or traverses an opaque network where RAW cannot observe
+    and control the individual hops.
+    </t><t>
+    RAW uses the term OAM as defined in <xref target="RFC6291"/>.
+    </t>
+    <t>
+      RAW defines the following terms:
+    </t>
+    <dl>
+    <dt>PAREO:</dt><dd>Packet (hybrid) ARQ, Replication, Elimination and
+    Ordering. PAREO is a superset Of DetNet's PREOF that includes
+    radio-specific techniques such as short range broadcast, MUMIMO,
+    constructive interference and overhearing, which can be
+    leveraged separately or combined to increase the reliability.
+    </dd>
+    <dt>Flapping:</dt><dd>In the context of RAW, a link flaps when the
+    reliability of the wireless connectivity drops abruptly for a short
+    period of time, typically of a subsecond to seconds duration.
+    </dd>
+    </dl>
+
+    <t>
+    In the context of the RAW work, Reliability and Availability are defined as
+    follows:
+    </t>
+    <dl>
+    <dt>Reliability:</dt><dd>Reliability is a measure of the probability
+    that an item will perform its intended function for a specified
+    interval under stated conditions. For RAW, the service that is expected
+    is delivery within a bounded latency and a failure is when the packet
+    is either lost or delivered too late.  RAW expresses reliability in
+    terms of Mean Time Between Failure (MTBF) and Maximum Consecutive
+    Failures (MCF). More in <xref target="NASA"/>.</dd>
+    <dt>Availability:</dt><dd>Availability is a measure of the relative
+    amount of time where a path operates in stated condition, in other words
+    (uptime)/(uptime+downtime). Because a serial wireless path may not be
+    good enough to provide the required availability, and even 2 parallel
+    paths may not be over a longer period of time, the RAW availability
+    implies a path that is a lot more complex than what DetNet typically
+    envisages (a Track).
+    </dd>
+    </dl>
+    </section>
+    <!-- Terminology -->
+    <!--  1111111111111111    -->
+
+    <section numbered="true" toc="default">
+      <name>Reliability and Availability</name>
+
+
+    <!--  2222222222222222    -->
+    <section numbered="true" toc="default">
+      <name>High Availability Engineering Principles</name>
+
+    <t>
+    The reliability criteria of a critical system pervade through its elements,
+    and if the system comprises a data network then the data network is also
+    subject to the inherited reliability and availability criteria.
+    It is only natural to consider the art of high availability engineering and
+    apply it to wireless communicaitons in the context of RAW.
+    </t>
+
+    <t>
+    There are three principles [pillars] of high availability engineering:
+    </t>
+     <ol spacing="compact">
+     <li>elimination of single points of failure</li>
+     <li>reliable crossover</li>
+     <li>prompt detection of failures as they occur.</li>
+     </ol>
+     <t>
+     These principles are common to all high availability systems, not just ones
+     with Internet technology at the center.  Examples of both non-Internet and
+     Internet are included.
+    </t>
+
+
+    <!--  333333333333333333333   -->
+
+    <section numbered="true" toc="default">
+      <name>Elimination of Single Points of Failure</name>
+
+    <t>
+    Physical and logical components in a system happen to fail, either as the
+    effect of wear and tear, when used beyond acceptable limits, or due to a
+    software bug.
+    It is necessary to decouple component failure from system failure to avoid
+    the latter.
+    This allows failed components to be restored while the rest of the system
+    continues to function.
+    </t>
+    <t>
+    IP Routers leverage routing protocols to compute alternate routes in case
+    of a failure. There is a rather open-ended issue over alternate routes --
+    for example, when links are cabled through the same conduit, they form a
+    shared risk link group (SRLG), and will share the same fate if the bundle is
+    cut. The same effect can happen with virtual links that end up in a same physical transport through the games of encapsulation. In a same fashion,
+    an interferer or an obstacle may affect multiple wireless transmissions at
+    the same time, even between different sets of peers.
+    </t>
+    <t>
+    Intermediate network Nodes such as routers, switches and APs, wire bundles
+    and the air medium itself can become single points of failure. For High
+    Availability, it is thus required to use physically link- and Node-disjoint
+    paths; in the wireless space, it is also required to use the highest
+    possible degree of diversity in the transmissions over the air to combat the
+    additional causes of transmission loss.
+    </t>
+    <t>
+    From an economics standpoint, executing this principle properly generally
+    increases capitalization expense because of the redundant equipment. In a
+    constrained network where the waste of energy and bandwidth should be
+    minimized, an excessive use of redundant links must be avoided; for RAW this
+    means that the extra bandwidth must be used wisely and with parcimony.
+    </t>
+
+    </section>
+      <!--Elimination of Single Points of Failure-->
+
+
+
+    <!--  333333333333333333333   -->
+
+
+    <section numbered="true" toc="default">
+      <name>Reliable Crossover</name>
+
+    <t>
+    Having a backup equipment has a limited value unless it can be reliably switched into use within the down-time parameters.
+    IP Routers execute reliable crossover continuously because
+    the routers will use any alternate routes that are available <xref target=
+    "RFC0791"/>. This is due to the stateless nature of IP datagrams and the
+    dissociation of the datagrams from the forwarding routes they take.
+    The <xref target="RFC5714">"IP Fast Reroute Framework"</xref> analyzes
+    mechanisms for fast failure detection and path repair for IP Fast-Reroute,
+    and discusses the case of multiple failures and SRLG. Examples of FRR
+    techniques include Remote Loop-Free Alternate <xref target="RFC7490"/> and
+    backup label-switched path (LSP) tunnels for the local repair of LSP tunnels
+    using RSVP-TE <xref target="RFC4090"/>.
+    </t>
+    <t>
+    Deterministic flows, on the contrary, are attached to specific paths where
+    dedicated resources are reserved for each flow. This is why each DetNet path
+    must inherently provide sufficient redundancy to provide the guaranteed SLA
+    at all times.
+    The DetNet PREOF typically leverages 1+1 redundancy whereby a packet is sent
+    twice, over non-congruent paths. This avoids the gap during the fast reroute
+    operation, but doubles the traffic in the network.
+    </t>
+    <t>
+    In the case of RAW, the expectation is that multiple transient faults may
+    happen in overlapping time windows, in which case the 1+1 redundancy with
+    delayed reestablishment of the second path will not provide the required
+    guarantees.
+    The Data Plane must be configured with a sufficient degree of
+    redundancy to select an alternate redundant path immediately upon a fault,
+    without the need for a slow intervention from the controller plane.
+    </t>
+    </section>
+      <!--Reliable Crossover-->
+
+
+
+
+
+    <!--  333333333333333333333   -->
+
+
+    <section numbered="true" toc="default">
+      <name>Prompt Notification of Failures</name>
+    <t>
+    The execution of the two above principles is likely to render a system where
+    the user will rarely see a failure. But someone needs to in order to direct
+    maintenance.
+    </t>
+    <t>
+    There are many reasons for system monitoring (FCAPS for fault, configuration,
+    accounting, performance, security is a handy mental checklist) but fault
+    monitoring is sufficient reason.
+    </t>
+    <t>
+    <xref target="RFC3411">"An Architecture for Describing
+    Simple Network Management Protocol (SNMP) Management Frameworks"</xref>
+    describes how to use SNMP to observe and correct long-term faults.
+    </t>
+    <t>
+    <xref target="RFC3272">
+    "Overview and Principles of Internet Traffic Engineering"</xref> discusses
+    the importance of measurement for network protection, and provides abstract
+    an method for network survivability with the analysis of a traffic matrix
+    as observed by SNMP, probing techniques, FTP, IGP link state advertisements,
+    and more.
+    </t>
+
+    <t>
+    Those measurements are needed in the context of RAW to inform the controller
+    and make the long term reactive decision to rebuild a complex  path. But RAW
+    itself operates in the Network Plane at a faster time scale. To act on the
+    Data Plane, RAW needs live information from the Operational Plane , e.g.,
+    using <xref target="RFC5880">Bidirectional Forwarding Detection</xref>
+    and its variants (bidirectional and remote BFD) to protect a link, and
+    OAM techniques to protect a path.
+    </t>
+
+<!--
+
+    Security requirements. SNMP messages need to be authentic in all cases.
+    Implementations may need to be confidential as well.
+
+
+
+[ ... dovetail this into the OAM things that need to be included. Most of the discussion seems to cluster around performance management]
+
+-->
+    </section>
+      <!--Prompt Notification of Failures-->
+
+
+
+
+   </section>
+      <!--Reliability Engineering-->
+    <!--  22222222222222222222    -->
+
+
+    <section numbered="true" toc="default">
+      <name>Applying Reliability Concepts to Networking</name>
+    <t>
+    The terms Reliability and Availability are defined for use in RAW in
+    <xref target="terms"/> and the reader is invited to read
+    <xref target="NASA"/>
+    for more details on the general definition of Reliability.
+    Practically speaking a number of nines is often used to indicate the
+    reliability of a data link, e.g., 5 nines indicate a
+    Packet Delivery Ratio (PDR) of 99.999%.
+    </t>
+    <t>
+    This number is typical in a wired
+    environment where the loss is due to a random event such as a solar particle
+    that affects the transmission of a particular frame, but does not affect the
+    previous or next frame, nor frames transmitted on other links. Note that the
+    QoS requirements in RAW may include a bounded latency, and a packet that
+    arrives too late is a fault and not considered as delivered.
+    </t>
+    <t>
+    For a periodic networking pattern such as an automation control loop, this
+    number is proportional to the Mean Time Between Failures (MTBF).
+    When a single fault can have dramatic consequences, the MTBF expresses the
+    chances that the unwanted fault event occurs. In data networks,
+    this is rarely the case. Packet loss cannot never be fully avoided and the
+    systems are built to resist to one loss, e.g., using redundancy with Retries
+    (HARQ) or Packet Replication and Elimination (PRE), or, in a typical control
+    loop, by linear interpolation from the previous measuremnents.
+    </t>
+   <t>
+    But the linear interpolation method cannot resist multiple consecutive
+    losses, and a high MTBF is desired as a guarantee that this will not happen,
+    IOW that the number of losses-in-a-row can be bounded. In that case, what is
+    really desired is a Maximum Consecutive Failures (MCF).
+    If the number of losses in a row passes the MCF, the control loop has to
+    abort and the system, e.g., the production line, may need to enter an
+    emergency stop condition.
+    </t>
+   <t>
+    Engineers that build automated processes may use the network reliability
+    expressed in nines or as an MTBF as a proxy to indicate an MCF, e.g., as
+    described in section 7.4 of the <xref target="RFC8578">"Deterministic
+    Networking Use Cases"</xref>.
+    </t>
+    </section>
+      <!--Applying Reliability concepts to Networking-->
+    <!--  22222222222222222222    -->
+
+    <section numbered="true" toc="default">
+      <name>Reliability in the Context of RAW</name>
+    <t>
+    In contrast with wired networks, errors in transmission are the predominant
+    source of packet loss in wireless networks.
+    </t>
+    <t>
+    The root cause for the loss may be of multiple origins, calling for
+    the use of different forms of diversity:
+    </t>
+    <dl>
+    <dt>Multipath Fading:</dt><dd>
+    <t>A destructive interference by a reflection of the original signal.
+    </t>
+    <t>A radio signal may be received directly
+    (line-of-sight) and/or as a reflection on a physical structure (echo).
+    The reflections take a longer path and are delayed by the extra distance
+    divided by the speed of light in the medium. Depending on the frequency, the
+    echo lands with a different phase which may add up to (constructive
+    interference) or cancel the direct signal (destructive interference).
+    </t>
+    <t>
+    The affected frequencies depend on the relative position of the sender, the
+    receiver, and all the reflecting objects in the environment.
+    A given hop will suffer from multipath fading for multiple packets in a
+    row till the something moves that changes the reflection patterns.
+    </t>
+    </dd>
+    <dt>Co-channel Interference:</dt><dd>
+    <t>
+    Energy in the spectrum used for the transmission confuses the receiver.
+    </t>
+    <t>
+    The wireless medium itself is a Shared Risk Link Group (SRLG) for nearby
+    users of the same spectrum, as an interference may affect multiple co-channel
+    transmissions between different peers within the interference domain of the
+    interferer, possibly even when they use different technologies.
+    </t>
+    </dd>
+    <dt>Obstacle in Fresnel Zone:</dt><dd>
+    <t>
+    The optimal transmission happens when the Fresnel Zone between the sender
+    and the receiver is free of obstacles.
+    </t>
+    <t>
+    As long as a physical object (e.g., a metallic trolley between peers) that
+    affects the transmission is not removed, the quality of the link is affected.
+    </t>
+    </dd>
+    </dl>
+    <t>
+    In an environment that is rich of metallic structures and mobile objects, a
+    single radio link will provide a fuzzy service, meaning that it cannot be trusted to transport the traffic reliably over a long period of time.
+    </t>
+    <t>
+    Transmission losses are typically not independent, and their nature and
+    duration are unpredictable; as long as a physical object (e.g., a metallic
+    trolley between peers) that affects the transmission is not removed, or as
+    long as the interferer (e.g., a radar) keeps transmitting, a continuous
+    stream of packets will be affected.
+    </t>
+    <t>
+    The key technique to combat those unpredictable losses is diversity.
+    Different forms of diversity are necessary to combat different causes of
+    loss and the use of diversity must be maximised to optimize the PDR.
+    </t>
+    <t>
+    A single packet may be sent at different times (time diversity) over diverse
+    paths (spatial diversity) that rely on diverse radio channels (frequency
+    diversity) and diverse PHY technologies, e.g., narrowband vs. spread
+    spectrum, or diverse codes.
+    Using time diversity will defeat short-term interferences;
+    spatial diversity combats very local causes such as multipath fading;
+    narrowband and spread spectrum are relatively innocuous to one another and
+    can be used for diversity in the presence of the other.
+    </t>
+
+
+    </section>
+      <!--Reliability in the Context of RAW-->
+
+    </section>
+    <!--Reliability and Availability-->
+    <!--  11111111111111111111    -->
+
+
+
+    <section numbered="true" toc="default">
+      <name>Use Cases and Requirements Served</name>
+        <t>
+   In order to focus on real-worlds issues and assert the feasibility of
+   the proposed capabilities, RAW focuses on selected technologies that can
+   be scheduled at the lower layers: IEEE Std. 802.15.4 timeslotted channel
+   hopping (TSCH), 3GPP 5G ultra-reliable low latency communications (URLLC),
+   IEEE 802.11ax/be where 802.11be is extreme high throughput (EHT), and L-band
+   Digital Aeronautical  Communications System (LDACS).
+   See <xref target="I-D.thubert-raw-technologies" format="default"/> for more.
+
+      </t>
+      <t>
+    <xref target="RFC8578" format="default">"Deterministic Networking Use Cases"
+    </xref> presents a number of wireless use cases including Wireless, such as
+    application to Industrial Applications, Pro-Audio, and SmartGrid Automation.
+   <xref target="I-D.bernardos-raw-use-cases" format="default"/> adds a number
+   of use cases that demonstrate the need for RAW capabilities for new
+   applications such as Pro-Gaming and drones.
+   The use cases can be abstracted in two families, Loose Protection, e.g.,
+   protecting the first hop in Radio Access Protection and Strict Protection,
+   e.g., providing End-to-End Protection in a wireless mesh.
+      </t>
+
+
+
+
+    <section numbered="true" toc="default">
+      <name>Radio Access Protection</name>
+
+<t>
+    To maintain the required SLA at all times, a wireless Host
+    may use more than one Radio Access Network (RAN) in parallel.
+</t>
+
+<figure anchor="Figranp">
+          <name>Radio Access Protection</name>
+       <artwork align="center" name="" type="" alt="">
+                                   ...   ..
+                 RAN 1  -----  ...     ..  ...
+              /              .      ..         ....
++--------+  /              .                    ....    +-----------+
+|Wireless|-                .                     .....  |  Service  |
+| Device |-***-- RAN 2 -- .       Internet       ....---|     /     |
+|(STA/UE)|-                ..                   .....   |Application|
++--------+  $$$             .               .......     +-----------+
+              \               ...   ...     .....
+                 RAN n  --------  ...   .....
+
+*** = flapping at this time  $$$ expensive
+       </artwork>
+</figure>
+<t>
+    The RANs may be heterogeneous, e.g.,
+    3GPP 5G <xref target="I-D.farkas-raw-5g"/> and
+    Wi-Fi <xref target="I-D.thubert-raw-technologies"/> for high-speed
+    communication, in which case a Layer-3 abstraction becomes useful to select
+    which of the RANs are used at a particular point of time, and the amount of
+    traffic that is distributed over each RAN.
+</t>
+<t>
+    The idea is that the rest of the path to the destination(s) is protected
+    separately (e.g., uses non-congruent paths, leverages DetNet / TSN, etc...)
+    and is a lot more reliable, e.g., wired. In that case, RAW observes the
+    reliability of the end-to-end operation through each of the RANs but only
+    observes and controls the wireless operation the first hop.
+</t>
+<t> A variation of that use case has a pair of wireless Hosts connected over a
+    wired core / backbone network. In that case, RAW observes and
+    controls the Ingress and Egress RANs, while neglecting the hops in the core.
+    The resulting loose Track may be instanciated, e.g., using tunneling or
+    loose source routing between the RANs.
+</t>
+
+
+    </section>
+    <!--Radio Access Protection-->
+
+
+
+    <section numbered="true" toc="default">
+      <name>End-to-End Protection in a Wireless Mesh</name>
+
+<t>
+    In radio technologies that support mesh networking (e.g., Wi-Fi and TSCH),
+    a Track is a complex path with distributed PAREO capabilities. In that case,
+    RAW operates through the multipath and makes decisions either at the Ingress
+    or at every hop (more in <xref target="trk"/>).
+</t>
+       <figure anchor="Figtrk">
+          <name>End-to-End Protection</name>
+       <artwork align="center" name="" type="" alt="">
+         A-------B-------C-----D
+        /  \   /       /        \
+ Ingress ----M-------N--zzzzz--- Egress
+        \      \   /            /
+         P--zzz--Q-------------R
+
+zzz = flapping now
+       </artwork>
+       </figure>
+       <t>The Protection may be imposed by the source based on end-to-end OAM,
+       or performed hop-by-hop, in which case the OAM must enables the
+       intermediate Nodes to estimate the quality of the rest of the feasible
+       paths in the remainder of the Track to the destination.
+       </t>
+    </section>
+    <!--End-to-End Protection in a Wireless Mesh-->
+
+
+
+    </section>
+    <!-- Use Cases and Requirements Served -->
+
+
+    <!--  1111111111111111111111111111   -->
+
+
+
+    <section numbered="true" toc="default">
+      <name>Related Work at The IETF</name>
+      <t>RAW intersects with protocols or practices in development at the IETF
+      as follows:
+      </t>
+      <ul spacing="normal">
+    <li>
+      The Dynamic Link Exchange Protocol (DLEP)
+      <xref target="RFC8175" format="default"/> from
+      <xref target="MANET" format="default"/> can be leveraged at each hop
+      to derive generic radio metrics (e.g., based on LQI, RSSI, queueing delays
+      and ETX) on individual hops.
+      </li>
+    <li>
+      OAM work at
+      <xref target="detnet" format="default"/> such as
+      <xref target="I-D.mirsky-detnet-ip-oam" format="default"/>
+      for the case of the IP Data Plane observes the state of DetNet paths,
+      typically MPLS and IPv6 pseudowires
+      <xref target="I-D.ietf-detnet-data-plane-framework" format="default"/>,
+      in the direction of the traffic. RAW needs feedback that flows on the
+      reverse path and gathers instantaneous values from the radio receivers at
+      each hop to inform back the source and replicating relays so they can make
+      optimized forwarding decisions.
+      The work named ICAN may be related as well.
+      </li>
+    <li>
+      <xref target="BFD" format="default"/> detect faults in the path between an
+      Ingress and an Egress forwarding engines, but is unaware of the complexity
+      of a path with replication, and expects bidirectionality. BFD considers
+      delivery as success whereas with RAW the bounded latency can be as
+      important as the delivery itself.
+      </li>
+    <li>
+      <xref target="SPRING" format="default"/> and
+      <xref target="BIER" format="default"/> define in-band
+      signaling that influences the routing when decided at the head-end on the
+      path. There's already one RAW-related draft at BIER
+      <xref target="I-D.thubert-bier-replication-elimination" format="default"/>
+      more may follow.
+      RAW will need new in-band signaling when the decision is distributed,
+      e.g., required chances of reliable delivery to destination within latency.
+      This signaling enables relays to tune retries and replication to meet the required SLA.
+      </li>
+    <li>
+      <xref target="CCAMP" format="default"/> defines protocol-independent
+      metrics and parameters
+      (measurement attributes) for describing links and paths that are required
+      for routing and signaling in technology-specific networks. RAW would be a
+      source of requirements for CCAMP to define metrics that are significant to
+      the focus radios.
+      </li>
+      </ul>
+    </section>
+    <!--Related Work at The IETF   -->
+    <!--  1111111111111111111   -->
+
+    </section>      <!-- The RAW problem -->
+    <!--  000000000000000000000    -->
+
+    <section anchor="frame" numbered="true" toc="default">
+      <name>The RAW Framework</name>
+
+
+    <!--  1111111111111111111111111111   -->
+
+
+    <section  anchor="scope" numbered="true" toc="default">
+      <name>Scope and Prerequisites</name>
+      <t>
+   A prerequisite to the RAW operation is that an end-to-end routing function
+   computes a complex sub-topology along which forwarding can happen between a
+   source and one or more destinations. The concept of Track is specified in the
+   <xref target="I-D.ietf-6tisch-architecture" format="default">
+   6TiSCH Architecture</xref> to represent that complex sub-topology. Tracks
+   provide a high degree of redundancy and diversity and enable the DetNet
+   PREOF, network coding, and possibly RAW specific techniques such as PAREO,
+   leveraging frequency diversity, time diversity, and possibly other forms of
+   diversity as well.
+      </t>
+      <t>
+   How the routing operation (e.g., PCE) in the Controller Plane computes the
+   Track is out of scope for RAW. The scope of the RAW operation is one Track,
+   and the goal of the RAW operation is to optimize the use of the Track at the
+   forwarding timescale to maintain the expected SLA while optimizing the usage
+   of constrained resources such as energy and spectrum.
+      </t>
+      <t>
+   Another prerequisite is that an IP link can be established over the radio
+   with some guarantees in terms of service reliability, e.g., it can be relied
+   upon to transmit a packet within a bounded latency and provides a guaranteed
+   BER/PDR outside rare but existing transient outage windows that can last from
+   split  seconds to minutes. The radio layer can be programmed with abstract
+   parameters, and can return an abstract view of the state of the Link to help
+   the Network Layer forwarding decision (think DLEP from MANET).
+      </t>
+      <t>
+   How the radio interface manages its lower layers is out of control and out of
+   scope for RAW. In the same fashion, the non-RAW portion along a loose Track
+   is by definition out of control and out of scope for RAW. Whether it is a
+   single hop or a mesh is also unknown and out of scope.
+      </t>
+    </section>
+    <!-- Prerequisites -->
+    <!--  111111111111111111    -->
+    <!--  111111111111111111111    -->
+
+    <section anchor="timescale" numbered="true" toc="default">
+      <name>Routing Time Scale vs. Forwarding Time Scale</name>
+      <t>
+   With DetNet, the Controller Plane Function that handles the routing computation and maintenance (the PCE) can be centralized and can
+   reside outside the network.
+   In a wireless mesh, the path to the PCE can be expensive and slow,
+   possibly going across the whole mesh and back.
+   Reaching to the PCE can also be slow in regards to the speed
+   of events that affect the forwarding operation at the radio layer.
+
+      </t><t>
+   Due to that cost and latency, the Controller Plane is not
+   expected to be sensitive/reactive to transient changes. The abstraction of a
+   link at the routing level is expected to use statistical metrics
+   that aggregate the behavior of a link over long periods of time, and
+   represent its properties as shades of gray as opposed to numerical values
+   such as a link quality indicator, or a boolean value for either up or down.
+      </t>
+
+         <figure anchor="Figcontrol">
+          <name>Time Scales</name>
+       <artwork align="center" name="" type="" alt="">
+       <![CDATA[
+               +----------------+
+               |  Controller    |
+               |    [PCE]       |
+               +----------------+
+                       ^
+                       |
+                      Slow
+                       |
+   _-._-._-._-._-._-.  |  ._-._-._-._-._-._-._-._-._-._-._-._-
+ _-._-._-._-._-._-._-. | _-._-._-._-._-._-._-._-._-._-._-._-
+                       |
+                    Expensive
+                       |
+                ....   |  .......
+            ....    .  | .       .......
+         ....          v               ...
+       ..    A-------B-------C---D        ..
+    ...     /  \   /       /      \      ..
+   .       I ----M-------N--***-- E        ..
+   ..       \      \   /         /         ...
+     ..      P--***--Q----------R        ....
+       ..                              ....
+        .   <----- Fast ------->    ....
+         .......                ....
+                .................
+
+*** = flapping at this time
+    ]]>
+       </artwork>
+       </figure>
+      <t>
+   In the case of wireless, the changes that affect the forwarding decision can
+   happen frequently and often for short durations, e.g., a mobile object moves
+   between a transmitter and a receiver, and will cancel the line of sight
+   transmission for a few seconds, or a radar measures the depth of a pool and
+   interferes on a particular channel for a split second.
+      </t>
+      <t>
+   There is thus a desire to separate the long term computation of the route and
+   the short term forwarding decision. In that model, the routing operation
+   computes a complex Track that enables multiple Non-Equal Cost Multi-Path
+   (N-ECMP) forwarding solutions, and leaves it to the Data Plane to make
+   the per-packet decision of which of these possibilities should be used.
+      </t>
+      <t>
+   In the wired world, and more specifically in the context of Traffic
+   Engineering (TE), an alternate path can be used upon the detection of a
+   failure in the main path, e.g., using OAM in MPLS-TP or BFD over a
+   collection of SD-WAN tunnels. RAW
+   formalizes a forwarding time scale that is an order(s) of magnitude shorter
+   than the controller plane routing time scale, and separates the protocols
+   and metrics that are used at both scales.
+   Routing can operate on long term statistics such as delivery
+   ratio over minutes to hours, but as a first approximation can ignore flapping.
+   On the other hand, the RAW forwarding decision is made at the scale of the packet rate, and uses information that must be pertinent at the present time for the current transmission(s).
+      </t>
+
+    </section >
+    <!--Routing Time Scale vs. Forwarding Time Scale-->
+
+    <!--  11111111111111111111    -->
+
+
+    <section anchor="trk" numbered="true" toc="default">
+      <name>Wireless Tracks</name>
+   <t>
+    The  <xref target="I-D.ietf-6tisch-architecture">"6TiSCH Architecture"</xref>
+    introduces the concept of Track. RAW extends the concept to any wireless mesh
+    technology, including, e.g., Wi-Fi.
+    A simple Track is composed of a direct sequence of reserved hops to ensure
+    the transmission of a single packet from a source Node to a destination Node
+    across a multihop path.
+    </t>
+    <t>
+    A Complex Track provides multiple non-equal cost multipath (NECM) forwarding
+    solutions. The Complex Track enables to support multi-path redundant forwarding
+    by employing PRE functions <xref target="RFC8655"/> and the ingress and
+    within the Track.
+    For example, a Complex Track  may branch off and rejoin over non-congruent
+    segments.
+    </t>
+    <t>
+    In the context of RAW, some links or segments in the Track may be reversible,
+    meaning that they can be used in either direction. In that case, an indication
+    in the packet signals the direction of the reversible links or segments that
+    the packet traverses and thus places a constraint that prevents loops from
+    occuring. An indidual packet follows a destination-oriented directed acyclic
+    graph (DODAG) towards a destination Node inside the Complex Track.
+    </t>
+
+</section>
+<!--Wireless Tracks-->
+
+    <!--  11111111111111111    -->
+    <section numbered="true" toc="default">
+      <name>PAREO Functions</name>
+      <t>
+    RAW may control whether and how to use packet replication and elimination
+    (PRE), Automatic Repeat reQuest (ARQ), Hybrid ARQ (HARQ) that includes
+    Forward Error Correction (FEC) and coding, and other wireless-specific
+    techniques such as overhearing and constructive interferences, in order to
+    increase the reliabiility and availability of the end-to-end transmission.
+    </t>
+    <t>
+    Collectively, those function are called PAREO for Packet (hybrid) ARQ, Replication, Elimination and Ordering. By tuning dynamically the use of
+    PAREO functions, RAW avoids the waste of critical resources such as spectrum
+    and energy while providing that the guaranteed SLA, e.g., by adding redundancy only when a spike of loss is observed.
+    </t>
+    <t>
+    In a nutshell, PAREO establishes several paths in a
+    network to provide redundancy and parallel transmissions to
+    bound the end-to-end delay to traverse the network.
+    Optionally, promiscuous listening between paths is possible, such that the Nodes
+    on one path may overhear transmissions along the other path.
+    Considering the scenario shown in <xref
+    target="fig_ladder"/>,
+    many different paths are possible for S to reach R. A simple
+    way to benefit from this topology could be to use the
+    two independent paths via Nodes A, C, E and via B, D, F.  But
+    more complex paths are possible by interleaving transmissions
+    from the lower level of the path to the upper level.
+    </t>
+
+
+
+      <figure anchor="fig_ladder" align="center" title="A Ladder Shape with Two Parallel Paths">
+     <artwork align="center">
+
+          (A) -- (C) -- (E)
+        /                   \
+Ingress    |      |      |    Egress
+        \                   /
+          (B) -- (D) -- (F)
+
+</artwork>
+     </figure>
+    <t>
+     PAREO may also take advantage of
+     the shared properties of the wireless medium to compensate for the
+     potential loss that is incurred with radio transmissions.
+    </t>
+    <t>
+     For instance, when the source sends to Node A, Node B may listen
+     promiscuously and get a second chance to receive the frame without an
+     additional transmission. Note that B would not have to listen if it
+     already received that particular frame at an earlier timeslot in a dedicated transmission towards B.
+<!-- [->] This is assuming some sort of implicit knowledge in B. Not sure if this is  -->
+<!-- possible without specific signaling.   -->
+<!-- [GP] Yes, we may need additional 6P transactions from the source to B, or  -->
+<!-- multicast 6P transaction from the source to both A and B. However, this  -->
+<!-- need to be discussed and defined. We have referred to these requirements in the "Requirements Related to Cell Reservation" section in the upcoming version.  (DONE) -->
+    </t>
+
+
+    <t>
+    The PAREO model can be implemented in both centralized and distributed scheduling approaches.
+    In the centralized approach, a Path Computation Element (PCE) scheduler calculates a Track and schedules the communication.
+    In the distributed approach, the Track is computed within the network,
+    and signaled in the packets, e.g., using BIER-TE, Segment Routing, or a  Source Routing Header.
+    </t>
+
+
+
+    <section numbered="true" toc="default">
+      <name>Packet Replication</name>
+
+    <t>
+    By employing a Packet Replication procedure, a Node forwards
+    a copy of each data packet to more than one successor.
+    To do so, each Node (i.e., Ingress and intermediate Node) sends the
+    data packet multiple times as separate unicast transmissions.
+    For instance, in <xref target="fig_replication"/>, the Ingress Node is
+    transmitting the packet to both successors, nodes A and B, at two different
+    times.
+    </t>
+
+
+    <figure anchor="fig_replication" align="center"
+        title="Packet Replication">
+        <artwork align="center"><![CDATA[
+
+             ===> (A) => (C) => (E) ===
+           //        \\//   \\//       \\
+   Ingress           //\\   //\\          Egress
+           \\       //  \\ //  \\      //
+             ===> (B) => (D) => (F) ===
+
+        ]]></artwork>
+    </figure>
+    <t>
+    An example schedule is shown in <xref target="tab_replication_schedule"/>.
+    This way, the transmission leverages with the time and spatial forms of diversity.
+    </t>
+    <table anchor="tab_replication_schedule"><name>Packet Replication: Sample schedule</name>
+   <thead>
+      <tr>
+		   <th align='center'>Channel</th>
+		   <th align='center'>0</th>
+		   <th align='center'>1</th>
+		   <th align='center'>2</th>
+		   <th align='center'>3</th>
+		   <th align='center'>4</th>
+		   <th align='center'>5</th>
+		   <th align='center'>6</th>
+      </tr>
+
+   </thead><tbody>
+
+			<tr><td>0</td>
+    			<td align='center'>S->A</td>
+    			<td align='center'>S->B</td>
+    			<td align='center'>B->C</td>
+    			<td align='center'>B->D</td>
+    			<td align='center'>C->F</td>
+    			<td align='center'>E->R</td>
+    			<td align='center'>F->R</td>
+        </tr>
+
+
+			<tr><td>1</td>
+    			<td align='center'> </td>
+    			<td align='center'>A->C</td>
+    			<td align='center'>A->D</td>
+    			<td align='center'>C->E</td>
+    			<td align='center'>D->E</td>
+    			<td align='center'>D->F</td>
+    			<td align='center'> </td>
+        </tr>
+
+    </tbody>
+    </table>
+
+
+<!-- [XV] here you are only considering duplication at the source. While would be better IMHO to duplicate before those links that show lower performance. Would you also consider duplication at inner hops?  -->
+<!-- [GP] Yes, definitely, there is replication (duplication) at inner hops.  -->
+<!-- For instance, A will transmit both to its default parent C and alternative B. -->
+<!-- The Figure 2 and the text in 4.1 is updated. (Modified, DONE) -->
+<!-- As far as only duplicating at lower performance links, this is a very good point and a nice optimisation target. This needs to be discussed further -->
+
+<!-- [GP] Do you think a Figure with the TSCH schedule representation would be helpful?     -->
+<!-- [RK] Yes, I do. Added  fig_replication_schedule -->
+
+</section>
+
+
+
+
+    <section numbered="true" toc="default">
+      <name>Packet Elimination</name>
+
+
+    <t>
+    The replication operation increases the traffic load in the
+    network, due to packet duplications.  This may occur at several stages inside the Track, and to avoid an explosion of the number of copies, a Packet Elimination procedure must be applied as well. To this aim, once a Node receives the first copy of a data packet, it discards the subsequent copies.
+    </t><t>
+    The logical functions of Replication and Elimination may be collocated in an intermediate Node, the  Node first eliminating the redundant copies and then sending the packet exactly once to each of the selected successors.
+    </t>
+
+</section>
+
+
+
+
+    <section numbered="true" toc="default">
+      <name>Promiscuous Overhearing</name>
+
+
+
+    <t>
+    Considering that the wireless medium is broadcast by nature, any neighbor of
+    a transmitter may overhear a transmission.
+    By employing the Promiscuous Overhearing operation, the next hops have additional opportunities to capture the data packets.
+    In <xref target="fig_overhearing"/>, when Node A is transmitting to its DP
+    (Node C), the AP (Node D) and its sibling (Node B) may decode this data packet as
+    well.
+    As a result, by employing corellated paths, a Node may have multiple
+    opportunities to receive a given data packet.
+    <!--
+    This feature not only enhances the end-to-end reliability but also it reduces the
+    end-to-end delay and increases energy efficiency.
+    -->
+    </t>
+
+
+    <figure anchor="fig_overhearing" align="center"
+        title="Unicast with Overhearing">
+        <artwork align="center"><![CDATA[
+
+           ===> (A) ====> (C) ====> (E) ====
+         //     ^ | \\                      \\
+  Ingress       | |   \\                      Egress
+         \\     | v     \\                  //
+           ===> (B) ====> (D) ====> (F) ====
+
+]]></artwork>
+    </figure>
+
+
+</section>
+
+
+
+
+
+
+    <section numbered="true" toc="default">
+      <name>Constructive Interference</name>
+
+<t>
+    Constructive Interference can be seen as the reverse of Promiscuous
+    Overhearing, and refers to the case where two senders transmit the exact
+    same signal in a fashion that the emitted symbols add up at the receiver and
+    permit a reception that would not be possible with a single sender at the
+    same PHY mode and  the same power level.
+</t><t>
+    Constructive Interference was proposed on 5G, Wi-Fi7 and even tested on
+    IEEE Std 802.14.5.  The hard piece is to synchronize the senders to the
+    point that the signals are emitted at slightly different time to offset the
+    difference of propagation delay that corresponds to the difference of
+    distance of the transmitters to the receiver at the speed of light to the
+    point that the symbols are superposed long enough to be recognizable.
+</t>
+
+</section>
+
+
+
+</section>      <!--PAREO Functions-->
+
+    <!--  1111111111111   -->
+
+
+ </section>    <!--RAW Framework-->
+
+
+    <!--  000000000000000000000    -->
+
+
+<section anchor="archi" numbered="true" toc="default">
+    <name>The RAW Architecture</name>
+
+<section anchor="model" numbered="true" toc="default">
+    <name>The RAW Conceptual Model</name>
+    <t>
+    RAW inherits the conceptual model described in section 4 of the DetNet
+    Architecture <xref target="RFC8655"/>. RAW extends the DetNet service
+    layer to provide additional agility against transmission loss.
+
+    </t><t>
+
+   A RAW Network Plane may be strict or loose, depending
+   on whether RAW observes and takes actions on all hops or not. For instance,
+   the packets between two wireless entities may be relayed over a wired
+   infrastructure such as a Wi-Fi extended service set (ESS) or a 5G Core; in
+   that case, RAW observes and control the transmission over the wireless first
+   and last hops, as well as end-to-end metrics such as latency, jitter, and
+   delivery ratio. This operation is loose since the structure and properties of
+   the wired infrastructure are ignored, and may be either controlled by other
+   means such as DetNet/TSN, or neglected in the face of the wireless hops.
+
+    </t><t>
+    A Controller Plane Function (CPF) called the
+    Path Computation Element (PCE) <xref target="RFC4655"/> interacts with
+    RAW Nodes over a Southbound API. The RAW Nodes are DetNet relays that are capable of additional diversity mechanisms and measurement functions related
+    to the radio interface, in particular the PAREO diversity mechanisms.
+    </t><t>
+    The PCE defines a complex Track between an Ingress End System and an Egress
+    End System, and indicates to the RAW Nodes where the PAREO operations may be actionned in the Network Plane. The Track may be expressed loosely to enable
+    traversing a non-RAW subnetwork. In that case, the expectation is that the
+    non-RAW subnetwork can be neglected in the RAW computation, that is,
+    considered infinitely fast, reliable and/or available in comparison with the
+    links between RAW nodes.
+    </t>
+<figure anchor="FigCPF">
+          <name>RAW Nodes</name>
+       <artwork align="center" name="" type="" alt="">
+
+
+        CPF               CPF          CPF                 CPF
+
+
+                       Southbound API
+   _-._-._-._-._-._-._-._-._-._-._-._-._-._-._-._-._-._-._-._-._-._-
+ _-._-._-._-._-._-._-._-._-._-._-._-._-._-._-._-._-._-._-._-._-._-
+
+
+                 RAW  --z   RAW  --z   RAW  --z   RAW
+             z-- Node  z--  Node  z--  Node  z--  Node --z
+  Ingress --z    /          /                           z-- Egress
+  End           \          \         .. .                   End
+  Node   ---z   /          /       .. ..  .             z-- Node
+           z-- RAW  --z   RAW     ( non-RAW ) -- RAW --z
+               Node  z--  Node --- ( Nodes  )   Node
+                                      ... .
+  --z   wireless           wired
+   z--  link           --- link
+</artwork>
+</figure>
+
+    <t>
+    The Link-Layer metrics are reported to the PCE in a time-aggregated, e.g.,
+    statistical fashion. Example Link-Layer metrics include typical Link
+    bandwidth (the medium speed depends dynamically on the PHY mode and the
+    number of users sharing the spectrum) and average and mean squared deviation
+    of availability and reliability figures such as Packet Delivery Ratio (PDR)
+    over long periods of time.
+    </t><t>
+    Based on those metrics, the PCE installs the Track with enough
+    redundant forwarding solutions to ensure that the Network Plane can reliably
+    deliver the packets within a System Level Agreement (SLA) associated to the
+    flows that it transports.
+    The SLA defines end-to-end reliability and availability requirements, where
+    reliability may be expressed as a successful delivery in order and within a
+    bounded delay of at least one copy of a packet.
+    </t><t>
+    Depending on the use case and the SLA, the Track may comprise non-RAW
+    segments, either interleaved inside the Track, or all the way to
+    the Egress End Node (e.g., a server in the Internet). RAW observes the
+    Lower-Layer Links between RAW nodes (typically, radio links) and the
+    end-to-end Network Layer operation to decide at all times which of the PAREO
+    diversity schemes is actioned by which RAW Nodes.
+    </t><t>
+    Once a Track is established, per-segment and end-to-end reliability
+    and availability statistics are periodically reported to the PCE to assure that
+    the SLA can be met or have it recompute the Track if not.
+    </t>
+
+    </section> <!-- The RAW Conceptual Model -->
+
+<section anchor="psepce" numbered="true" toc="default">
+    <name>The Path Selection Engine</name>
+ <t>
+    RAW separates the path computation time scale at which a complex path is recomputed from the path selection time scale at which the forwarding decision is taken for one or a few packets (more in <xref target="timescale"/>).
+    RAW operates at the path selection time scale.  The RAW problem is to decide, within the redundant solutions that are proposed by the PCE, which will be used for each packet to provide a Reliable and Available service while minimizing the waste of constrained resources.
+    </t><t>
+    To that effect, RAW defines the Path Selection Engine (PSE) that is the counter-part of the PCE to perform rapid local adjustments of the forwarding tables within the diversity that the PCE has selected for the Track.
+    The PSE enables to exploit the richer forwarding capabilities with PAREO and scheduled transmissions at a faster time scale over the smaller domain that
+    is the Track, in either a loose or a strict fashion.
+    </t>
+   <t>
+        Compared to the PCE,
+    the PSE operates on metrics that evolve faster, but that needs to be advertised at a fast rate but only locally, within the Track.
+    The forwarding decision may also change rapidly, but wiht a scope that is
+    also contained within the Track, with no visibility to the other Tracks and
+    flows in the network. This is as opposed to the PCE that needs to observe
+    the  whole network, and optimize all the Tracks globally, which can only be
+    done at a slow pace and using long-term statistical metrics, as presented in
+    <xref target="PCEPSEtable"/>.
+    </t>
+    <table anchor="PCEPSEtable"><name>PCE vs. PSE</name>
+   <thead>
+      <tr>
+       <th> </th>
+		   <th align='center'>PCE (Not in Scope)</th>
+		   <th align='center'>PSE (In Scope)</th>
+      </tr>
+
+   </thead><tbody>
+
+			<tr><td>Operation</td>
+    			<td align='center'>Centralized</td>
+    			<td align='center'>Source-Routed or Distributed</td>
+        </tr>
+
+
+			<tr><td>Communication
+</td>
+    			<td align='center'>Slow, expensive</td>
+    			<td align='center'>Fast, local</td>
+        </tr>
+
+
+			<tr><td>Time Scale</td>
+    			<td align='center'>hours and above</td>
+    			<td align='center'>seconds and below</td>
+        </tr>
+
+
+			<tr><td>Network Size</td>
+    			<td align='center'>Large, many Tracks to optimize globally</td>
+    			<td align='center'>Small, within one Track</td>
+        </tr>
+
+
+			<tr><td>Considered Metrics</td>
+    			<td align='center'>Averaged, Statistical, Shade of grey</td>
+    			<td align='center'>Instant values / boolean condition</td>
+        </tr>
+
+
+
+    </tbody>
+    </table><t>
+    The PSE sits in the DetNet Service sub-Layer of Edge and Relay Nodes. On the
+    one hand, it operates on the packet flow, learning the Track and path
+    selection information from the packet, possibly making local decision and
+    retagging the packet to indicate so. On the other hand, the PSE interacts
+    with the lower layers and with its peers to obtain up-to-date information
+    about its radio links and the quality of the overall Track, respectively,
+    as illustrated in <xref target="FigPSEcomp"/>.
+    </t>
+
+<figure anchor="FigPSEcomp">
+          <name>PSE</name>
+       <artwork align="center" name="" type="" alt=""><![CDATA[
+            |
+     packet | going
+   down the | stack
+ +==========v==========+=====================+=====================+
+ |   (iOAM + iCTRL)    | (L2 Triggers, DLEP) |       (oOAM)        |
+ +==========v==========+=====================+=====================+
+ |     Learn from                                 Learn from       |
+ |    packet tagging           Maintain           end-to-end       |
+ +----------v----------+      Forwarding          OAM packets      |
+ | Forwarding decision <        State        +---------^-----------|
+ +----------v----------+                     |      Enrich or      |
+ +    Retag Packet     |  Learn abstracted   >     Regenerate      |
+ |    and Forward      | metrics about Links |     OAM packets     |
+ +..........v..........+..........^..........+.........^.v.........+
+ |                          Lower layers                           |
+ +..........v.....................^....................^.v.........+
+      frame | sent          Frame | L2 Ack        oOAM | | packet
+       over | wireless        In  |                 In | | and out
+            v                     |                    | v
+]]></artwork>
+</figure>
+</section>
+    <!--PCE vs. PSE-->
+
+ <!--
+<section anchor="stack" numbered="true" toc="default">
+    <name>RAW Stack </name>
+</section>
+   RAW stack-->
+
+<section anchor="aom" numbered="true" toc="default">
+    <name>RAW OAM </name><t>
+    The RAW OAM operation in the Network Plane observes either a full Track or
+    subTracks that are being used at this time. This observeation feeds the RAW
+    PSE that makes the decision on which PAREO function in actioned at which RAW
+    Node, for one a small continuous series of packets.
+     </t>
+<figure anchor="Figranp2">
+          <name>Observed Links in Radio Access Protection</name>
+       <artwork align="center" name="" type="" alt="">
+<![CDATA[
+                                   ...   ..
+                RAN 1  -----  ...      ..  ...
+             /              .    ..          ....
++-------+  /              .            ..      ....    +------+
+|Ingress|-                .                     .....  |Egress|
+|  End  |------ RAN 2 -- .       Internet       ....---| End  |
+|System |-                ..                   .....   |System|
++-------+  \               .               ......      +------+
+             \               ...   ...     .....
+                RAN n  --------  ...   .....
+
+       <------------------> <-------------------->
+          Observed by OAM       Opaque to OAM
+
+]]></artwork>
+</figure><t>
+    In the case of a End-to-End Protection in a Wireless Mesh, the Track is strict and congruent
+    with the path so all links are observed. Conversely, in the case of Radio
+    Access Protection, the Track is Loose and in that case only the first hop is observed; the rest of the path is abstracted and considered infinitely reliable.
+    </t>
+    <t>
+    In the case of the Radio Access Protection, only the first hop is protected;
+    the loss of a packet that was sent over one of the possible first hops is
+    attributed to that first hop, even if a particular loss effectively happens
+    farther down the path.
+    </t>
+    <t>
+    The Links that are not observed by OAM are opaque to it, meaning that the
+    OAM information is carried across and possibly echoed as data, but there is
+    no information capture in intermediate nodes. In the example above, the
+    Internet is opaque and not controlled by RAW; still the RAW OAM measures the
+    end-to-end latency and delivery ratio for packets sent via each if RAN 1,
+    RAN 2 and RAN 3, and determines whether a packet should be sent over either
+    or a collection of those access links.
+    </t>
+</section>
+    <!--RAW OAM-->
+
+
+<section anchor="flowid" numbered="true" toc="default">
+    <name>Flow Identification vs. Path Identification</name>
+
+<t>
+    Section 4.7 of the DetNet Architecture <xref target="RFC8655"/> ties the
+    app-flow identification which is an appliation layer concept with the
+    network path identification that depends on the networking technology by
+    "exporting of flow identification", e.g., to a MPLS label.
+</t><t>
+    With RAW, this exporting operation is injective but not bijective.
+    e.g., a flow is fully placed within one RAW Track, but not all packets along
+    that Track are necessarily part of the same flow. For instance, out-of-band
+    OAM packets must circulate in the exact same fashion as the flows that they
+    observe. It results that the flow identification that maps to to app-flow
+    at the network layer must be separate from the path identification that is
+    used to forward a packet.
+</t><t>
+
+    Section 3.4 of the DetNet data-plane framework <xref target="I-D.ietf-detnet-data-plane-framework" format="default"/> indicates that for
+    a DetNet IP Data Plane, a flow is identified by an IPv6 6-tuple.
+    With RAW, that 6-tuple is not what indicates the Track, in other words, the
+    flow ID is not the Track ID.
+</t><t>
+    For instance, the 6TiSCH Architecture
+    <xref target="I-D.ietf-6tisch-architecture" format="default"/>
+    uses a combination of the address of the Egress End System and an instance
+    identifier in a Hop-by-hop option to indicate a Track. This way, if a packet
+    "escapes" the Track, it will reach the Track Egress point through normal
+    routing and be treated at the service layer through, say, elimination and
+    reordering.
+</t><t>
+    The RAW service includes forwarding over a subset of the Links that form the
+    Track (a subTrack). Packets from the same or a different flow that are routed through the same Track will not necessarily traverse the same Links. The PSE
+    selects a subTrack for a packet based on the links
+    that are preferred and those that should be avoided at this time.
+</t><t>
+    Each packet is forwarded within the subTrack that provides the best
+    adequation with the SLA of the flow and the energy and bandwidth constraints
+    of the network.
+</t>
+
+<figure anchor="Figflowvstrack">
+          <name>Flow Injection</name>
+       <artwork align="center" name="" type="" alt="">
+<![CDATA[
+
+            Flow 1 (6-tuple) ----+
+                                 |
+       Flow 2 (6-tuple)  ---+    |
+                            |    |
+    OAM     -----------+    |    |
+                       |    |    |
+                       |    |    |
+                  |    |    |    |    |
+                  |    v    v    v    |
+                  |                   |
+                  +---------+---------+
+                            |
+                            |
+            Track i (Egress IP Address, instanceId)
+                            |
+                            |
+                            |
+            +---------+-----+--....-------+
+            |         |                   |
+            |         |                   |
+     subTrack 1    subTrack 2          subTrack n
+            |         |                   |
+            |         |                   |
+            V         V                   V
+         +-----------------------------------+
+         |                                   |
+         |         Destination               |
+         |                                   |
+         +-----------------------------------+
+
+
+]]>
+       </artwork>
+</figure>
+<t>
+    With 6TiSCH,
+    packets are tagged with the same (destination address, instance ID)
+    will experience the same RAW service regardless of the IPv6 6-tuple
+    that indicates the flow. The forwarding does not depend on whether the
+    packets transport application flows or OAM. In the generic
+    case, the Track or the subTrack can be signaled in the packet through other
+    means, e.g., encoded in the suffix of the destination address as a Segment
+    Routing Service Instruction <xref target="RFC8402"/>, or leveraging Bit
+    Index Explicit Replication <xref target="RFC8279"/> Traffic Engineering
+     <xref target="I-D.ietf-bier-te-arch"/>.
+</t>
+</section>
+    <!--Flow Identification vs. Path Identification-->
+
+
+    <section numbered="true" toc="default">
+      <name>Source-Routed vs. Distributed Forwarding Decision</name>
+      <t>
+   Within a large routed topology, the route-over mesh operation builds a
+   particular complex Track with one source and one or more destinations; within
+   the Track,
+   packets may follow different paths and may be subject to RAW forwarding
+   operations that include replication, elimination, retries, overhearing and
+   reordering.
+      </t>
+      <t>
+    The RAW forwarding decisions include the selection of points of replication
+   and elimination, how many retries can take place, and a limit of validity for
+    the packet beyond which the packet should be destroyed rather than forwarded
+    uselessly further down the Track.
+      </t>
+      <t>
+    The decision to apply the RAW techniques must be done quickly, and depends on
+    a very recent and precise knowledge of the forwarding conditions within the
+    complex Track. There is a need for an observation method to provide the RAW
+    Data Plane with the specific knowledge of the state of the Track for
+    the type of flow of interest (e.g., for a QoS level of interest). To observe
+    the whole Track in quasi real time, RAW considers existing tools such as
+    L2-triggers, DLEP, BFD and leverages in-band and out-of-band OAM to capture
+    and report that information to the PSE.
+      </t>
+      <t>
+   One possible way of making the RAW forwarding decisions within a Track is to
+   position a unique PSE at the Ingress and express its decision in-band in the packet, which requires the explicit signaling of the subTrack within the
+   Track. In that case, the RAW forwarding operation along the Track is encoded
+   by the source, e.g., by indicating the subTrack in the Segment Routing (SRv6)
+   Service Instruction, or by leveraging BIER-TE such as done with
+   <xref target="I-D.thubert-bier-replication-elimination" format="default"/>.
+      </t>
+      <t>
+    The alternate way is to operate the PSE in each forwarding Node, which makes
+    the RAW forwarding decisions for a packet on its own, based on its knowledge
+    of the expectation (timeliness and reliability) for that packet and a recent
+    observation of the rest of the way across the possible paths based on OAM.
+    Information about the desired service should be placed in the packet and
+    matched with the forwarding Node's capabilities and policies.
+      </t>
+      <t>
+    In either case, a per-track/subTrack state is installed in all the
+    intermediate Nodes to recognize the packets that are following a Track and
+    determine the forwarding operation to be applied.
+      </t>
+
+    </section>
+    <!-- Track Source-Routed vs. Distributed RAW Decision -->
+
+
+    <section numbered="true" toc="default">
+      <name>Encapsulation and Decapsulation</name>
+ <t>
+    In the generic case where the Track Ingress Node is not the source of the
+    Packet, the Ingress Node needs to encapsulate IP-in-IP to ensure that the
+    Destination IP Address is that of the Egress Node and that the necessary
+    Headers (Routing Header, Segment Routing Header and/or Hop-By-Hop Header)
+    can be added to the packet to signal the Track or the subTrack, conforming
+    <xref target="RFC8200"/> that discourages the insertion of a Header on the
+    fly.
+ </t><t>
+    In the specific case where the Ingress Node is the source of the packet, the
+    encapsulation can be avoided, provided that the source adds the necessary
+    headers and that the destination is set to the Egress Node. Forwarding
+    to a final destination beyond the Egress Node is possible, e.g., with a
+    Segment Routing Header that signals the rest of the way. In that case
+    a Hop-by-Hop Header is not recommmended since its validity is within the
+    Track only.
+ </t><t>
+ </t>
+
+</section>
+    <!--Encapsulation and Decapsulation -->
+
+    <!--  11111111111111111111    -->
+</section>
+    <!--RAW Architecture -->
+    <!--  000000000000000000000    -->
+
+
+
+    <section anchor="SecurityConsiderations" numbered="true" toc="default">
+      <name>Security Considerations</name>
+    <t>
+    RAW uses all forms of diversity including radio technology and physical path
+    to increase the reliability and availability in the face of unpredictable
+    conditions. While this is not done specifically to defeat an attacker, the
+    amount of diversity used in RAW makes an attack harder to achieve.
+    </t>
+
+
+
+
+    <section numbered="true" toc="default">
+      <name>Forced Access</name>
+    <t>
+    RAW will typically select the cheapest collection of links that matches the
+    requested SLA, for instance, leverage free WI-Fi vs. paid 3GPP access. By
+    defeating the cheap connectivity (e.g., PHY-layer interference) the attacker
+    can force an End System to use the paid access and increase the cost of the
+    transmission for the user.
+    </t>
+
+      </section><!-- Forced Access -->
+
+    <!--  111111111111111111111    -->
+    </section>
+      <!--Security Considerations-->
+    <!--  000000000000000000000    -->
+
+
+
+
+    <section numbered="true" toc="default">
+      <name>IANA Considerations</name>
+      <t>This document has no IANA actions.
+      </t>
+    </section>
+      <!--IANA Considerations-->
+    <!--  000000000000000000000    -->
+
+    <section numbered="true" toc="default">
+      <name>Contributors</name>
+      <dl>
+    <dt>Xavi Vilajosana:</dt><dd>Wireless Networks Research Lab, Universitat Oberta de Catalunya</dd>
+    <dt>Remous-Aris Koutsiamanis:</dt><dd>IMT Atlantique</dd>
+    <dt>Nicolas Montavont:</dt><dd>IMT Atlantique</dd>
+      </dl>
+    </section>
+      <!--ConTributors-->
+    <!--  000000000000000000000    -->
+
+   <section><name>Acknowledgments</name>
+   <t>TBD
+   </t>
+   </section>
+   <!-- Acknowledgments -->
+    <!--  000000000000000000000    -->
+
+
+  </middle>
+  <back>
+<displayreference   target="I-D.ietf-6tisch-architecture"      to="6TiSCH-ARCHI"/>
+<displayreference   target="I-D.thubert-raw-technologies"      to="RAW-TECHNOS"/>
+<displayreference   target="I-D.farkas-raw-5g"                 to="RAW-5G"/>
+<displayreference   target="I-D.bernardos-raw-use-cases"       to="RAW-USE-CASES"/>
+<displayreference   target="I-D.thubert-bier-replication-elimination" to="BIER-PREF"/>
+<displayreference   target="I-D.mirsky-detnet-ip-oam"         to="DetNet-IP-OAM"/>
+<displayreference   target="I-D.ietf-detnet-data-plane-framework"     to="DetNet-DP-FW"/>
+<displayreference   target="I-D.ietf-bier-te-arch"     to="BIER-TE"/>
+<displayreference   target="RFC3272"                  to="TE"/>
+<displayreference   target="RFC5880"                  to="BFD"/>
+<displayreference   target="RFC3411"                  to="STD 62"/>
+<displayreference   target="RFC7490"                  to="RLFA-FRR"/>
+<displayreference   target="RFC5714"                  to="FRR"/>
+<displayreference   target="RFC8402"                  to="SR-ARCHI"/>
+<displayreference   target="RFC8200"                  to="IPv6"/>
+<displayreference   target="RFC8279"                  to="BIER"/>
+
+    <references>
+      <name>References</name>
+      <references>
+    <name>Normative References</name>
+
+
+<xi:include href="http://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-6tisch-architecture.xml"/>
+<!-- 6TiSCH Architecture -->
+
+<xi:include href="http://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.thubert-raw-technologies.xml"/>
+<!-- Reliable and Available Wireless Technologies -->
+
+<xi:include href="http://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.bernardos-raw-use-cases.xml"/>
+<!-- RAW use cases -->
+
+<xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.4655.xml"/>
+<!-- PCE -->
+
+<xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.5880.xml"/>
+<!-- Bidirectional Forwarding Detection  -->
+
+<xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.6291.xml"/>
+<!-- Guidelines for the Use of the "OAM" Acronym in the IETF  -->
+
+<xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.8578.xml"/>
+<!-- Deterministic Networking Use Cases -->
+
+<xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.8200.xml"/>
+<!-- IPv6 -->
+<xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.8402.xml"/>
+<!-- Segment Routing Architecture -->
+<xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.8279.xml"/>
+<!-- BIER -->
+
+<xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.8175.xml"/>
+<!-- Dynamic Link Exchange Protocol (DLEP) -->
+
+<xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.8557.xml"/>
+<!-- DetNet problem statement -->
+
+<xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.8655.xml"/>
+<!-- Deterministic Networking Architecture -->
+
+      </references>
+    <!--Normative References-->
+
+
+      <references>
+    <name>Informative References</name>
+
+
+<xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.0791.xml"/>
+<!-- IP -->
+
+<xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.3272.xml"/>
+<!-- TE -->
+
+<xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.3411.xml"/>
+<!-- An Architecture for Describing Simple Network Management Protocol (SNMP) Management Frameworks -->
+
+<xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.4090.xml"/>
+<!-- Fast Reroute Extensions to RSVP-TE -->
+
+<xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.5714.xml"/>
+<!--  IP Fast Reroute Framework -->
+
+<xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.7490.xml"/>
+<!--   Remote Loop-Free Alternate (LFA) Fast Reroute (FRR) -->
+
+<xi:include href="http://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.thubert-bier-replication-elimination.xml"/>
+<!-- BIER-TE extensions for Packet Replication and Elimination Function (PREF) and OAM -->
+
+<xi:include href="http://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.mirsky-detnet-ip-oam.xml"/>
+<!-- Operations, Administration and Maintenance (OAM) for Deterministic Networks (detnet) with IP Data Plane -->
+
+<xi:include href="http://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-detnet-data-plane-framework.xml"/>
+<!-- DetNet Data Plane Framework -->
+
+<xi:include href="http://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.farkas-raw-5g.xml"/>
+<!-- RAW 5G-->
+
+
+<xi:include href="http://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-bier-te-arch.xml"/>
+<!-- Traffic Engineering for Bit Index Explicit Replication (BIER-TE)-->
+
+
+    <reference anchor="NASA" target="https://kscddms.ksc.nasa.gov/Reliability/Documents/150814-3bWhatIsReliability.pdf">
+      <front>
+        <title>RELIABILITY: Definition &amp; Quantitative Illustration</title>
+        <author  initials="T." surname="Adams" fullname="Tim Adams" >
+          <organization>NASA</organization>
+        </author>
+        <date/>
+      </front>
+    </reference>
+
+    <reference anchor="MANET" target="https://dataTracker.ietf.org/doc/charter-ietf-manet/">
+      <front>
+        <title> Mobile Ad hoc Networking</title>
+        <author>
+          <organization>IETF</organization>
+        </author>
+        <date/>
+      </front>
+    </reference>
+
+    <reference anchor="detnet" target="https://dataTracker.ietf.org/doc/charter-ietf-detnet/">
+      <front>
+        <title>Deterministic Networking</title>
+        <author>
+          <organization>IETF</organization>
+        </author>
+        <date/>
+      </front>
+    </reference>
+    <reference anchor="SPRING" target="https://dataTracker.ietf.org/doc/charter-ietf-spring/">
+      <front>
+        <title>Source Packet Routing in Networking</title>
+        <author>
+          <organization>IETF</organization>
+        </author>
+        <date/>
+      </front>
+    </reference>
+    <reference anchor="BIER" target="https://dataTracker.ietf.org/doc/charter-ietf-bier/">
+      <front>
+        <title>Bit Indexed Explicit Replication</title>
+        <author>
+          <organization>IETF</organization>
+        </author>
+        <date/>
+      </front>
+    </reference>
+    <!--
+    <reference anchor="TEAS" target="https://dataTracker.ietf.org/doc/charter-ietf-teas/">
+      <front>
+        <title>Traffic Engineering Architecture and Signaling</title>
+        <author>
+          <organization>IETF</organization>
+        </author>
+        <date/>
+      </front>
+    </reference>
+    -->
+    <!--
+    <reference anchor="PCE" target="https://dataTracker.ietf.org/doc/charter-ietf-pce/">
+      <front>
+        <title>Path Computation Element</title>
+        <author>
+          <organization>IETF</organization>
+        </author>
+        <date/>
+      </front>
+    </reference>
+    -->
+    <reference anchor="BFD" target="https://dataTracker.ietf.org/doc/charter-ietf-bfd/">
+      <front>
+        <title>Bidirectional Forwarding Detection</title>
+        <author>
+          <organization>IETF</organization>
+        </author>
+        <date/>
+      </front>
+    </reference>
+    <reference anchor="CCAMP" target="https://dataTracker.ietf.org/doc/charter-ietf-ccamp/">
+      <front>
+        <title>Common Control and Measurement Plane</title>
+        <author>
+          <organization>IETF</organization>
+        </author>
+        <date/>
+      </front>
+    </reference>
+      </references>
+    <!--Informative References-->
+    </references>
+  </back>
+</rfc>

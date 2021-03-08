@@ -51,6 +51,21 @@
 
 
 
+    <author initials="L." surname="Berger" fullname="Lou Berger">
+       <organization>LabN Consulting, L.L.C.</organization>
+       <address>
+    <postal>
+       <street/><city/>
+       <region></region>
+       <code/>
+        <country>USA</country>
+    </postal>
+      <phone/>
+      <email>lberger@labn.net</email>
+       </address>
+      </author>
+
+
     <author initials="R." surname="Buddenberg" fullname="Rex Buddenberg">
        <organization/>
        <address>
@@ -70,7 +85,23 @@
     <workgroup>RAW</workgroup>
     <keyword>Draft</keyword>
     <abstract>
-      <t>Due to uncontrolled interferences, including the self-induced multipath fading, deterministic networking can only be approached on wireless links. The radio conditions may change -way- faster than a centralized routing can adapt and reprogram, in particular when the controller is distant and connectivity is slow and limited. RAW separates the routing time scale at which a complex path is recomputed from the forwarding time scale at which the forwarding decision is taken for an individual packet. RAW operates at the forwarding time scale. The RAW problem is to decide, within the redundant solutions that are proposed by the routing, which will be used for each individual packet to provide a DetNet service while minimizing the waste of resources.
+      <t>
+      <!--
+      Due to uncontrolled interferences, including the self-induced multipath fading, deterministic networking can only be approached on wireless links. The radio conditions may change -way- faster than a centralized routing can adapt and reprogram, in particular when the controller is distant and connectivity is slow and limited. RAW separates the routing time scale at which a complex path is recomputed from the forwarding time scale at which the forwarding decision is taken for an individual packet. RAW operates at the forwarding time scale. The RAW problem is to decide, within the redundant solutions that are proposed by the routing, which will be used for each individual packet to provide a DetNet service while minimizing the waste of resources.
+       !-->
+
+      Reliable and Available Wireless (RAW) provides for high
+      reliability and availability for IP connectivity over a
+      wireless medium. The wireless medium presents significant
+      challenges to achieve deterministic properties such as low
+      packet error rate, bounded consecutive losses, and bounded
+      latency. This document defines the RAW Architecture.  It
+      builds on the DetNet Architecture and discusses specific
+      challenges and technology considerations needed to deliver
+      DetNet service utilizing scheduled wireless segments and
+      other media, e.g., frequency/time-sharing physical media
+      resources with stochastic traffic.
+
       </t>
     </abstract>
   </front>
@@ -93,11 +124,12 @@
    including the self-induced multipath fading, cause random transmission losses
    and add new dimensions to the statistical effects that affect the delivery.
    Scheduling can alleviate those effects by enabling diverse transmissions
-   in the spatial, time, code, and frequency domains. Reliable and Available
-   Wireless (RAW) leverages scheduling and all possible forms of diversity to
-   defeat the possible causes of transmission loss while preserving energy
-   and optimizing the use of the shared spectrum.
-
+   in the spatial, time, code, and frequency domains.
+   Reliable and Available Wireless (RAW) provides for high reliability and
+   availability for IP connectivity over a wireless medium,
+   leveraging all possible forms of diversity to defeat the possible causes of
+   transmission delay/loss while preserving energy and optimizing the use of the
+   shared spectrum.
       </t>
       <t>
    Deterministic Networking is an attempt to emulate the properties of a serial

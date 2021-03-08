@@ -5,9 +5,11 @@
 RAW                                                      P. Thubert, Ed.
 Internet-Draft                                             Cisco Systems
 Intended status: Informational                         G.Z. Papadopoulos
-Expires: 16 May 2021                                      IMT Atlantique
+Expires: 9 September 2021                                 IMT Atlantique
+                                                               L. Berger
+                                                 LabN Consulting, L.L.C.
                                                            R. Buddenberg
-                                                        16 November 2020
+                                                            8 March 2021
 
 
          Reliable and Available Wireless Architecture/Framework
@@ -15,18 +17,16 @@ Expires: 16 May 2021                                      IMT Atlantique
 
 Abstract
 
-   Due to uncontrolled interferences, including the self-induced
-   multipath fading, deterministic networking can only be approached on
-   wireless links.  The radio conditions may change -way- faster than a
-   centralized routing can adapt and reprogram, in particular when the
-   controller is distant and connectivity is slow and limited.  RAW
-   separates the routing time scale at which a complex path is
-   recomputed from the forwarding time scale at which the forwarding
-   decision is taken for an individual packet.  RAW operates at the
-   forwarding time scale.  The RAW problem is to decide, within the
-   redundant solutions that are proposed by the routing, which will be
-   used for each individual packet to provide a DetNet service while
-   minimizing the waste of resources.
+   Reliable and Available Wireless (RAW) provides for high reliability
+   and availability for IP connectivity over a wireless medium.  The
+   wireless medium presents significant challenges to achieve
+   deterministic properties such as low packet error rate, bounded
+   consecutive losses, and bounded latency.  This document defines the
+   RAW Architecture.  It builds on the DetNet Architecture and discusses
+   specific challenges and technology considerations needed to deliver
+   DetNet service utilizing scheduled wireless segments and other media,
+   e.g., frequency/time-sharing physical media resources with stochastic
+   traffic.
 
 Status of This Memo
 
@@ -43,19 +43,19 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 14 May 2021.
+   This Internet-Draft will expire on 9 September 2021.
 
 Copyright Notice
 
-   Copyright (c) 2020 IETF Trust and the persons identified as the
+   Copyright (c) 2021 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
 
 
 
-Thubert, et al.            Expires 14 May 2021                  [Page 1]
+Thubert, et al.         Expires 9 September 2021                [Page 1]
 
-Internet-Draft         RAW Architecture/Framework          November 2020
+Internet-Draft         RAW Architecture/Framework             March 2021
 
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Thubert, et al.            Expires 14 May 2021                  [Page 2]
+Thubert, et al.         Expires 9 September 2021                [Page 2]
 
-Internet-Draft         RAW Architecture/Framework          November 2020
+Internet-Draft         RAW Architecture/Framework             March 2021
 
 
 1.  Introduction
@@ -131,9 +131,10 @@ Internet-Draft         RAW Architecture/Framework          November 2020
    effects that affect the delivery.  Scheduling can alleviate those
    effects by enabling diverse transmissions in the spatial, time, code,
    and frequency domains.  Reliable and Available Wireless (RAW)
-   leverages scheduling and all possible forms of diversity to defeat
-   the possible causes of transmission loss while preserving energy and
-   optimizing the use of the shared spectrum.
+   provides for high reliability and availability for IP connectivity
+   over a wireless medium, leveraging all possible forms of diversity to
+   defeat the possible causes of transmission delay/loss while
+   preserving energy and optimizing the use of the shared spectrum.
 
    Deterministic Networking is an attempt to emulate the properties of a
    serial link over a switched fabric, by providing a bounded latency
@@ -164,10 +165,9 @@ Internet-Draft         RAW Architecture/Framework          November 2020
 
 
 
-
-Thubert, et al.            Expires 14 May 2021                  [Page 3]
+Thubert, et al.         Expires 9 September 2021                [Page 3]
 
-Internet-Draft         RAW Architecture/Framework          November 2020
+Internet-Draft         RAW Architecture/Framework             March 2021
 
 
    This increased complexity explains why the development of
@@ -221,9 +221,9 @@ Internet-Draft         RAW Architecture/Framework          November 2020
 
 
 
-Thubert, et al.            Expires 14 May 2021                  [Page 4]
+Thubert, et al.         Expires 9 September 2021                [Page 4]
 
-Internet-Draft         RAW Architecture/Framework          November 2020
+Internet-Draft         RAW Architecture/Framework             March 2021
 
 
 2.  The RAW problem
@@ -277,9 +277,9 @@ Internet-Draft         RAW Architecture/Framework          November 2020
 
 
 
-Thubert, et al.            Expires 14 May 2021                  [Page 5]
+Thubert, et al.         Expires 9 September 2021                [Page 5]
 
-Internet-Draft         RAW Architecture/Framework          November 2020
+Internet-Draft         RAW Architecture/Framework             March 2021
 
 
 2.2.  Reliability and Availability
@@ -333,9 +333,9 @@ Internet-Draft         RAW Architecture/Framework          November 2020
 
 
 
-Thubert, et al.            Expires 14 May 2021                  [Page 6]
+Thubert, et al.         Expires 9 September 2021                [Page 6]
 
-Internet-Draft         RAW Architecture/Framework          November 2020
+Internet-Draft         RAW Architecture/Framework             March 2021
 
 
    From an economics standpoint, executing this principle properly
@@ -389,9 +389,9 @@ Internet-Draft         RAW Architecture/Framework          November 2020
 
 
 
-Thubert, et al.            Expires 14 May 2021                  [Page 7]
+Thubert, et al.         Expires 9 September 2021                [Page 7]
 
-Internet-Draft         RAW Architecture/Framework          November 2020
+Internet-Draft         RAW Architecture/Framework             March 2021
 
 
    "An Architecture for Describing Simple Network Management Protocol
@@ -445,9 +445,9 @@ Internet-Draft         RAW Architecture/Framework          November 2020
 
 
 
-Thubert, et al.            Expires 14 May 2021                  [Page 8]
+Thubert, et al.         Expires 9 September 2021                [Page 8]
 
-Internet-Draft         RAW Architecture/Framework          November 2020
+Internet-Draft         RAW Architecture/Framework             March 2021
 
 
    Consecutive Failures (MCF).  If the number of losses in a row passes
@@ -501,9 +501,9 @@ Internet-Draft         RAW Architecture/Framework          November 2020
 
 
 
-Thubert, et al.            Expires 14 May 2021                  [Page 9]
+Thubert, et al.         Expires 9 September 2021                [Page 9]
 
-Internet-Draft         RAW Architecture/Framework          November 2020
+Internet-Draft         RAW Architecture/Framework             March 2021
 
 
       As long as a physical object (e.g., a metallic trolley between
@@ -557,9 +557,9 @@ Internet-Draft         RAW Architecture/Framework          November 2020
 
 
 
-Thubert, et al.            Expires 14 May 2021                 [Page 10]
+Thubert, et al.         Expires 9 September 2021               [Page 10]
 
-Internet-Draft         RAW Architecture/Framework          November 2020
+Internet-Draft         RAW Architecture/Framework             March 2021
 
 
 2.3.1.  Radio Access Protection
@@ -613,9 +613,9 @@ Internet-Draft         RAW Architecture/Framework          November 2020
 
 
 
-Thubert, et al.            Expires 14 May 2021                 [Page 11]
+Thubert, et al.         Expires 9 September 2021               [Page 11]
 
-Internet-Draft         RAW Architecture/Framework          November 2020
+Internet-Draft         RAW Architecture/Framework             March 2021
 
 
                            A-------B-------C-----D
@@ -669,9 +669,9 @@ Internet-Draft         RAW Architecture/Framework          November 2020
 
 
 
-Thubert, et al.            Expires 14 May 2021                 [Page 12]
+Thubert, et al.         Expires 9 September 2021               [Page 12]
 
-Internet-Draft         RAW Architecture/Framework          November 2020
+Internet-Draft         RAW Architecture/Framework             March 2021
 
 
    *  [CCAMP] defines protocol-independent metrics and parameters
@@ -725,9 +725,9 @@ Internet-Draft         RAW Architecture/Framework          November 2020
 
 
 
-Thubert, et al.            Expires 14 May 2021                 [Page 13]
+Thubert, et al.         Expires 9 September 2021               [Page 13]
 
-Internet-Draft         RAW Architecture/Framework          November 2020
+Internet-Draft         RAW Architecture/Framework             March 2021
 
 
 3.2.  Routing Time Scale vs. Forwarding Time Scale
@@ -781,9 +781,9 @@ Internet-Draft         RAW Architecture/Framework          November 2020
 
 
 
-Thubert, et al.            Expires 14 May 2021                 [Page 14]
+Thubert, et al.         Expires 9 September 2021               [Page 14]
 
-Internet-Draft         RAW Architecture/Framework          November 2020
+Internet-Draft         RAW Architecture/Framework             March 2021
 
 
    In the case of wireless, the changes that affect the forwarding
@@ -837,9 +837,9 @@ Internet-Draft         RAW Architecture/Framework          November 2020
 
 
 
-Thubert, et al.            Expires 14 May 2021                 [Page 15]
+Thubert, et al.         Expires 9 September 2021               [Page 15]
 
-Internet-Draft         RAW Architecture/Framework          November 2020
+Internet-Draft         RAW Architecture/Framework             March 2021
 
 
    In the context of RAW, some links or segments in the Track may be
@@ -893,9 +893,9 @@ Internet-Draft         RAW Architecture/Framework          November 2020
 
 
 
-Thubert, et al.            Expires 14 May 2021                 [Page 16]
+Thubert, et al.         Expires 9 September 2021               [Page 16]
 
-Internet-Draft         RAW Architecture/Framework          November 2020
+Internet-Draft         RAW Architecture/Framework             March 2021
 
 
    For instance, when the source sends to Node A, Node B may listen
@@ -949,9 +949,9 @@ Internet-Draft         RAW Architecture/Framework          November 2020
 
 
 
-Thubert, et al.            Expires 14 May 2021                 [Page 17]
+Thubert, et al.         Expires 9 September 2021               [Page 17]
 
-Internet-Draft         RAW Architecture/Framework          November 2020
+Internet-Draft         RAW Architecture/Framework             March 2021
 
 
 3.4.2.  Packet Elimination
@@ -1005,9 +1005,9 @@ Internet-Draft         RAW Architecture/Framework          November 2020
 
 
 
-Thubert, et al.            Expires 14 May 2021                 [Page 18]
+Thubert, et al.         Expires 9 September 2021               [Page 18]
 
-Internet-Draft         RAW Architecture/Framework          November 2020
+Internet-Draft         RAW Architecture/Framework             March 2021
 
 
 4.  The RAW Architecture
@@ -1061,9 +1061,9 @@ Internet-Draft         RAW Architecture/Framework          November 2020
 
 
 
-Thubert, et al.            Expires 14 May 2021                 [Page 19]
+Thubert, et al.         Expires 9 September 2021               [Page 19]
 
-Internet-Draft         RAW Architecture/Framework          November 2020
+Internet-Draft         RAW Architecture/Framework             March 2021
 
 
            CPF               CPF          CPF                 CPF
@@ -1117,9 +1117,9 @@ Internet-Draft         RAW Architecture/Framework          November 2020
 
 
 
-Thubert, et al.            Expires 14 May 2021                 [Page 20]
+Thubert, et al.         Expires 9 September 2021               [Page 20]
 
-Internet-Draft         RAW Architecture/Framework          November 2020
+Internet-Draft         RAW Architecture/Framework             March 2021
 
 
 4.2.  The Path Selection Engine
@@ -1173,9 +1173,9 @@ Internet-Draft         RAW Architecture/Framework          November 2020
 
 
 
-Thubert, et al.            Expires 14 May 2021                 [Page 21]
+Thubert, et al.         Expires 9 September 2021               [Page 21]
 
-Internet-Draft         RAW Architecture/Framework          November 2020
+Internet-Draft         RAW Architecture/Framework             March 2021
 
 
    The PSE sits in the DetNet Service sub-Layer of Edge and Relay Nodes.
@@ -1229,9 +1229,9 @@ Internet-Draft         RAW Architecture/Framework          November 2020
 
 
 
-Thubert, et al.            Expires 14 May 2021                 [Page 22]
+Thubert, et al.         Expires 9 September 2021               [Page 22]
 
-Internet-Draft         RAW Architecture/Framework          November 2020
+Internet-Draft         RAW Architecture/Framework             March 2021
 
 
                                          ...   ..
@@ -1285,9 +1285,9 @@ Internet-Draft         RAW Architecture/Framework          November 2020
 
 
 
-Thubert, et al.            Expires 14 May 2021                 [Page 23]
+Thubert, et al.         Expires 9 September 2021               [Page 23]
 
-Internet-Draft         RAW Architecture/Framework          November 2020
+Internet-Draft         RAW Architecture/Framework             March 2021
 
 
    identification that maps to to app-flow at the network layer must be
@@ -1341,9 +1341,9 @@ Internet-Draft         RAW Architecture/Framework          November 2020
 
 
 
-Thubert, et al.            Expires 14 May 2021                 [Page 24]
+Thubert, et al.         Expires 9 September 2021               [Page 24]
 
-Internet-Draft         RAW Architecture/Framework          November 2020
+Internet-Draft         RAW Architecture/Framework             March 2021
 
 
                         Flow 1 (6-tuple) ----+
@@ -1397,9 +1397,9 @@ Internet-Draft         RAW Architecture/Framework          November 2020
 
 
 
-Thubert, et al.            Expires 14 May 2021                 [Page 25]
+Thubert, et al.         Expires 9 September 2021               [Page 25]
 
-Internet-Draft         RAW Architecture/Framework          November 2020
+Internet-Draft         RAW Architecture/Framework             March 2021
 
 
 4.5.  Source-Routed vs. Distributed Forwarding Decision
@@ -1453,9 +1453,9 @@ Internet-Draft         RAW Architecture/Framework          November 2020
 
 
 
-Thubert, et al.            Expires 14 May 2021                 [Page 26]
+Thubert, et al.         Expires 9 September 2021               [Page 26]
 
-Internet-Draft         RAW Architecture/Framework          November 2020
+Internet-Draft         RAW Architecture/Framework             March 2021
 
 
 4.6.  Encapsulation and Decapsulation
@@ -1509,9 +1509,9 @@ Internet-Draft         RAW Architecture/Framework          November 2020
 
 
 
-Thubert, et al.            Expires 14 May 2021                 [Page 27]
+Thubert, et al.         Expires 9 September 2021               [Page 27]
 
-Internet-Draft         RAW Architecture/Framework          November 2020
+Internet-Draft         RAW Architecture/Framework             March 2021
 
 
 8.  Acknowledgments
@@ -1525,9 +1525,9 @@ Internet-Draft         RAW Architecture/Framework          November 2020
    [6TiSCH-ARCHI]
               Thubert, P., "An Architecture for IPv6 over the TSCH mode
               of IEEE 802.15.4", Work in Progress, Internet-Draft,
-              draft-ietf-6tisch-architecture-29, 27 August 2020,
+              draft-ietf-6tisch-architecture-30, 26 November 2020,
               <https://tools.ietf.org/html/draft-ietf-6tisch-
-              architecture-29>.
+              architecture-30>.
 
    [RAW-TECHNOS]
               Thubert, P., Cavalcanti, D., Vilajosana, X., Schmitt, C.,
@@ -1565,9 +1565,9 @@ Internet-Draft         RAW Architecture/Framework          November 2020
 
 
 
-Thubert, et al.            Expires 14 May 2021                 [Page 28]
+Thubert, et al.         Expires 9 September 2021               [Page 28]
 
-Internet-Draft         RAW Architecture/Framework          November 2020
+Internet-Draft         RAW Architecture/Framework             March 2021
 
 
    [IPv6]     Deering, S. and R. Hinden, "Internet Protocol, Version 6
@@ -1621,9 +1621,9 @@ Internet-Draft         RAW Architecture/Framework          November 2020
 
 
 
-Thubert, et al.            Expires 14 May 2021                 [Page 29]
+Thubert, et al.         Expires 9 September 2021               [Page 29]
 
-Internet-Draft         RAW Architecture/Framework          November 2020
+Internet-Draft         RAW Architecture/Framework             March 2021
 
 
    [RFC4090]  Pan, P., Ed., Swallow, G., Ed., and A. Atlas, Ed., "Fast
@@ -1677,9 +1677,9 @@ Internet-Draft         RAW Architecture/Framework          November 2020
 
 
 
-Thubert, et al.            Expires 14 May 2021                 [Page 30]
+Thubert, et al.         Expires 9 September 2021               [Page 30]
 
-Internet-Draft         RAW Architecture/Framework          November 2020
+Internet-Draft         RAW Architecture/Framework             March 2021
 
 
    [NASA]     Adams, T., "RELIABILITY: Definition & Quantitative
@@ -1733,9 +1733,16 @@ Authors' Addresses
 
 
 
-Thubert, et al.            Expires 14 May 2021                 [Page 31]
+Thubert, et al.         Expires 9 September 2021               [Page 31]
 
-Internet-Draft         RAW Architecture/Framework          November 2020
+Internet-Draft         RAW Architecture/Framework             March 2021
+
+
+   Lou Berger
+   LabN Consulting, L.L.C.
+   United States of America
+
+   Email: lberger@labn.net
 
 
    Rex Buddenberg
@@ -1782,11 +1789,4 @@ Internet-Draft         RAW Architecture/Framework          November 2020
 
 
 
-
-
-
-
-
-
-
-Thubert, et al.            Expires 14 May 2021                 [Page 32]
+Thubert, et al.         Expires 9 September 2021               [Page 32]

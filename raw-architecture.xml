@@ -109,53 +109,59 @@
 
     <section numbered="true" toc="default">
       <name>Introduction</name>
+
+      <t>
+   Deterministic Networking is an attempt to emulate the properties of a serial
+   link over a switched fabric, by providing a bounded latency and eliminating
+   congestion loss, even when co-existing with best-effort traffic.
+   It is getting traction in various industries including professional A/V,
+   manufacturing, online gaming, and smartgrid automation, enabling cost and
+   performance optimizations (e.g., vs. loads of P2P cables).
+      </t>
       <t>
    Bringing determinism in a packet network means eliminating the statistical
    effects of multiplexing that result in probabilistic jitter and loss.
    This can be approached with a tight control of the physical resources to
    maintain the amount of traffic within a budgetted volume of data per unit of
-   time that fits the physical capabilities of the underlying technology, and
+   time that fits the physical capabilities of the underlying network, and
    the use of time-shared resources (bandwidth and buffers) per circuit, and/or
    by shaping and/or scheduling the packets at every hop.
-
-      </t>
-      <t>
+   </t>
+   <t>
+   This innovation was initially introduced on wired networks, with IEEE 802.1
+   Time Sensitive networking (TSN) - for Ethernet LANs - and IETF DetNet.
+   But the wired and the wireless media are fundamentally different at the
+   physical level and in the possible abstractions that can be built for IP
+   <xref target="I-D.thubert-6man-ipv6-over-wireless" format="default"/>.
    Wireless networks operate on a shared medium where uncontrolled interference,
    including the self-induced multipath fading, cause random transmission losses
-   and add new dimensions to the statistical effects that affect the delivery.
-   Scheduling can alleviate those effects by enabling diverse transmissions
-   in the spatial, time, code, and frequency domains.
-   Reliable and Available Wireless (RAW) provides for high reliability and
-   availability for IP connectivity over a wireless medium,
-   leveraging all possible forms of diversity to defeat the possible causes of
-   transmission delay/loss while preserving energy and optimizing the use of the
-   shared spectrum.
+   and add new dimensions to the statistical effects that affect reachability
+   and packet delivery.
       </t>
       <t>
-   Deterministic Networking is an attempt to emulate the properties of a serial
-   link over a switched fabric, by providing a bounded latency and eliminating congestion loss, even when co-existing with best-effort traffic.
-   This innovation was introduced on wired networks with IEEE 802.1 TSN (for Ethernet LANs) and IETF DetNet.
-   It is getting traction in various industries including professional A/V, manufacturing, online gaming, and smartgrid automation, enabling cost and
-   performance optimizations (e.g., vs. loads of P2P cables).
-
-
-   </t><t>
-   The wireless and wired media are fundamentally different at the physical
-   level, and while the generic <xref target="RFC8557">"Deterministic Networking
+   To defeat those additional causes of transmission delay and loss,
+   Reliable and Available Wireless (RAW) leverages scheduled transmissions with
+   redundancy and diversity in the spatial, time, code, and frequency domains.
+   The challenge is to provide enough diversity and redundancy to ensure the
+   timely packet delivery while preserving energy and optimizing the use of the
+   shared spectrum.
+   </t>
+   <t>
+   While the generic <xref target="RFC8557">"Deterministic Networking
    Problem Statement"</xref> applies to both the wired and the wireless media,
    the methods to achieve RAW must extend those used to support time-sensitive
    networking over wires, as a RAW solution has to address less consistent
    transmissions, energy conservation and shared spectrum efficiency.
-
-   </t><t>
-   Uncontrolled interference and transmission obstacles may impede the wireless transmission, causing rapid variations of the throughput and packet delivery
+   </t>
+   <t>
+   Uncontrolled interference and transmission obstacles may impede the wireless
+   transmission, causing rapid variations of the throughput and packet delivery
    ratio (PDR) of the link. This uncertainty limits the volume and/or duration
    of traffic that can be safely transmitted on the same link while conforming
-   to a RAW Service Level Agreement (SLA). Techniques such as beamforming with
-   Multi-User MIMO can only alleviate some of those issues, and the term deterministic is usually not associated with a short range radio link, in
-   particular one operated in the ISM band.
+   to a RAW Service Level Agreement (SLA).
       </t>
       <t>
+
    This increased complexity explains why the development of deterministic
    wireless technologies has been lagging behind the similar efforts for wired systems, both at the IEEE and the IETF. But recent progress on scheduled
    radios such as TSCH and OFDMA indicates that wireless is finally catching up
@@ -221,7 +227,7 @@
     Replication, Elimination and Ordering Functions.
     </t><t>
     RAW also reuses terminology defined for 6TiSCH in <xref target=
-    "I-D.ietf-6tisch-architecture" format="default"/> such as the term Track.
+    "RFC9030" format="default"/> such as the term Track.
     A Track as a complex path with associated PAREO operations. The concept is
     abstract to the underlaying technology and applies to any fully or partially
     wireless mesh, including, e.g., a Wi-Fi mesh.
@@ -595,14 +601,14 @@
    hopping (TSCH), 3GPP 5G ultra-reliable low latency communications (URLLC),
    IEEE 802.11ax/be where 802.11be is extreme high throughput (EHT), and L-band
    Digital Aeronautical  Communications System (LDACS).
-   See <xref target="I-D.thubert-raw-technologies" format="default"/> for more.
+   See <xref target="I-D.ietf-raw-technologies" format="default"/> for more.
 
       </t>
       <t>
     <xref target="RFC8578" format="default">"Deterministic Networking Use Cases"
     </xref> presents a number of wireless use cases including Wireless, such as
     application to Industrial Applications, Pro-Audio, and SmartGrid Automation.
-   <xref target="I-D.bernardos-raw-use-cases" format="default"/> adds a number
+   <xref target="I-D.ietf-raw-use-cases" format="default"/> adds a number
    of use cases that demonstrate the need for RAW capabilities for new
    applications such as Pro-Gaming and drones.
    The use cases can be abstracted in two families, Loose Protection, e.g.,
@@ -641,7 +647,7 @@
 <t>
     The RANs may be heterogeneous, e.g.,
     3GPP 5G <xref target="I-D.farkas-raw-5g"/> and
-    Wi-Fi <xref target="I-D.thubert-raw-technologies"/> for high-speed
+    Wi-Fi <xref target="I-D.ietf-raw-technologies"/> for high-speed
     communication, in which case a Layer-3 abstraction becomes useful to select
     which of the RANs are used at a particular point of time, and the amount of
     traffic that is distributed over each RAN.
@@ -721,10 +727,10 @@ zzz = flapping now
     <li>
       OAM work at
       <xref target="detnet" format="default"/> such as
-      <xref target="I-D.mirsky-detnet-ip-oam" format="default"/>
+      <xref target="I-D.ietf-detnet-ip-oam" format="default"/>
       for the case of the IP Data Plane observes the state of DetNet paths,
       typically MPLS and IPv6 pseudowires
-      <xref target="I-D.ietf-detnet-data-plane-framework" format="default"/>,
+      <xref target="RFC8938" format="default"/>,
       in the direction of the traffic. RAW needs feedback that flows on the
       reverse path and gathers instantaneous values from the radio receivers at
       each hop to inform back the source and replicating relays so they can make
@@ -778,7 +784,7 @@ zzz = flapping now
    A prerequisite to the RAW operation is that an end-to-end routing function
    computes a complex sub-topology along which forwarding can happen between a
    source and one or more destinations. The concept of Track is specified in the
-   <xref target="I-D.ietf-6tisch-architecture" format="default">
+   <xref target="RFC9030" format="default">
    6TiSCH Architecture</xref> to represent that complex sub-topology. Tracks
    provide a high degree of redundancy and diversity and enable the DetNet
    PREOF, network coding, and possibly RAW specific techniques such as PAREO,
@@ -901,7 +907,7 @@ zzz = flapping now
     <section anchor="trk" numbered="true" toc="default">
       <name>Wireless Tracks</name>
    <t>
-    The  <xref target="I-D.ietf-6tisch-architecture">"6TiSCH Architecture"</xref>
+    The  <xref target="RFC9030">"6TiSCH Architecture"</xref>
     introduces the concept of Track. RAW extends the concept to any wireless mesh
     technology, including, e.g., Wi-Fi.
     A simple Track is composed of a direct sequence of reserved hops to ensure
@@ -1438,13 +1444,13 @@ Ingress    |      |      |    Egress
     used to forward a packet.
 </t><t>
 
-    Section 3.4 of the DetNet data-plane framework <xref target="I-D.ietf-detnet-data-plane-framework" format="default"/> indicates that for
+    Section 3.4 of the DetNet data-plane framework <xref target="RFC8938" format="default"/> indicates that for
     a DetNet IP Data Plane, a flow is identified by an IPv6 6-tuple.
     With RAW, that 6-tuple is not what indicates the Track, in other words, the
     flow ID is not the Track ID.
 </t><t>
     For instance, the 6TiSCH Architecture
-    <xref target="I-D.ietf-6tisch-architecture" format="default"/>
+    <xref target="RFC9030" format="default"/>
     uses a combination of the address of the Egress End System and an instance
     identifier in a Hop-by-hop option to indicate a Track. This way, if a packet
     "escapes" the Track, it will reach the Track Egress point through normal
@@ -1660,14 +1666,13 @@ Ingress    |      |      |    Egress
 
   </middle>
   <back>
-<displayreference   target="I-D.ietf-6tisch-architecture"      to="6TiSCH-ARCHI"/>
-<displayreference   target="I-D.thubert-raw-technologies"      to="RAW-TECHNOS"/>
-<displayreference   target="I-D.farkas-raw-5g"                 to="RAW-5G"/>
-<displayreference   target="I-D.bernardos-raw-use-cases"       to="RAW-USE-CASES"/>
+<displayreference   target="I-D.thubert-6man-ipv6-over-wireless"     to="IPoWIRELESS"/>
+<displayreference   target="I-D.ietf-raw-technologies"   to="RAW-TECHNOS"/>
+<displayreference   target="I-D.farkas-raw-5g"        to="RAW-5G"/>
+<displayreference   target="I-D.ietf-raw-use-cases"   to="RAW-USE-CASES"/>
 <displayreference   target="I-D.thubert-bier-replication-elimination" to="BIER-PREF"/>
-<displayreference   target="I-D.mirsky-detnet-ip-oam"         to="DetNet-IP-OAM"/>
-<displayreference   target="I-D.ietf-detnet-data-plane-framework"     to="DetNet-DP-FW"/>
-<displayreference   target="I-D.ietf-bier-te-arch"     to="BIER-TE"/>
+<displayreference   target="I-D.ietf-detnet-ip-oam"   to="DetNet-IP-OAM"/>
+<displayreference   target="I-D.ietf-bier-te-arch"    to="BIER-TE"/>
 <displayreference   target="RFC3272"                  to="TE"/>
 <displayreference   target="RFC5880"                  to="BFD"/>
 <displayreference   target="RFC3411"                  to="STD 62"/>
@@ -1676,6 +1681,8 @@ Ingress    |      |      |    Egress
 <displayreference   target="RFC8402"                  to="SR-ARCHI"/>
 <displayreference   target="RFC8200"                  to="IPv6"/>
 <displayreference   target="RFC8279"                  to="BIER"/>
+<displayreference   target="RFC8938"                  to="DetNet-DP"/>
+<displayreference   target="RFC9030"                  to="6TiSCH-ARCHI"/>
 
     <references>
       <name>References</name>
@@ -1683,13 +1690,13 @@ Ingress    |      |      |    Egress
     <name>Normative References</name>
 
 
-<xi:include href="http://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-6tisch-architecture.xml"/>
+<xi:include href="http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.8930.xml"/>
 <!-- 6TiSCH Architecture -->
 
-<xi:include href="http://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.thubert-raw-technologies.xml"/>
+<xi:include href="http://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-raw-technologies.xml"/>
 <!-- Reliable and Available Wireless Technologies -->
 
-<xi:include href="http://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.bernardos-raw-use-cases.xml"/>
+<xi:include href="http://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-raw-use-cases.xml"/>
 <!-- RAW use cases -->
 
 <xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.4655.xml"/>
@@ -1746,14 +1753,15 @@ Ingress    |      |      |    Egress
 <xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.7490.xml"/>
 <!--   Remote Loop-Free Alternate (LFA) Fast Reroute (FRR) -->
 
+<xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.8938.xml"/>
+<!--   Deterministic Networking (DetNet) Data Plane Framework -->
+
 <xi:include href="http://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.thubert-bier-replication-elimination.xml"/>
 <!-- BIER-TE extensions for Packet Replication and Elimination Function (PREF) and OAM -->
 
-<xi:include href="http://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.mirsky-detnet-ip-oam.xml"/>
+<xi:include href="http://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-detnet-ip-oam.xml"/>
 <!-- Operations, Administration and Maintenance (OAM) for Deterministic Networks (detnet) with IP Data Plane -->
 
-<xi:include href="http://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-detnet-data-plane-framework.xml"/>
-<!-- DetNet Data Plane Framework -->
 
 <xi:include href="http://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.farkas-raw-5g.xml"/>
 <!-- RAW 5G-->
@@ -1761,6 +1769,9 @@ Ingress    |      |      |    Egress
 
 <xi:include href="http://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-bier-te-arch.xml"/>
 <!-- Traffic Engineering for Bit Index Explicit Replication (BIER-TE)-->
+
+<xi:include href="http://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.draft-thubert-6man-ipv6-over-wireless.xml"/>
+<!-- IPv6 Neighbor Discovery on Wireless Networks -->
 
 
     <reference anchor="NASA" target="https://kscddms.ksc.nasa.gov/Reliability/Documents/150814-3bWhatIsReliability.pdf">

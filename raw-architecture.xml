@@ -1690,7 +1690,7 @@ Ingress    |      |      |    Egress
     <name>Normative References</name>
 
 
-<xi:include href="http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.8930.xml"/>
+<xi:include href="http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.9030.xml"/>
 <!-- 6TiSCH Architecture -->
 
 <xi:include href="http://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-raw-technologies.xml"/>

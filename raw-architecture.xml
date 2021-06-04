@@ -15,7 +15,7 @@
 <?rfc subcompact="no"?>
 <?rfc authorship="yes"?>
 <?rfc tocappendix="yes"?>
-<rfc xmlns:xi="http://www.w3.org/2001/XInclude" category="info" docName="draft-pthubert-raw-architecture-07"
+<rfc xmlns:xi="http://www.w3.org/2001/XInclude" category="info" docName="draft-pthubert-raw-architecture-08"
      ipr="trust200902" obsoletes="" updates="" submissionType="IETF" xml:lang="en" version="3">
   <front>
     <title abbrev="RAW Architecture/Framework">Reliable and Available Wireless Architecture/Framework</title>

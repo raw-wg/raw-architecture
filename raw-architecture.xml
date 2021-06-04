@@ -725,17 +725,12 @@ zzz = flapping now
       and ETX) on individual hops.
       </li>
     <li>
-      OAM work at
-      <xref target="detnet" format="default"/> such as
-      <xref target="I-D.ietf-detnet-ip-oam" format="default"/>
-      for the case of the IP Data Plane observes the state of DetNet paths,
-      typically MPLS and IPv6 pseudowires
-      <xref target="RFC8938" format="default"/>,
-      in the direction of the traffic. RAW needs feedback that flows on the
-      reverse path and gathers instantaneous values from the radio receivers at
-      each hop to inform back the source and replicating relays so they can make
-      optimized forwarding decisions.
-      The work named ICAN may be related as well.
+      <xref target="detnet" format="default"/> provides an OAM framework with
+      <xref target="I-D.ietf-detnet-oam-framework" format="default"/> that
+      applies within the DetNet dataplane described in
+      <xref target="RFC8938" format="default"/>,which is typically based on
+      MPLS or IPv6 pseudowires.
+
       </li>
     <li>
       <xref target="BFD" format="default"/> detect faults in the path between an
@@ -1422,10 +1417,113 @@ Ingress    |      |      |    Egress
     RAN 2 and RAN 3, and determines whether a packet should be sent over either
     or a collection of those access links.
     </t>
+
+
+<section anchor="dnoam" numbered="true" toc="default">
+    <name>DetNet OAM</name>
+ <t>
+  <xref target="detnet" format="default"/> provides an OAM framework with
+  <xref target="I-D.ietf-detnet-oam-framework" format="default"/> that
+  applies within the DetNet dataplane described in
+  <xref target="RFC8938" format="default"/>,which is typically based on
+  MPLS or IPv6 pseudowires.
+  How the framework applies to IPv6 is detailed in
+  <xref target="I-D.ietf-detnet-ip-oam" format="default"/>.
+  Within that framework, OAM messages follow the same forward path as the data
+  packets and gather information about their individual treatment at each hop.
+  When the destination receives an OAM message, it gets a view on the full path
+  or at least of a segment of the path from the source of the flow.
+ </t>
+ <t>
+  In-situ OAM (IOAM) adds telemetry information about the experience of one
+  packet within the packet itself
+  <xref target="I-D.ietf-ippm-ioam-data" format="default"/>, with the caveats
+  that the measurement and the consecutive update of the packet interfere with
+  the operation being observed, e.g., may increase the latency of the packet
+  for which it is measured and into which it is stamped.
+ </t>
+ <t>
+  This effect can be alleviated by measuring on the fly but reporting later,
+  e.g., by exporting the data as a separate management packet
+  <xref target="I-D.ietf-ippm-ioam-direct-export" format="default"/>.
+  <xref target="I-D.mirsky-ippm-hybrid-two-step" format="default"/> proposes an
+  hybrid two-steps method (HTS) where a trigger message starts the measurement
+  and a follow up along the Track packet gathers the measured data.
+ </t>
+</section>
+    <!--DetNet OAM-->
+
+<section anchor="roam" numbered="true" toc="default">
+    <name>RAW Extensions</name>
+
+ <t>
+ Classical OAM typically measures information at the transmitter, e.g.,
+ residence time in the node or transmit queue size. With RAW, there is a need to
+ combine information at the sender (number of retries) with that at the receiver
+ (LQI, RSSI).
+ This doubles the operating cost of an IAOM processing that would gather the
+ experience of a single packet.
+  </t>
+ <t>
+ The RAW PSE may be centralized at the Track Ingress, or distributed long the
+ Track. Either way, the PSE needs instant information about the rest of the
+ way to the destination over the possible next-hop adjacencies along the Track
+ in order to decide how to perform simple forwarding, load balancing, and/or
+ replication, as well as determining how much latency credit is available for
+ ARQ.
+  </t>
+ <t>
+ To provide that information timely, it makes sense that the OAM packets that
+ gather instantaneous values from the radio senders and receivers at each hop
+ flow on the reverse path and inform the PSE at the source and/or the PAREO
+ relays about the state of the rest of the way. In that case, the DODAG formed
+ by the forward Track is turned into another reverse Track, which is flooded
+ with the OAM packets to trigger the measurement and then do the capture.
+ </t>
+ <t>
+ Because the quality of transmission over a wireless medium varies continously,
+ it is important that RAW OAM captures the state of the medium across an adjacency
+ over multiple transmission and over a recent period of time, whether the
+ transmitted packets belong to this flow or another. Some of the measured information
+ relates to the medium itself. In other words, the captured information does not
+ only relate to the experience of one packet as is the case for IOAM, but also to the
+ medium itself. This makes an approach like HTS more suitable as it can trigger
+ the capture of multiple informations over a short period of time. On the other
+ hand, the PSE needs a continuous measurement stream where a single trigger
+ is followed by a periodic follow up capture.
+  </t>
+ <t>
+  In other words, the best suited OAM method to enable the PSE make accurate
+  PAREO forwarding decisions is a periodic variation of the two-steps method
+  flowing along the reverse Track.
+ <xref target="I-D.ietf-raw-oam-support" format="default"/> provides more
+ information on the RAW OAM problem and solution approaches.
+ </t>
+</section>
+    <!--DetNet OAM-->
+
+<section anchor="oametrics" numbered="true" toc="default">
+ <name>Observed Metrics</name>
+ <t>
+ The Dynamic Link Exchange Protocol (DLEP)
+ <xref target="RFC8175" format="default"/> from
+ <xref target="MANET" format="default"/> can be leveraged at each hop
+ to derive generic radio metrics (e.g., based on LQI, RSSI, queueing delays
+ and ETX) on individual hops.
+ </t>
+ <t>
+ Those lower-layer metrics are aggregated along a multihop segment into abstract
+ layer 3 information that reflect the instant reliability and latency of the
+ observed path.
+ </t>
+</section>
+    <!--Observed Metrics -->
+
+
+
+
 </section>
     <!--RAW OAM-->
-
-
 <section anchor="flowid" numbered="true" toc="default">
     <name>Flow Identification vs. Path Identification</name>
 
@@ -1668,10 +1766,15 @@ Ingress    |      |      |    Egress
   <back>
 <displayreference   target="I-D.thubert-6man-ipv6-over-wireless"     to="IPoWIRELESS"/>
 <displayreference   target="I-D.ietf-raw-technologies"   to="RAW-TECHNOS"/>
+<displayreference   target="I-D.ietf-raw-oam-support"     to="RAW-OAM"/>
 <displayreference   target="I-D.farkas-raw-5g"        to="RAW-5G"/>
 <displayreference   target="I-D.ietf-raw-use-cases"   to="RAW-USE-CASES"/>
 <displayreference   target="I-D.thubert-bier-replication-elimination" to="BIER-PREF"/>
 <displayreference   target="I-D.ietf-detnet-ip-oam"   to="DetNet-IP-OAM"/>
+
+<displayreference   target="I-D.ietf-detnet-oam-framework"     to="DetNet-OAM"/>
+
+
 <displayreference   target="I-D.ietf-bier-te-arch"    to="BIER-TE"/>
 <displayreference   target="RFC3272"                  to="TE"/>
 <displayreference   target="RFC5880"                  to="BFD"/>
@@ -1770,9 +1873,14 @@ Ingress    |      |      |    Egress
 <xi:include href="http://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-bier-te-arch.xml"/>
 <!-- Traffic Engineering for Bit Index Explicit Replication (BIER-TE)-->
 
-<xi:include href="http://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.draft-thubert-6man-ipv6-over-wireless.xml"/>
+<xi:include href="http://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.thubert-6man-ipv6-over-wireless.xml"/>
 <!-- IPv6 Neighbor Discovery on Wireless Networks -->
 
+<xi:include href="http://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-raw-oam-support.xml"/>
+<xi:include href="http://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-ippm-ioam-direct-export.xml"/>
+<xi:include href="http://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-detnet-oam-framework.xml"/>
+<xi:include href="http://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.mirsky-ippm-hybrid-two-step.xml"/>
+<xi:include href="http://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-ippm-ioam-data.xml"/>
 
     <reference anchor="NASA" target="https://kscddms.ksc.nasa.gov/Reliability/Documents/150814-3bWhatIsReliability.pdf">
       <front>

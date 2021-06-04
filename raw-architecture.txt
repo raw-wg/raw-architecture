@@ -5,11 +5,11 @@
 RAW                                                      P. Thubert, Ed.
 Internet-Draft                                             Cisco Systems
 Intended status: Informational                         G.Z. Papadopoulos
-Expires: 3 December 2021                                  IMT Atlantique
+Expires: 6 December 2021                                  IMT Atlantique
                                                                L. Berger
                                                  LabN Consulting, L.L.C.
                                                            R. Buddenberg
-                                                             1 June 2021
+                                                             4 June 2021
 
 
          Reliable and Available Wireless Architecture/Framework
@@ -43,7 +43,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 3 December 2021.
+   This Internet-Draft will expire on 6 December 2021.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Thubert, et al.          Expires 3 December 2021                [Page 1]
+Thubert, et al.          Expires 6 December 2021                [Page 1]
 
 Internet-Draft         RAW Architecture/Framework              June 2021
 
@@ -93,26 +93,29 @@ Table of Contents
      4.1.  The RAW Conceptual Model  . . . . . . . . . . . . . . . .  19
      4.2.  The Path Selection Engine . . . . . . . . . . . . . . . .  21
      4.3.  RAW OAM . . . . . . . . . . . . . . . . . . . . . . . . .  23
-     4.4.  Flow Identification vs. Path Identification . . . . . . .  24
-     4.5.  Source-Routed vs. Distributed Forwarding Decision . . . .  26
-     4.6.  Encapsulation and Decapsulation . . . . . . . . . . . . .  27
-   5.  Security Considerations . . . . . . . . . . . . . . . . . . .  27
-     5.1.  Forced Access . . . . . . . . . . . . . . . . . . . . . .  27
-   6.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  27
-   7.  Contributors  . . . . . . . . . . . . . . . . . . . . . . . .  27
-   8.  Acknowledgments . . . . . . . . . . . . . . . . . . . . . . .  28
-   9.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  28
-     9.1.  Normative References  . . . . . . . . . . . . . . . . . .  28
-     9.2.  Informative References  . . . . . . . . . . . . . . . . .  29
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  31
+       4.3.1.  DetNet OAM  . . . . . . . . . . . . . . . . . . . . .  24
+       4.3.2.  RAW Extensions  . . . . . . . . . . . . . . . . . . .  24
+       4.3.3.  Observed Metrics  . . . . . . . . . . . . . . . . . .  25
+     4.4.  Flow Identification vs. Path Identification . . . . . . .  25
+     4.5.  Source-Routed vs. Distributed Forwarding Decision . . . .  28
+     4.6.  Encapsulation and Decapsulation . . . . . . . . . . . . .  29
+   5.  Security Considerations . . . . . . . . . . . . . . . . . . .  29
+     5.1.  Forced Access . . . . . . . . . . . . . . . . . . . . . .  29
+   6.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  29
+   7.  Contributors  . . . . . . . . . . . . . . . . . . . . . . . .  29
+   8.  Acknowledgments . . . . . . . . . . . . . . . . . . . . . . .  30
+   9.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  30
+     9.1.  Normative References  . . . . . . . . . . . . . . . . . .  30
 
 
 
-
-Thubert, et al.          Expires 3 December 2021                [Page 2]
+Thubert, et al.          Expires 6 December 2021                [Page 2]
 
 Internet-Draft         RAW Architecture/Framework              June 2021
 
+
+     9.2.  Informative References  . . . . . . . . . . . . . . . . .  31
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  34
 
 1.  Introduction
 
@@ -162,10 +165,7 @@ Internet-Draft         RAW Architecture/Framework              June 2021
 
 
 
-
-
-
-Thubert, et al.          Expires 3 December 2021                [Page 3]
+Thubert, et al.          Expires 6 December 2021                [Page 3]
 
 Internet-Draft         RAW Architecture/Framework              June 2021
 
@@ -221,7 +221,7 @@ Internet-Draft         RAW Architecture/Framework              June 2021
 
 
 
-Thubert, et al.          Expires 3 December 2021                [Page 4]
+Thubert, et al.          Expires 6 December 2021                [Page 4]
 
 Internet-Draft         RAW Architecture/Framework              June 2021
 
@@ -277,7 +277,7 @@ Internet-Draft         RAW Architecture/Framework              June 2021
 
 
 
-Thubert, et al.          Expires 3 December 2021                [Page 5]
+Thubert, et al.          Expires 6 December 2021                [Page 5]
 
 Internet-Draft         RAW Architecture/Framework              June 2021
 
@@ -333,7 +333,7 @@ Internet-Draft         RAW Architecture/Framework              June 2021
 
 
 
-Thubert, et al.          Expires 3 December 2021                [Page 6]
+Thubert, et al.          Expires 6 December 2021                [Page 6]
 
 Internet-Draft         RAW Architecture/Framework              June 2021
 
@@ -389,7 +389,7 @@ Internet-Draft         RAW Architecture/Framework              June 2021
 
 
 
-Thubert, et al.          Expires 3 December 2021                [Page 7]
+Thubert, et al.          Expires 6 December 2021                [Page 7]
 
 Internet-Draft         RAW Architecture/Framework              June 2021
 
@@ -445,7 +445,7 @@ Internet-Draft         RAW Architecture/Framework              June 2021
 
 
 
-Thubert, et al.          Expires 3 December 2021                [Page 8]
+Thubert, et al.          Expires 6 December 2021                [Page 8]
 
 Internet-Draft         RAW Architecture/Framework              June 2021
 
@@ -501,7 +501,7 @@ Internet-Draft         RAW Architecture/Framework              June 2021
 
 
 
-Thubert, et al.          Expires 3 December 2021                [Page 9]
+Thubert, et al.          Expires 6 December 2021                [Page 9]
 
 Internet-Draft         RAW Architecture/Framework              June 2021
 
@@ -557,7 +557,7 @@ Internet-Draft         RAW Architecture/Framework              June 2021
 
 
 
-Thubert, et al.          Expires 3 December 2021               [Page 10]
+Thubert, et al.          Expires 6 December 2021               [Page 10]
 
 Internet-Draft         RAW Architecture/Framework              June 2021
 
@@ -613,7 +613,7 @@ Internet-Draft         RAW Architecture/Framework              June 2021
 
 
 
-Thubert, et al.          Expires 3 December 2021               [Page 11]
+Thubert, et al.          Expires 6 December 2021               [Page 11]
 
 Internet-Draft         RAW Architecture/Framework              June 2021
 
@@ -650,14 +650,9 @@ Internet-Draft         RAW Architecture/Framework              June 2021
       (e.g., based on LQI, RSSI, queueing delays and ETX) on individual
       hops.
 
-   *  OAM work at [detnet] such as [DetNet-IP-OAM] for the case of the
-      IP Data Plane observes the state of DetNet paths, typically MPLS
-      and IPv6 pseudowires [DetNet-DP], in the direction of the traffic.
-      RAW needs feedback that flows on the reverse path and gathers
-      instantaneous values from the radio receivers at each hop to
-      inform back the source and replicating relays so they can make
-      optimized forwarding decisions.  The work named ICAN may be
-      related as well.
+   *  [detnet] provides an OAM framework with [DetNet-OAM] that applies
+      within the DetNet dataplane described in [DetNet-DP],which is
+      typically based on MPLS or IPv6 pseudowires.
 
    *  [BFD] detect faults in the path between an Ingress and an Egress
       forwarding engines, but is unaware of the complexity of a path
@@ -669,7 +664,12 @@ Internet-Draft         RAW Architecture/Framework              June 2021
 
 
 
-Thubert, et al.          Expires 3 December 2021               [Page 12]
+
+
+
+
+
+Thubert, et al.          Expires 6 December 2021               [Page 12]
 
 Internet-Draft         RAW Architecture/Framework              June 2021
 
@@ -725,7 +725,7 @@ Internet-Draft         RAW Architecture/Framework              June 2021
 
 
 
-Thubert, et al.          Expires 3 December 2021               [Page 13]
+Thubert, et al.          Expires 6 December 2021               [Page 13]
 
 Internet-Draft         RAW Architecture/Framework              June 2021
 
@@ -781,7 +781,7 @@ Internet-Draft         RAW Architecture/Framework              June 2021
 
 
 
-Thubert, et al.          Expires 3 December 2021               [Page 14]
+Thubert, et al.          Expires 6 December 2021               [Page 14]
 
 Internet-Draft         RAW Architecture/Framework              June 2021
 
@@ -837,7 +837,7 @@ Internet-Draft         RAW Architecture/Framework              June 2021
 
 
 
-Thubert, et al.          Expires 3 December 2021               [Page 15]
+Thubert, et al.          Expires 6 December 2021               [Page 15]
 
 Internet-Draft         RAW Architecture/Framework              June 2021
 
@@ -893,7 +893,7 @@ Internet-Draft         RAW Architecture/Framework              June 2021
 
 
 
-Thubert, et al.          Expires 3 December 2021               [Page 16]
+Thubert, et al.          Expires 6 December 2021               [Page 16]
 
 Internet-Draft         RAW Architecture/Framework              June 2021
 
@@ -949,7 +949,7 @@ Internet-Draft         RAW Architecture/Framework              June 2021
 
 
 
-Thubert, et al.          Expires 3 December 2021               [Page 17]
+Thubert, et al.          Expires 6 December 2021               [Page 17]
 
 Internet-Draft         RAW Architecture/Framework              June 2021
 
@@ -1005,7 +1005,7 @@ Internet-Draft         RAW Architecture/Framework              June 2021
 
 
 
-Thubert, et al.          Expires 3 December 2021               [Page 18]
+Thubert, et al.          Expires 6 December 2021               [Page 18]
 
 Internet-Draft         RAW Architecture/Framework              June 2021
 
@@ -1061,7 +1061,7 @@ Internet-Draft         RAW Architecture/Framework              June 2021
 
 
 
-Thubert, et al.          Expires 3 December 2021               [Page 19]
+Thubert, et al.          Expires 6 December 2021               [Page 19]
 
 Internet-Draft         RAW Architecture/Framework              June 2021
 
@@ -1117,7 +1117,7 @@ Internet-Draft         RAW Architecture/Framework              June 2021
 
 
 
-Thubert, et al.          Expires 3 December 2021               [Page 20]
+Thubert, et al.          Expires 6 December 2021               [Page 20]
 
 Internet-Draft         RAW Architecture/Framework              June 2021
 
@@ -1173,7 +1173,7 @@ Internet-Draft         RAW Architecture/Framework              June 2021
 
 
 
-Thubert, et al.          Expires 3 December 2021               [Page 21]
+Thubert, et al.          Expires 6 December 2021               [Page 21]
 
 Internet-Draft         RAW Architecture/Framework              June 2021
 
@@ -1229,7 +1229,7 @@ Internet-Draft         RAW Architecture/Framework              June 2021
 
 
 
-Thubert, et al.          Expires 3 December 2021               [Page 22]
+Thubert, et al.          Expires 6 December 2021               [Page 22]
 
 Internet-Draft         RAW Architecture/Framework              June 2021
 
@@ -1285,10 +1285,102 @@ Internet-Draft         RAW Architecture/Framework              June 2021
 
 
 
-Thubert, et al.          Expires 3 December 2021               [Page 23]
+Thubert, et al.          Expires 6 December 2021               [Page 23]
 
 Internet-Draft         RAW Architecture/Framework              June 2021
 
+
+4.3.1.  DetNet OAM
+
+   [detnet] provides an OAM framework with [DetNet-OAM] that applies
+   within the DetNet dataplane described in [DetNet-DP],which is
+   typically based on MPLS or IPv6 pseudowires.  How the framework
+   applies to IPv6 is detailed in [DetNet-IP-OAM].  Within that
+   framework, OAM messages follow the same forward path as the data
+   packets and gather information about their individual treatment at
+   each hop.  When the destination receives an OAM message, it gets a
+   view on the full path or at least of a segment of the path from the
+   source of the flow.
+
+   In-situ OAM (IOAM) adds telemetry information about the experience of
+   one packet within the packet itself [I-D.ietf-ippm-ioam-data], with
+   the caveats that the measurement and the consecutive update of the
+   packet interfere with the operation being observed, e.g., may
+   increase the latency of the packet for which it is measured and into
+   which it is stamped.
+
+   This effect can be alleviated by measuring on the fly but reporting
+   later, e.g., by exporting the data as a separate management packet
+   [I-D.ietf-ippm-ioam-direct-export].
+   [I-D.mirsky-ippm-hybrid-two-step] proposes an hybrid two-steps method
+   (HTS) where a trigger message starts the measurement and a follow up
+   along the Track packet gathers the measured data.
+
+4.3.2.  RAW Extensions
+
+   Classical OAM typically measures information at the transmitter,
+   e.g., residence time in the node or transmit queue size.  With RAW,
+   there is a need to combine information at the sender (number of
+   retries) with that at the receiver (LQI, RSSI).  This doubles the
+   operating cost of an IAOM processing that would gather the experience
+   of a single packet.
+
+   The RAW PSE may be centralized at the Track Ingress, or distributed
+   long the Track.  Either way, the PSE needs instant information about
+   the rest of the way to the destination over the possible next-hop
+   adjacencies along the Track in order to decide how to perform simple
+   forwarding, load balancing, and/or replication, as well as
+   determining how much latency credit is available for ARQ.
+
+
+
+
+
+
+
+
+
+
+Thubert, et al.          Expires 6 December 2021               [Page 24]
+
+Internet-Draft         RAW Architecture/Framework              June 2021
+
+
+   To provide that information timely, it makes sense that the OAM
+   packets that gather instantaneous values from the radio senders and
+   receivers at each hop flow on the reverse path and inform the PSE at
+   the source and/or the PAREO relays about the state of the rest of the
+   way.  In that case, the DODAG formed by the forward Track is turned
+   into another reverse Track, which is flooded with the OAM packets to
+   trigger the measurement and then do the capture.
+
+   Because the quality of transmission over a wireless medium varies
+   continously, it is important that RAW OAM captures the state of the
+   medium across an adjacency over multiple transmission and over a
+   recent period of time, whether the transmitted packets belong to this
+   flow or another.  Some of the measured information relates to the
+   medium itself.  In other words, the captured information does not
+   only relate to the experience of one packet as is the case for IOAM,
+   but also to the medium itself.  This makes an approach like HTS more
+   suitable as it can trigger the capture of multiple informations over
+   a short period of time.  On the other hand, the PSE needs a
+   continuous measurement stream where a single trigger is followed by a
+   periodic follow up capture.
+
+   In other words, the best suited OAM method to enable the PSE make
+   accurate PAREO forwarding decisions is a periodic variation of the
+   two-steps method flowing along the reverse Track.  [RAW-OAM] provides
+   more information on the RAW OAM problem and solution approaches.
+
+4.3.3.  Observed Metrics
+
+   The Dynamic Link Exchange Protocol (DLEP) [RFC8175] from [MANET] can
+   be leveraged at each hop to derive generic radio metrics (e.g., based
+   on LQI, RSSI, queueing delays and ETX) on individual hops.
+
+   Those lower-layer metrics are aggregated along a multihop segment
+   into abstract layer 3 information that reflect the instant
+   reliability and latency of the observed path.
 
 4.4.  Flow Identification vs. Path Identification
 
@@ -1302,6 +1394,14 @@ Internet-Draft         RAW Architecture/Framework              June 2021
    packets along that Track are necessarily part of the same flow.  For
    instance, out-of-band OAM packets must circulate in the exact same
    fashion as the flows that they observe.  It results that the flow
+
+
+
+Thubert, et al.          Expires 6 December 2021               [Page 25]
+
+Internet-Draft         RAW Architecture/Framework              June 2021
+
+
    identification that maps to to app-flow at the network layer must be
    separate from the path identification that is used to forward a
    packet.
@@ -1341,7 +1441,19 @@ Internet-Draft         RAW Architecture/Framework              June 2021
 
 
 
-Thubert, et al.          Expires 3 December 2021               [Page 24]
+
+
+
+
+
+
+
+
+
+
+
+
+Thubert, et al.          Expires 6 December 2021               [Page 26]
 
 Internet-Draft         RAW Architecture/Framework              June 2021
 
@@ -1397,7 +1509,7 @@ Internet-Draft         RAW Architecture/Framework              June 2021
 
 
 
-Thubert, et al.          Expires 3 December 2021               [Page 25]
+Thubert, et al.          Expires 6 December 2021               [Page 27]
 
 Internet-Draft         RAW Architecture/Framework              June 2021
 
@@ -1453,7 +1565,7 @@ Internet-Draft         RAW Architecture/Framework              June 2021
 
 
 
-Thubert, et al.          Expires 3 December 2021               [Page 26]
+Thubert, et al.          Expires 6 December 2021               [Page 28]
 
 Internet-Draft         RAW Architecture/Framework              June 2021
 
@@ -1509,7 +1621,7 @@ Internet-Draft         RAW Architecture/Framework              June 2021
 
 
 
-Thubert, et al.          Expires 3 December 2021               [Page 27]
+Thubert, et al.          Expires 6 December 2021               [Page 29]
 
 Internet-Draft         RAW Architecture/Framework              June 2021
 
@@ -1565,7 +1677,7 @@ Internet-Draft         RAW Architecture/Framework              June 2021
 
 
 
-Thubert, et al.          Expires 3 December 2021               [Page 28]
+Thubert, et al.          Expires 6 December 2021               [Page 30]
 
 Internet-Draft         RAW Architecture/Framework              June 2021
 
@@ -1621,7 +1733,7 @@ Internet-Draft         RAW Architecture/Framework              June 2021
 
 
 
-Thubert, et al.          Expires 3 December 2021               [Page 29]
+Thubert, et al.          Expires 6 December 2021               [Page 31]
 
 Internet-Draft         RAW Architecture/Framework              June 2021
 
@@ -1677,7 +1789,7 @@ Internet-Draft         RAW Architecture/Framework              June 2021
 
 
 
-Thubert, et al.          Expires 3 December 2021               [Page 30]
+Thubert, et al.          Expires 6 December 2021               [Page 32]
 
 Internet-Draft         RAW Architecture/Framework              June 2021
 
@@ -1689,9 +1801,54 @@ Internet-Draft         RAW Architecture/Framework              June 2021
               <https://tools.ietf.org/html/draft-thubert-6man-ipv6-over-
               wireless-09>.
 
+   [RAW-OAM]  Theoleyre, F., Papadopoulos, G. Z., Mirsky, G., and C. J.
+              Bernardos, "Operations, Administration and Maintenance
+              (OAM) features for RAW", Work in Progress, Internet-Draft,
+              draft-ietf-raw-oam-support-02, 3 June 2021,
+              <https://tools.ietf.org/html/draft-ietf-raw-oam-support-
+              02>.
+
+   [I-D.ietf-ippm-ioam-direct-export]
+              Song, H., Gafni, B., Zhou, T., Li, Z., Brockners, F.,
+              Bhandari, S., Sivakolundu, R., and T. Mizrahi, "In-situ
+              OAM Direct Exporting", Work in Progress, Internet-Draft,
+              draft-ietf-ippm-ioam-direct-export-03, 17 February 2021,
+              <https://tools.ietf.org/html/draft-ietf-ippm-ioam-direct-
+              export-03>.
+
+   [DetNet-OAM]
+              Mirsky, G., Theoleyre, F., Papadopoulos, G. Z., and C. J.
+              Bernardos, "Framework of Operations, Administration and
+              Maintenance (OAM) for Deterministic Networking (DetNet)",
+              Work in Progress, Internet-Draft, draft-ietf-detnet-oam-
+              framework-01, 19 May 2021, <https://tools.ietf.org/html/
+              draft-ietf-detnet-oam-framework-01>.
+
+   [I-D.mirsky-ippm-hybrid-two-step]
+              Mirsky, G., Lingqiang, W., Zhui, G., and H. Song, "Hybrid
+              Two-Step Performance Measurement Method", Work in
+              Progress, Internet-Draft, draft-mirsky-ippm-hybrid-two-
+              step-09, 30 March 2021, <https://tools.ietf.org/html/
+              draft-mirsky-ippm-hybrid-two-step-09>.
+
+   [I-D.ietf-ippm-ioam-data]
+              Brockners, F., Bhandari, S., and T. Mizrahi, "Data Fields
+              for In-situ OAM", Work in Progress, Internet-Draft, draft-
+              ietf-ippm-ioam-data-12, 21 February 2021,
+              <https://tools.ietf.org/html/draft-ietf-ippm-ioam-data-
+              12>.
+
    [NASA]     Adams, T., "RELIABILITY: Definition & Quantitative
               Illustration", <https://kscddms.ksc.nasa.gov/Reliability/
               Documents/150814-3bWhatIsReliability.pdf>.
+
+
+
+
+Thubert, et al.          Expires 6 December 2021               [Page 33]
+
+Internet-Draft         RAW Architecture/Framework              June 2021
+
 
    [MANET]    IETF, "Mobile Ad hoc Networking",
               <https://dataTracker.ietf.org/doc/charter-ietf-manet/>.
@@ -1724,20 +1881,6 @@ Authors' Addresses
    Email: pthubert@cisco.com
 
 
-
-
-
-
-
-
-
-
-
-Thubert, et al.          Expires 3 December 2021               [Page 31]
-
-Internet-Draft         RAW Architecture/Framework              June 2021
-
-
    Georgios Z. Papadopoulos
    IMT Atlantique
    Office B00 - 114A
@@ -1754,6 +1897,13 @@ Internet-Draft         RAW Architecture/Framework              June 2021
    United States of America
 
    Email: lberger@labn.net
+
+
+
+
+Thubert, et al.          Expires 6 December 2021               [Page 34]
+
+Internet-Draft         RAW Architecture/Framework              June 2021
 
 
    Rex Buddenberg
@@ -1789,4 +1939,22 @@ Internet-Draft         RAW Architecture/Framework              June 2021
 
 
 
-Thubert, et al.          Expires 3 December 2021               [Page 32]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Thubert, et al.          Expires 6 December 2021               [Page 35]

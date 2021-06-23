@@ -66,20 +66,6 @@
       </author>
 
 
-    <author initials="R." surname="Buddenberg" fullname="Rex Buddenberg">
-       <organization/>
-       <address>
-    <postal>
-       <street/><city/>
-       <region>CA</region>
-       <code/>
-        <country>USA</country>
-    </postal>
-      <phone/>
-      <email>buddenbergr@gmail.com</email>
-       </address>
-      </author>
-
     <date/>
     <area>Routing Area</area>
     <workgroup>RAW</workgroup>
@@ -268,11 +254,15 @@
     <dt>Availability:</dt><dd>Availability is a measure of the relative
     amount of time where a path operates in stated condition, in other words
     (uptime)/(uptime+downtime). Because a serial wireless path may not be
-    good enough to provide the required availability, and even 2 parallel
+    good enough to provide the required reliability, and even 2 parallel
     paths may not be over a longer period of time, the RAW availability
     implies a path that is a lot more complex than what DetNet typically
     envisages (a Track).
     </dd>
+    <dt>Residence Time:</dt><dd>A residence time (RT) is defined as the
+    time period between the reception of a packet starts and the
+    transmission of the packet begins. In the context of RAW, RT is useful
+    for a transit node, not ingress or egress.</dd>
     </dl>
     </section>
     <!-- Terminology -->
@@ -291,7 +281,7 @@
     and if the system comprises a data network then the data network is also
     subject to the inherited reliability and availability criteria.
     It is only natural to consider the art of high availability engineering and
-    apply it to wireless communicaitons in the context of RAW.
+    apply it to wireless communications in the context of RAW.
     </t>
 
     <t>
@@ -484,7 +474,7 @@
     this is rarely the case. Packet loss cannot never be fully avoided and the
     systems are built to resist to one loss, e.g., using redundancy with Retries
     (HARQ) or Packet Replication and Elimination (PRE), or, in a typical control
-    loop, by linear interpolation from the previous measuremnents.
+    loop, by linear interpolation from the previous measurements.
     </t>
    <t>
     But the linear interpolation method cannot resist multiple consecutive
@@ -662,7 +652,7 @@
 <t> A variation of that use case has a pair of wireless Hosts connected over a
     wired core / backbone network. In that case, RAW observes and
     controls the Ingress and Egress RANs, while neglecting the hops in the core.
-    The resulting loose Track may be instanciated, e.g., using tunneling or
+    The resulting loose Track may be instantiated, e.g., using tunneling or
     loose source routing between the RANs.
 </t>
 
@@ -735,9 +725,14 @@ zzz = flapping now
     <li>
       <xref target="BFD" format="default"/> detect faults in the path between an
       Ingress and an Egress forwarding engines, but is unaware of the complexity
-      of a path with replication, and expects bidirectionality. BFD considers
-      delivery as success whereas with RAW the bounded latency can be as
-      important as the delivery itself.
+      of a path with replication, and expects bidirectionality.
+      BFD asynchronous mode considers delivery as success whereas with DetNet
+      and RAW, the bounded latency can be as important as the delivery itself,
+      and delivering too late is actually a failure. Note that the
+      BFD Demand mode with unsolicited notifications may be more suitable then
+      the Asynchronous BFD mode. The use of the Demand mode in MPLS is analyzed
+      in <xref target="I-D.mirsky-bfd-mpls-demand" format="default"/> and
+      similar considerations could apply to IP as well.
       </li>
     <li>
       <xref target="SPRING" format="default"/> and
@@ -752,6 +747,14 @@ zzz = flapping now
       </li>
     <li>
       <xref target="CCAMP" format="default"/> defines protocol-independent
+      metrics and parameters
+      (measurement attributes) for describing links and paths that are required
+      for routing and signaling in technology-specific networks. RAW would be a
+      source of requirements for CCAMP to define metrics that are significant to
+      the focus radios.
+      </li>
+    <li>
+      <xref target="IPPM" format="default"/> defines protocol-independent
       metrics and parameters
       (measurement attributes) for describing links and paths that are required
       for routing and signaling in technology-specific networks. RAW would be a
@@ -910,8 +913,8 @@ zzz = flapping now
     across a multihop path.
     </t>
     <t>
-    A Complex Track provides multiple non-equal cost multipath (NECM) forwarding
-    solutions. The Complex Track enables to support multi-path redundant forwarding
+    A Complex Track provides multiple N-ECMP forwarding solutions. The Complex
+    Track enables to support multi-path redundant forwarding
     by employing PRE functions <xref target="RFC8655"/> and the ingress and
     within the Track.
     For example, a Complex Track  may branch off and rejoin over non-congruent
@@ -950,10 +953,9 @@ zzz = flapping now
     bound the end-to-end delay to traverse the network.
     Optionally, promiscuous listening between paths is possible, such that the Nodes
     on one path may overhear transmissions along the other path.
-    Considering the scenario shown in <xref
-    target="fig_ladder"/>,
-    many different paths are possible for S to reach R. A simple
-    way to benefit from this topology could be to use the
+    Considering the scenario shown in <xref target="fig_ladder"/>, many
+    different paths are possible for to traverse the network from ingress to
+    egress. A simple way to benefit from this topology could be to use the
     two independent paths via Nodes A, C, E and via B, D, F.  But
     more complex paths are possible by interleaving transmissions
     from the lower level of the path to the upper level.
@@ -964,11 +966,11 @@ zzz = flapping now
       <figure anchor="fig_ladder" align="center" title="A Ladder Shape with Two Parallel Paths">
      <artwork align="center">
 
-          (A) -- (C) -- (E)
-        /                   \
-Ingress    |      |      |    Egress
-        \                   /
-          (B) -- (D) -- (F)
+           (A) -- (C) -- (E)
+         /                   \
+Ingress =   |      |      |   = Egress
+         \                   /
+           (B) -- (D) -- (F)
 
 </artwork>
      </figure>
@@ -1373,8 +1375,17 @@ Ingress    |      |      |    Egress
 
 <section anchor="aom" numbered="true" toc="default">
     <name>RAW OAM </name><t>
-    The RAW OAM operation in the Network Plane observes either a full Track or
-    subTracks that are being used at this time. This observeation feeds the RAW
+    RAW In-situ OAM operation in the Network Plane may observe either a full
+    Track or subTracks that are being used at this time. Additional out-of-band
+    RAW OAM may observe all including unused segments to prepare for a rerouting
+    decision.
+    Finally, the RAW Service Layer Assurance may observe the individual PAREO
+    operation of a relay node to ensure that it is conforming; this might
+    require injecting an OAM packet at an upstream point inside the Track and
+    extracting that packet at another point downstream before it reaches the
+    egress.
+    </t><t>
+    This observation feeds the RAW
     PSE that makes the decision on which PAREO function in actioned at which RAW
     Node, for one a small continuous series of packets.
      </t>
@@ -1443,12 +1454,26 @@ Ingress    |      |      |    Egress
   for which it is measured and into which it is stamped.
  </t>
  <t>
+  Note: IOAM and analogous on-path telemetry methods are capable of facilitating
+  collection of useful telemetry information that characterizes the state of a
+  system as experienced by the packet. But because of statistical character of a
+  packet network, these methods may not be used to monitor the continuity of a
+  path (Track) or proper connectivity of the Track (no leaking packets across
+  Tracks).
+ </t>
+ <t>
   This effect can be alleviated by measuring on the fly but reporting later,
   e.g., by exporting the data as a separate management packet
   <xref target="I-D.ietf-ippm-ioam-direct-export" format="default"/>.
   <xref target="I-D.mirsky-ippm-hybrid-two-step" format="default"/> proposes an
   hybrid two-steps method (HTS) where a trigger message starts the measurement
   and a follow up along the Track packet gathers the measured data.
+ </t>
+ <t>
+  <xref target="I-D.mirsky-ippm-epm" format="default">"Error Performance
+  Measurement"</xref> uses Fault Management (FM) and Performance Management (PM)
+  OAM mechanisms to determine availability/unavailability of a path according to
+  predefined SLA.
  </t>
 </section>
     <!--DetNet OAM-->
@@ -1481,14 +1506,14 @@ Ingress    |      |      |    Egress
  with the OAM packets to trigger the measurement and then do the capture.
  </t>
  <t>
- Because the quality of transmission over a wireless medium varies continously,
+ Because the quality of transmission over a wireless medium varies continuously,
  it is important that RAW OAM captures the state of the medium across an adjacency
  over multiple transmission and over a recent period of time, whether the
  transmitted packets belong to this flow or another. Some of the measured information
  relates to the medium itself. In other words, the captured information does not
  only relate to the experience of one packet as is the case for IOAM, but also to the
  medium itself. This makes an approach like HTS more suitable as it can trigger
- the capture of multiple informations over a short period of time. On the other
+ the capture of multiple measurements over a short period of time. On the other
  hand, the PSE needs a continuous measurement stream where a single trigger
  is followed by a periodic follow up capture.
   </t>
@@ -1745,11 +1770,17 @@ Ingress    |      |      |    Egress
 
     <section numbered="true" toc="default">
       <name>Contributors</name>
+      <t>The editor wishes to thank:
+      </t>
       <dl>
     <dt>Xavi Vilajosana:</dt><dd>Wireless Networks Research Lab, Universitat Oberta de Catalunya</dd>
     <dt>Remous-Aris Koutsiamanis:</dt><dd>IMT Atlantique</dd>
     <dt>Nicolas Montavont:</dt><dd>IMT Atlantique</dd>
+    <dt>Rex Buddenberg:</dt><dd>Individual contributor</dd>
+    <dt>Greg Mirsky:</dt><dd>ZTE</dd>
       </dl>
+      <t>for their contributions to the text and ideas exposed in this document.
+      </t>
     </section>
       <!--ConTributors-->
     <!--  000000000000000000000    -->
@@ -1880,6 +1911,8 @@ Ingress    |      |      |    Egress
 <xi:include href="http://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-ippm-ioam-direct-export.xml"/>
 <xi:include href="http://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-detnet-oam-framework.xml"/>
 <xi:include href="http://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.mirsky-ippm-hybrid-two-step.xml"/>
+<xi:include href="http://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.mirsky-ippm-epm.xml"/>
+<xi:include href="http://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.mirsky-bfd-mpls-demand.xml"/>
 <xi:include href="http://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-ippm-ioam-data.xml"/>
 
     <reference anchor="NASA" target="https://kscddms.ksc.nasa.gov/Reliability/Documents/150814-3bWhatIsReliability.pdf">
@@ -1963,6 +1996,15 @@ Ingress    |      |      |    Egress
     <reference anchor="CCAMP" target="https://dataTracker.ietf.org/doc/charter-ietf-ccamp/">
       <front>
         <title>Common Control and Measurement Plane</title>
+        <author>
+          <organization>IETF</organization>
+        </author>
+        <date/>
+      </front>
+    </reference>
+    <reference anchor="IPPM" target="https://dataTracker.ietf.org/doc/charter-ietf-ippm/">
+      <front>
+        <title>IP Performance Measurement</title>
         <author>
           <organization>IETF</organization>
         </author>

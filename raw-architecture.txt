@@ -5,15 +5,14 @@
 RAW                                                      P. Thubert, Ed.
 Internet-Draft                                             Cisco Systems
 Intended status: Informational                         G.Z. Papadopoulos
-Expires: 6 December 2021                                  IMT Atlantique
+Expires: 25 December 2021                                 IMT Atlantique
                                                                L. Berger
                                                  LabN Consulting, L.L.C.
-                                                           R. Buddenberg
-                                                             4 June 2021
+                                                            23 June 2021
 
 
          Reliable and Available Wireless Architecture/Framework
-                   draft-pthubert-raw-architecture-07
+                   draft-pthubert-raw-architecture-08
 
 Abstract
 
@@ -43,7 +42,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 6 December 2021.
+   This Internet-Draft will expire on 25 December 2021.
 
 Copyright Notice
 
@@ -53,7 +52,8 @@ Copyright Notice
 
 
 
-Thubert, et al.          Expires 6 December 2021                [Page 1]
+
+Thubert, et al.         Expires 25 December 2021                [Page 1]
 
 Internet-Draft         RAW Architecture/Framework              June 2021
 
@@ -76,7 +76,7 @@ Table of Contents
        2.2.1.  High Availability Engineering Principles  . . . . . .   6
        2.2.2.  Applying Reliability Concepts to Networking . . . . .   8
        2.2.3.  Reliability in the Context of RAW . . . . . . . . . .   9
-     2.3.  Use Cases and Requirements Served . . . . . . . . . . . .  10
+     2.3.  Use Cases and Requirements Served . . . . . . . . . . . .  11
        2.3.1.  Radio Access Protection . . . . . . . . . . . . . . .  11
        2.3.2.  End-to-End Protection in a Wireless Mesh  . . . . . .  12
      2.4.  Related Work at The IETF  . . . . . . . . . . . . . . . .  12
@@ -94,9 +94,9 @@ Table of Contents
      4.2.  The Path Selection Engine . . . . . . . . . . . . . . . .  21
      4.3.  RAW OAM . . . . . . . . . . . . . . . . . . . . . . . . .  23
        4.3.1.  DetNet OAM  . . . . . . . . . . . . . . . . . . . . .  24
-       4.3.2.  RAW Extensions  . . . . . . . . . . . . . . . . . . .  24
+       4.3.2.  RAW Extensions  . . . . . . . . . . . . . . . . . . .  25
        4.3.3.  Observed Metrics  . . . . . . . . . . . . . . . . . .  25
-     4.4.  Flow Identification vs. Path Identification . . . . . . .  25
+     4.4.  Flow Identification vs. Path Identification . . . . . . .  26
      4.5.  Source-Routed vs. Distributed Forwarding Decision . . . .  28
      4.6.  Encapsulation and Decapsulation . . . . . . . . . . . . .  29
    5.  Security Considerations . . . . . . . . . . . . . . . . . . .  29
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Thubert, et al.          Expires 6 December 2021                [Page 2]
+Thubert, et al.         Expires 25 December 2021                [Page 2]
 
 Internet-Draft         RAW Architecture/Framework              June 2021
 
@@ -165,7 +165,7 @@ Internet-Draft         RAW Architecture/Framework              June 2021
 
 
 
-Thubert, et al.          Expires 6 December 2021                [Page 3]
+Thubert, et al.         Expires 25 December 2021                [Page 3]
 
 Internet-Draft         RAW Architecture/Framework              June 2021
 
@@ -221,7 +221,7 @@ Internet-Draft         RAW Architecture/Framework              June 2021
 
 
 
-Thubert, et al.          Expires 6 December 2021                [Page 4]
+Thubert, et al.         Expires 25 December 2021                [Page 4]
 
 Internet-Draft         RAW Architecture/Framework              June 2021
 
@@ -277,17 +277,22 @@ Internet-Draft         RAW Architecture/Framework              June 2021
 
 
 
-Thubert, et al.          Expires 6 December 2021                [Page 5]
+Thubert, et al.         Expires 25 December 2021                [Page 5]
 
 Internet-Draft         RAW Architecture/Framework              June 2021
 
 
       time where a path operates in stated condition, in other words
       (uptime)/(uptime+downtime).  Because a serial wireless path may
-      not be good enough to provide the required availability, and even
-      2 parallel paths may not be over a longer period of time, the RAW
+      not be good enough to provide the required reliability, and even 2
+      parallel paths may not be over a longer period of time, the RAW
       availability implies a path that is a lot more complex than what
       DetNet typically envisages (a Track).
+
+   Residence Time:  A residence time (RT) is defined as the time period
+      between the reception of a packet starts and the transmission of
+      the packet begins.  In the context of RAW, RT is useful for a
+      transit node, not ingress or egress.
 
 2.2.  Reliability and Availability
 
@@ -297,7 +302,7 @@ Internet-Draft         RAW Architecture/Framework              June 2021
    elements, and if the system comprises a data network then the data
    network is also subject to the inherited reliability and availability
    criteria.  It is only natural to consider the art of high
-   availability engineering and apply it to wireless communicaitons in
+   availability engineering and apply it to wireless communications in
    the context of RAW.
 
    There are three principles [pillars] of high availability
@@ -325,18 +330,18 @@ Internet-Draft         RAW Architecture/Framework              June 2021
    routes -- for example, when links are cabled through the same
    conduit, they form a shared risk link group (SRLG), and will share
    the same fate if the bundle is cut.  The same effect can happen with
+
+
+
+Thubert, et al.         Expires 25 December 2021                [Page 6]
+
+Internet-Draft         RAW Architecture/Framework              June 2021
+
+
    virtual links that end up in a same physical transport through the
    games of encapsulation.  In a same fashion, an interferer or an
    obstacle may affect multiple wireless transmissions at the same time,
    even between different sets of peers.
-
-
-
-
-Thubert, et al.          Expires 6 December 2021                [Page 6]
-
-Internet-Draft         RAW Architecture/Framework              June 2021
-
 
    Intermediate network Nodes such as routers, switches and APs, wire
    bundles and the air medium itself can become single points of
@@ -376,6 +381,19 @@ Internet-Draft         RAW Architecture/Framework              June 2021
    congruent paths.  This avoids the gap during the fast reroute
    operation, but doubles the traffic in the network.
 
+
+
+
+
+
+
+
+
+Thubert, et al.         Expires 25 December 2021                [Page 7]
+
+Internet-Draft         RAW Architecture/Framework              June 2021
+
+
    In the case of RAW, the expectation is that multiple transient faults
    may happen in overlapping time windows, in which case the 1+1
    redundancy with delayed reestablishment of the second path will not
@@ -383,16 +401,6 @@ Internet-Draft         RAW Architecture/Framework              June 2021
    with a sufficient degree of redundancy to select an alternate
    redundant path immediately upon a fault, without the need for a slow
    intervention from the controller plane.
-
-
-
-
-
-
-Thubert, et al.          Expires 6 December 2021                [Page 7]
-
-Internet-Draft         RAW Architecture/Framework              June 2021
-
 
 2.2.1.3.  Prompt Notification of Failures
 
@@ -434,6 +442,14 @@ Internet-Draft         RAW Architecture/Framework              June 2021
    This number is typical in a wired environment where the loss is due
    to a random event such as a solar particle that affects the
    transmission of a particular frame, but does not affect the previous
+
+
+
+Thubert, et al.         Expires 25 December 2021                [Page 8]
+
+Internet-Draft         RAW Architecture/Framework              June 2021
+
+
    or next frame, nor frames transmitted on other links.  Note that the
    QoS requirements in RAW may include a bounded latency, and a packet
    that arrives too late is a fault and not considered as delivered.
@@ -442,19 +458,11 @@ Internet-Draft         RAW Architecture/Framework              June 2021
    this number is proportional to the Mean Time Between Failures (MTBF).
    When a single fault can have dramatic consequences, the MTBF
    expresses the chances that the unwanted fault event occurs.  In data
-
-
-
-Thubert, et al.          Expires 6 December 2021                [Page 8]
-
-Internet-Draft         RAW Architecture/Framework              June 2021
-
-
    networks, this is rarely the case.  Packet loss cannot never be fully
    avoided and the systems are built to resist to one loss, e.g., using
    redundancy with Retries (HARQ) or Packet Replication and Elimination
    (PRE), or, in a typical control loop, by linear interpolation from
-   the previous measuremnents.
+   the previous measurements.
 
    But the linear interpolation method cannot resist multiple
    consecutive losses, and a high MTBF is desired as a guarantee that
@@ -488,6 +496,16 @@ Internet-Draft         RAW Architecture/Framework              June 2021
       (constructive interference) or cancel the direct signal
       (destructive interference).
 
+
+
+
+
+
+Thubert, et al.         Expires 25 December 2021                [Page 9]
+
+Internet-Draft         RAW Architecture/Framework              June 2021
+
+
       The affected frequencies depend on the relative position of the
       sender, the receiver, and all the reflecting objects in the
       environment.  A given hop will suffer from multipath fading for
@@ -496,15 +514,6 @@ Internet-Draft         RAW Architecture/Framework              June 2021
 
    Co-channel Interference:  Energy in the spectrum used for the
       transmission confuses the receiver.
-
-
-
-
-
-Thubert, et al.          Expires 6 December 2021                [Page 9]
-
-Internet-Draft         RAW Architecture/Framework              June 2021
-
 
       The wireless medium itself is a Shared Risk Link Group (SRLG) for
       nearby users of the same spectrum, as an interference may affect
@@ -545,6 +554,14 @@ Internet-Draft         RAW Architecture/Framework              June 2021
    relatively innocuous to one another and can be used for diversity in
    the presence of the other.
 
+
+
+
+Thubert, et al.         Expires 25 December 2021               [Page 10]
+
+Internet-Draft         RAW Architecture/Framework              June 2021
+
+
 2.3.  Use Cases and Requirements Served
 
    In order to focus on real-worlds issues and assert the feasibility of
@@ -554,13 +571,6 @@ Internet-Draft         RAW Architecture/Framework              June 2021
    communications (URLLC), IEEE 802.11ax/be where 802.11be is extreme
    high throughput (EHT), and L-band Digital Aeronautical Communications
    System (LDACS).  See [RAW-TECHNOS] for more.
-
-
-
-Thubert, et al.          Expires 6 December 2021               [Page 10]
-
-Internet-Draft         RAW Architecture/Framework              June 2021
-
 
    "Deterministic Networking Use Cases" [RFC8578] presents a number of
    wireless use cases including Wireless, such as application to
@@ -598,6 +608,16 @@ Internet-Draft         RAW Architecture/Framework              June 2021
    particular point of time, and the amount of traffic that is
    distributed over each RAN.
 
+
+
+
+
+
+Thubert, et al.         Expires 25 December 2021               [Page 11]
+
+Internet-Draft         RAW Architecture/Framework              June 2021
+
+
    The idea is that the rest of the path to the destination(s) is
    protected separately (e.g., uses non-congruent paths, leverages
    DetNet / TSN, etc...) and is a lot more reliable, e.g., wired.  In
@@ -608,15 +628,8 @@ Internet-Draft         RAW Architecture/Framework              June 2021
    A variation of that use case has a pair of wireless Hosts connected
    over a wired core / backbone network.  In that case, RAW observes and
    controls the Ingress and Egress RANs, while neglecting the hops in
-   the core.  The resulting loose Track may be instanciated, e.g., using
+   the core.  The resulting loose Track may be instantiated, e.g., using
    tunneling or loose source routing between the RANs.
-
-
-
-Thubert, et al.          Expires 6 December 2021               [Page 11]
-
-Internet-Draft         RAW Architecture/Framework              June 2021
-
 
 2.3.2.  End-to-End Protection in a Wireless Mesh
 
@@ -654,25 +667,23 @@ Internet-Draft         RAW Architecture/Framework              June 2021
       within the DetNet dataplane described in [DetNet-DP],which is
       typically based on MPLS or IPv6 pseudowires.
 
-   *  [BFD] detect faults in the path between an Ingress and an Egress
-      forwarding engines, but is unaware of the complexity of a path
-      with replication, and expects bidirectionality.  BFD considers
-      delivery as success whereas with RAW the bounded latency can be as
-      important as the delivery itself.
 
 
-
-
-
-
-
-
-
-
-Thubert, et al.          Expires 6 December 2021               [Page 12]
+Thubert, et al.         Expires 25 December 2021               [Page 12]
 
 Internet-Draft         RAW Architecture/Framework              June 2021
 
+
+   *  [BFD] detect faults in the path between an Ingress and an Egress
+      forwarding engines, but is unaware of the complexity of a path
+      with replication, and expects bidirectionality.  BFD asynchronous
+      mode considers delivery as success whereas with DetNet and RAW,
+      the bounded latency can be as important as the delivery itself,
+      and delivering too late is actually a failure.  Note that the BFD
+      Demand mode with unsolicited notifications may be more suitable
+      then the Asynchronous BFD mode.  The use of the Demand mode in
+      MPLS is analyzed in [I-D.mirsky-bfd-mpls-demand] and similar
+      considerations could apply to IP as well.
 
    *  [SPRING] and [BIER] define in-band signaling that influences the
       routing when decided at the head-end on the path.  There's already
@@ -683,6 +694,12 @@ Internet-Draft         RAW Architecture/Framework              June 2021
       replication to meet the required SLA.
 
    *  [CCAMP] defines protocol-independent metrics and parameters
+      (measurement attributes) for describing links and paths that are
+      required for routing and signaling in technology-specific
+      networks.  RAW would be a source of requirements for CCAMP to
+      define metrics that are significant to the focus radios.
+
+   *  [IPPM] defines protocol-independent metrics and parameters
       (measurement attributes) for describing links and paths that are
       required for routing and signaling in technology-specific
       networks.  RAW would be a source of requirements for CCAMP to
@@ -705,6 +722,14 @@ Internet-Draft         RAW Architecture/Framework              June 2021
    How the routing operation (e.g., PCE) in the Controller Plane
    computes the Track is out of scope for RAW.  The scope of the RAW
    operation is one Track, and the goal of the RAW operation is to
+
+
+
+Thubert, et al.         Expires 25 December 2021               [Page 13]
+
+Internet-Draft         RAW Architecture/Framework              June 2021
+
+
    optimize the use of the Track at the forwarding timescale to maintain
    the expected SLA while optimizing the usage of constrained resources
    such as energy and spectrum.
@@ -717,18 +742,6 @@ Internet-Draft         RAW Architecture/Framework              June 2021
    radio layer can be programmed with abstract parameters, and can
    return an abstract view of the state of the Link to help the Network
    Layer forwarding decision (think DLEP from MANET).
-
-
-
-
-
-
-
-
-Thubert, et al.          Expires 6 December 2021               [Page 13]
-
-Internet-Draft         RAW Architecture/Framework              June 2021
-
 
    How the radio interface manages its lower layers is out of control
    and out of scope for RAW.  In the same fashion, the non-RAW portion
@@ -768,20 +781,7 @@ Internet-Draft         RAW Architecture/Framework              June 2021
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-Thubert, et al.          Expires 6 December 2021               [Page 14]
+Thubert, et al.         Expires 25 December 2021               [Page 14]
 
 Internet-Draft         RAW Architecture/Framework              June 2021
 
@@ -837,7 +837,7 @@ Internet-Draft         RAW Architecture/Framework              June 2021
 
 
 
-Thubert, et al.          Expires 6 December 2021               [Page 15]
+Thubert, et al.         Expires 25 December 2021               [Page 15]
 
 Internet-Draft         RAW Architecture/Framework              June 2021
 
@@ -861,11 +861,11 @@ Internet-Draft         RAW Architecture/Framework              June 2021
    packet from a source Node to a destination Node across a multihop
    path.
 
-   A Complex Track provides multiple non-equal cost multipath (NECM)
-   forwarding solutions.  The Complex Track enables to support multi-
-   path redundant forwarding by employing PRE functions [RFC8655] and
-   the ingress and within the Track.  For example, a Complex Track may
-   branch off and rejoin over non-congruent segments.
+   A Complex Track provides multiple N-ECMP forwarding solutions.  The
+   Complex Track enables to support multi-path redundant forwarding by
+   employing PRE functions [RFC8655] and the ingress and within the
+   Track.  For example, a Complex Track may branch off and rejoin over
+   non-congruent segments.
 
    In the context of RAW, some links or segments in the Track may be
    reversible, meaning that they can be used in either direction.  In
@@ -893,7 +893,7 @@ Internet-Draft         RAW Architecture/Framework              June 2021
 
 
 
-Thubert, et al.          Expires 6 December 2021               [Page 16]
+Thubert, et al.         Expires 25 December 2021               [Page 16]
 
 Internet-Draft         RAW Architecture/Framework              June 2021
 
@@ -903,15 +903,16 @@ Internet-Draft         RAW Architecture/Framework              June 2021
    delay to traverse the network.  Optionally, promiscuous listening
    between paths is possible, such that the Nodes on one path may
    overhear transmissions along the other path.  Considering the
-   scenario shown in Figure 4, many different paths are possible for S
-   to reach R.  A simple way to benefit from this topology could be to
-   use the two independent paths via Nodes A, C, E and via B, D, F.  But
-   more complex paths are possible by interleaving transmissions from
-   the lower level of the path to the upper level.
+   scenario shown in Figure 4, many different paths are possible for to
+   traverse the network from ingress to egress.  A simple way to benefit
+   from this topology could be to use the two independent paths via
+   Nodes A, C, E and via B, D, F.  But more complex paths are possible
+   by interleaving transmissions from the lower level of the path to the
+   upper level.
 
                              (A) -- (C) -- (E)
                            /                   \
-                   Ingress    |      |      |    Egress
+                  Ingress =   |      |      |   = Egress
                            \                   /
                              (B) -- (D) -- (F)
 
@@ -948,8 +949,7 @@ Internet-Draft         RAW Architecture/Framework              June 2021
 
 
 
-
-Thubert, et al.          Expires 6 December 2021               [Page 17]
+Thubert, et al.         Expires 25 December 2021               [Page 17]
 
 Internet-Draft         RAW Architecture/Framework              June 2021
 
@@ -1005,7 +1005,7 @@ Internet-Draft         RAW Architecture/Framework              June 2021
 
 
 
-Thubert, et al.          Expires 6 December 2021               [Page 18]
+Thubert, et al.         Expires 25 December 2021               [Page 18]
 
 Internet-Draft         RAW Architecture/Framework              June 2021
 
@@ -1061,7 +1061,7 @@ Internet-Draft         RAW Architecture/Framework              June 2021
 
 
 
-Thubert, et al.          Expires 6 December 2021               [Page 19]
+Thubert, et al.         Expires 25 December 2021               [Page 19]
 
 Internet-Draft         RAW Architecture/Framework              June 2021
 
@@ -1117,7 +1117,7 @@ Internet-Draft         RAW Architecture/Framework              June 2021
 
 
 
-Thubert, et al.          Expires 6 December 2021               [Page 20]
+Thubert, et al.         Expires 25 December 2021               [Page 20]
 
 Internet-Draft         RAW Architecture/Framework              June 2021
 
@@ -1173,7 +1173,7 @@ Internet-Draft         RAW Architecture/Framework              June 2021
 
 
 
-Thubert, et al.          Expires 6 December 2021               [Page 21]
+Thubert, et al.         Expires 25 December 2021               [Page 21]
 
 Internet-Draft         RAW Architecture/Framework              June 2021
 
@@ -1229,18 +1229,25 @@ Internet-Draft         RAW Architecture/Framework              June 2021
 
 
 
-Thubert, et al.          Expires 6 December 2021               [Page 22]
+Thubert, et al.         Expires 25 December 2021               [Page 22]
 
 Internet-Draft         RAW Architecture/Framework              June 2021
 
 
 4.3.  RAW OAM
 
-   The RAW OAM operation in the Network Plane observes either a full
-   Track or subTracks that are being used at this time.  This
-   observeation feeds the RAW PSE that makes the decision on which PAREO
-   function in actioned at which RAW Node, for one a small continuous
-   series of packets.
+   RAW In-situ OAM operation in the Network Plane may observe either a
+   full Track or subTracks that are being used at this time.  Additional
+   out-of-band RAW OAM may observe all including unused segments to
+   prepare for a rerouting decision.  Finally, the RAW Service Layer
+   Assurance may observe the individual PAREO operation of a relay node
+   to ensure that it is conforming; this might require injecting an OAM
+   packet at an upstream point inside the Track and extracting that
+   packet at another point downstream before it reaches the egress.
+
+   This observation feeds the RAW PSE that makes the decision on which
+   PAREO function in actioned at which RAW Node, for one a small
+   continuous series of packets.
 
                                          ...   ..
                       RAN 1  -----  ...      ..  ...
@@ -1269,6 +1276,20 @@ Internet-Draft         RAW Architecture/Framework              June 2021
    possible first hops is attributed to that first hop, even if a
    particular loss effectively happens farther down the path.
 
+
+
+
+
+
+
+
+
+
+Thubert, et al.         Expires 25 December 2021               [Page 23]
+
+Internet-Draft         RAW Architecture/Framework              June 2021
+
+
    The Links that are not observed by OAM are opaque to it, meaning that
    the OAM information is carried across and possibly echoed as data,
    but there is no information capture in intermediate nodes.  In the
@@ -1277,18 +1298,6 @@ Internet-Draft         RAW Architecture/Framework              June 2021
    for packets sent via each if RAN 1, RAN 2 and RAN 3, and determines
    whether a packet should be sent over either or a collection of those
    access links.
-
-
-
-
-
-
-
-
-Thubert, et al.          Expires 6 December 2021               [Page 23]
-
-Internet-Draft         RAW Architecture/Framework              June 2021
-
 
 4.3.1.  DetNet OAM
 
@@ -1309,12 +1318,33 @@ Internet-Draft         RAW Architecture/Framework              June 2021
    increase the latency of the packet for which it is measured and into
    which it is stamped.
 
+   Note: IOAM and analogous on-path telemetry methods are capable of
+   facilitating collection of useful telemetry information that
+   characterizes the state of a system as experienced by the packet.
+   But because of statistical character of a packet network, these
+   methods may not be used to monitor the continuity of a path (Track)
+   or proper connectivity of the Track (no leaking packets across
+   Tracks).
+
    This effect can be alleviated by measuring on the fly but reporting
    later, e.g., by exporting the data as a separate management packet
    [I-D.ietf-ippm-ioam-direct-export].
    [I-D.mirsky-ippm-hybrid-two-step] proposes an hybrid two-steps method
    (HTS) where a trigger message starts the measurement and a follow up
    along the Track packet gathers the measured data.
+
+   "Error Performance Measurement" [I-D.mirsky-ippm-epm] uses Fault
+   Management (FM) and Performance Management (PM) OAM mechanisms to
+   determine availability/unavailability of a path according to
+   predefined SLA.
+
+
+
+
+Thubert, et al.         Expires 25 December 2021               [Page 24]
+
+Internet-Draft         RAW Architecture/Framework              June 2021
+
 
 4.3.2.  RAW Extensions
 
@@ -1332,20 +1362,6 @@ Internet-Draft         RAW Architecture/Framework              June 2021
    forwarding, load balancing, and/or replication, as well as
    determining how much latency credit is available for ARQ.
 
-
-
-
-
-
-
-
-
-
-Thubert, et al.          Expires 6 December 2021               [Page 24]
-
-Internet-Draft         RAW Architecture/Framework              June 2021
-
-
    To provide that information timely, it makes sense that the OAM
    packets that gather instantaneous values from the radio senders and
    receivers at each hop flow on the reverse path and inform the PSE at
@@ -1355,14 +1371,14 @@ Internet-Draft         RAW Architecture/Framework              June 2021
    trigger the measurement and then do the capture.
 
    Because the quality of transmission over a wireless medium varies
-   continously, it is important that RAW OAM captures the state of the
+   continuously, it is important that RAW OAM captures the state of the
    medium across an adjacency over multiple transmission and over a
    recent period of time, whether the transmitted packets belong to this
    flow or another.  Some of the measured information relates to the
    medium itself.  In other words, the captured information does not
    only relate to the experience of one packet as is the case for IOAM,
    but also to the medium itself.  This makes an approach like HTS more
-   suitable as it can trigger the capture of multiple informations over
+   suitable as it can trigger the capture of multiple measurements over
    a short period of time.  On the other hand, the PSE needs a
    continuous measurement stream where a single trigger is followed by a
    periodic follow up capture.
@@ -1377,6 +1393,14 @@ Internet-Draft         RAW Architecture/Framework              June 2021
    The Dynamic Link Exchange Protocol (DLEP) [RFC8175] from [MANET] can
    be leveraged at each hop to derive generic radio metrics (e.g., based
    on LQI, RSSI, queueing delays and ETX) on individual hops.
+
+
+
+
+Thubert, et al.         Expires 25 December 2021               [Page 25]
+
+Internet-Draft         RAW Architecture/Framework              June 2021
+
 
    Those lower-layer metrics are aggregated along a multihop segment
    into abstract layer 3 information that reflect the instant
@@ -1394,14 +1418,6 @@ Internet-Draft         RAW Architecture/Framework              June 2021
    packets along that Track are necessarily part of the same flow.  For
    instance, out-of-band OAM packets must circulate in the exact same
    fashion as the flows that they observe.  It results that the flow
-
-
-
-Thubert, et al.          Expires 6 December 2021               [Page 25]
-
-Internet-Draft         RAW Architecture/Framework              June 2021
-
-
    identification that maps to to app-flow at the network layer must be
    separate from the path identification that is used to forward a
    packet.
@@ -1437,23 +1453,7 @@ Internet-Draft         RAW Architecture/Framework              June 2021
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Thubert, et al.          Expires 6 December 2021               [Page 26]
+Thubert, et al.         Expires 25 December 2021               [Page 26]
 
 Internet-Draft         RAW Architecture/Framework              June 2021
 
@@ -1509,7 +1509,7 @@ Internet-Draft         RAW Architecture/Framework              June 2021
 
 
 
-Thubert, et al.          Expires 6 December 2021               [Page 27]
+Thubert, et al.         Expires 25 December 2021               [Page 27]
 
 Internet-Draft         RAW Architecture/Framework              June 2021
 
@@ -1565,7 +1565,7 @@ Internet-Draft         RAW Architecture/Framework              June 2021
 
 
 
-Thubert, et al.          Expires 6 December 2021               [Page 28]
+Thubert, et al.         Expires 25 December 2021               [Page 28]
 
 Internet-Draft         RAW Architecture/Framework              June 2021
 
@@ -1611,20 +1611,29 @@ Internet-Draft         RAW Architecture/Framework              June 2021
 
 7.  Contributors
 
+   The editor wishes to thank:
+
    Xavi Vilajosana:  Wireless Networks Research Lab, Universitat Oberta
       de Catalunya
 
    Remous-Aris Koutsiamanis:  IMT Atlantique
 
-   Nicolas Montavont:  IMT Atlantique
 
 
 
-
-Thubert, et al.          Expires 6 December 2021               [Page 29]
+Thubert, et al.         Expires 25 December 2021               [Page 29]
 
 Internet-Draft         RAW Architecture/Framework              June 2021
 
+
+   Nicolas Montavont:  IMT Atlantique
+
+   Rex Buddenberg:  Individual contributor
+
+   Greg Mirsky:  ZTE
+
+   for their contributions to the text and ideas exposed in this
+   document.
 
 8.  Acknowledgments
 
@@ -1663,6 +1672,16 @@ Internet-Draft         RAW Architecture/Framework              June 2021
               (BFD)", RFC 5880, DOI 10.17487/RFC5880, June 2010,
               <https://www.rfc-editor.org/info/rfc5880>.
 
+
+
+
+
+
+Thubert, et al.         Expires 25 December 2021               [Page 30]
+
+Internet-Draft         RAW Architecture/Framework              June 2021
+
+
    [RFC6291]  Andersson, L., van Helvoort, H., Bonica, R., Romascanu,
               D., and S. Mansfield, "Guidelines for the Use of the "OAM"
               Acronym in the IETF", BCP 161, RFC 6291,
@@ -1672,15 +1691,6 @@ Internet-Draft         RAW Architecture/Framework              June 2021
    [RFC8578]  Grossman, E., Ed., "Deterministic Networking Use Cases",
               RFC 8578, DOI 10.17487/RFC8578, May 2019,
               <https://www.rfc-editor.org/info/rfc8578>.
-
-
-
-
-
-Thubert, et al.          Expires 6 December 2021               [Page 30]
-
-Internet-Draft         RAW Architecture/Framework              June 2021
-
 
    [IPv6]     Deering, S. and R. Hinden, "Internet Protocol, Version 6
               (IPv6) Specification", STD 86, RFC 8200,
@@ -1718,6 +1728,16 @@ Internet-Draft         RAW Architecture/Framework              June 2021
               DOI 10.17487/RFC0791, September 1981,
               <https://www.rfc-editor.org/info/rfc791>.
 
+
+
+
+
+
+Thubert, et al.         Expires 25 December 2021               [Page 31]
+
+Internet-Draft         RAW Architecture/Framework              June 2021
+
+
    [TE]       Awduche, D., Chiu, A., Elwalid, A., Widjaja, I., and X.
               Xiao, "Overview and Principles of Internet Traffic
               Engineering", RFC 3272, DOI 10.17487/RFC3272, May 2002,
@@ -1728,15 +1748,6 @@ Internet-Draft         RAW Architecture/Framework              June 2021
               Protocol (SNMP) Management Frameworks", STD 62, RFC 3411,
               DOI 10.17487/RFC3411, December 2002,
               <https://www.rfc-editor.org/info/rfc3411>.
-
-
-
-
-
-Thubert, et al.          Expires 6 December 2021               [Page 31]
-
-Internet-Draft         RAW Architecture/Framework              June 2021
-
 
    [RFC4090]  Pan, P., Ed., Swallow, G., Ed., and A. Atlas, Ed., "Fast
               Reroute Extensions to RSVP-TE for LSP Tunnels", RFC 4090,
@@ -1774,6 +1785,15 @@ Internet-Draft         RAW Architecture/Framework              June 2021
               2021,
               <https://tools.ietf.org/html/draft-ietf-detnet-ip-oam-02>.
 
+
+
+
+
+Thubert, et al.         Expires 25 December 2021               [Page 32]
+
+Internet-Draft         RAW Architecture/Framework              June 2021
+
+
    [RAW-5G]   Farkas, J., Dudda, T., Shapin, A., and S. Sandberg, "5G -
               Ultra-Reliable Wireless Technology with Low Latency", Work
               in Progress, Internet-Draft, draft-farkas-raw-5g-00, 1
@@ -1785,14 +1805,6 @@ Internet-Draft         RAW Architecture/Framework              June 2021
               Progress, Internet-Draft, draft-ietf-bier-te-arch-09, 30
               October 2020,
               <https://tools.ietf.org/html/draft-ietf-bier-te-arch-09>.
-
-
-
-
-Thubert, et al.          Expires 6 December 2021               [Page 32]
-
-Internet-Draft         RAW Architecture/Framework              June 2021
-
 
    [IPoWIRELESS]
               Thubert, P., "IPv6 Neighbor Discovery on Wireless
@@ -1831,6 +1843,27 @@ Internet-Draft         RAW Architecture/Framework              June 2021
               step-09, 30 March 2021, <https://tools.ietf.org/html/
               draft-mirsky-ippm-hybrid-two-step-09>.
 
+
+
+Thubert, et al.         Expires 25 December 2021               [Page 33]
+
+Internet-Draft         RAW Architecture/Framework              June 2021
+
+
+   [I-D.mirsky-ippm-epm]
+              Mirsky, G., Min, X., and L. Han, "Error Performance
+              Measurement in Packet-switched Networks", Work in
+              Progress, Internet-Draft, draft-mirsky-ippm-epm-03, 26
+              March 2021,
+              <https://tools.ietf.org/html/draft-mirsky-ippm-epm-03>.
+
+   [I-D.mirsky-bfd-mpls-demand]
+              Mirsky, G., "BFD in Demand Mode over Point-to-Point MPLS
+              LSP", Work in Progress, Internet-Draft, draft-mirsky-bfd-
+              mpls-demand-09, 30 March 2021,
+              <https://tools.ietf.org/html/draft-mirsky-bfd-mpls-demand-
+              09>.
+
    [I-D.ietf-ippm-ioam-data]
               Brockners, F., Bhandari, S., and T. Mizrahi, "Data Fields
               for In-situ OAM", Work in Progress, Internet-Draft, draft-
@@ -1841,14 +1874,6 @@ Internet-Draft         RAW Architecture/Framework              June 2021
    [NASA]     Adams, T., "RELIABILITY: Definition & Quantitative
               Illustration", <https://kscddms.ksc.nasa.gov/Reliability/
               Documents/150814-3bWhatIsReliability.pdf>.
-
-
-
-
-Thubert, et al.          Expires 6 December 2021               [Page 33]
-
-Internet-Draft         RAW Architecture/Framework              June 2021
-
 
    [MANET]    IETF, "Mobile Ad hoc Networking",
               <https://dataTracker.ietf.org/doc/charter-ietf-manet/>.
@@ -1868,7 +1893,18 @@ Internet-Draft         RAW Architecture/Framework              June 2021
    [CCAMP]    IETF, "Common Control and Measurement Plane",
               <https://dataTracker.ietf.org/doc/charter-ietf-ccamp/>.
 
+   [IPPM]     IETF, "IP Performance Measurement",
+              <https://dataTracker.ietf.org/doc/charter-ietf-ippm/>.
+
 Authors' Addresses
+
+
+
+
+Thubert, et al.         Expires 25 December 2021               [Page 34]
+
+Internet-Draft         RAW Architecture/Framework              June 2021
+
 
    Pascal Thubert (editor)
    Cisco Systems, Inc
@@ -1901,16 +1937,6 @@ Authors' Addresses
 
 
 
-Thubert, et al.          Expires 6 December 2021               [Page 34]
-
-Internet-Draft         RAW Architecture/Framework              June 2021
-
-
-   Rex Buddenberg
-   CA
-   United States of America
-
-   Email: buddenbergr@gmail.com
 
 
 
@@ -1931,30 +1957,4 @@ Internet-Draft         RAW Architecture/Framework              June 2021
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Thubert, et al.          Expires 6 December 2021               [Page 35]
+Thubert, et al.         Expires 25 December 2021               [Page 35]

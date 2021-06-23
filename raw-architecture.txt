@@ -12,7 +12,7 @@ Expires: 25 December 2021                                 IMT Atlantique
 
 
          Reliable and Available Wireless Architecture/Framework
-                   draft-pthubert-raw-architecture-08
+                   draft-pthubert-raw-architecture-09
 
 Abstract
 

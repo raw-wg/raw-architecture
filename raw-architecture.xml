@@ -753,13 +753,11 @@ zzz = flapping now
       source of requirements for CCAMP to define metrics that are significant to
       the focus radios.
       </li>
-    <li>
-      <xref target="IPPM" format="default"/> defines protocol-independent
-      metrics and parameters
-      (measurement attributes) for describing links and paths that are required
-      for routing and signaling in technology-specific networks. RAW would be a
-      source of requirements for CCAMP to define metrics that are significant to
-      the focus radios.
+     <li>
+      <xref target="IPPM" format="default"/> develops and maintains standard
+      metrics that can be applied to the quality, performance, and reliability
+      of Internet data delivery services and applications running over transport
+      layer protocols (e.g. TCP, UDP) over IP.
       </li>
       </ul>
     </section>

@@ -1374,9 +1374,9 @@ Ingress =   |      |      |   = Egress
 <section anchor="aom" numbered="true" toc="default">
     <name>RAW OAM </name><t>
     RAW In-situ OAM operation in the Network Plane may observe either a full
-    Track or subTracks that are being used at this time. Additional out-of-band
-    RAW OAM may observe all including unused segments to prepare for a rerouting
-    decision.
+    Track or subTracks that are being used at this time. Active RAW OAM may
+    be needed to observe the unused segments and evaluate the desirability of
+    a rerouting decision.
     Finally, the RAW Service Layer Assurance may observe the individual PAREO
     operation of a relay node to ensure that it is conforming; this might
     require injecting an OAM packet at an upstream point inside the Track and

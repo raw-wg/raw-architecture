@@ -5,10 +5,10 @@
 RAW                                                      P. Thubert, Ed.
 Internet-Draft                                             Cisco Systems
 Intended status: Informational                         G.Z. Papadopoulos
-Expires: 25 December 2021                                 IMT Atlantique
+Expires: 27 December 2021                                 IMT Atlantique
                                                                L. Berger
                                                  LabN Consulting, L.L.C.
-                                                            23 June 2021
+                                                            25 June 2021
 
 
          Reliable and Available Wireless Architecture/Framework
@@ -42,7 +42,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 25 December 2021.
+   This Internet-Draft will expire on 27 December 2021.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Thubert, et al.         Expires 25 December 2021                [Page 1]
+Thubert, et al.         Expires 27 December 2021                [Page 1]
 
 Internet-Draft         RAW Architecture/Framework              June 2021
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Thubert, et al.         Expires 25 December 2021                [Page 2]
+Thubert, et al.         Expires 27 December 2021                [Page 2]
 
 Internet-Draft         RAW Architecture/Framework              June 2021
 
@@ -165,7 +165,7 @@ Internet-Draft         RAW Architecture/Framework              June 2021
 
 
 
-Thubert, et al.         Expires 25 December 2021                [Page 3]
+Thubert, et al.         Expires 27 December 2021                [Page 3]
 
 Internet-Draft         RAW Architecture/Framework              June 2021
 
@@ -221,7 +221,7 @@ Internet-Draft         RAW Architecture/Framework              June 2021
 
 
 
-Thubert, et al.         Expires 25 December 2021                [Page 4]
+Thubert, et al.         Expires 27 December 2021                [Page 4]
 
 Internet-Draft         RAW Architecture/Framework              June 2021
 
@@ -277,7 +277,7 @@ Internet-Draft         RAW Architecture/Framework              June 2021
 
 
 
-Thubert, et al.         Expires 25 December 2021                [Page 5]
+Thubert, et al.         Expires 27 December 2021                [Page 5]
 
 Internet-Draft         RAW Architecture/Framework              June 2021
 
@@ -333,7 +333,7 @@ Internet-Draft         RAW Architecture/Framework              June 2021
 
 
 
-Thubert, et al.         Expires 25 December 2021                [Page 6]
+Thubert, et al.         Expires 27 December 2021                [Page 6]
 
 Internet-Draft         RAW Architecture/Framework              June 2021
 
@@ -389,7 +389,7 @@ Internet-Draft         RAW Architecture/Framework              June 2021
 
 
 
-Thubert, et al.         Expires 25 December 2021                [Page 7]
+Thubert, et al.         Expires 27 December 2021                [Page 7]
 
 Internet-Draft         RAW Architecture/Framework              June 2021
 
@@ -445,7 +445,7 @@ Internet-Draft         RAW Architecture/Framework              June 2021
 
 
 
-Thubert, et al.         Expires 25 December 2021                [Page 8]
+Thubert, et al.         Expires 27 December 2021                [Page 8]
 
 Internet-Draft         RAW Architecture/Framework              June 2021
 
@@ -501,7 +501,7 @@ Internet-Draft         RAW Architecture/Framework              June 2021
 
 
 
-Thubert, et al.         Expires 25 December 2021                [Page 9]
+Thubert, et al.         Expires 27 December 2021                [Page 9]
 
 Internet-Draft         RAW Architecture/Framework              June 2021
 
@@ -557,7 +557,7 @@ Internet-Draft         RAW Architecture/Framework              June 2021
 
 
 
-Thubert, et al.         Expires 25 December 2021               [Page 10]
+Thubert, et al.         Expires 27 December 2021               [Page 10]
 
 Internet-Draft         RAW Architecture/Framework              June 2021
 
@@ -613,7 +613,7 @@ Internet-Draft         RAW Architecture/Framework              June 2021
 
 
 
-Thubert, et al.         Expires 25 December 2021               [Page 11]
+Thubert, et al.         Expires 27 December 2021               [Page 11]
 
 Internet-Draft         RAW Architecture/Framework              June 2021
 
@@ -669,7 +669,7 @@ Internet-Draft         RAW Architecture/Framework              June 2021
 
 
 
-Thubert, et al.         Expires 25 December 2021               [Page 12]
+Thubert, et al.         Expires 27 December 2021               [Page 12]
 
 Internet-Draft         RAW Architecture/Framework              June 2021
 
@@ -699,11 +699,10 @@ Internet-Draft         RAW Architecture/Framework              June 2021
       networks.  RAW would be a source of requirements for CCAMP to
       define metrics that are significant to the focus radios.
 
-   *  [IPPM] defines protocol-independent metrics and parameters
-      (measurement attributes) for describing links and paths that are
-      required for routing and signaling in technology-specific
-      networks.  RAW would be a source of requirements for CCAMP to
-      define metrics that are significant to the focus radios.
+   *  [IPPM] develops and maintains standard metrics that can be applied
+      to the quality, performance, and reliability of Internet data
+      delivery services and applications running over transport layer
+      protocols (e.g.  TCP, UDP) over IP.
 
 3.  The RAW Framework
 
@@ -719,17 +718,21 @@ Internet-Draft         RAW Architecture/Framework              June 2021
    frequency diversity, time diversity, and possibly other forms of
    diversity as well.
 
-   How the routing operation (e.g., PCE) in the Controller Plane
-   computes the Track is out of scope for RAW.  The scope of the RAW
-   operation is one Track, and the goal of the RAW operation is to
 
 
 
-Thubert, et al.         Expires 25 December 2021               [Page 13]
+
+
+
+
+Thubert, et al.         Expires 27 December 2021               [Page 13]
 
 Internet-Draft         RAW Architecture/Framework              June 2021
 
 
+   How the routing operation (e.g., PCE) in the Controller Plane
+   computes the Track is out of scope for RAW.  The scope of the RAW
+   operation is one Track, and the goal of the RAW operation is to
    optimize the use of the Track at the forwarding timescale to maintain
    the expected SLA while optimizing the usage of constrained resources
    such as energy and spectrum.
@@ -778,10 +781,7 @@ Internet-Draft         RAW Architecture/Framework              June 2021
 
 
 
-
-
-
-Thubert, et al.         Expires 25 December 2021               [Page 14]
+Thubert, et al.         Expires 27 December 2021               [Page 14]
 
 Internet-Draft         RAW Architecture/Framework              June 2021
 
@@ -837,7 +837,7 @@ Internet-Draft         RAW Architecture/Framework              June 2021
 
 
 
-Thubert, et al.         Expires 25 December 2021               [Page 15]
+Thubert, et al.         Expires 27 December 2021               [Page 15]
 
 Internet-Draft         RAW Architecture/Framework              June 2021
 
@@ -893,7 +893,7 @@ Internet-Draft         RAW Architecture/Framework              June 2021
 
 
 
-Thubert, et al.         Expires 25 December 2021               [Page 16]
+Thubert, et al.         Expires 27 December 2021               [Page 16]
 
 Internet-Draft         RAW Architecture/Framework              June 2021
 
@@ -949,7 +949,7 @@ Internet-Draft         RAW Architecture/Framework              June 2021
 
 
 
-Thubert, et al.         Expires 25 December 2021               [Page 17]
+Thubert, et al.         Expires 27 December 2021               [Page 17]
 
 Internet-Draft         RAW Architecture/Framework              June 2021
 
@@ -1005,7 +1005,7 @@ Internet-Draft         RAW Architecture/Framework              June 2021
 
 
 
-Thubert, et al.         Expires 25 December 2021               [Page 18]
+Thubert, et al.         Expires 27 December 2021               [Page 18]
 
 Internet-Draft         RAW Architecture/Framework              June 2021
 
@@ -1061,7 +1061,7 @@ Internet-Draft         RAW Architecture/Framework              June 2021
 
 
 
-Thubert, et al.         Expires 25 December 2021               [Page 19]
+Thubert, et al.         Expires 27 December 2021               [Page 19]
 
 Internet-Draft         RAW Architecture/Framework              June 2021
 
@@ -1117,7 +1117,7 @@ Internet-Draft         RAW Architecture/Framework              June 2021
 
 
 
-Thubert, et al.         Expires 25 December 2021               [Page 20]
+Thubert, et al.         Expires 27 December 2021               [Page 20]
 
 Internet-Draft         RAW Architecture/Framework              June 2021
 
@@ -1173,7 +1173,7 @@ Internet-Draft         RAW Architecture/Framework              June 2021
 
 
 
-Thubert, et al.         Expires 25 December 2021               [Page 21]
+Thubert, et al.         Expires 27 December 2021               [Page 21]
 
 Internet-Draft         RAW Architecture/Framework              June 2021
 
@@ -1229,7 +1229,7 @@ Internet-Draft         RAW Architecture/Framework              June 2021
 
 
 
-Thubert, et al.         Expires 25 December 2021               [Page 22]
+Thubert, et al.         Expires 27 December 2021               [Page 22]
 
 Internet-Draft         RAW Architecture/Framework              June 2021
 
@@ -1237,9 +1237,9 @@ Internet-Draft         RAW Architecture/Framework              June 2021
 4.3.  RAW OAM
 
    RAW In-situ OAM operation in the Network Plane may observe either a
-   full Track or subTracks that are being used at this time.  Additional
-   out-of-band RAW OAM may observe all including unused segments to
-   prepare for a rerouting decision.  Finally, the RAW Service Layer
+   full Track or subTracks that are being used at this time.  Active RAW
+   OAM may be needed to observe the unused segments and evaluate the
+   desirability of a rerouting decision.  Finally, the RAW Service Layer
    Assurance may observe the individual PAREO operation of a relay node
    to ensure that it is conforming; this might require injecting an OAM
    packet at an upstream point inside the Track and extracting that
@@ -1285,7 +1285,7 @@ Internet-Draft         RAW Architecture/Framework              June 2021
 
 
 
-Thubert, et al.         Expires 25 December 2021               [Page 23]
+Thubert, et al.         Expires 27 December 2021               [Page 23]
 
 Internet-Draft         RAW Architecture/Framework              June 2021
 
@@ -1341,7 +1341,7 @@ Internet-Draft         RAW Architecture/Framework              June 2021
 
 
 
-Thubert, et al.         Expires 25 December 2021               [Page 24]
+Thubert, et al.         Expires 27 December 2021               [Page 24]
 
 Internet-Draft         RAW Architecture/Framework              June 2021
 
@@ -1397,7 +1397,7 @@ Internet-Draft         RAW Architecture/Framework              June 2021
 
 
 
-Thubert, et al.         Expires 25 December 2021               [Page 25]
+Thubert, et al.         Expires 27 December 2021               [Page 25]
 
 Internet-Draft         RAW Architecture/Framework              June 2021
 
@@ -1453,7 +1453,7 @@ Internet-Draft         RAW Architecture/Framework              June 2021
 
 
 
-Thubert, et al.         Expires 25 December 2021               [Page 26]
+Thubert, et al.         Expires 27 December 2021               [Page 26]
 
 Internet-Draft         RAW Architecture/Framework              June 2021
 
@@ -1509,7 +1509,7 @@ Internet-Draft         RAW Architecture/Framework              June 2021
 
 
 
-Thubert, et al.         Expires 25 December 2021               [Page 27]
+Thubert, et al.         Expires 27 December 2021               [Page 27]
 
 Internet-Draft         RAW Architecture/Framework              June 2021
 
@@ -1565,7 +1565,7 @@ Internet-Draft         RAW Architecture/Framework              June 2021
 
 
 
-Thubert, et al.         Expires 25 December 2021               [Page 28]
+Thubert, et al.         Expires 27 December 2021               [Page 28]
 
 Internet-Draft         RAW Architecture/Framework              June 2021
 
@@ -1621,7 +1621,7 @@ Internet-Draft         RAW Architecture/Framework              June 2021
 
 
 
-Thubert, et al.         Expires 25 December 2021               [Page 29]
+Thubert, et al.         Expires 27 December 2021               [Page 29]
 
 Internet-Draft         RAW Architecture/Framework              June 2021
 
@@ -1677,7 +1677,7 @@ Internet-Draft         RAW Architecture/Framework              June 2021
 
 
 
-Thubert, et al.         Expires 25 December 2021               [Page 30]
+Thubert, et al.         Expires 27 December 2021               [Page 30]
 
 Internet-Draft         RAW Architecture/Framework              June 2021
 
@@ -1733,7 +1733,7 @@ Internet-Draft         RAW Architecture/Framework              June 2021
 
 
 
-Thubert, et al.         Expires 25 December 2021               [Page 31]
+Thubert, et al.         Expires 27 December 2021               [Page 31]
 
 Internet-Draft         RAW Architecture/Framework              June 2021
 
@@ -1789,7 +1789,7 @@ Internet-Draft         RAW Architecture/Framework              June 2021
 
 
 
-Thubert, et al.         Expires 25 December 2021               [Page 32]
+Thubert, et al.         Expires 27 December 2021               [Page 32]
 
 Internet-Draft         RAW Architecture/Framework              June 2021
 
@@ -1845,7 +1845,7 @@ Internet-Draft         RAW Architecture/Framework              June 2021
 
 
 
-Thubert, et al.         Expires 25 December 2021               [Page 33]
+Thubert, et al.         Expires 27 December 2021               [Page 33]
 
 Internet-Draft         RAW Architecture/Framework              June 2021
 
@@ -1901,7 +1901,7 @@ Authors' Addresses
 
 
 
-Thubert, et al.         Expires 25 December 2021               [Page 34]
+Thubert, et al.         Expires 27 December 2021               [Page 34]
 
 Internet-Draft         RAW Architecture/Framework              June 2021
 
@@ -1957,4 +1957,4 @@ Internet-Draft         RAW Architecture/Framework              June 2021
 
 
 
-Thubert, et al.         Expires 25 December 2021               [Page 35]
+Thubert, et al.         Expires 27 December 2021               [Page 35]

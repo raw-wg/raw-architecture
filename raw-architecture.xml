@@ -266,7 +266,7 @@
     on a per-packet or a per-collection of packets basis to provide the desired reliability for the transported flows.
     </dd>
     <dt>Segment:</dt><dd>A serial path formed by a topological edge of a Track.
-    East-West Segments are oriented from Ingress (West) to Egress (East).
+    East-West Segments are oriented from Ingress (East) to Egress (West).
     North/South Segments can be bidirectional; to avoid loops, measures must be
     taken to ensure that a given packet flows either Northwards or Southwards
     along a bidirectional Segment, but never bounces back.
@@ -276,30 +276,38 @@
     period of time, typically of a subsecond to seconds duration.
     </dd>
 
-    <dt>AOM:</dt> <dd>In general, OAM stands for Operations, administration and
-    management or operations, administration and maintenance, and is defined as the processes, activities, tools, and standards involved with operating,
+    <dt>AOM:</dt> <dd>
+    OAM stands for Operations, Administration, and Maintenance, and covers
+    the processes, activities, tools, and standards involved with operating,
     administering, managing and maintaining any system. This document uses the
-    term "OAM" in conformance with the IETF <xref target="RFC6291">
-    'Guidelines for the Use of the "OAM" Acronym in the IETF'</xref> and the
-    system being observed is the Track.
+    terms Operations, Administration, and Maintenance, in conformance with the
+    IETF <xref target="RFC6291">'Guidelines for the Use of the "OAM" Acronym
+    in the IETF'</xref> and the system observed by the RAW OAM is the Track.
     </dd>
-    <dt>Active OAM:</dt> <dd> An active OAM is specially constructed test packet
-    crafted to explore a particular Track, subTrack, or Segment of a Track.
+    <dt>Active OAM:</dt> <dd>Active OAM uses specially constructed test packets
+    crafted to observe a particular Track, subTrack, or Segment of a Track.
     </dd>
     <dt>In-Band OAM:</dt><dd>
-    An active OAM is considered in-band in the monitored Track when it
+    An active OAM packet is considered in-band in the monitored Track when it
     traverses the same set of links and interfaces receiving the same QoS and
     PAREO treatment as the data flows that are injected in the Track.
     </dd>
     <dt>Out-of-Band OAM:</dt><dd>
-    An active OAM is out-of-band if its datapath is topologically the same as of
-    that of the data flow, but the QoS or PAREO treatment is different (e.g.,
-    lower CoS).
+    An active OAM packet is out-of-band if its datapath is topologically the
+    same as of that of the Track, subTrack or Segment being observed, but the
+    QoS or PAREO treatment is different (e.g., lower CoS).
     </dd>
-    <dt>Local Assurance OAM:</dt><dd>
-    An active OAM is a local assurance OAM when it is covers the forwarding or service layer operation over a node, a segment, or a subTrack of the Track. It is injected in the datapath and extracted from the datapath around the
-    particular function or subnetwork (e.g., a relay providing a service layer
-    replication point) that is being tested.
+    <dt>Limited OAM:</dt><dd>
+    An active OAM packet is a Limited OAM packet when it is observes the RAW
+    operation over a node, a segment, or a subTrack of the Track, though not
+    from Ingress to Egress. It is injected in the datapath and extracted from
+    the datapath around the particular function or subnetwork (e.g., around a
+    relay providing a service layer replication point) that is being tested.
+    </dd>
+    <dt>Reverse OAM:</dt><dd>
+    A Reverse OAM packet is an Out-of-Band OAM packet that traverses the Track
+    from West to East and North-South in one of either direction, to capture and
+    report OAM measurements upstream.
     </dd>
 
     </dl>
@@ -1564,9 +1572,8 @@ Ingress =   |      |      |   = Egress
  To provide that information timely, it makes sense that the OAM packets that
  gather instantaneous values from the radio senders and receivers at each hop
  flow on the reverse path and inform the PSE at the source and/or the PAREO
- relays about the state of the rest of the way. In that case, the DODAG formed
- by the forward Track is turned into another reverse Track, which is flooded
- with the OAM packets to trigger the measurement and then do the capture.
+ relays about the state of the rest of the way. This is achieved using Reverse
+ OAM packets that flow along the Reversed Track, West to East.
  </t>
  <t>
  Because the quality of transmission over a wireless medium varies continuously,
@@ -1583,7 +1590,7 @@ Ingress =   |      |      |   = Egress
  <t>
   In other words, the best suited OAM method to enable the PSE make accurate
   PAREO forwarding decisions is a periodic variation of the two-steps method
-  flowing along the reverse Track.
+  flowing along the reverse Track, as a Reverse OAM technique.
  <xref target="I-D.ietf-raw-oam-support" format="default"/> provides more
  information on the RAW OAM problem and solution approaches.
  </t>
@@ -1671,7 +1678,7 @@ Ingress =   |      |      |   = Egress
                   +---------+---------+
                             |
                             |
-            Track i (Egress IP Address, instanceId)
+     Track i (Ingress IP Address, RPLinstanceId)
                             |
                             |
                             |

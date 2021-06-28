@@ -221,10 +221,7 @@
     controlled by RAW or traverses an opaque network where RAW cannot observe
     and control the individual hops.
     </t><t>
-    RAW uses the term OAM as defined in <xref target="RFC6291"/>.
-    </t>
-    <t>
-      RAW defines the following terms:
+    RAW uses the following terminology:
     </t>
     <dl>
     <dt>PAREO:</dt><dd>Packet (hybrid) ARQ, Replication, Elimination and
@@ -233,21 +230,64 @@
     constructive interference and overhearing, which can be
     leveraged separately or combined to increase the reliability.
     </dd>
+    <dt>Flow:</dt><dd>A collection of consecutive packets that must be placed
+    on the same Track to receive an equivalent treatment from Ingress to Egress
+    within the Track. Multiple flows may be transported along the same Track.
+    The subTrack that is selected for the flow may change over time under the
+    control of the PSE.
+    </dd>
+    <dt>Track:</dt><dd>
+    <t>A networking graph that can be used as a "path" to transport RAW packets
+    with equivalent treatment; as opposed to the usual understanding of a path
+    (see for instance the definition of "path" in section 1.1 of <xref target=
+    "RFC9049"/>), a Track may fork and rejoin to enable the PAREO operations.
+    </t>
+    <t>
+    In DetNet <xref target="RFC8655"/> terms, a Track has the following
+    properties:
+    </t>
+    <ul>
+    <li>
+    A Track has one Ingress and one Egress nodes, which operate as DetNet Edge
+    nodes.
+    </li><li>
+    A Track is reversible, meaning that packets can be routed against the flow
+    of data packets, e.g., to carry OAM measurements or control messages back to
+    the Ingress.
+    </li><li>
+    The vertices of the Track are DetNet Relay nodes that operate at the DetNet Service sublayer and provide the PAREO functions.
+    </li><li>
+    The topological edges of the graph are serial sequences of DetNet Transit
+    nodes that operate at the DetNet Forwarding sublayer.
+    </li>
+    </ul>
+    </dd>
+    <dt>SubTrack:</dt><dd>A Track within a Track. The RAW PSE selects a subTrack
+    on a per-packet or a per-collection of packets basis to provide the desired reliability for the transported flows.
+    </dd>
+    <dt>Segment:</dt><dd>A serial path formed by a topological edge of a Track.
+    East-West Segments are oriented from Ingress (West) to Egress (East).
+    North/South Segments can be bidirectional; to avoid loops, measures must be
+    taken to ensure that a given packet flows either Northwards or Southwards
+    along a bidirectional Segment, but never bounces back.
+    </dd>
     <dt>Flapping:</dt><dd>In the context of RAW, a link flaps when the
     reliability of the wireless connectivity drops abruptly for a short
     period of time, typically of a subsecond to seconds duration.
     </dd>
 
-    <dt>AOM:</dt> <dd>Operations, administration and management or operations,
-    administration and maintenance are the processes, activities, tools, and
-    standards involved with operating, administering, managing and maintaining any system, a Track in the context of RAW.
-
+    <dt>AOM:</dt> <dd>In general, OAM stands for Operations, administration and
+    management or operations, administration and maintenance, and is defined as the processes, activities, tools, and standards involved with operating,
+    administering, managing and maintaining any system. This document uses the
+    term "OAM" in conformance with the IETF <xref target="RFC6291">
+    "Guidelines for the Use of the "OAM" Acronym in the IETF"</xref> and the
+    system being observed is the Track.
     </dd>
     <dt>Active OAM:</dt> <dd> An active OAM is specially constructed test packet
     crafted to explore a particular Track, subTrack, or Segment of a Track.
     </dd>
     <dt>In-Band OAM:</dt><dd>
-    An active OAM is considered in-band with the monitored Track when it
+    An active OAM is considered in-band in the monitored Track when it
     traverses the same set of links and interfaces receiving the same QoS and
     PAREO treatment as the data flows that are injected in the Track.
     </dd>
@@ -1883,6 +1923,9 @@ Ingress =   |      |      |   = Egress
 
 <xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.8655.xml"/>
 <!-- Deterministic Networking Architecture -->
+
+<xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.9049.xml"/>
+<!-- Path Aware Networking: Obstacles to Deployment  -->
 
       </references>
     <!--Normative References-->

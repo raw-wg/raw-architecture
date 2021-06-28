@@ -280,7 +280,7 @@
     management or operations, administration and maintenance, and is defined as the processes, activities, tools, and standards involved with operating,
     administering, managing and maintaining any system. This document uses the
     term "OAM" in conformance with the IETF <xref target="RFC6291">
-    "Guidelines for the Use of the "OAM" Acronym in the IETF"</xref> and the
+    'Guidelines for the Use of the "OAM" Acronym in the IETF'</xref> and the
     system being observed is the Track.
     </dd>
     <dt>Active OAM:</dt> <dd> An active OAM is specially constructed test packet

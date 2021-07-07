@@ -12,7 +12,7 @@ Expires: 8 January 2022                                   IMT Atlantique
 
 
          Reliable and Available Wireless Architecture/Framework
-                   draft-pthubert-raw-architecture-09
+                   draft-pthubert-raw-architecture-10
 
 Abstract
 
@@ -73,7 +73,7 @@ Table of Contents
    2.  The RAW problem . . . . . . . . . . . . . . . . . . . . . . .   5
      2.1.  Terminology . . . . . . . . . . . . . . . . . . . . . . .   5
      2.2.  Reliability and Availability  . . . . . . . . . . . . . .   7
-       2.2.1.  High Availability Engineering Principles  . . . . . .   8
+       2.2.1.  High Availability Engineering Principles  . . . . . .   7
        2.2.2.  Applying Reliability Concepts to Networking . . . . .  10
        2.2.3.  Reliability in the Context of RAW . . . . . . . . . .  11
      2.3.  Use Cases and Requirements Served . . . . . . . . . . . .  12
@@ -114,7 +114,7 @@ Thubert, et al.          Expires 8 January 2022                 [Page 2]
 Internet-Draft         RAW Architecture/Framework              July 2021
 
 
-     9.2.  Informative References  . . . . . . . . . . . . . . . . .  34
+     9.2.  Informative References  . . . . . . . . . . . . . . . . .  33
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  37
 
 1.  Introduction
@@ -316,20 +316,20 @@ Internet-Draft         RAW Architecture/Framework              July 2021
       of the "OAM" Acronym in the IETF' [RFC6291] and the system
       observed by the RAW OAM is the Track.
 
-   Active OAM:  See [RFC7799].  In the context of RAXW, Active OAM is
-      used to observe a particular Track, subTrack, or Segment of a
-      Track regardless of whether it is used for traffic at that time.
+   Active OAM:  Active OAM uses specially constructed test packets
+      crafted to observe a particular Track, subTrack, or Segment of a
+      Track.
 
    In-Band OAM:  An active OAM packet is considered in-band for the
       monitored Track when it traverses the same set of links and
-      interfaces and if the OAM packet receives the same QoS and PAREO
+      interfaces, and if the OAM packet receives the same QoS and PAREO
       treatment as the packets of the data flows that are injected in
       the Track.
 
-   Out-of-Band OAM:  Out-of-band OAM is an active OAM whose path is not
-      topologically congruent to the Track, or its test packets receive
-      a QoS and/or PAREO treatment that is different from that of the
-      packets of the data flows that are injected in the Track, or both.
+   Out-of-Band OAM:  An active OAM packet is out-of-band if its datapath
+      is topologically the same as of that of the Track, subTrack or
+      Segment being observed, but the QoS or PAREO treatment is
+      different (e.g., lower CoS).
 
 
 
@@ -346,15 +346,10 @@ Internet-Draft         RAW Architecture/Framework              July 2021
       a service layer replication point) that is being tested.
 
    Reverse OAM:  A Reverse OAM packet is an Out-of-Band OAM packet that
-      traverses the Track from egress to ingress on the reverse
-      direction, to capture and report OAM measurements upstream.  The
-      collection may capture all information along the whole Track, or
-      it may only learn select data across all, or only a particular
-      subTrack, or Segment of a Track.
-
-   [DetNet-OAM] provides additional terminology related to OAM in the
-   context of DetNet and by extension of RAW, whereas [RFC7799] defines
-   the Active, Passive, and Hybrid OAM methods.
+      traverses the Track from West to East and North-South in one of
+      either direction, to capture and report OAM measurements upstream.
+      The collection may capture all information, or only select data
+      across all, or only a particular subTrack, or Segment of a Track.
 
    In the context of the RAW work, Reliability and Availability are
    defined as follows:
@@ -382,18 +377,6 @@ Internet-Draft         RAW Architecture/Framework              July 2021
 
 2.2.  Reliability and Availability
 
-
-
-
-
-
-
-
-Thubert, et al.          Expires 8 January 2022                 [Page 7]
-
-Internet-Draft         RAW Architecture/Framework              July 2021
-
-
 2.2.1.  High Availability Engineering Principles
 
    The reliability criteria of a critical system pervade through its
@@ -402,6 +385,14 @@ Internet-Draft         RAW Architecture/Framework              July 2021
    criteria.  It is only natural to consider the art of high
    availability engineering and apply it to wireless communications in
    the context of RAW.
+
+
+
+
+Thubert, et al.          Expires 8 January 2022                 [Page 7]
+
+Internet-Draft         RAW Architecture/Framework              July 2021
+
 
    There are three principles [pillars] of high availability
    engineering:
@@ -441,6 +432,15 @@ Internet-Draft         RAW Architecture/Framework              July 2021
    the transmissions over the air to combat the additional causes of
    transmission loss.
 
+   From an economics standpoint, executing this principle properly
+   generally increases capitalization expense because of the redundant
+   equipment.  In a constrained network where the waste of energy and
+   bandwidth should be minimized, an excessive use of redundant links
+   must be avoided; for RAW this means that the extra bandwidth must be
+   used wisely and with parcimony.
+
+
+
 
 
 
@@ -449,13 +449,6 @@ Thubert, et al.          Expires 8 January 2022                 [Page 8]
 
 Internet-Draft         RAW Architecture/Framework              July 2021
 
-
-   From an economics standpoint, executing this principle properly
-   generally increases capitalization expense because of the redundant
-   equipment.  In a constrained network where the waste of energy and
-   bandwidth should be minimized, an excessive use of redundant links
-   must be avoided; for RAW this means that the extra bandwidth must be
-   used wisely and with parcimony.
 
 2.2.1.2.  Reliable Crossover
 
@@ -498,6 +491,13 @@ Internet-Draft         RAW Architecture/Framework              July 2021
    configuration, accounting, performance, security is a handy mental
    checklist) but fault monitoring is sufficient reason.
 
+   "An Architecture for Describing Simple Network Management Protocol
+   (SNMP) Management Frameworks" [STD 62] describes how to use SNMP to
+   observe and correct long-term faults.
+
+
+
+
 
 
 
@@ -505,10 +505,6 @@ Thubert, et al.          Expires 8 January 2022                 [Page 9]
 
 Internet-Draft         RAW Architecture/Framework              July 2021
 
-
-   "An Architecture for Describing Simple Network Management Protocol
-   (SNMP) Management Frameworks" [STD 62] describes how to use SNMP to
-   observe and correct long-term faults.
 
    "Overview and Principles of Internet Traffic Engineering" [TE]
    discusses the importance of measurement for network protection, and
@@ -554,6 +550,10 @@ Internet-Draft         RAW Architecture/Framework              July 2021
    consecutive losses, and a high MTBF is desired as a guarantee that
    this will not happen, IOW that the number of losses-in-a-row can be
    bounded.  In that case, what is really desired is a Maximum
+   Consecutive Failures (MCF).  If the number of losses in a row passes
+   the MCF, the control loop has to abort and the system, e.g., the
+   production line, may need to enter an emergency stop condition.
+
 
 
 
@@ -561,10 +561,6 @@ Thubert, et al.          Expires 8 January 2022                [Page 10]
 
 Internet-Draft         RAW Architecture/Framework              July 2021
 
-
-   Consecutive Failures (MCF).  If the number of losses in a row passes
-   the MCF, the control loop has to abort and the system, e.g., the
-   production line, may need to enter an emergency stop condition.
 
    Engineers that build automated processes may use the network
    reliability expressed in nines or as an MTBF as a proxy to indicate
@@ -609,6 +605,10 @@ Internet-Draft         RAW Architecture/Framework              July 2021
       Fresnel Zone between the sender and the receiver is free of
       obstacles.
 
+      As long as a physical object (e.g., a metallic trolley between
+      peers) that affects the transmission is not removed, the quality
+      of the link is affected.
+
 
 
 
@@ -617,10 +617,6 @@ Thubert, et al.          Expires 8 January 2022                [Page 11]
 
 Internet-Draft         RAW Architecture/Framework              July 2021
 
-
-      As long as a physical object (e.g., a metallic trolley between
-      peers) that affects the transmission is not removed, the quality
-      of the link is affected.
 
    In an environment that is rich of metallic structures and mobile
    objects, a single radio link will provide a fuzzy service, meaning
@@ -666,6 +662,10 @@ Internet-Draft         RAW Architecture/Framework              July 2021
    Protection, e.g., protecting the first hop in Radio Access Protection
    and Strict Protection, e.g., providing End-to-End Protection in a
    wireless mesh.
+
+
+
+
 
 
 
@@ -1800,10 +1800,6 @@ Internet-Draft         RAW Architecture/Framework              July 2021
               DOI 10.17487/RFC6291, June 2011,
               <https://www.rfc-editor.org/info/rfc6291>.
 
-   [RFC7799]  Morton, A., "Active and Passive Metrics and Methods (with
-              Hybrid Types In-Between)", RFC 7799, DOI 10.17487/RFC7799,
-              May 2016, <https://www.rfc-editor.org/info/rfc7799>.
-
    [RFC8578]  Grossman, E., Ed., "Deterministic Networking Use Cases",
               RFC 8578, DOI 10.17487/RFC8578, May 2019,
               <https://www.rfc-editor.org/info/rfc8578>.
@@ -1843,14 +1839,16 @@ Internet-Draft         RAW Architecture/Framework              July 2021
               DOI 10.17487/RFC9049, June 2021,
               <https://www.rfc-editor.org/info/rfc9049>.
 
+9.2.  Informative References
+
+
+
 
 
 Thubert, et al.          Expires 8 January 2022                [Page 33]
 
 Internet-Draft         RAW Architecture/Framework              July 2021
 
-
-9.2.  Informative References
 
    [RFC0791]  Postel, J., "Internet Protocol", STD 5, RFC 791,
               DOI 10.17487/RFC0791, September 1981,
@@ -1895,9 +1893,11 @@ Internet-Draft         RAW Architecture/Framework              July 2021
               March 2018, <https://tools.ietf.org/html/draft-thubert-
               bier-replication-elimination-03>.
 
-   [DetNet-IP-OAM]
-              Mirsky, G., Chen, M., and D. Black, "Operations,
-              Administration and Maintenance (OAM) for Deterministic
+
+
+
+
+
 
 
 
@@ -1906,6 +1906,9 @@ Thubert, et al.          Expires 8 January 2022                [Page 34]
 Internet-Draft         RAW Architecture/Framework              July 2021
 
 
+   [DetNet-IP-OAM]
+              Mirsky, G., Chen, M., and D. Black, "Operations,
+              Administration and Maintenance (OAM) for Deterministic
               Networks (DetNet) with IP Data Plane", Work in Progress,
               Internet-Draft, draft-ietf-detnet-ip-oam-02, 30 March
               2021,
@@ -1945,13 +1948,10 @@ Internet-Draft         RAW Architecture/Framework              July 2021
               <https://tools.ietf.org/html/draft-ietf-ippm-ioam-direct-
               export-03>.
 
-   [DetNet-OAM]
-              Mirsky, G., Theoleyre, F., Papadopoulos, G. Z., and C. J.
-              Bernardos, "Framework of Operations, Administration and
-              Maintenance (OAM) for Deterministic Networking (DetNet)",
-              Work in Progress, Internet-Draft, draft-ietf-detnet-oam-
-              framework-01, 19 May 2021, <https://tools.ietf.org/html/
-              draft-ietf-detnet-oam-framework-01>.
+
+
+
+
 
 
 
@@ -1961,6 +1961,14 @@ Thubert, et al.          Expires 8 January 2022                [Page 35]
 
 Internet-Draft         RAW Architecture/Framework              July 2021
 
+
+   [DetNet-OAM]
+              Mirsky, G., Theoleyre, F., Papadopoulos, G. Z., and C. J.
+              Bernardos, "Framework of Operations, Administration and
+              Maintenance (OAM) for Deterministic Networking (DetNet)",
+              Work in Progress, Internet-Draft, draft-ietf-detnet-oam-
+              framework-01, 19 May 2021, <https://tools.ietf.org/html/
+              draft-ietf-detnet-oam-framework-01>.
 
    [I-D.mirsky-ippm-hybrid-two-step]
               Mirsky, G., Lingqiang, W., Zhui, G., and H. Song, "Hybrid
@@ -2003,20 +2011,18 @@ Internet-Draft         RAW Architecture/Framework              July 2021
    [SPRING]   IETF, "Source Packet Routing in Networking",
               <https://dataTracker.ietf.org/doc/charter-ietf-spring/>.
 
-   [BIER]     IETF, "Bit Indexed Explicit Replication",
-              <https://dataTracker.ietf.org/doc/charter-ietf-bier/>.
-
-   [BFD]      IETF, "Bidirectional Forwarding Detection",
-              <https://dataTracker.ietf.org/doc/charter-ietf-bfd/>.
-
-
-
 
 
 Thubert, et al.          Expires 8 January 2022                [Page 36]
 
 Internet-Draft         RAW Architecture/Framework              July 2021
 
+
+   [BIER]     IETF, "Bit Indexed Explicit Replication",
+              <https://dataTracker.ietf.org/doc/charter-ietf-bier/>.
+
+   [BFD]      IETF, "Bidirectional Forwarding Detection",
+              <https://dataTracker.ietf.org/doc/charter-ietf-bfd/>.
 
    [CCAMP]    IETF, "Common Control and Measurement Plane",
               <https://dataTracker.ietf.org/doc/charter-ietf-ccamp/>.
@@ -2053,12 +2059,6 @@ Authors' Addresses
    United States of America
 
    Email: lberger@labn.net
-
-
-
-
-
-
 
 
 

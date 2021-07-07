@@ -275,39 +275,41 @@
     reliability of the wireless connectivity drops abruptly for a short
     period of time, typically of a subsecond to seconds duration.
     </dd>
-
-    <dt>AOM:</dt> <dd>
-    OAM stands for Operations, Administration, and Maintenance, and covers
-    the processes, activities, tools, and standards involved with operating,
-    administering, managing and maintaining any system. This document uses the
-    terms Operations, Administration, and Maintenance, in conformance with the
-    IETF <xref target="RFC6291">'Guidelines for the Use of the "OAM" Acronym
-    in the IETF'</xref> and the system observed by the RAW OAM is the Track.
+    <dt>OAM:</dt> <dd>
+      OAM stands for Operations, Administration, and Maintenance, and
+      covers the processes, activities, tools, and standards involved
+      with operating, administering, managing and maintaining any
+      system.  This document uses the terms Operations, Administration,
+      and Maintenance, in conformance with the <xref target="RFC6291">
+      'Guidelines for the Use of the "OAM" Acronym in the IETF'</xref>
+      and the system observed by the RAW OAM is the Track.
     </dd>
     <dt>Active OAM:</dt> <dd>Active OAM uses specially constructed test packets
-    crafted to observe a particular Track, subTrack, or Segment of a Track.
+      crafted to observe a particular Track, subTrack, or Segment of a Track.
     </dd>
-    <dt>In-Band OAM:</dt><dd>
-    An active OAM packet is considered in-band in the monitored Track when it
-    traverses the same set of links and interfaces receiving the same QoS and
-    PAREO treatment as the data flows that are injected in the Track.
+    <dt>In-Band OAM:</dt><dd> An active OAM packet is considered in-band for the
+      monitored Track when it traverses the same set of links and interfaces,
+      and if the OAM packet receives the same QoS and PAREO treatment as the
+      packets of the data flows that are injected in the Track.
     </dd>
-    <dt>Out-of-Band OAM:</dt><dd>
-    An active OAM packet is out-of-band if its datapath is topologically the
-    same as of that of the Track, subTrack or Segment being observed, but the
-    QoS or PAREO treatment is different (e.g., lower CoS).
+    <dt>Out-of-Band OAM:</dt><dd>An active OAM packet is out-of-band if its
+      datapath is topologically the same as of that of the Track, subTrack or
+      Segment being observed, but the QoS or PAREO treatment is different
+      (e.g., lower CoS).
     </dd>
-    <dt>Limited OAM:</dt><dd>
-    An active OAM packet is a Limited OAM packet when it is observes the RAW
-    operation over a node, a segment, or a subTrack of the Track, though not
-    from Ingress to Egress. It is injected in the datapath and extracted from
-    the datapath around the particular function or subnetwork (e.g., around a
-    relay providing a service layer replication point) that is being tested.
+    <dt>Limited OAM:</dt><dd> An active OAM packet is a Limited OAM packet when
+      it observes the RAW operation over a node, a segment, or a subTrack
+      of the Track, though not from Ingress to Egress.  It is injected
+      in the datapath and extracted from the datapath around the
+      particular function or subnetwork (e.g., around a relay providing
+      a service layer replication point) that is being tested.
     </dd>
     <dt>Reverse OAM:</dt><dd>
     A Reverse OAM packet is an Out-of-Band OAM packet that traverses the Track
-    from West to East and North-South in one of either direction, to capture and
-    report OAM measurements upstream.
+    from egress to ingress on the reverse direction, to capture and  report OAM
+    measurements upstream. The collection may capture all information along the
+    whole Track, or it may only learn select data across all, or only a
+    particular subTrack, or Segment of a Track.
     </dd>
 
     </dl>
@@ -423,7 +425,8 @@
       <name>Reliable Crossover</name>
 
     <t>
-    Having a backup equipment has a limited value unless it can be reliably switched into use within the down-time parameters.
+    Having a backup equipment has a limited value unless it can be reliably
+    switched into use within the down-time parameters.
     IP Routers execute reliable crossover continuously because
     the routers will use any alternate routes that are available <xref target=
     "RFC0791"/>. This is due to the stateless nature of IP datagrams and the

@@ -353,7 +353,7 @@ Internet-Draft         RAW Architecture/Framework              July 2021
       subTrack, or Segment of a Track.
 
    [DetNet-OAM] provides additional terminology related to OAM in the
-   context of DetNet and by extension of RAW,, whereas [RFC7799] defines
+   context of DetNet and by extension of RAW, whereas [RFC7799] defines
    the Active, Passive, and Hybrid OAM methods.
 
    In the context of the RAW work, Reliability and Availability are

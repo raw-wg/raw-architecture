@@ -316,7 +316,7 @@
 
     <t>  <xref target="I-D.ietf-detnet-oam-framework" format="default"/>
     provides additional terminology related to OAM in the context of DetNet and
-    by extension of RAW,, whereas <xref target="RFC7799"/> defines the Active,
+    by extension of RAW, whereas <xref target="RFC7799"/> defines the Active,
     Passive, and Hybrid OAM methods.
     </t>
 

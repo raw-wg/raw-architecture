@@ -15,7 +15,7 @@
 <?rfc subcompact="no"?>
 <?rfc authorship="yes"?>
 <?rfc tocappendix="yes"?>
-<rfc xmlns:xi="http://www.w3.org/2001/XInclude" category="info" docName="draft-pthubert-raw-architecture-10"
+<rfc xmlns:xi="http://www.w3.org/2001/XInclude" category="info" docName="draft-ietf-raw-architecture-00"
      ipr="trust200902" obsoletes="" updates="" submissionType="IETF" xml:lang="en" version="3">
   <front>
     <title abbrev="RAW Architecture/Framework">Reliable and Available Wireless Architecture/Framework</title>
@@ -284,7 +284,7 @@
       'Guidelines for the Use of the "OAM" Acronym in the IETF'</xref>
       and the system observed by the RAW OAM is the Track.
     </dd>
-    <dt>Active OAM:</dt> <dd> See <xref target="RFC7799"/>. In the context of RAXW, Active OAM is used to observe a particular Track, subTrack, or Segment
+    <dt>Active OAM:</dt> <dd> See <xref target="RFC7799"/>. In the context of RAW, Active OAM is used to observe a particular Track, subTrack, or Segment
     of a Track regardless of whether it is used for traffic at that time.
     </dd>
     <dt>In-Band OAM:</dt><dd> An active OAM packet is considered in-band for the

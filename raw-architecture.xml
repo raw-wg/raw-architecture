@@ -1326,22 +1326,22 @@ zzz = flapping now
       <ol>
       <li> Network Plane measurement protocols for Operations, Administration
       and Maintenance (OAM) to Observe some or all hops along a Track as well as
-      the end-to-end packet delivery, see <xref target = "aom" />
+      the end-to-end packet delivery, more in <xref target = "aom" />;
       </li>
       <li> Controller plane elements to reports the links statistics to a Path
       computation Element (PCE) in a centralized controller that computes and
       installs the Tracks and provides meta data to Orient the routing
-      decision, see <xref target = "pce" />
+      decision, more in <xref target = "pce" />;
       </li>
       <li> A Runtime distributed Path Selection Engine (PSE) thar Decides which
       subTrack to use for the next packet(s) that are routed along the Track,
-      see <xref target = "psepce" />
+      more in <xref target = "psepce" />;
       </li>
       <li> Packet (hybrid) ARQ, Replication, Elimination and Ordering Dataplane
       actions that operate at the DetNet Service Layer to increase the
       reliability o fthe end-to-end transmission. The RAW architecture also
       covers in-situ signalling when the decision is Acted by a node that
-      down the Track from the PSE, see <xref target = "PAREO" />
+      down the Track from the PSE, more in <xref target = "PAREO" />.
       </li>
       </ol>
       <figure anchor="oodaloop">

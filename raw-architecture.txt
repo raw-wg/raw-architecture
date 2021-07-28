@@ -1301,23 +1301,24 @@ Internet-Draft         RAW Architecture/Framework              July 2021
 
    1.  Network Plane measurement protocols for Operations,
        Administration and Maintenance (OAM) to Observe some or all hops
-       along a Track as well as the end-to-end packet delivery, see
-       Section 4.3
+       along a Track as well as the end-to-end packet delivery, more in
+       Section 4.3;
 
    2.  Controller plane elements to reports the links statistics to a
        Path computation Element (PCE) in a centralized controller that
        computes and installs the Tracks and provides meta data to Orient
-       the routing decision, see Section 4.4
+       the routing decision, more in Section 4.4;
 
    3.  A Runtime distributed Path Selection Engine (PSE) thar Decides
        which subTrack to use for the next packet(s) that are routed
-       along the Track, see Section 4.5
+       along the Track, more in Section 4.5;
 
    4.  Packet (hybrid) ARQ, Replication, Elimination and Ordering
        Dataplane actions that operate at the DetNet Service Layer to
        increase the reliability o fthe end-to-end transmission.  The RAW
        architecture also covers in-situ signalling when the decision is
-       Acted by a node that down the Track from the PSE, see Section 4.6
+       Acted by a node that down the Track from the PSE, more in
+       Section 4.6.
 
                      +-------> Orient (PCE) --------+
                      |          link stats,         |
@@ -1334,7 +1335,6 @@ Internet-Draft         RAW Architecture/Framework              July 2021
                              Service sublayer
 
                         Figure 6: The RAW OODA Loop
-
 
 
 

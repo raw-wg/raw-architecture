@@ -95,17 +95,17 @@ Table of Contents
        4.3.2.  RAW Extensions  . . . . . . . . . . . . . . . . . . .  26
        4.3.3.  Observed Metrics  . . . . . . . . . . . . . . . . . .  27
      4.4.  Orient: The Path Computation Engine . . . . . . . . . . .  27
-     4.5.  Decide: The Path Selection Engine . . . . . . . . . . . .  27
-     4.6.  Act: The PAREO Functions  . . . . . . . . . . . . . . . .  29
-       4.6.1.  Packet Replication  . . . . . . . . . . . . . . . . .  30
-       4.6.2.  Packet Elimination  . . . . . . . . . . . . . . . . .  31
-       4.6.3.  Promiscuous Overhearing . . . . . . . . . . . . . . .  31
-       4.6.4.  Constructive Interference . . . . . . . . . . . . . .  32
-   5.  Security Considerations . . . . . . . . . . . . . . . . . . .  32
-     5.1.  Forced Access . . . . . . . . . . . . . . . . . . . . . .  32
-   6.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  32
-   7.  Contributors  . . . . . . . . . . . . . . . . . . . . . . . .  32
-   8.  Acknowledgments . . . . . . . . . . . . . . . . . . . . . . .  33
+     4.5.  Decide: The Path Selection Engine . . . . . . . . . . . .  28
+     4.6.  Act: The PAREO Functions  . . . . . . . . . . . . . . . .  30
+       4.6.1.  Packet Replication  . . . . . . . . . . . . . . . . .  31
+       4.6.2.  Packet Elimination  . . . . . . . . . . . . . . . . .  32
+       4.6.3.  Promiscuous Overhearing . . . . . . . . . . . . . . .  32
+       4.6.4.  Constructive Interference . . . . . . . . . . . . . .  33
+   5.  Security Considerations . . . . . . . . . . . . . . . . . . .  33
+     5.1.  Forced Access . . . . . . . . . . . . . . . . . . . . . .  33
+   6.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  33
+   7.  Contributors  . . . . . . . . . . . . . . . . . . . . . . . .  33
+   8.  Acknowledgments . . . . . . . . . . . . . . . . . . . . . . .  34
 
 
 
@@ -114,10 +114,10 @@ Thubert, et al.          Expires 29 January 2022                [Page 2]
 Internet-Draft         RAW Architecture/Framework              July 2021
 
 
-   9.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  33
-     9.1.  Normative References  . . . . . . . . . . . . . . . . . .  33
-     9.2.  Informative References  . . . . . . . . . . . . . . . . .  35
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  38
+   9.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  34
+     9.1.  Normative References  . . . . . . . . . . . . . . . . . .  34
+     9.2.  Informative References  . . . . . . . . . . . . . . . . .  36
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  39
 
 1.  Introduction
 
@@ -1496,16 +1496,16 @@ Internet-Draft         RAW Architecture/Framework              July 2021
 
 4.4.  Orient: The Path Computation Engine
 
-4.5.  Decide: The Path Selection Engine
-
    RAW separates the path computation time scale at which a complex path
    is recomputed from the path selection time scale at which the
-   forwarding decision is taken for one or a few packets (more in
-   Section 3.2).  RAW operates at the path selection time scale.  The
-   RAW problem is to decide, within the redundant solutions that are
-   proposed by the PCE, which will be used for each packet to provide a
-   Reliable and Available service while minimizing the waste of
-   constrained resources.
+   forwarding decision is taken for one or a few packets (see in
+   Section 3.2).
+
+
+
+
+
+
 
 
 
@@ -1514,6 +1514,38 @@ Thubert, et al.          Expires 29 January 2022               [Page 27]
 Internet-Draft         RAW Architecture/Framework              July 2021
 
 
+   The path computation is out of scope, but RAW expects that the
+   Controller plane protocol that installs the Track also provides
+   related knowledge in the form of meta data about the links, segments
+   and possible subTracks.  That meta data can be a pre-digested
+   statistical model, and may include prediction of future flaps and
+   packet loss, as well as recommended actions when that happens.
+
+   The meta data may include:
+
+   *  Pre-Determined subTracks to match predictable error profiles
+
+   *  Pre-Trained models
+
+   *  LinkQuality Statistics and projected evolution
+
+   The Track is installed with measurable objectives that are computed
+   by the PCE to achieve the RAW SLA.  The objectives can be expressed
+   as any of maximum number of packet lost in a row, bounded latency,
+   maximal jitter, maximum nmuber of interleaved out of order packets,
+   average number of copies received at the elimination point, and
+   maximal delay between the first and the last received copy of the
+   same packet.
+
+4.5.  Decide: The Path Selection Engine
+
+   The RAW OODA Loop operates at the path selection time scale to
+   provide agility vs. the brute force approach of flooding the whole
+   Track.  The OODA Loop controls, within the redundant solutions that
+   are proposed by the PCE, which will be used for each packet to
+   provide a Reliable and Available service while minimizing the waste
+   of constrained resources.
+
    To that effect, RAW defines the Path Selection Engine (PSE) that is
    the counter-part of the PCE to perform rapid local adjustments of the
    forwarding tables within the diversity that the PCE has selected for
@@ -1521,6 +1553,22 @@ Internet-Draft         RAW Architecture/Framework              July 2021
    capabilities with PAREO and scheduled transmissions at a faster time
    scale over the smaller domain that is the Track, in either a loose or
    a strict fashion.
+
+
+
+
+
+
+
+
+
+
+
+
+Thubert, et al.          Expires 29 January 2022               [Page 28]
+
+Internet-Draft         RAW Architecture/Framework              July 2021
+
 
    Compared to the PCE, the PSE operates on metrics that evolve faster,
    but that needs to be advertised at a fast rate but only locally,
@@ -1565,7 +1613,15 @@ Internet-Draft         RAW Architecture/Framework              July 2021
 
 
 
-Thubert, et al.          Expires 29 January 2022               [Page 28]
+
+
+
+
+
+
+
+
+Thubert, et al.          Expires 29 January 2022               [Page 29]
 
 Internet-Draft         RAW Architecture/Framework              July 2021
 
@@ -1621,7 +1677,7 @@ Internet-Draft         RAW Architecture/Framework              July 2021
 
 
 
-Thubert, et al.          Expires 29 January 2022               [Page 29]
+Thubert, et al.          Expires 29 January 2022               [Page 30]
 
 Internet-Draft         RAW Architecture/Framework              July 2021
 
@@ -1677,7 +1733,7 @@ Internet-Draft         RAW Architecture/Framework              July 2021
 
 
 
-Thubert, et al.          Expires 29 January 2022               [Page 30]
+Thubert, et al.          Expires 29 January 2022               [Page 31]
 
 Internet-Draft         RAW Architecture/Framework              July 2021
 
@@ -1733,7 +1789,7 @@ Internet-Draft         RAW Architecture/Framework              July 2021
 
 
 
-Thubert, et al.          Expires 29 January 2022               [Page 31]
+Thubert, et al.          Expires 29 January 2022               [Page 32]
 
 Internet-Draft         RAW Architecture/Framework              July 2021
 
@@ -1789,7 +1845,7 @@ Internet-Draft         RAW Architecture/Framework              July 2021
 
 
 
-Thubert, et al.          Expires 29 January 2022               [Page 32]
+Thubert, et al.          Expires 29 January 2022               [Page 33]
 
 Internet-Draft         RAW Architecture/Framework              July 2021
 
@@ -1845,7 +1901,7 @@ Internet-Draft         RAW Architecture/Framework              July 2021
 
 
 
-Thubert, et al.          Expires 29 January 2022               [Page 33]
+Thubert, et al.          Expires 29 January 2022               [Page 34]
 
 Internet-Draft         RAW Architecture/Framework              July 2021
 
@@ -1901,7 +1957,7 @@ Internet-Draft         RAW Architecture/Framework              July 2021
 
 
 
-Thubert, et al.          Expires 29 January 2022               [Page 34]
+Thubert, et al.          Expires 29 January 2022               [Page 35]
 
 Internet-Draft         RAW Architecture/Framework              July 2021
 
@@ -1957,7 +2013,7 @@ Internet-Draft         RAW Architecture/Framework              July 2021
 
 
 
-Thubert, et al.          Expires 29 January 2022               [Page 35]
+Thubert, et al.          Expires 29 January 2022               [Page 36]
 
 Internet-Draft         RAW Architecture/Framework              July 2021
 
@@ -2013,7 +2069,7 @@ Internet-Draft         RAW Architecture/Framework              July 2021
 
 
 
-Thubert, et al.          Expires 29 January 2022               [Page 36]
+Thubert, et al.          Expires 29 January 2022               [Page 37]
 
 Internet-Draft         RAW Architecture/Framework              July 2021
 
@@ -2069,7 +2125,7 @@ Internet-Draft         RAW Architecture/Framework              July 2021
 
 
 
-Thubert, et al.          Expires 29 January 2022               [Page 37]
+Thubert, et al.          Expires 29 January 2022               [Page 38]
 
 Internet-Draft         RAW Architecture/Framework              July 2021
 
@@ -2125,7 +2181,7 @@ Authors' Addresses
 
 
 
-Thubert, et al.          Expires 29 January 2022               [Page 38]
+Thubert, et al.          Expires 29 January 2022               [Page 39]
 
 Internet-Draft         RAW Architecture/Framework              July 2021
 
@@ -2181,4 +2237,4 @@ Internet-Draft         RAW Architecture/Framework              July 2021
 
 
 
-Thubert, et al.          Expires 29 January 2022               [Page 39]
+Thubert, et al.          Expires 29 January 2022               [Page 40]

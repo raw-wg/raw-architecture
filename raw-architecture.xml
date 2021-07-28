@@ -1531,14 +1531,51 @@ zzz = flapping now
 <section anchor="pce" numbered="true" toc="default">
     <name>Orient: The Path Computation Engine</name>
 
+   <t>
+   RAW separates the path computation time scale at which a complex path is
+   recomputed from the path selection time scale at which the forwarding
+   decision is taken for one or a few packets (see in <xref target="timescale"
+   />).
+   </t>
+   <t>The path computation is out of scope, but RAW expects that the Controller
+   plane protocol that installs the Track also provides related knowledge
+   in the form of meta data about the links, segments and possible subTracks.
+   That meta data can be a pre-digested statistical model, and may include
+   prediction of future flaps and packet loss, as well as recommended actions
+   when that happens.
+   </t>
+   <t>
+   The meta data may include:
+   </t>
+   <ul>
+   <li>
+   Pre-Determined subTracks to match predictable error profiles
+   </li>
+   <li>
+   Pre-Trained models
+   </li>
+   <li>
+   LinkQuality Statistics and projected evolution
+   </li>
+   </ul>
+   <t>The Track is installed with measurable objectives that are computed by
+   the PCE to achieve the RAW SLA. The objectives can be expressed as any of
+   maximum number of packet lost in a row, bounded latency, maximal jitter,
+   maximum nmuber of interleaved out of order packets,
+   average number of copies received at the elimination point, and maximal
+   delay between the first and the last received copy of the same packet.
+   </t>
 </section>
     <!-- Orient: The Path Computation Engine -->
 
 <section anchor="psepce" numbered="true" toc="default">
     <name>Decide: The Path Selection Engine</name>
  <t>
-    RAW separates the path computation time scale at which a complex path is recomputed from the path selection time scale at which the forwarding decision is taken for one or a few packets (more in <xref target="timescale"/>).
-    RAW operates at the path selection time scale.  The RAW problem is to decide, within the redundant solutions that are proposed by the PCE, which will be used for each packet to provide a Reliable and Available service while minimizing the waste of constrained resources.
+    The RAW OODA Loop operates at the path selection time scale to provide
+    agility vs. the brute force approach of flooding the whole Track.
+    The OODA Loop controls, within the redundant solutions that are proposed
+    by the PCE, which will be used for each packet to provide a Reliable and
+    Available service while minimizing the waste of constrained resources.
     </t><t>
     To that effect, RAW defines the Path Selection Engine (PSE) that is the counter-part of the PCE to perform rapid local adjustments of the forwarding tables within the diversity that the PCE has selected for the Track.
     The PSE enables to exploit the richer forwarding capabilities with PAREO and scheduled transmissions at a faster time scale over the smaller domain that

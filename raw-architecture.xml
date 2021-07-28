@@ -1344,6 +1344,27 @@ zzz = flapping now
       down the Track from the PSE, see <xref target = "PAREO" />
       </li>
       </ol>
+      <figure anchor="oodaloop">
+          <name>The RAW OODA Loop</name>
+       <artwork align="center" name="" type="" alt="">
+<![CDATA[
+
+     +-------> Orient (PCE) --------+
+     |          link stats,         |
+     |       pre-trained model      |
+     |             ...              |
+     |                              |
+     |                              v
+ Observe (OAM)                Decide (PSE)
+     ^                              |
+     |                              |
+     |                              |
+     +-------- Act (PAREO) <--------+
+                At DetNet
+             Service sublayer
+
+]]></artwork>
+</figure>
    <t> The overall OODA Loop optimizes the use of redundancy to achieve the
    required reliability and availability Service Level Agreement (SLA) while
    minimizing the use of constrained resources such as spectrum and battery.
@@ -1386,7 +1407,8 @@ zzz = flapping now
           Observed by OAM       Opaque to OAM
 
 ]]></artwork>
-</figure><t>
+</figure>
+   <t>
     In the case of a End-to-End Protection in a Wireless Mesh, the Track is strict and congruent
     with the path so all links are observed. Conversely, in the case of Radio
     Access Protection, the Track is Loose and in that case only the first hop is observed; the rest of the path is abstracted and considered infinitely reliable.

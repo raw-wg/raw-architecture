@@ -12,7 +12,7 @@ Expires: 29 January 2022                                  IMT Atlantique
 
 
          Reliable and Available Wireless Architecture/Framework
-                     draft-ietf-raw-architecture-00
+                     draft-ietf-raw-architecture-01
 
 Abstract
 

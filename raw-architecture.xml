@@ -81,8 +81,9 @@
       wireless medium. The wireless medium presents significant
       challenges to achieve deterministic properties such as low
       packet error rate, bounded consecutive losses, and bounded
-      latency. This document defines the RAW Architecture.  It
-      builds on the DetNet Architecture and discusses specific
+      latency. This document defines the RAW Architecture following
+      an OODA loop that involves OAM, PCE, PSE and PAREO functions.
+      It builds on the DetNet Architecture and discusses specific
       challenges and technology considerations needed to deliver
       DetNet service utilizing scheduled wireless segments and
       other media, e.g., frequency/time-sharing physical media
@@ -149,7 +150,8 @@
       <t>
 
    This increased complexity explains why the development of deterministic
-   wireless technologies has been lagging behind the similar efforts for wired systems, both at the IEEE and the IETF. But recent progress on scheduled
+   wireless technologies has been lagging behind the similar efforts for wired
+   systems, both at the IEEE and the IETF. But recent progress on scheduled
    radios such as TSCH and OFDMA indicates that wireless is finally catching up
    at the lower layers. Sitting at the layer above,
    RAW takes up the challenge of providing highly available and reliable
@@ -188,15 +190,38 @@
    the shorter forwarding time scale where per-packet decisions are made.
    RAW operates within the Network Plane at the forwarding time scale on one
    DetNet flow over a complex path called a Track. The Track is preestablished
-   and installed by means outside of the scope of RAW; it may be strict or loose depending on whether each or just a subset of the hops are observed and
+   and installed by means outside of the scope of RAW; it may be strict or loose
+   depending on whether each or just a subset of the hops are observed and
    controlled by RAW.
       </t>
       <t>
-   The RAW Architecture covers Network Plane protocol elements such as
-   Operations, Administration and Maintenance (OAM) to observe some or all hops along a Track as well as the end-to-end packet delivery, and in-band control
-   to optimize the use of redundancy to achieve the required SLA with minimal
-   use of constrained resources.
+   The RAW Architecture is structured as an OODA Loop (Observe, Orient, Decide,
+   Act). It involves:
       </t>
+      <ol>
+      <li> Network Plane measurement protocols for Operations, Administration
+      and Maintenance (OAM) to Observe some or all hops along a Track as well as
+      the end-to-end packet delivery
+      </li>
+      <li> Controller plane elements to reports the links statistics to a Path
+      computation Element (PCE) in a centralized controller that computes and
+      installs the Tracks and provides meta data to Orient the routing
+      decision
+      </li>
+      <li> A Runtime distributed Path Selection Engine (PSE) thar Decides which
+      subTrack to use for the next packet(s) that are routed along the Track
+      </li>
+      <li> Packet (hybrid) ARQ, Replication, Elimination and Ordering Dataplane
+      actions that operate at the DetNet Service Layer to increase the
+      reliability o fthe end-to-end transmission. The RAW architecture also
+      covers in-situ signalling when the decision is Acted by a node that
+      down the Track from the PSE.
+      </li>
+      </ol>
+   <t> The overall OODA Loop optimizes the use of redundancy to achieve the
+   required reliability and availability Service Level Agreement (SLA) while
+   minimizing the use of constrained resources such as spectrum and battery.
+   </t>
 
     </section>
     <!-- Introduction -->

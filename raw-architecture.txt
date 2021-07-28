@@ -196,7 +196,7 @@ Internet-Draft         RAW Architecture/Framework              July 2021
    The "Deterministic Networking Architecture" [RFC8655] is composed of
    three planes: the Application (User) Plane, the Controller Plane, and
    the Network Plane.  The RAW Architecture extends the DetNet Network
-   Plane, to accomodate one or multiple hops of homogeneous or
+   Plane, to accommodate one or multiple hops of homogeneous or
    heterogeneous wireless technologies, e.g. a Wi-Fi6 Mesh or parallel
    CBRS access links federated by a 5G backhaul.
 
@@ -244,7 +244,7 @@ Internet-Draft         RAW Architecture/Framework              July 2021
 
    4.  Packet (hybrid) ARQ, Replication, Elimination and Ordering
        Dataplane actions that operate at the DetNet Service Layer to
-       increase the reliability o fthe end-to-end transmission.  The RAW
+       increase the reliability of the end-to-end transmission.  The RAW
        architecture also covers in-situ signalling when the decision is
        Acted by a node that down the Track from the PSE.
 
@@ -282,7 +282,7 @@ Thubert, et al.          Expires 29 January 2022                [Page 5]
 Internet-Draft         RAW Architecture/Framework              July 2021
 
 
-      cyclic model developped by USAF Colonel John Boyd, that is
+      cyclic model developed by USAF Colonel John Boyd, and that is
       applicable in multiple domains where agility can provide benefits
       against brute force.
 
@@ -372,8 +372,8 @@ Internet-Draft         RAW Architecture/Framework              July 2021
       particular function or subnetwork (e.g., around a relay providing
       a service layer replication point) that is being tested.
 
-   Reverse OAM:  A Reverse OAM packet is an Out-of-Band OAM packet that
-      traverses the Track from egress to ingress on the reverse
+   Upstream OAM:  An upstream OAM packet is an Out-of-Band OAM packet
+      that traverses the Track from egress to ingress on the reverse
       direction, to capture and report OAM measurements upstream.  The
       collection may capture all information along the whole Track, or
       it may only learn select data across all, or only a particular
@@ -664,7 +664,7 @@ Internet-Draft         RAW Architecture/Framework              July 2021
 
    The key technique to combat those unpredictable losses is diversity.
    Different forms of diversity are necessary to combat different causes
-   of loss and the use of diversity must be maximised to optimize the
+   of loss and the use of diversity must be maximized to optimize the
    PDR.
 
 
@@ -993,9 +993,9 @@ Internet-Draft         RAW Architecture/Framework              July 2021
    reversible, meaning that they can be used in either direction.  In
    that case, an indication in the packet signals the direction of the
    reversible links or segments that the packet traverses and thus
-   places a constraint that prevents loops from occuring.  An indidual
-   packet follows a destination-oriented directed acyclic graph (DODAG)
-   towards a destination Node inside the Complex Track.
+   places a constraint that prevents loops from occurring.  An
+   individual packet follows a destination-oriented directed acyclic
+   graph (DODAG) towards a destination Node inside the Complex Track.
 
 
 
@@ -1013,7 +1013,7 @@ Internet-Draft         RAW Architecture/Framework              July 2021
 3.4.  Flow Identification vs. Path Identification
 
    Section 4.7 of the DetNet Architecture [RFC8655] ties the app-flow
-   identification which is an appliation layer concept with the network
+   identification which is an application-layer concept with the network
    path identification that depends on the networking technology by
    "exporting of flow identification", e.g., to a MPLS label.
 
@@ -1022,9 +1022,9 @@ Internet-Draft         RAW Architecture/Framework              July 2021
    packets along that Track are necessarily part of the same flow.  For
    instance, out-of-band OAM packets must circulate in the exact same
    fashion as the flows that they observe.  It results that the flow
-   identification that maps to to app-flow at the network layer must be
-   separate from the path identification that is used to forward a
-   packet.
+   identification that maps to an application layer flowat the network
+   layer must be separate from the path identification that is used to
+   forward a packet.
 
    Section 3.4 of the DetNet data-plane framework [DetNet-DP] indicates
    that for a DetNet IP Data Plane, a flow is identified by an IPv6
@@ -1496,7 +1496,7 @@ Internet-Draft         RAW Architecture/Framework              July 2021
 
    In other words, the best suited OAM method to enable the PSE make
    accurate PAREO forwarding decisions is a periodic variation of the
-   two-steps method flowing along the reverse Track, as a Reverse OAM
+   two-steps method flowing along the reverse Track, as an upstream OAM
    technique.  [RAW-OAM] provides more information on the RAW OAM
    problem and solution approaches.
 
@@ -1538,7 +1538,7 @@ Internet-Draft         RAW Architecture/Framework              July 2021
 
    *  Pre-Trained models
 
-   *  LinkQuality Statistics and projected evolution
+   *  Link Quality Statistics and their projected evolution
 
    The Track is installed with measurable objectives that are computed
    by the PCE to achieve the RAW SLA.  The objectives can be expressed
@@ -1571,7 +1571,7 @@ Internet-Draft         RAW Architecture/Framework              July 2021
 
 
    To that effect, RAW defines the Path Selection Engine (PSE) that is
-   the counter-part of the PCE to perform rapid local adjustments of the
+   the counterpart of the PCE to perform rapid local adjustments of the
    forwarding tables within the diversity that the PCE has selected for
    the Track.  The PSE enables to exploit the richer forwarding
    capabilities with PAREO and scheduled transmissions at a faster time
@@ -1581,7 +1581,7 @@ Internet-Draft         RAW Architecture/Framework              July 2021
    Compared to the PCE, the PSE operates on metrics that evolve faster,
    but that needs to be advertised at a fast rate but only locally,
    within the Track.  The forwarding decision may also change rapidly,
-   but wiht a scope that is also contained within the Track, with no
+   but with a scope that is also contained within the Track, with no
    visibility to the other Tracks and flows in the network.  This is as
    opposed to the PCE that needs to observe the whole network, and
    optimize all the Tracks globally, which can only be done at a slow

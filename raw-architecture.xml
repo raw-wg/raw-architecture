@@ -249,6 +249,10 @@
     RAW uses the following terminology:
     </t>
     <dl>
+    <dt>OODA:</dt><dd> Observe, Orient, Decide, Act. The OODA Loop is a conceptual cyclic model developped by USAF  Colonel John Boyd, that is
+    applicable in multiple domains where agility can provide benefits against
+    brute force.
+    </dd>
     <dt>PAREO:</dt><dd>Packet (hybrid) ARQ, Replication, Elimination and
     Ordering. PAREO is a superset Of DetNet's PREOF that includes
     radio-specific techniques such as short range broadcast, MUMIMO,
@@ -1037,9 +1041,603 @@ zzz = flapping now
 </section>
 <!--Wireless Tracks-->
 
-    <!--  11111111111111111    -->
+<section anchor="flowid" numbered="true" toc="default">
+    <name>Flow Identification vs. Path Identification</name>
+
+<t>
+    Section 4.7 of the DetNet Architecture <xref target="RFC8655"/> ties the
+    app-flow identification which is an appliation layer concept with the
+    network path identification that depends on the networking technology by
+    "exporting of flow identification", e.g., to a MPLS label.
+</t><t>
+    With RAW, this exporting operation is injective but not bijective.
+    e.g., a flow is fully placed within one RAW Track, but not all packets along
+    that Track are necessarily part of the same flow. For instance, out-of-band
+    OAM packets must circulate in the exact same fashion as the flows that they
+    observe. It results that the flow identification that maps to to app-flow
+    at the network layer must be separate from the path identification that is
+    used to forward a packet.
+</t><t>
+
+    Section 3.4 of the DetNet data-plane framework <xref target="RFC8938" format="default"/> indicates that for
+    a DetNet IP Data Plane, a flow is identified by an IPv6 6-tuple.
+    With RAW, that 6-tuple is not what indicates the Track, in other words, the
+    flow ID is not the Track ID.
+</t><t>
+    For instance, the 6TiSCH Architecture
+    <xref target="RFC9030" format="default"/>
+    uses a combination of the address of the Egress End System and an instance
+    identifier in a Hop-by-hop option to indicate a Track. This way, if a packet
+    "escapes" the Track, it will reach the Track Egress point through normal
+    routing and be treated at the service layer through, say, elimination and
+    reordering.
+</t><t>
+    The RAW service includes forwarding over a subset of the Links that form the
+    Track (a subTrack). Packets from the same or a different flow that are routed through the same Track will not necessarily traverse the same Links. The PSE
+    selects a subTrack for a packet based on the links
+    that are preferred and those that should be avoided at this time.
+</t><t>
+    Each packet is forwarded within the subTrack that provides the best
+    adequation with the SLA of the flow and the energy and bandwidth constraints
+    of the network.
+</t>
+
+<figure anchor="Figflowvstrack">
+          <name>Flow Injection</name>
+       <artwork align="center" name="" type="" alt="">
+<![CDATA[
+
+            Flow 1 (6-tuple) ----+
+                                 |
+       Flow 2 (6-tuple)  ---+    |
+                            |    |
+    OAM     -----------+    |    |
+                       |    |    |
+                       |    |    |
+                  |    |    |    |    |
+                  |    v    v    v    |
+                  |                   |
+                  +---------+---------+
+                            |
+                            |
+     Track i (Ingress IP Address, RPLinstanceId)
+                            |
+                            |
+                            |
+            +---------+-----+--....-------+
+            |         |                   |
+            |         |                   |
+     subTrack 1    subTrack 2          subTrack n
+            |         |                   |
+            |         |                   |
+            V         V                   V
+         +-----------------------------------+
+         |                                   |
+         |         Destination               |
+         |                                   |
+         +-----------------------------------+
+
+
+]]>
+       </artwork>
+</figure>
+<t>
+    With 6TiSCH,
+    packets are tagged with the same (destination address, instance ID)
+    will experience the same RAW service regardless of the IPv6 6-tuple
+    that indicates the flow. The forwarding does not depend on whether the
+    packets transport application flows or OAM. In the generic
+    case, the Track or the subTrack can be signaled in the packet through other
+    means, e.g., encoded in the suffix of the destination address as a Segment
+    Routing Service Instruction <xref target="RFC8402"/>, or leveraging Bit
+    Index Explicit Replication <xref target="RFC8279"/> Traffic Engineering
+     <xref target="I-D.ietf-bier-te-arch"/>.
+</t>
+</section>
+    <!--Flow Identification vs. Path Identification-->
+
+
     <section numbered="true" toc="default">
-      <name>PAREO Functions</name>
+      <name>Source-Routed vs. Distributed Forwarding Decision</name>
+      <t>
+   Within a large routed topology, the route-over mesh operation builds a
+   particular complex Track with one source and one or more destinations; within
+   the Track,
+   packets may follow different paths and may be subject to RAW forwarding
+   operations that include replication, elimination, retries, overhearing and
+   reordering.
+      </t>
+      <t>
+    The RAW forwarding decisions include the selection of points of replication
+   and elimination, how many retries can take place, and a limit of validity for
+    the packet beyond which the packet should be destroyed rather than forwarded
+    uselessly further down the Track.
+      </t>
+      <t>
+    The decision to apply the RAW techniques must be done quickly, and depends on
+    a very recent and precise knowledge of the forwarding conditions within the
+    complex Track. There is a need for an observation method to provide the RAW
+    Data Plane with the specific knowledge of the state of the Track for
+    the type of flow of interest (e.g., for a QoS level of interest). To observe
+    the whole Track in quasi real time, RAW considers existing tools such as
+    L2-triggers, DLEP, BFD and leverages in-band and out-of-band OAM to capture
+    and report that information to the PSE.
+      </t>
+      <t>
+   One possible way of making the RAW forwarding decisions within a Track is to
+   position a unique PSE at the Ingress and express its decision in-band in the packet, which requires the explicit signaling of the subTrack within the
+   Track. In that case, the RAW forwarding operation along the Track is encoded
+   by the source, e.g., by indicating the subTrack in the Segment Routing (SRv6)
+   Service Instruction, or by leveraging BIER-TE such as done with
+   <xref target="I-D.thubert-bier-replication-elimination" format="default"/>.
+      </t>
+      <t>
+    The alternate way is to operate the PSE in each forwarding Node, which makes
+    the RAW forwarding decisions for a packet on its own, based on its knowledge
+    of the expectation (timeliness and reliability) for that packet and a recent
+    observation of the rest of the way across the possible paths based on OAM.
+    Information about the desired service should be placed in the packet and
+    matched with the forwarding Node's capabilities and policies.
+      </t>
+      <t>
+    In either case, a per-track/subTrack state is installed in all the
+    intermediate Nodes to recognize the packets that are following a Track and
+    determine the forwarding operation to be applied.
+      </t>
+
+    </section>
+    <!-- Track Source-Routed vs. Distributed RAW Decision -->
+
+
+    <section numbered="true" toc="default">
+      <name>Encapsulation and Decapsulation</name>
+ <t>
+    In the generic case where the Track Ingress Node is not the source of the
+    Packet, the Ingress Node needs to encapsulate IP-in-IP to ensure that the
+    Destination IP Address is that of the Egress Node and that the necessary
+    Headers (Routing Header, Segment Routing Header and/or Hop-By-Hop Header)
+    can be added to the packet to signal the Track or the subTrack, conforming
+    <xref target="RFC8200"/> that discourages the insertion of a Header on the
+    fly.
+ </t><t>
+    In the specific case where the Ingress Node is the source of the packet, the
+    encapsulation can be avoided, provided that the source adds the necessary
+    headers and that the destination is set to the Egress Node. Forwarding
+    to a final destination beyond the Egress Node is possible, e.g., with a
+    Segment Routing Header that signals the rest of the way. In that case
+    a Hop-by-Hop Header is not recommmended since its validity is within the
+    Track only.
+ </t><t>
+ </t>
+
+</section>
+    <!--Encapsulation and Decapsulation -->
+
+    <!--  11111111111111111111    -->
+
+ </section>    <!--RAW Framework-->
+
+
+    <!--  000000000000000000000    -->
+
+
+<section anchor="archi" numbered="true" toc="default">
+    <name>The RAW Architecture</name>
+
+
+
+<section anchor="model" numbered="true" toc="default">
+    <name>The RAW Conceptual Model</name>
+    <t>
+    RAW inherits the conceptual model described in section 4 of the DetNet
+    Architecture <xref target="RFC8655"/>. RAW extends the DetNet service
+    layer to provide additional agility against transmission loss.
+    </t><t>
+
+   A RAW Network Plane may be strict or loose, depending
+   on whether RAW observes and takes actions on all hops or not. For instance,
+   the packets between two wireless entities may be relayed over a wired
+   infrastructure such as a Wi-Fi extended service set (ESS) or a 5G Core; in
+   that case, RAW observes and control the transmission over the wireless first
+   and last hops, as well as end-to-end metrics such as latency, jitter, and
+   delivery ratio. This operation is loose since the structure and properties of
+   the wired infrastructure are ignored, and may be either controlled by other
+   means such as DetNet/TSN, or neglected in the face of the wireless hops.
+
+    </t><t>
+    A Controller Plane Function (CPF) called the
+    Path Computation Element (PCE) <xref target="RFC4655"/> interacts with
+    RAW Nodes over a Southbound API. The RAW Nodes are DetNet relays that are capable of additional diversity mechanisms and measurement functions related
+    to the radio interface, in particular the PAREO diversity mechanisms.
+    </t><t>
+    The PCE defines a complex Track between an Ingress End System and an Egress
+    End System, and indicates to the RAW Nodes where the PAREO operations may be actionned in the Network Plane. The Track may be expressed loosely to enable
+    traversing a non-RAW subnetwork. In that case, the expectation is that the
+    non-RAW subnetwork can be neglected in the RAW computation, that is,
+    considered infinitely fast, reliable and/or available in comparison with the
+    links between RAW nodes.
+    </t>
+<figure anchor="FigCPF">
+          <name>RAW Nodes</name>
+       <artwork align="center" name="" type="" alt="">
+
+
+        CPF               CPF          CPF                 CPF
+
+
+                       Southbound API
+   _-._-._-._-._-._-._-._-._-._-._-._-._-._-._-._-._-._-._-._-._-._-
+ _-._-._-._-._-._-._-._-._-._-._-._-._-._-._-._-._-._-._-._-._-._-
+
+
+                 RAW  --z   RAW  --z   RAW  --z   RAW
+             z-- Node  z--  Node  z--  Node  z--  Node --z
+  Ingress --z    /          /                           z-- Egress
+  End           \          \         .. .                   End
+  Node   ---z   /          /       .. ..  .             z-- Node
+           z-- RAW  --z   RAW     ( non-RAW ) -- RAW --z
+               Node  z--  Node --- ( Nodes  )   Node
+                                      ... .
+  --z   wireless           wired
+   z--  link           --- link
+</artwork>
+</figure>
+
+    <t>
+    The Link-Layer metrics are reported to the PCE in a time-aggregated, e.g.,
+    statistical fashion. Example Link-Layer metrics include typical Link
+    bandwidth (the medium speed depends dynamically on the PHY mode and the
+    number of users sharing the spectrum) and average and mean squared deviation
+    of availability and reliability figures such as Packet Delivery Ratio (PDR)
+    over long periods of time.
+    </t><t>
+    Based on those metrics, the PCE installs the Track with enough
+    redundant forwarding solutions to ensure that the Network Plane can reliably
+    deliver the packets within a System Level Agreement (SLA) associated to the
+    flows that it transports.
+    The SLA defines end-to-end reliability and availability requirements, where
+    reliability may be expressed as a successful delivery in order and within a
+    bounded delay of at least one copy of a packet.
+    </t><t>
+    Depending on the use case and the SLA, the Track may comprise non-RAW
+    segments, either interleaved inside the Track, or all the way to
+    the Egress End Node (e.g., a server in the Internet). RAW observes the
+    Lower-Layer Links between RAW nodes (typically, radio links) and the
+    end-to-end Network Layer operation to decide at all times which of the PAREO
+    diversity schemes is actioned by which RAW Nodes.
+    </t><t>
+    Once a Track is established, per-segment and end-to-end reliability
+    and availability statistics are periodically reported to the PCE to assure that
+    the SLA can be met or have it recompute the Track if not.
+    </t>
+
+    </section> <!-- The RAW Conceptual Model -->
+
+
+    <!--  1111111111111   -->
+
+<section anchor="stack" numbered="true" toc="default">
+    <name>The OODA Loop</name>
+
+      <t>
+   The RAW Architecture is structured as an OODA Loop (Observe, Orient, Decide,
+   Act). It involves:
+      </t>
+      <ol>
+      <li> Network Plane measurement protocols for Operations, Administration
+      and Maintenance (OAM) to Observe some or all hops along a Track as well as
+      the end-to-end packet delivery, see <xref target = "aom" />
+      </li>
+      <li> Controller plane elements to reports the links statistics to a Path
+      computation Element (PCE) in a centralized controller that computes and
+      installs the Tracks and provides meta data to Orient the routing
+      decision, see <xref target = "pce" />
+      </li>
+      <li> A Runtime distributed Path Selection Engine (PSE) thar Decides which
+      subTrack to use for the next packet(s) that are routed along the Track,
+      see <xref target = "psepce" />
+      </li>
+      <li> Packet (hybrid) ARQ, Replication, Elimination and Ordering Dataplane
+      actions that operate at the DetNet Service Layer to increase the
+      reliability o fthe end-to-end transmission. The RAW architecture also
+      covers in-situ signalling when the decision is Acted by a node that
+      down the Track from the PSE, see <xref target = "PAREO" />
+      </li>
+      </ol>
+   <t> The overall OODA Loop optimizes the use of redundancy to achieve the
+   required reliability and availability Service Level Agreement (SLA) while
+   minimizing the use of constrained resources such as spectrum and battery.
+   </t>
+</section>
+   <!-- The OODA Loop -->
+
+<section anchor="aom" numbered="true" toc="default">
+    <name>Observe: The RAW OAM </name><t>
+    RAW In-situ OAM operation in the Network Plane may observe either a full
+    Track or subTracks that are being used at this time. Active RAW OAM may
+    be needed to observe the unused segments and evaluate the desirability of
+    a rerouting decision.
+    Finally, the RAW Service Layer Assurance may observe the individual PAREO
+    operation of a relay node to ensure that it is conforming; this might
+    require injecting an OAM packet at an upstream point inside the Track and
+    extracting that packet at another point downstream before it reaches the
+    egress.
+    </t><t>
+    This observation feeds the RAW
+    PSE that makes the decision on which PAREO function in actioned at which RAW
+    Node, for one a small continuous series of packets.
+     </t>
+<figure anchor="Figranp2">
+          <name>Observed Links in Radio Access Protection</name>
+       <artwork align="center" name="" type="" alt="">
+<![CDATA[
+                                   ...   ..
+                RAN 1  -----  ...      ..  ...
+             /              .    ..          ....
++-------+  /              .            ..      ....    +------+
+|Ingress|-                .                     .....  |Egress|
+|  End  |------ RAN 2 -- .       Internet       ....---| End  |
+|System |-                ..                   .....   |System|
++-------+  \               .               ......      +------+
+             \               ...   ...     .....
+                RAN n  --------  ...   .....
+
+       <------------------> <-------------------->
+          Observed by OAM       Opaque to OAM
+
+]]></artwork>
+</figure><t>
+    In the case of a End-to-End Protection in a Wireless Mesh, the Track is strict and congruent
+    with the path so all links are observed. Conversely, in the case of Radio
+    Access Protection, the Track is Loose and in that case only the first hop is observed; the rest of the path is abstracted and considered infinitely reliable.
+    </t>
+    <t>
+    In the case of the Radio Access Protection, only the first hop is protected;
+    the loss of a packet that was sent over one of the possible first hops is
+    attributed to that first hop, even if a particular loss effectively happens
+    farther down the path.
+    </t>
+    <t>
+    The Links that are not observed by OAM are opaque to it, meaning that the
+    OAM information is carried across and possibly echoed as data, but there is
+    no information capture in intermediate nodes. In the example above, the
+    Internet is opaque and not controlled by RAW; still the RAW OAM measures the
+    end-to-end latency and delivery ratio for packets sent via each if RAN 1,
+    RAN 2 and RAN 3, and determines whether a packet should be sent over either
+    or a collection of those access links.
+    </t>
+
+
+<section anchor="dnoam" numbered="true" toc="default">
+    <name>DetNet OAM</name>
+ <t>
+  <xref target="detnet" format="default"/> provides an OAM framework with
+  <xref target="I-D.ietf-detnet-oam-framework" format="default"/> that
+  applies within the DetNet dataplane described in
+  <xref target="RFC8938" format="default"/>,which is typically based on
+  MPLS or IPv6 pseudowires.
+  How the framework applies to IPv6 is detailed in
+  <xref target="I-D.ietf-detnet-ip-oam" format="default"/>.
+  Within that framework, OAM messages follow the same forward path as the data
+  packets and gather information about their individual treatment at each hop.
+  When the destination receives an OAM message, it gets a view on the full path
+  or at least of a segment of the path from the source of the flow.
+ </t>
+ <t>
+  In-situ OAM (IOAM) adds telemetry information about the experience of one
+  packet within the packet itself
+  <xref target="I-D.ietf-ippm-ioam-data" format="default"/>, with the caveats
+  that the measurement and the consecutive update of the packet interfere with
+  the operation being observed, e.g., may increase the latency of the packet
+  for which it is measured and into which it is stamped.
+ </t>
+ <t>
+  Note: IOAM and analogous on-path telemetry methods are capable of facilitating
+  collection of useful telemetry information that characterizes the state of a
+  system as experienced by the packet. But because of statistical character of a
+  packet network, these methods may not be used to monitor the continuity of a
+  path (Track) or proper connectivity of the Track (no leaking packets across
+  Tracks).
+ </t>
+ <t>
+  This effect can be alleviated by measuring on the fly but reporting later,
+  e.g., by exporting the data as a separate management packet
+  <xref target="I-D.ietf-ippm-ioam-direct-export" format="default"/>.
+  <xref target="I-D.mirsky-ippm-hybrid-two-step" format="default"/> proposes an
+  hybrid two-steps method (HTS) where a trigger message starts the measurement
+  and a follow up along the Track packet gathers the measured data.
+ </t>
+ <t>
+  <xref target="I-D.mirsky-ippm-epm" format="default">"Error Performance
+  Measurement"</xref> uses Fault Management (FM) and Performance Management (PM)
+  OAM mechanisms to determine availability/unavailability of a path according to
+  predefined SLA.
+ </t>
+</section>
+    <!--DetNet OAM-->
+
+<section anchor="roam" numbered="true" toc="default">
+    <name>RAW Extensions</name>
+
+ <t>
+ Classical OAM typically measures information at the transmitter, e.g.,
+ residence time in the node or transmit queue size. With RAW, there is a need to
+ combine information at the sender (number of retries) with that at the receiver
+ (LQI, RSSI).
+ This doubles the operating cost of an IAOM processing that would gather the
+ experience of a single packet.
+  </t>
+ <t>
+ The RAW PSE may be centralized at the Track Ingress, or distributed long the
+ Track. Either way, the PSE needs instant information about the rest of the
+ way to the destination over the possible next-hop adjacencies along the Track
+ in order to decide how to perform simple forwarding, load balancing, and/or
+ replication, as well as determining how much latency credit is available for
+ ARQ.
+  </t>
+ <t>
+ To provide that information timely, it makes sense that the OAM packets that
+ gather instantaneous values from the radio senders and receivers at each hop
+ flow on the reverse path and inform the PSE at the source and/or the PAREO
+ relays about the state of the rest of the way. This is achieved using Reverse
+ OAM packets that flow along the Reversed Track, West to East.
+ </t>
+ <t>
+ Because the quality of transmission over a wireless medium varies continuously,
+ it is important that RAW OAM captures the state of the medium across an adjacency
+ over multiple transmission and over a recent period of time, whether the
+ transmitted packets belong to this flow or another. Some of the measured information
+ relates to the medium itself. In other words, the captured information does not
+ only relate to the experience of one packet as is the case for IOAM, but also to the
+ medium itself. This makes an approach like HTS more suitable as it can trigger
+ the capture of multiple measurements over a short period of time. On the other
+ hand, the PSE needs a continuous measurement stream where a single trigger
+ is followed by a periodic follow up capture.
+  </t>
+ <t>
+  In other words, the best suited OAM method to enable the PSE make accurate
+  PAREO forwarding decisions is a periodic variation of the two-steps method
+  flowing along the reverse Track, as a Reverse OAM technique.
+ <xref target="I-D.ietf-raw-oam-support" format="default"/> provides more
+ information on the RAW OAM problem and solution approaches.
+ </t>
+</section>
+    <!--DetNet OAM-->
+
+<section anchor="oametrics" numbered="true" toc="default">
+ <name>Observed Metrics</name>
+ <t>
+ The Dynamic Link Exchange Protocol (DLEP)
+ <xref target="RFC8175" format="default"/> from
+ <xref target="MANET" format="default"/> can be leveraged at each hop
+ to derive generic radio metrics (e.g., based on LQI, RSSI, queueing delays
+ and ETX) on individual hops.
+ </t>
+ <t>
+ Those lower-layer metrics are aggregated along a multihop segment into abstract
+ layer 3 information that reflect the instant reliability and latency of the
+ observed path.
+ </t>
+</section>
+    <!--Observed Metrics -->
+
+
+
+
+</section>
+    <!-- Observe: The RAW OAM -->
+
+
+<section anchor="pce" numbered="true" toc="default">
+    <name>Orient: The Path Computation Engine</name>
+
+</section>
+    <!-- Orient: The Path Computation Engine -->
+
+<section anchor="psepce" numbered="true" toc="default">
+    <name>Decide: The Path Selection Engine</name>
+ <t>
+    RAW separates the path computation time scale at which a complex path is recomputed from the path selection time scale at which the forwarding decision is taken for one or a few packets (more in <xref target="timescale"/>).
+    RAW operates at the path selection time scale.  The RAW problem is to decide, within the redundant solutions that are proposed by the PCE, which will be used for each packet to provide a Reliable and Available service while minimizing the waste of constrained resources.
+    </t><t>
+    To that effect, RAW defines the Path Selection Engine (PSE) that is the counter-part of the PCE to perform rapid local adjustments of the forwarding tables within the diversity that the PCE has selected for the Track.
+    The PSE enables to exploit the richer forwarding capabilities with PAREO and scheduled transmissions at a faster time scale over the smaller domain that
+    is the Track, in either a loose or a strict fashion.
+    </t>
+   <t>
+        Compared to the PCE,
+    the PSE operates on metrics that evolve faster, but that needs to be advertised at a fast rate but only locally, within the Track.
+    The forwarding decision may also change rapidly, but wiht a scope that is
+    also contained within the Track, with no visibility to the other Tracks and
+    flows in the network. This is as opposed to the PCE that needs to observe
+    the  whole network, and optimize all the Tracks globally, which can only be
+    done at a slow pace and using long-term statistical metrics, as presented in
+    <xref target="PCEPSEtable"/>.
+    </t>
+    <table anchor="PCEPSEtable"><name>PCE vs. PSE</name>
+   <thead>
+      <tr>
+       <th> </th>
+		   <th align='center'>PCE (Not in Scope)</th>
+		   <th align='center'>PSE (In Scope)</th>
+      </tr>
+
+   </thead><tbody>
+
+			<tr><td>Operation</td>
+    			<td align='center'>Centralized</td>
+    			<td align='center'>Source-Routed or Distributed</td>
+        </tr>
+
+
+			<tr><td>Communication
+</td>
+    			<td align='center'>Slow, expensive</td>
+    			<td align='center'>Fast, local</td>
+        </tr>
+
+
+			<tr><td>Time Scale</td>
+    			<td align='center'>hours and above</td>
+    			<td align='center'>seconds and below</td>
+        </tr>
+
+
+			<tr><td>Network Size</td>
+    			<td align='center'>Large, many Tracks to optimize globally</td>
+    			<td align='center'>Small, within one Track</td>
+        </tr>
+
+
+			<tr><td>Considered Metrics</td>
+    			<td align='center'>Averaged, Statistical, Shade of grey</td>
+    			<td align='center'>Instant values / boolean condition</td>
+        </tr>
+
+
+
+    </tbody>
+    </table><t>
+    The PSE sits in the DetNet Service sub-Layer of Edge and Relay Nodes. On the
+    one hand, it operates on the packet flow, learning the Track and path
+    selection information from the packet, possibly making local decision and
+    retagging the packet to indicate so. On the other hand, the PSE interacts
+    with the lower layers and with its peers to obtain up-to-date information
+    about its radio links and the quality of the overall Track, respectively,
+    as illustrated in <xref target="FigPSEcomp"/>.
+    </t>
+
+<figure anchor="FigPSEcomp">
+          <name>PSE</name>
+       <artwork align="center" name="" type="" alt=""><![CDATA[
+            |
+     packet | going
+   down the | stack
+ +==========v==========+=====================+=====================+
+ |   (iOAM + iCTRL)    | (L2 Triggers, DLEP) |       (oOAM)        |
+ +==========v==========+=====================+=====================+
+ |     Learn from                                 Learn from       |
+ |    packet tagging           Maintain           end-to-end       |
+ +----------v----------+      Forwarding          OAM packets      |
+ | Forwarding decision <        State        +---------^-----------|
+ +----------v----------+                     |      Enrich or      |
+ +    Retag Packet     |  Learn abstracted   >     Regenerate      |
+ |    and Forward      | metrics about Links |     OAM packets     |
+ +..........v..........+..........^..........+.........^.v.........+
+ |                          Lower layers                           |
+ +..........v.....................^....................^.v.........+
+      frame | sent          Frame | L2 Ack        oOAM | | packet
+       over | wireless        In  |                 In | | and out
+            v                     |                    | v
+]]></artwork>
+</figure>
+</section>
+    <!--PCE vs. PSE-->
+
+
+    <!--  11111111111111111    -->
+    <section anchor="PAREO" numbered="true" toc="default">
+      <name>Act: The PAREO Functions</name>
       <t>
     RAW may control whether and how to use packet replication and elimination
     (PRE), Automatic Repeat reQuest (ARQ), Hybrid ARQ (HARQ) that includes
@@ -1270,562 +1868,8 @@ Ingress =   |      |      |   = Egress
 
 
 
-</section>      <!--PAREO Functions-->
+</section>      <!-- Act: The PAREO Functions-->
 
-    <!--  1111111111111   -->
-
-
- </section>    <!--RAW Framework-->
-
-
-    <!--  000000000000000000000    -->
-
-
-<section anchor="archi" numbered="true" toc="default">
-    <name>The RAW Architecture</name>
-
-<section anchor="model" numbered="true" toc="default">
-    <name>The RAW Conceptual Model</name>
-    <t>
-    RAW inherits the conceptual model described in section 4 of the DetNet
-    Architecture <xref target="RFC8655"/>. RAW extends the DetNet service
-    layer to provide additional agility against transmission loss.
-
-    </t><t>
-
-   A RAW Network Plane may be strict or loose, depending
-   on whether RAW observes and takes actions on all hops or not. For instance,
-   the packets between two wireless entities may be relayed over a wired
-   infrastructure such as a Wi-Fi extended service set (ESS) or a 5G Core; in
-   that case, RAW observes and control the transmission over the wireless first
-   and last hops, as well as end-to-end metrics such as latency, jitter, and
-   delivery ratio. This operation is loose since the structure and properties of
-   the wired infrastructure are ignored, and may be either controlled by other
-   means such as DetNet/TSN, or neglected in the face of the wireless hops.
-
-    </t><t>
-    A Controller Plane Function (CPF) called the
-    Path Computation Element (PCE) <xref target="RFC4655"/> interacts with
-    RAW Nodes over a Southbound API. The RAW Nodes are DetNet relays that are capable of additional diversity mechanisms and measurement functions related
-    to the radio interface, in particular the PAREO diversity mechanisms.
-    </t><t>
-    The PCE defines a complex Track between an Ingress End System and an Egress
-    End System, and indicates to the RAW Nodes where the PAREO operations may be actionned in the Network Plane. The Track may be expressed loosely to enable
-    traversing a non-RAW subnetwork. In that case, the expectation is that the
-    non-RAW subnetwork can be neglected in the RAW computation, that is,
-    considered infinitely fast, reliable and/or available in comparison with the
-    links between RAW nodes.
-    </t>
-<figure anchor="FigCPF">
-          <name>RAW Nodes</name>
-       <artwork align="center" name="" type="" alt="">
-
-
-        CPF               CPF          CPF                 CPF
-
-
-                       Southbound API
-   _-._-._-._-._-._-._-._-._-._-._-._-._-._-._-._-._-._-._-._-._-._-
- _-._-._-._-._-._-._-._-._-._-._-._-._-._-._-._-._-._-._-._-._-._-
-
-
-                 RAW  --z   RAW  --z   RAW  --z   RAW
-             z-- Node  z--  Node  z--  Node  z--  Node --z
-  Ingress --z    /          /                           z-- Egress
-  End           \          \         .. .                   End
-  Node   ---z   /          /       .. ..  .             z-- Node
-           z-- RAW  --z   RAW     ( non-RAW ) -- RAW --z
-               Node  z--  Node --- ( Nodes  )   Node
-                                      ... .
-  --z   wireless           wired
-   z--  link           --- link
-</artwork>
-</figure>
-
-    <t>
-    The Link-Layer metrics are reported to the PCE in a time-aggregated, e.g.,
-    statistical fashion. Example Link-Layer metrics include typical Link
-    bandwidth (the medium speed depends dynamically on the PHY mode and the
-    number of users sharing the spectrum) and average and mean squared deviation
-    of availability and reliability figures such as Packet Delivery Ratio (PDR)
-    over long periods of time.
-    </t><t>
-    Based on those metrics, the PCE installs the Track with enough
-    redundant forwarding solutions to ensure that the Network Plane can reliably
-    deliver the packets within a System Level Agreement (SLA) associated to the
-    flows that it transports.
-    The SLA defines end-to-end reliability and availability requirements, where
-    reliability may be expressed as a successful delivery in order and within a
-    bounded delay of at least one copy of a packet.
-    </t><t>
-    Depending on the use case and the SLA, the Track may comprise non-RAW
-    segments, either interleaved inside the Track, or all the way to
-    the Egress End Node (e.g., a server in the Internet). RAW observes the
-    Lower-Layer Links between RAW nodes (typically, radio links) and the
-    end-to-end Network Layer operation to decide at all times which of the PAREO
-    diversity schemes is actioned by which RAW Nodes.
-    </t><t>
-    Once a Track is established, per-segment and end-to-end reliability
-    and availability statistics are periodically reported to the PCE to assure that
-    the SLA can be met or have it recompute the Track if not.
-    </t>
-
-    </section> <!-- The RAW Conceptual Model -->
-
-<section anchor="psepce" numbered="true" toc="default">
-    <name>The Path Selection Engine</name>
- <t>
-    RAW separates the path computation time scale at which a complex path is recomputed from the path selection time scale at which the forwarding decision is taken for one or a few packets (more in <xref target="timescale"/>).
-    RAW operates at the path selection time scale.  The RAW problem is to decide, within the redundant solutions that are proposed by the PCE, which will be used for each packet to provide a Reliable and Available service while minimizing the waste of constrained resources.
-    </t><t>
-    To that effect, RAW defines the Path Selection Engine (PSE) that is the counter-part of the PCE to perform rapid local adjustments of the forwarding tables within the diversity that the PCE has selected for the Track.
-    The PSE enables to exploit the richer forwarding capabilities with PAREO and scheduled transmissions at a faster time scale over the smaller domain that
-    is the Track, in either a loose or a strict fashion.
-    </t>
-   <t>
-        Compared to the PCE,
-    the PSE operates on metrics that evolve faster, but that needs to be advertised at a fast rate but only locally, within the Track.
-    The forwarding decision may also change rapidly, but wiht a scope that is
-    also contained within the Track, with no visibility to the other Tracks and
-    flows in the network. This is as opposed to the PCE that needs to observe
-    the  whole network, and optimize all the Tracks globally, which can only be
-    done at a slow pace and using long-term statistical metrics, as presented in
-    <xref target="PCEPSEtable"/>.
-    </t>
-    <table anchor="PCEPSEtable"><name>PCE vs. PSE</name>
-   <thead>
-      <tr>
-       <th> </th>
-		   <th align='center'>PCE (Not in Scope)</th>
-		   <th align='center'>PSE (In Scope)</th>
-      </tr>
-
-   </thead><tbody>
-
-			<tr><td>Operation</td>
-    			<td align='center'>Centralized</td>
-    			<td align='center'>Source-Routed or Distributed</td>
-        </tr>
-
-
-			<tr><td>Communication
-</td>
-    			<td align='center'>Slow, expensive</td>
-    			<td align='center'>Fast, local</td>
-        </tr>
-
-
-			<tr><td>Time Scale</td>
-    			<td align='center'>hours and above</td>
-    			<td align='center'>seconds and below</td>
-        </tr>
-
-
-			<tr><td>Network Size</td>
-    			<td align='center'>Large, many Tracks to optimize globally</td>
-    			<td align='center'>Small, within one Track</td>
-        </tr>
-
-
-			<tr><td>Considered Metrics</td>
-    			<td align='center'>Averaged, Statistical, Shade of grey</td>
-    			<td align='center'>Instant values / boolean condition</td>
-        </tr>
-
-
-
-    </tbody>
-    </table><t>
-    The PSE sits in the DetNet Service sub-Layer of Edge and Relay Nodes. On the
-    one hand, it operates on the packet flow, learning the Track and path
-    selection information from the packet, possibly making local decision and
-    retagging the packet to indicate so. On the other hand, the PSE interacts
-    with the lower layers and with its peers to obtain up-to-date information
-    about its radio links and the quality of the overall Track, respectively,
-    as illustrated in <xref target="FigPSEcomp"/>.
-    </t>
-
-<figure anchor="FigPSEcomp">
-          <name>PSE</name>
-       <artwork align="center" name="" type="" alt=""><![CDATA[
-            |
-     packet | going
-   down the | stack
- +==========v==========+=====================+=====================+
- |   (iOAM + iCTRL)    | (L2 Triggers, DLEP) |       (oOAM)        |
- +==========v==========+=====================+=====================+
- |     Learn from                                 Learn from       |
- |    packet tagging           Maintain           end-to-end       |
- +----------v----------+      Forwarding          OAM packets      |
- | Forwarding decision <        State        +---------^-----------|
- +----------v----------+                     |      Enrich or      |
- +    Retag Packet     |  Learn abstracted   >     Regenerate      |
- |    and Forward      | metrics about Links |     OAM packets     |
- +..........v..........+..........^..........+.........^.v.........+
- |                          Lower layers                           |
- +..........v.....................^....................^.v.........+
-      frame | sent          Frame | L2 Ack        oOAM | | packet
-       over | wireless        In  |                 In | | and out
-            v                     |                    | v
-]]></artwork>
-</figure>
-</section>
-    <!--PCE vs. PSE-->
-
- <!--
-<section anchor="stack" numbered="true" toc="default">
-    <name>RAW Stack </name>
-</section>
-   RAW stack-->
-
-<section anchor="aom" numbered="true" toc="default">
-    <name>RAW OAM </name><t>
-    RAW In-situ OAM operation in the Network Plane may observe either a full
-    Track or subTracks that are being used at this time. Active RAW OAM may
-    be needed to observe the unused segments and evaluate the desirability of
-    a rerouting decision.
-    Finally, the RAW Service Layer Assurance may observe the individual PAREO
-    operation of a relay node to ensure that it is conforming; this might
-    require injecting an OAM packet at an upstream point inside the Track and
-    extracting that packet at another point downstream before it reaches the
-    egress.
-    </t><t>
-    This observation feeds the RAW
-    PSE that makes the decision on which PAREO function in actioned at which RAW
-    Node, for one a small continuous series of packets.
-     </t>
-<figure anchor="Figranp2">
-          <name>Observed Links in Radio Access Protection</name>
-       <artwork align="center" name="" type="" alt="">
-<![CDATA[
-                                   ...   ..
-                RAN 1  -----  ...      ..  ...
-             /              .    ..          ....
-+-------+  /              .            ..      ....    +------+
-|Ingress|-                .                     .....  |Egress|
-|  End  |------ RAN 2 -- .       Internet       ....---| End  |
-|System |-                ..                   .....   |System|
-+-------+  \               .               ......      +------+
-             \               ...   ...     .....
-                RAN n  --------  ...   .....
-
-       <------------------> <-------------------->
-          Observed by OAM       Opaque to OAM
-
-]]></artwork>
-</figure><t>
-    In the case of a End-to-End Protection in a Wireless Mesh, the Track is strict and congruent
-    with the path so all links are observed. Conversely, in the case of Radio
-    Access Protection, the Track is Loose and in that case only the first hop is observed; the rest of the path is abstracted and considered infinitely reliable.
-    </t>
-    <t>
-    In the case of the Radio Access Protection, only the first hop is protected;
-    the loss of a packet that was sent over one of the possible first hops is
-    attributed to that first hop, even if a particular loss effectively happens
-    farther down the path.
-    </t>
-    <t>
-    The Links that are not observed by OAM are opaque to it, meaning that the
-    OAM information is carried across and possibly echoed as data, but there is
-    no information capture in intermediate nodes. In the example above, the
-    Internet is opaque and not controlled by RAW; still the RAW OAM measures the
-    end-to-end latency and delivery ratio for packets sent via each if RAN 1,
-    RAN 2 and RAN 3, and determines whether a packet should be sent over either
-    or a collection of those access links.
-    </t>
-
-
-<section anchor="dnoam" numbered="true" toc="default">
-    <name>DetNet OAM</name>
- <t>
-  <xref target="detnet" format="default"/> provides an OAM framework with
-  <xref target="I-D.ietf-detnet-oam-framework" format="default"/> that
-  applies within the DetNet dataplane described in
-  <xref target="RFC8938" format="default"/>,which is typically based on
-  MPLS or IPv6 pseudowires.
-  How the framework applies to IPv6 is detailed in
-  <xref target="I-D.ietf-detnet-ip-oam" format="default"/>.
-  Within that framework, OAM messages follow the same forward path as the data
-  packets and gather information about their individual treatment at each hop.
-  When the destination receives an OAM message, it gets a view on the full path
-  or at least of a segment of the path from the source of the flow.
- </t>
- <t>
-  In-situ OAM (IOAM) adds telemetry information about the experience of one
-  packet within the packet itself
-  <xref target="I-D.ietf-ippm-ioam-data" format="default"/>, with the caveats
-  that the measurement and the consecutive update of the packet interfere with
-  the operation being observed, e.g., may increase the latency of the packet
-  for which it is measured and into which it is stamped.
- </t>
- <t>
-  Note: IOAM and analogous on-path telemetry methods are capable of facilitating
-  collection of useful telemetry information that characterizes the state of a
-  system as experienced by the packet. But because of statistical character of a
-  packet network, these methods may not be used to monitor the continuity of a
-  path (Track) or proper connectivity of the Track (no leaking packets across
-  Tracks).
- </t>
- <t>
-  This effect can be alleviated by measuring on the fly but reporting later,
-  e.g., by exporting the data as a separate management packet
-  <xref target="I-D.ietf-ippm-ioam-direct-export" format="default"/>.
-  <xref target="I-D.mirsky-ippm-hybrid-two-step" format="default"/> proposes an
-  hybrid two-steps method (HTS) where a trigger message starts the measurement
-  and a follow up along the Track packet gathers the measured data.
- </t>
- <t>
-  <xref target="I-D.mirsky-ippm-epm" format="default">"Error Performance
-  Measurement"</xref> uses Fault Management (FM) and Performance Management (PM)
-  OAM mechanisms to determine availability/unavailability of a path according to
-  predefined SLA.
- </t>
-</section>
-    <!--DetNet OAM-->
-
-<section anchor="roam" numbered="true" toc="default">
-    <name>RAW Extensions</name>
-
- <t>
- Classical OAM typically measures information at the transmitter, e.g.,
- residence time in the node or transmit queue size. With RAW, there is a need to
- combine information at the sender (number of retries) with that at the receiver
- (LQI, RSSI).
- This doubles the operating cost of an IAOM processing that would gather the
- experience of a single packet.
-  </t>
- <t>
- The RAW PSE may be centralized at the Track Ingress, or distributed long the
- Track. Either way, the PSE needs instant information about the rest of the
- way to the destination over the possible next-hop adjacencies along the Track
- in order to decide how to perform simple forwarding, load balancing, and/or
- replication, as well as determining how much latency credit is available for
- ARQ.
-  </t>
- <t>
- To provide that information timely, it makes sense that the OAM packets that
- gather instantaneous values from the radio senders and receivers at each hop
- flow on the reverse path and inform the PSE at the source and/or the PAREO
- relays about the state of the rest of the way. This is achieved using Reverse
- OAM packets that flow along the Reversed Track, West to East.
- </t>
- <t>
- Because the quality of transmission over a wireless medium varies continuously,
- it is important that RAW OAM captures the state of the medium across an adjacency
- over multiple transmission and over a recent period of time, whether the
- transmitted packets belong to this flow or another. Some of the measured information
- relates to the medium itself. In other words, the captured information does not
- only relate to the experience of one packet as is the case for IOAM, but also to the
- medium itself. This makes an approach like HTS more suitable as it can trigger
- the capture of multiple measurements over a short period of time. On the other
- hand, the PSE needs a continuous measurement stream where a single trigger
- is followed by a periodic follow up capture.
-  </t>
- <t>
-  In other words, the best suited OAM method to enable the PSE make accurate
-  PAREO forwarding decisions is a periodic variation of the two-steps method
-  flowing along the reverse Track, as a Reverse OAM technique.
- <xref target="I-D.ietf-raw-oam-support" format="default"/> provides more
- information on the RAW OAM problem and solution approaches.
- </t>
-</section>
-    <!--DetNet OAM-->
-
-<section anchor="oametrics" numbered="true" toc="default">
- <name>Observed Metrics</name>
- <t>
- The Dynamic Link Exchange Protocol (DLEP)
- <xref target="RFC8175" format="default"/> from
- <xref target="MANET" format="default"/> can be leveraged at each hop
- to derive generic radio metrics (e.g., based on LQI, RSSI, queueing delays
- and ETX) on individual hops.
- </t>
- <t>
- Those lower-layer metrics are aggregated along a multihop segment into abstract
- layer 3 information that reflect the instant reliability and latency of the
- observed path.
- </t>
-</section>
-    <!--Observed Metrics -->
-
-
-
-
-</section>
-    <!--RAW OAM-->
-<section anchor="flowid" numbered="true" toc="default">
-    <name>Flow Identification vs. Path Identification</name>
-
-<t>
-    Section 4.7 of the DetNet Architecture <xref target="RFC8655"/> ties the
-    app-flow identification which is an appliation layer concept with the
-    network path identification that depends on the networking technology by
-    "exporting of flow identification", e.g., to a MPLS label.
-</t><t>
-    With RAW, this exporting operation is injective but not bijective.
-    e.g., a flow is fully placed within one RAW Track, but not all packets along
-    that Track are necessarily part of the same flow. For instance, out-of-band
-    OAM packets must circulate in the exact same fashion as the flows that they
-    observe. It results that the flow identification that maps to to app-flow
-    at the network layer must be separate from the path identification that is
-    used to forward a packet.
-</t><t>
-
-    Section 3.4 of the DetNet data-plane framework <xref target="RFC8938" format="default"/> indicates that for
-    a DetNet IP Data Plane, a flow is identified by an IPv6 6-tuple.
-    With RAW, that 6-tuple is not what indicates the Track, in other words, the
-    flow ID is not the Track ID.
-</t><t>
-    For instance, the 6TiSCH Architecture
-    <xref target="RFC9030" format="default"/>
-    uses a combination of the address of the Egress End System and an instance
-    identifier in a Hop-by-hop option to indicate a Track. This way, if a packet
-    "escapes" the Track, it will reach the Track Egress point through normal
-    routing and be treated at the service layer through, say, elimination and
-    reordering.
-</t><t>
-    The RAW service includes forwarding over a subset of the Links that form the
-    Track (a subTrack). Packets from the same or a different flow that are routed through the same Track will not necessarily traverse the same Links. The PSE
-    selects a subTrack for a packet based on the links
-    that are preferred and those that should be avoided at this time.
-</t><t>
-    Each packet is forwarded within the subTrack that provides the best
-    adequation with the SLA of the flow and the energy and bandwidth constraints
-    of the network.
-</t>
-
-<figure anchor="Figflowvstrack">
-          <name>Flow Injection</name>
-       <artwork align="center" name="" type="" alt="">
-<![CDATA[
-
-            Flow 1 (6-tuple) ----+
-                                 |
-       Flow 2 (6-tuple)  ---+    |
-                            |    |
-    OAM     -----------+    |    |
-                       |    |    |
-                       |    |    |
-                  |    |    |    |    |
-                  |    v    v    v    |
-                  |                   |
-                  +---------+---------+
-                            |
-                            |
-     Track i (Ingress IP Address, RPLinstanceId)
-                            |
-                            |
-                            |
-            +---------+-----+--....-------+
-            |         |                   |
-            |         |                   |
-     subTrack 1    subTrack 2          subTrack n
-            |         |                   |
-            |         |                   |
-            V         V                   V
-         +-----------------------------------+
-         |                                   |
-         |         Destination               |
-         |                                   |
-         +-----------------------------------+
-
-
-]]>
-       </artwork>
-</figure>
-<t>
-    With 6TiSCH,
-    packets are tagged with the same (destination address, instance ID)
-    will experience the same RAW service regardless of the IPv6 6-tuple
-    that indicates the flow. The forwarding does not depend on whether the
-    packets transport application flows or OAM. In the generic
-    case, the Track or the subTrack can be signaled in the packet through other
-    means, e.g., encoded in the suffix of the destination address as a Segment
-    Routing Service Instruction <xref target="RFC8402"/>, or leveraging Bit
-    Index Explicit Replication <xref target="RFC8279"/> Traffic Engineering
-     <xref target="I-D.ietf-bier-te-arch"/>.
-</t>
-</section>
-    <!--Flow Identification vs. Path Identification-->
-
-
-    <section numbered="true" toc="default">
-      <name>Source-Routed vs. Distributed Forwarding Decision</name>
-      <t>
-   Within a large routed topology, the route-over mesh operation builds a
-   particular complex Track with one source and one or more destinations; within
-   the Track,
-   packets may follow different paths and may be subject to RAW forwarding
-   operations that include replication, elimination, retries, overhearing and
-   reordering.
-      </t>
-      <t>
-    The RAW forwarding decisions include the selection of points of replication
-   and elimination, how many retries can take place, and a limit of validity for
-    the packet beyond which the packet should be destroyed rather than forwarded
-    uselessly further down the Track.
-      </t>
-      <t>
-    The decision to apply the RAW techniques must be done quickly, and depends on
-    a very recent and precise knowledge of the forwarding conditions within the
-    complex Track. There is a need for an observation method to provide the RAW
-    Data Plane with the specific knowledge of the state of the Track for
-    the type of flow of interest (e.g., for a QoS level of interest). To observe
-    the whole Track in quasi real time, RAW considers existing tools such as
-    L2-triggers, DLEP, BFD and leverages in-band and out-of-band OAM to capture
-    and report that information to the PSE.
-      </t>
-      <t>
-   One possible way of making the RAW forwarding decisions within a Track is to
-   position a unique PSE at the Ingress and express its decision in-band in the packet, which requires the explicit signaling of the subTrack within the
-   Track. In that case, the RAW forwarding operation along the Track is encoded
-   by the source, e.g., by indicating the subTrack in the Segment Routing (SRv6)
-   Service Instruction, or by leveraging BIER-TE such as done with
-   <xref target="I-D.thubert-bier-replication-elimination" format="default"/>.
-      </t>
-      <t>
-    The alternate way is to operate the PSE in each forwarding Node, which makes
-    the RAW forwarding decisions for a packet on its own, based on its knowledge
-    of the expectation (timeliness and reliability) for that packet and a recent
-    observation of the rest of the way across the possible paths based on OAM.
-    Information about the desired service should be placed in the packet and
-    matched with the forwarding Node's capabilities and policies.
-      </t>
-      <t>
-    In either case, a per-track/subTrack state is installed in all the
-    intermediate Nodes to recognize the packets that are following a Track and
-    determine the forwarding operation to be applied.
-      </t>
-
-    </section>
-    <!-- Track Source-Routed vs. Distributed RAW Decision -->
-
-
-    <section numbered="true" toc="default">
-      <name>Encapsulation and Decapsulation</name>
- <t>
-    In the generic case where the Track Ingress Node is not the source of the
-    Packet, the Ingress Node needs to encapsulate IP-in-IP to ensure that the
-    Destination IP Address is that of the Egress Node and that the necessary
-    Headers (Routing Header, Segment Routing Header and/or Hop-By-Hop Header)
-    can be added to the packet to signal the Track or the subTrack, conforming
-    <xref target="RFC8200"/> that discourages the insertion of a Header on the
-    fly.
- </t><t>
-    In the specific case where the Ingress Node is the source of the packet, the
-    encapsulation can be avoided, provided that the source adds the necessary
-    headers and that the destination is set to the Egress Node. Forwarding
-    to a final destination beyond the Egress Node is possible, e.g., with a
-    Segment Routing Header that signals the rest of the way. In that case
-    a Hop-by-Hop Header is not recommmended since its validity is within the
-    Track only.
- </t><t>
- </t>
-
-</section>
-    <!--Encapsulation and Decapsulation -->
-
-    <!--  11111111111111111111    -->
 </section>
     <!--RAW Architecture -->
     <!--  000000000000000000000    -->

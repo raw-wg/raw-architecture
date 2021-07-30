@@ -249,6 +249,22 @@
     RAW uses the following terminology:
     </t>
     <dl>
+    <dt>ARQ:</dt><dd> Automatic Repeat Request, enabling an acknowledged
+    transmission and retries. ARQ is a typical model at Layer-2 on a wireless
+    medium. It is typically avoided end-to-end on deterministic flows because
+    it introduces excessive indetermination in latency, but a limited number
+    of retries within a bounded time may be used over a wireless link and yet
+    respect end-to-end constraints.
+    </dd>
+    <dt>Available:</dt><dd> That is exempt of unscheduled outage, the
+    expectation for a network being that the flow is maintained in the face
+    of any single breakage. </dd>
+    <dt>Flow:</dt><dd>A collection of consecutive packets that must be placed
+    on the same Track to receive an equivalent treatment from Ingress to Egress
+    within the Track. Multiple flows may be transported along the same Track.
+    The subTrack that is selected for the flow may change over time under the
+    control of the PSE.
+    </dd>
     <dt>OODA:</dt><dd> Observe, Orient, Decide, Act. The OODA Loop is a
     conceptual cyclic model developed by USAF Colonel John Boyd, and that is
     applicable in multiple domains where agility can provide benefits against
@@ -259,12 +275,6 @@
     radio-specific techniques such as short range broadcast, MUMIMO,
     constructive interference and overhearing, which can be
     leveraged separately or combined to increase the reliability.
-    </dd>
-    <dt>Flow:</dt><dd>A collection of consecutive packets that must be placed
-    on the same Track to receive an equivalent treatment from Ingress to Egress
-    within the Track. Multiple flows may be transported along the same Track.
-    The subTrack that is selected for the flow may change over time under the
-    control of the PSE.
     </dd>
     <dt>Track:</dt><dd>
     <t>A networking graph that can be used as a "path" to transport RAW packets

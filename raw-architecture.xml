@@ -311,10 +311,43 @@
     taken to ensure that a given packet flows either Northwards or Southwards
     along a bidirectional Segment, but never bounces back.
     </dd>
-    <dt>Flapping:</dt><dd>In the context of RAW, a link flaps when the
-    reliability of the wireless connectivity drops abruptly for a short
-    period of time, typically of a subsecond to seconds duration.
+    <dt>Flapping:</dt><dd>
+     In the context of RAW, a link flaps when the reliability of the wireless
+     connectivity drops abruptly for a short period of time, typically of a
+     subsecond to seconds duration.
     </dd>
+    <dt>Deterministic Networking</dt> <dd>See section 2 of
+    <xref target="RFC8557"/>.</dd>
+    <dt>Deterministic Network</dt> <dd>See section 4.1.2 of
+    <xref target="RFC8655"/>.</dd>
+    <dt>Deterministic Flow Identifier (L2):</dt><dd>
+     A tuple identified by a stream_handle, and provided by a bridge, in
+     accordance with IEEE 802.1CB.
+     The tuple comprises at least src MAC, dst MAC, VLAN ID, and L2 priority.
+     Continuous streams are characterized by bandwidth and max packet size;
+     scheduled streams are characterized by a repeating pattern of timed
+     transmissions.
+    </dd>
+    <dt>Deterministic Flow Identifier (L3):</dt><dd>
+     See section 3.3 of <xref target="RFC8938"/>. The classical IP 5-tuple that
+     identifies a flow comprises the src IP, dst IP, src port, dest port, and
+     the upper layer protocol (ULP). DetNet uses a 6-tuple where the extra field
+     is the DSCP field in the packet. The IPv6 flow label is not used. for that
+     purpose.
+     </dd>
+    <dt>Uplink: </dt> <dd>
+     Connection from end-devices to a data communication equipment. In the
+     context of wireless, uplink refers to the connection between a station
+     (STA) and a controller (AP) or a User Equipment (UE) to a Base Station (BS)
+     such as a 3GPP 5G gNodeB (gNb).
+    </dd>
+    <dt>Downstream: </dt> <dd>
+     Following the the direction of the data path along a Track.
+    </dd>
+    <dt>Upstream: </dt> <dd>
+     Against the direction of the packets along a Track.
+    </dd>
+    <dt>Downlink: </dt> <dd>The reverse direction.</dd>
     <dt>OAM:</dt> <dd>
       OAM stands for Operations, Administration, and Maintenance, and
       covers the processes, activities, tools, and standards involved
@@ -324,10 +357,10 @@
       'Guidelines for the Use of the "OAM" Acronym in the IETF'</xref>
       and the system observed by the RAW OAM is the Track.
     </dd>
-    <dt>Active OAM:</dt> <dd> See <xref target="RFC7799"/>.
-    In the context of RAW, Active OAM is used to observe a particular Track,
-    subTrack, or Segment of a Track regardless of whether it is used for traffic
-    at that time.
+    <dt>Active OAM:</dt> <dd>
+     See <xref target="RFC7799"/>. In the context of RAW, Active OAM is used to
+     observe a particular Track, subTrack, or Segment of a Track regardless of
+     whether it is used for traffic at that time.
     </dd>
     <dt>In-Band OAM:</dt><dd> An active OAM packet is considered in-band for the
       monitored Track when it traverses the same set of links and interfaces

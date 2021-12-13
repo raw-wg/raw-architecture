@@ -1124,8 +1124,6 @@
    required reliability and availability Service Level Agreement (SLA) while
    minimizing the use of constrained resources such as spectrum and battery.
    </t>
-</section>
-   <!-- The OODA Loop -->
 
 <section anchor="aom" numbered="true" toc="default">
     <name>Observe: The RAW OAM </name><t>
@@ -1574,6 +1572,9 @@ Ingress =   |      |      |   = Egress
 
 
 </section>      <!-- Act: The PAREO Functions-->
+
+</section>
+   <!-- The OODA Loop -->
 
     <!--  000000000000000000000    -->
 

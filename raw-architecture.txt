@@ -85,22 +85,22 @@ Table of Contents
      2.3.  Routing Time Scale vs. Forwarding Time Scale  . . . . . .  16
    3.  The RAW Conceptual Model  . . . . . . . . . . . . . . . . . .  18
    4.  The OODA Loop . . . . . . . . . . . . . . . . . . . . . . . .  20
-   5.  Observe: The RAW OAM  . . . . . . . . . . . . . . . . . . . .  21
-   6.  Orient: The Path Computation Engine . . . . . . . . . . . . .  22
-   7.  Decide: The Path Selection Engine . . . . . . . . . . . . . .  22
-   8.  Act: The PAREO Functions  . . . . . . . . . . . . . . . . . .  24
-     8.1.  Packet Replication  . . . . . . . . . . . . . . . . . . .  25
-     8.2.  Packet Elimination  . . . . . . . . . . . . . . . . . . .  26
-     8.3.  Promiscuous Overhearing . . . . . . . . . . . . . . . . .  26
-     8.4.  Constructive Interference . . . . . . . . . . . . . . . .  27
-   9.  Security Considerations . . . . . . . . . . . . . . . . . . .  27
-     9.1.  Forced Access . . . . . . . . . . . . . . . . . . . . . .  27
-   10. IANA Considerations . . . . . . . . . . . . . . . . . . . . .  27
-   11. Contributors  . . . . . . . . . . . . . . . . . . . . . . . .  27
-   12. Acknowledgments . . . . . . . . . . . . . . . . . . . . . . .  28
-   13. References  . . . . . . . . . . . . . . . . . . . . . . . . .  28
-     13.1.  Normative References . . . . . . . . . . . . . . . . . .  28
-     13.2.  Informative References . . . . . . . . . . . . . . . . .  29
+     4.1.  Observe: The RAW OAM  . . . . . . . . . . . . . . . . . .  21
+     4.2.  Orient: The Path Computation Engine . . . . . . . . . . .  22
+     4.3.  Decide: The Path Selection Engine . . . . . . . . . . . .  22
+     4.4.  Act: The PAREO Functions  . . . . . . . . . . . . . . . .  24
+       4.4.1.  Packet Replication  . . . . . . . . . . . . . . . . .  25
+       4.4.2.  Packet Elimination  . . . . . . . . . . . . . . . . .  26
+       4.4.3.  Promiscuous Overhearing . . . . . . . . . . . . . . .  26
+       4.4.4.  Constructive Interference . . . . . . . . . . . . . .  27
+   5.  Security Considerations . . . . . . . . . . . . . . . . . . .  27
+     5.1.  Forced Access . . . . . . . . . . . . . . . . . . . . . .  27
+   6.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  27
+   7.  Contributors  . . . . . . . . . . . . . . . . . . . . . . . .  27
+   8.  Acknowledgments . . . . . . . . . . . . . . . . . . . . . . .  28
+   9.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  28
+     9.1.  Normative References  . . . . . . . . . . . . . . . . . .  28
+     9.2.  Informative References  . . . . . . . . . . . . . . . . .  29
    Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  31
 
 
@@ -1074,23 +1074,23 @@ Internet-Draft         RAW Architecture/Framework          December 2021
    1.  Network Plane measurement protocols for Operations,
        Administration and Maintenance (OAM) to Observe some or all hops
        along a Track as well as the end-to-end packet delivery, more in
-       Section 5;
+       Section 4.1;
 
    2.  Controller plane elements to reports the links statistics to a
        Path computation Element (PCE) in a centralized controller that
        computes and installs the Tracks and provides meta data to Orient
-       the routing decision, more in Section 6;
+       the routing decision, more in Section 4.2;
 
    3.  A Runtime distributed Path Selection Engine (PSE) thar Decides
        which subTrack to use for the next packet(s) that are routed
-       along the Track, more in Section 7;
+       along the Track, more in Section 4.3;
 
    4.  Packet (hybrid) ARQ, Replication, Elimination and Ordering
        Dataplane actions that operate at the DetNet Service Layer to
        increase the reliability o fthe end-to-end transmission.  The RAW
        architecture also covers in-situ signalling when the decision is
        Acted by a node that down the Track from the PSE, more in
-       Section 8.
+       Section 4.4.
 
                      +-------> Orient (PCE) --------+
                      |          link stats,         |
@@ -1122,7 +1122,7 @@ Thubert & Papadopoulos    Expires 16 June 2022                 [Page 20]
 Internet-Draft         RAW Architecture/Framework          December 2021
 
 
-5.  Observe: The RAW OAM
+4.1.  Observe: The RAW OAM
 
    RAW In-situ OAM operation in the Network Plane may observe either a
    full Track or subTracks that are being used at this time.  Active RAW
@@ -1187,7 +1187,7 @@ Internet-Draft         RAW Architecture/Framework          December 2021
    whether a packet should be sent over either or a collection of those
    access links.
 
-6.  Orient: The Path Computation Engine
+4.2.  Orient: The Path Computation Engine
 
    RAW separates the path computation time scale at which a complex path
    is recomputed from the path selection time scale at which the
@@ -1217,7 +1217,7 @@ Internet-Draft         RAW Architecture/Framework          December 2021
    maximal delay between the first and the last received copy of the
    same packet.
 
-7.  Decide: The Path Selection Engine
+4.3.  Decide: The Path Selection Engine
 
    The RAW OODA Loop operates at the path selection time scale to
    provide agility vs. the brute force approach of flooding the whole
@@ -1312,7 +1312,7 @@ Internet-Draft         RAW Architecture/Framework          December 2021
 
                                Figure 5: PSE
 
-8.  Act: The PAREO Functions
+4.4.  Act: The PAREO Functions
 
    RAW may control whether and how to use packet replication and
    elimination (PRE), Automatic Repeat reQuest (ARQ), Hybrid ARQ (HARQ)
@@ -1383,7 +1383,7 @@ Internet-Draft         RAW Architecture/Framework          December 2021
    is computed within the network, and signaled in the packets, e.g.,
    using BIER-TE, Segment Routing, or a Source Routing Header.
 
-8.1.  Packet Replication
+4.4.1.  Packet Replication
 
    By employing a Packet Replication procedure, a Node forwards a copy
    of each data packet to more than one successor.  To do so, each Node
@@ -1424,7 +1424,7 @@ Internet-Draft         RAW Architecture/Framework          December 2021
 
                Table 2: Packet Replication: Sample schedule
 
-8.2.  Packet Elimination
+4.4.2.  Packet Elimination
 
    The replication operation increases the traffic load in the network,
    due to packet duplications.  This may occur at several stages inside
@@ -1438,7 +1438,7 @@ Internet-Draft         RAW Architecture/Framework          December 2021
    redundant copies and then sending the packet exactly once to each of
    the selected successors.
 
-8.3.  Promiscuous Overhearing
+4.4.3.  Promiscuous Overhearing
 
    Considering that the wireless medium is broadcast by nature, any
    neighbor of a transmitter may overhear a transmission.  By employing
@@ -1466,7 +1466,7 @@ Internet-Draft         RAW Architecture/Framework          December 2021
 
                      Figure 8: Unicast with Overhearing
 
-8.4.  Constructive Interference
+4.4.4.  Constructive Interference
 
    Constructive Interference can be seen as the reverse of Promiscuous
    Overhearing, and refers to the case where two senders transmit the
@@ -1482,7 +1482,7 @@ Internet-Draft         RAW Architecture/Framework          December 2021
    speed of light to the point that the symbols are superposed long
    enough to be recognizable.
 
-9.  Security Considerations
+5.  Security Considerations
 
    RAW uses all forms of diversity including radio technology and
    physical path to increase the reliability and availability in the
@@ -1490,7 +1490,7 @@ Internet-Draft         RAW Architecture/Framework          December 2021
    specifically to defeat an attacker, the amount of diversity used in
    RAW makes an attack harder to achieve.
 
-9.1.  Forced Access
+5.1.  Forced Access
 
    RAW will typically select the cheapest collection of links that
    matches the requested SLA, for instance, leverage free WI-Fi vs. paid
@@ -1498,11 +1498,11 @@ Internet-Draft         RAW Architecture/Framework          December 2021
    interference) the attacker can force an End System to use the paid
    access and increase the cost of the transmission for the user.
 
-10.  IANA Considerations
+6.  IANA Considerations
 
    This document has no IANA actions.
 
-11.  Contributors
+7.  Contributors
 
    The editor wishes to thank:
 
@@ -1528,13 +1528,13 @@ Internet-Draft         RAW Architecture/Framework          December 2021
    for their contributions to the text and ideas exposed in this
    document.
 
-12.  Acknowledgments
+8.  Acknowledgments
 
    TBD
 
-13.  References
+9.  References
 
-13.1.  Normative References
+9.1.  Normative References
 
    [6TiSCH-ARCHI]
               Thubert, P., Ed., "An Architecture for IPv6 over the Time-
@@ -1617,7 +1617,7 @@ Internet-Draft         RAW Architecture/Framework          December 2021
               DOI 10.17487/RFC9049, June 2021,
               <https://www.rfc-editor.org/info/rfc9049>.
 
-13.2.  Informative References
+9.2.  Informative References
 
 
 

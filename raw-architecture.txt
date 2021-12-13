@@ -5,8 +5,8 @@
 RAW                                                      P. Thubert, Ed.
 Internet-Draft                                             Cisco Systems
 Intended status: Informational                         G.Z. Papadopoulos
-Expires: 2 June 2022                                      IMT Atlantique
-                                                        29 November 2021
+Expires: 16 June 2022                                     IMT Atlantique
+                                                        13 December 2021
 
 
               Reliable and Available Wireless Architecture
@@ -41,7 +41,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 2 June 2022.
+   This Internet-Draft will expire on 16 June 2022.
 
 Copyright Notice
 
@@ -53,9 +53,9 @@ Copyright Notice
 
 
 
-Thubert & Papadopoulos     Expires 2 June 2022                  [Page 1]
+Thubert & Papadopoulos    Expires 16 June 2022                  [Page 1]
 
-Internet-Draft         RAW Architecture/Framework          November 2021
+Internet-Draft         RAW Architecture/Framework          December 2021
 
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Thubert & Papadopoulos     Expires 2 June 2022                  [Page 2]
+Thubert & Papadopoulos    Expires 16 June 2022                  [Page 2]
 
-Internet-Draft         RAW Architecture/Framework          November 2021
+Internet-Draft         RAW Architecture/Framework          December 2021
 
 
 1.  Introduction
@@ -165,9 +165,9 @@ Internet-Draft         RAW Architecture/Framework          November 2021
 
 
 
-Thubert & Papadopoulos     Expires 2 June 2022                  [Page 3]
+Thubert & Papadopoulos    Expires 16 June 2022                  [Page 3]
 
-Internet-Draft         RAW Architecture/Framework          November 2021
+Internet-Draft         RAW Architecture/Framework          December 2021
 
 
    Reliable and Available Wireless (RAW) takes up the challenge of
@@ -221,9 +221,9 @@ Internet-Draft         RAW Architecture/Framework          November 2021
 
 
 
-Thubert & Papadopoulos     Expires 2 June 2022                  [Page 4]
+Thubert & Papadopoulos    Expires 16 June 2022                  [Page 4]
 
-Internet-Draft         RAW Architecture/Framework          November 2021
+Internet-Draft         RAW Architecture/Framework          December 2021
 
 
    RAW distinguishes the longer time scale at which routes are computed
@@ -277,9 +277,9 @@ Internet-Draft         RAW Architecture/Framework          November 2021
 
 
 
-Thubert & Papadopoulos     Expires 2 June 2022                  [Page 5]
+Thubert & Papadopoulos    Expires 16 June 2022                  [Page 5]
 
-Internet-Draft         RAW Architecture/Framework          November 2021
+Internet-Draft         RAW Architecture/Framework          December 2021
 
 
    RAW also reuses terminology defined for 6TiSCH in [6TiSCH-ARCHI] such
@@ -333,9 +333,9 @@ Internet-Draft         RAW Architecture/Framework          November 2021
 
 
 
-Thubert & Papadopoulos     Expires 2 June 2022                  [Page 6]
+Thubert & Papadopoulos    Expires 16 June 2022                  [Page 6]
 
-Internet-Draft         RAW Architecture/Framework          November 2021
+Internet-Draft         RAW Architecture/Framework          December 2021
 
 
 2.1.2.1.  Flapping
@@ -369,12 +369,12 @@ Internet-Draft         RAW Architecture/Framework          November 2021
 
    Quoting section 1.1.3 of [INT-ARCHI]:
 
-   |  "At a given moment, all the IP datagrams from a particular source
+   |  At a given moment, all the IP datagrams from a particular source
    |  host to a particular destination host will typically traverse the
    |  same sequence of gateways.  We use the term "path" for this
    |  sequence.  Note that a path is uni-directional; it is not unusual
    |  to have different paths in the two directions between a given host
-   |  pair.".
+   |  pair.
 
    Section 2 of [I-D.irtf-panrg-path-properties] points to a longer,
    more modern definition of path, which begins as follows:
@@ -389,9 +389,9 @@ Internet-Draft         RAW Architecture/Framework          November 2021
 
 
 
-Thubert & Papadopoulos     Expires 2 June 2022                  [Page 7]
+Thubert & Papadopoulos    Expires 16 June 2022                  [Page 7]
 
-Internet-Draft         RAW Architecture/Framework          November 2021
+Internet-Draft         RAW Architecture/Framework          December 2021
 
 
    It follows that the general acceptance of a path is a linear sequence
@@ -445,18 +445,20 @@ Internet-Draft         RAW Architecture/Framework          November 2021
 
 
 
-Thubert & Papadopoulos     Expires 2 June 2022                  [Page 8]
+Thubert & Papadopoulos    Expires 16 June 2022                  [Page 8]
 
-Internet-Draft         RAW Architecture/Framework          November 2021
+Internet-Draft         RAW Architecture/Framework          December 2021
 
 
 2.1.4.1.  Flow
 
-   A collection of consecutive packets that must be placed on the same
-   Track to receive an equivalent treatment from Ingress to Egress
-   within the Track.  Multiple flows may be transported along the same
-   Track.  The subTrack that is selected for the flow may change over
-   time under the control of the PSE.
+   A collection of consecutive IP packets defined by the upper layers
+   and signaled by the same 5 or 6-tuple, see section 5.1 of [RFC8939].
+   Packets of the same flow must be placed on the same Track to receive
+   an equivalent treatment from Ingress to Egress within the Track.
+   Multiple flows may be transported along the same Track.  The subTrack
+   that is selected for the flow may change over time under the control
+   of the PSE.
 
 2.1.4.2.  Deterministic Flow Identifier (L2)
 
@@ -499,11 +501,9 @@ Internet-Draft         RAW Architecture/Framework          November 2021
 
 
 
-
-
-Thubert & Papadopoulos     Expires 2 June 2022                  [Page 9]
+Thubert & Papadopoulos    Expires 16 June 2022                  [Page 9]
 
-Internet-Draft         RAW Architecture/Framework          November 2021
+Internet-Draft         RAW Architecture/Framework          December 2021
 
 
 2.1.5.3.  Service Level Indicator
@@ -557,9 +557,9 @@ Internet-Draft         RAW Architecture/Framework          November 2021
 
 
 
-Thubert & Papadopoulos     Expires 2 June 2022                 [Page 10]
+Thubert & Papadopoulos    Expires 16 June 2022                 [Page 10]
 
-Internet-Draft         RAW Architecture/Framework          November 2021
+Internet-Draft         RAW Architecture/Framework          December 2021
 
 
 2.1.6.3.  Out-of-Band OAM
@@ -613,9 +613,9 @@ Internet-Draft         RAW Architecture/Framework          November 2021
 
 
 
-Thubert & Papadopoulos     Expires 2 June 2022                 [Page 11]
+Thubert & Papadopoulos    Expires 16 June 2022                 [Page 11]
 
-Internet-Draft         RAW Architecture/Framework          November 2021
+Internet-Draft         RAW Architecture/Framework          December 2021
 
 
    There are three principles [pillars] of high availability
@@ -669,9 +669,9 @@ Internet-Draft         RAW Architecture/Framework          November 2021
 
 
 
-Thubert & Papadopoulos     Expires 2 June 2022                 [Page 12]
+Thubert & Papadopoulos    Expires 16 June 2022                 [Page 12]
 
-Internet-Draft         RAW Architecture/Framework          November 2021
+Internet-Draft         RAW Architecture/Framework          December 2021
 
 
 2.2.1.2.  Reliable Crossover
@@ -725,9 +725,9 @@ Internet-Draft         RAW Architecture/Framework          November 2021
 
 
 
-Thubert & Papadopoulos     Expires 2 June 2022                 [Page 13]
+Thubert & Papadopoulos    Expires 16 June 2022                 [Page 13]
 
-Internet-Draft         RAW Architecture/Framework          November 2021
+Internet-Draft         RAW Architecture/Framework          December 2021
 
 
    "Overview and Principles of Internet Traffic Engineering" [TE]
@@ -781,9 +781,9 @@ Internet-Draft         RAW Architecture/Framework          November 2021
 
 
 
-Thubert & Papadopoulos     Expires 2 June 2022                 [Page 14]
+Thubert & Papadopoulos    Expires 16 June 2022                 [Page 14]
 
-Internet-Draft         RAW Architecture/Framework          November 2021
+Internet-Draft         RAW Architecture/Framework          December 2021
 
 
    Engineers that build automated processes may use the network
@@ -837,9 +837,9 @@ Internet-Draft         RAW Architecture/Framework          November 2021
 
 
 
-Thubert & Papadopoulos     Expires 2 June 2022                 [Page 15]
+Thubert & Papadopoulos    Expires 16 June 2022                 [Page 15]
 
-Internet-Draft         RAW Architecture/Framework          November 2021
+Internet-Draft         RAW Architecture/Framework          December 2021
 
 
    In an environment that is rich of metallic structures and mobile
@@ -893,9 +893,9 @@ Internet-Draft         RAW Architecture/Framework          November 2021
 
 
 
-Thubert & Papadopoulos     Expires 2 June 2022                 [Page 16]
+Thubert & Papadopoulos    Expires 16 June 2022                 [Page 16]
 
-Internet-Draft         RAW Architecture/Framework          November 2021
+Internet-Draft         RAW Architecture/Framework          December 2021
 
 
                      +----------------+
@@ -949,9 +949,9 @@ Internet-Draft         RAW Architecture/Framework          November 2021
 
 
 
-Thubert & Papadopoulos     Expires 2 June 2022                 [Page 17]
+Thubert & Papadopoulos    Expires 16 June 2022                 [Page 17]
 
-Internet-Draft         RAW Architecture/Framework          November 2021
+Internet-Draft         RAW Architecture/Framework          December 2021
 
 
    collection of SD-WAN tunnels.  RAW formalizes a forwarding time scale
@@ -1005,9 +1005,9 @@ Internet-Draft         RAW Architecture/Framework          November 2021
 
 
 
-Thubert & Papadopoulos     Expires 2 June 2022                 [Page 18]
+Thubert & Papadopoulos    Expires 16 June 2022                 [Page 18]
 
-Internet-Draft         RAW Architecture/Framework          November 2021
+Internet-Draft         RAW Architecture/Framework          December 2021
 
 
            CPF               CPF          CPF                 CPF
@@ -1061,9 +1061,9 @@ Internet-Draft         RAW Architecture/Framework          November 2021
 
 
 
-Thubert & Papadopoulos     Expires 2 June 2022                 [Page 19]
+Thubert & Papadopoulos    Expires 16 June 2022                 [Page 19]
 
-Internet-Draft         RAW Architecture/Framework          November 2021
+Internet-Draft         RAW Architecture/Framework          December 2021
 
 
 4.  The OODA Loop
@@ -1117,9 +1117,9 @@ Internet-Draft         RAW Architecture/Framework          November 2021
 
 
 
-Thubert & Papadopoulos     Expires 2 June 2022                 [Page 20]
+Thubert & Papadopoulos    Expires 16 June 2022                 [Page 20]
 
-Internet-Draft         RAW Architecture/Framework          November 2021
+Internet-Draft         RAW Architecture/Framework          December 2021
 
 
 5.  Observe: The RAW OAM
@@ -1173,9 +1173,9 @@ Internet-Draft         RAW Architecture/Framework          November 2021
 
 
 
-Thubert & Papadopoulos     Expires 2 June 2022                 [Page 21]
+Thubert & Papadopoulos    Expires 16 June 2022                 [Page 21]
 
-Internet-Draft         RAW Architecture/Framework          November 2021
+Internet-Draft         RAW Architecture/Framework          December 2021
 
 
    The Links that are not observed by OAM are opaque to it, meaning that
@@ -1229,9 +1229,9 @@ Internet-Draft         RAW Architecture/Framework          November 2021
 
 
 
-Thubert & Papadopoulos     Expires 2 June 2022                 [Page 22]
+Thubert & Papadopoulos    Expires 16 June 2022                 [Page 22]
 
-Internet-Draft         RAW Architecture/Framework          November 2021
+Internet-Draft         RAW Architecture/Framework          December 2021
 
 
    To that effect, RAW defines the Path Selection Engine (PSE) that is
@@ -1285,9 +1285,9 @@ Internet-Draft         RAW Architecture/Framework          November 2021
 
 
 
-Thubert & Papadopoulos     Expires 2 June 2022                 [Page 23]
+Thubert & Papadopoulos    Expires 16 June 2022                 [Page 23]
 
-Internet-Draft         RAW Architecture/Framework          November 2021
+Internet-Draft         RAW Architecture/Framework          December 2021
 
 
                |
@@ -1341,9 +1341,9 @@ Internet-Draft         RAW Architecture/Framework          November 2021
 
 
 
-Thubert & Papadopoulos     Expires 2 June 2022                 [Page 24]
+Thubert & Papadopoulos    Expires 16 June 2022                 [Page 24]
 
-Internet-Draft         RAW Architecture/Framework          November 2021
+Internet-Draft         RAW Architecture/Framework          December 2021
 
 
    In a nutshell, PAREO establishes several paths in a network to
@@ -1397,9 +1397,9 @@ Internet-Draft         RAW Architecture/Framework          November 2021
 
 
 
-Thubert & Papadopoulos     Expires 2 June 2022                 [Page 25]
+Thubert & Papadopoulos    Expires 16 June 2022                 [Page 25]
 
-Internet-Draft         RAW Architecture/Framework          November 2021
+Internet-Draft         RAW Architecture/Framework          December 2021
 
 
                           ===> (A) => (C) => (E) ===
@@ -1453,9 +1453,9 @@ Internet-Draft         RAW Architecture/Framework          November 2021
 
 
 
-Thubert & Papadopoulos     Expires 2 June 2022                 [Page 26]
+Thubert & Papadopoulos    Expires 16 June 2022                 [Page 26]
 
-Internet-Draft         RAW Architecture/Framework          November 2021
+Internet-Draft         RAW Architecture/Framework          December 2021
 
 
                       ===> (A) ====> (C) ====> (E) ====
@@ -1509,9 +1509,9 @@ Internet-Draft         RAW Architecture/Framework          November 2021
 
 
 
-Thubert & Papadopoulos     Expires 2 June 2022                 [Page 27]
+Thubert & Papadopoulos    Expires 16 June 2022                 [Page 27]
 
-Internet-Draft         RAW Architecture/Framework          November 2021
+Internet-Draft         RAW Architecture/Framework          December 2021
 
 
    Xavi Vilajosana:  Wireless Networks Research Lab, Universitat Oberta
@@ -1565,9 +1565,9 @@ Internet-Draft         RAW Architecture/Framework          November 2021
 
 
 
-Thubert & Papadopoulos     Expires 2 June 2022                 [Page 28]
+Thubert & Papadopoulos    Expires 16 June 2022                 [Page 28]
 
-Internet-Draft         RAW Architecture/Framework          November 2021
+Internet-Draft         RAW Architecture/Framework          December 2021
 
 
    [RFC4655]  Farrel, A., Vasseur, J.-P., and J. Ash, "A Path
@@ -1607,6 +1607,11 @@ Internet-Draft         RAW Architecture/Framework          November 2021
               DOI 10.17487/RFC8655, October 2019,
               <https://www.rfc-editor.org/info/rfc8655>.
 
+   [RFC8939]  Varga, B., Ed., Farkas, J., Berger, L., Fedyk, D., and S.
+              Bryant, "Deterministic Networking (DetNet) Data Plane:
+              IP", RFC 8939, DOI 10.17487/RFC8939, November 2020,
+              <https://www.rfc-editor.org/info/rfc8939>.
+
    [RFC9049]  Dawkins, S., Ed., "Path Aware Networking: Obstacles to
               Deployment (A Bestiary of Roads Not Taken)", RFC 9049,
               DOI 10.17487/RFC9049, June 2021,
@@ -1614,17 +1619,16 @@ Internet-Draft         RAW Architecture/Framework          November 2021
 
 13.2.  Informative References
 
+
+
+Thubert & Papadopoulos    Expires 16 June 2022                 [Page 29]
+
+Internet-Draft         RAW Architecture/Framework          December 2021
+
+
    [RFC0791]  Postel, J., "Internet Protocol", STD 5, RFC 791,
               DOI 10.17487/RFC0791, September 1981,
               <https://www.rfc-editor.org/info/rfc791>.
-
-
-
-
-Thubert & Papadopoulos     Expires 2 June 2022                 [Page 29]
-
-Internet-Draft         RAW Architecture/Framework          November 2021
-
 
    [TE]       Awduche, D., Chiu, A., Elwalid, A., Widjaja, I., and X.
               Xiao, "Overview and Principles of Internet Traffic
@@ -1671,17 +1675,16 @@ Internet-Draft         RAW Architecture/Framework          November 2021
               <https://tools.ietf.org/html/draft-thubert-6man-ipv6-over-
               wireless-10>.
 
+
+
+Thubert & Papadopoulos    Expires 16 June 2022                 [Page 30]
+
+Internet-Draft         RAW Architecture/Framework          December 2021
+
+
    [DetNet-OAM]
               Mirsky, G., Theoleyre, F., Papadopoulos, G. Z., Bernardos,
               C. J., Varga, B., and J. Farkas, "Framework of Operations,
-
-
-
-Thubert & Papadopoulos     Expires 2 June 2022                 [Page 30]
-
-Internet-Draft         RAW Architecture/Framework          November 2021
-
-
               Administration and Maintenance (OAM) for Deterministic
               Networking (DetNet)", Work in Progress, Internet-Draft,
               draft-ietf-detnet-oam-framework-05, 14 October 2021,
@@ -1730,7 +1733,4 @@ Authors' Addresses
 
 
 
-
-
-
-Thubert & Papadopoulos     Expires 2 June 2022                 [Page 31]
+Thubert & Papadopoulos    Expires 16 June 2022                 [Page 31]

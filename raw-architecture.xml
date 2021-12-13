@@ -1128,9 +1128,20 @@
 <section anchor="aom" numbered="true" toc="default">
     <name>Observe: The RAW OAM </name><t>
     RAW In-situ OAM operation in the Network Plane may observe either a full
-    Track or subTracks that are being used at this time. Active RAW OAM may
+    Track or subTracks that are being used at this time. As packets may be load
+    balanced, replicated, eliminated, and / or fragmented for Network Coding
+    (NC) forward error correction (FEC), the RAW In-situ operation needs to be
+    able to signal which operation occured to an individual packet.
+    </t>
+    <t>
+    Active RAW OAM may
     be needed to observe the unused segments and evaluate the desirability of
-    a rerouting decision.
+    a rerouting decision. The art of <xref target="RFC5880"> Bidirectional
+    Forwarding Detection (BFD)</xref> expects serial paths and needs one
+    session per path, which makes it suited to observe a Segment but not a
+    complete Track.
+    </t>
+    <t>
     Finally, the RAW Service Layer Assurance may observe the individual PAREO
     operation of a relay node to ensure that it is conforming; this might
     require injecting an OAM packet at an upstream point inside the Track and

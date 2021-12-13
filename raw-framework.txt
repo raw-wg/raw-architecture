@@ -5,8 +5,8 @@
 RAW                                                      P. Thubert, Ed.
 Internet-Draft                                             Cisco Systems
 Intended status: Informational                                 L. Berger
-Expires: 2 June 2022                             LabN Consulting, L.L.C.
-                                                        29 November 2021
+Expires: 16 June 2022                            LabN Consulting, L.L.C.
+                                                        13 December 2021
 
 
                Reliable and Available Wireless Framework
@@ -41,7 +41,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 2 June 2022.
+   This Internet-Draft will expire on 16 June 2022.
 
 Copyright Notice
 
@@ -53,9 +53,9 @@ Copyright Notice
 
 
 
-Thubert & Berger           Expires 2 June 2022                  [Page 1]
+Thubert & Berger          Expires 16 June 2022                  [Page 1]
 
-Internet-Draft         RAW Architecture/Framework          November 2021
+Internet-Draft         RAW Architecture/Framework          December 2021
 
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Thubert & Berger           Expires 2 June 2022                  [Page 2]
+Thubert & Berger          Expires 16 June 2022                  [Page 2]
 
-Internet-Draft         RAW Architecture/Framework          November 2021
+Internet-Draft         RAW Architecture/Framework          December 2021
 
 
    The "RAW Architecture" [RAW-ARCHI] document presents the RAW problem
@@ -165,9 +165,9 @@ Internet-Draft         RAW Architecture/Framework          November 2021
 
 
 
-Thubert & Berger           Expires 2 June 2022                  [Page 3]
+Thubert & Berger          Expires 16 June 2022                  [Page 3]
 
-Internet-Draft         RAW Architecture/Framework          November 2021
+Internet-Draft         RAW Architecture/Framework          December 2021
 
 
 2.  Use Cases and Requirements Served
@@ -221,9 +221,9 @@ Internet-Draft         RAW Architecture/Framework          November 2021
 
 
 
-Thubert & Berger           Expires 2 June 2022                  [Page 4]
+Thubert & Berger          Expires 16 June 2022                  [Page 4]
 
-Internet-Draft         RAW Architecture/Framework          November 2021
+Internet-Draft         RAW Architecture/Framework          December 2021
 
 
    The idea is that the rest of the path to the destination(s) is
@@ -277,9 +277,9 @@ Internet-Draft         RAW Architecture/Framework          November 2021
 
 
 
-Thubert & Berger           Expires 2 June 2022                  [Page 5]
+Thubert & Berger          Expires 16 June 2022                  [Page 5]
 
-Internet-Draft         RAW Architecture/Framework          November 2021
+Internet-Draft         RAW Architecture/Framework          December 2021
 
 
    *  [BFD] detect faults in the path between an Ingress and an Egress
@@ -333,9 +333,9 @@ Internet-Draft         RAW Architecture/Framework          November 2021
 
 
 
-Thubert & Berger           Expires 2 June 2022                  [Page 6]
+Thubert & Berger          Expires 16 June 2022                  [Page 6]
 
-Internet-Draft         RAW Architecture/Framework          November 2021
+Internet-Draft         RAW Architecture/Framework          December 2021
 
 
    Another prerequisite is that an IP link can be established over the
@@ -389,9 +389,9 @@ Internet-Draft         RAW Architecture/Framework          November 2021
 
 
 
-Thubert & Berger           Expires 2 June 2022                  [Page 7]
+Thubert & Berger          Expires 16 June 2022                  [Page 7]
 
-Internet-Draft         RAW Architecture/Framework          November 2021
+Internet-Draft         RAW Architecture/Framework          December 2021
 
 
    instance, out-of-band OAM packets must circulate in the exact same
@@ -445,9 +445,9 @@ Internet-Draft         RAW Architecture/Framework          November 2021
 
 
 
-Thubert & Berger           Expires 2 June 2022                  [Page 8]
+Thubert & Berger          Expires 16 June 2022                  [Page 8]
 
-Internet-Draft         RAW Architecture/Framework          November 2021
+Internet-Draft         RAW Architecture/Framework          December 2021
 
 
                          Flow 1 (6-tuple) ----+
@@ -501,9 +501,9 @@ Internet-Draft         RAW Architecture/Framework          November 2021
 
 
 
-Thubert & Berger           Expires 2 June 2022                  [Page 9]
+Thubert & Berger          Expires 16 June 2022                  [Page 9]
 
-Internet-Draft         RAW Architecture/Framework          November 2021
+Internet-Draft         RAW Architecture/Framework          December 2021
 
 
 7.  Source-Routed vs. Distributed Forwarding Decision
@@ -557,9 +557,9 @@ Internet-Draft         RAW Architecture/Framework          November 2021
 
 
 
-Thubert & Berger           Expires 2 June 2022                 [Page 10]
+Thubert & Berger          Expires 16 June 2022                 [Page 10]
 
-Internet-Draft         RAW Architecture/Framework          November 2021
+Internet-Draft         RAW Architecture/Framework          December 2021
 
 
 8.  Encapsulation and Decapsulation
@@ -613,9 +613,9 @@ Internet-Draft         RAW Architecture/Framework          November 2021
 
 
 
-Thubert & Berger           Expires 2 June 2022                 [Page 11]
+Thubert & Berger          Expires 16 June 2022                 [Page 11]
 
-Internet-Draft         RAW Architecture/Framework          November 2021
+Internet-Draft         RAW Architecture/Framework          December 2021
 
 
    This effect can be alleviated by measuring on the fly but reporting
@@ -669,9 +669,9 @@ Internet-Draft         RAW Architecture/Framework          November 2021
 
 
 
-Thubert & Berger           Expires 2 June 2022                 [Page 12]
+Thubert & Berger          Expires 16 June 2022                 [Page 12]
 
-Internet-Draft         RAW Architecture/Framework          November 2021
+Internet-Draft         RAW Architecture/Framework          December 2021
 
 
    In other words, the best suited OAM method to enable the PSE make
@@ -725,9 +725,9 @@ Internet-Draft         RAW Architecture/Framework          November 2021
 
 
 
-Thubert & Berger           Expires 2 June 2022                 [Page 13]
+Thubert & Berger          Expires 16 June 2022                 [Page 13]
 
-Internet-Draft         RAW Architecture/Framework          November 2021
+Internet-Draft         RAW Architecture/Framework          December 2021
 
 
    Rex Buddenberg:  Individual contributor
@@ -748,11 +748,11 @@ Internet-Draft         RAW Architecture/Framework          November 2021
               <https://www.rfc-editor.org/info/rfc9030>.
 
    [RAW-ARCHI]
-              Thubert, P., Papadopoulos, G. Z., and L. Berger, "Reliable
-              and Available Wireless Architecture/Framework", Work in
-              Progress, Internet-Draft, draft-ietf-raw-architecture-01,
-              28 July 2021, <https://tools.ietf.org/html/draft-ietf-raw-
-              architecture-01>.
+              Thubert, P. and G. Z. Papadopoulos, "Reliable and
+              Available Wireless Architecture", Work in Progress,
+              Internet-Draft, draft-ietf-raw-architecture-02, 29
+              November 2021, <https://tools.ietf.org/html/draft-ietf-
+              raw-architecture-02>.
 
    [BFD]      Katz, D. and D. Ward, "Bidirectional Forwarding Detection
               (BFD)", RFC 5880, DOI 10.17487/RFC5880, June 2010,
@@ -781,9 +781,9 @@ Internet-Draft         RAW Architecture/Framework          November 2021
 
 
 
-Thubert & Berger           Expires 2 June 2022                 [Page 14]
+Thubert & Berger          Expires 16 June 2022                 [Page 14]
 
-Internet-Draft         RAW Architecture/Framework          November 2021
+Internet-Draft         RAW Architecture/Framework          December 2021
 
 
    [BIER]     Wijnands, IJ., Ed., Rosen, E., Ed., Dolganow, A.,
@@ -837,9 +837,9 @@ Internet-Draft         RAW Architecture/Framework          November 2021
 
 
 
-Thubert & Berger           Expires 2 June 2022                 [Page 15]
+Thubert & Berger          Expires 16 June 2022                 [Page 15]
 
-Internet-Draft         RAW Architecture/Framework          November 2021
+Internet-Draft         RAW Architecture/Framework          December 2021
 
 
    [DetNet-IP-OAM]
@@ -893,9 +893,9 @@ Internet-Draft         RAW Architecture/Framework          November 2021
 
 
 
-Thubert & Berger           Expires 2 June 2022                 [Page 16]
+Thubert & Berger          Expires 16 June 2022                 [Page 16]
 
-Internet-Draft         RAW Architecture/Framework          November 2021
+Internet-Draft         RAW Architecture/Framework          December 2021
 
 
    [I-D.mirsky-ippm-hybrid-two-step]
@@ -922,9 +922,9 @@ Internet-Draft         RAW Architecture/Framework          November 2021
    [I-D.ietf-ippm-ioam-data]
               Brockners, F., Bhandari, S., and T. Mizrahi, "Data Fields
               for In-situ OAM", Work in Progress, Internet-Draft, draft-
-              ietf-ippm-ioam-data-16, 8 November 2021,
+              ietf-ippm-ioam-data-17, 13 December 2021,
               <https://tools.ietf.org/html/draft-ietf-ippm-ioam-data-
-              16>.
+              17>.
 
    [MANET]    IETF, "Mobile Ad hoc Networking",
               <https://dataTracker.ietf.org/doc/charter-ietf-manet/>.
@@ -949,9 +949,9 @@ Internet-Draft         RAW Architecture/Framework          November 2021
 
 
 
-Thubert & Berger           Expires 2 June 2022                 [Page 17]
+Thubert & Berger          Expires 16 June 2022                 [Page 17]
 
-Internet-Draft         RAW Architecture/Framework          November 2021
+Internet-Draft         RAW Architecture/Framework          December 2021
 
 
 Authors' Addresses
@@ -1005,4 +1005,4 @@ Authors' Addresses
 
 
 
-Thubert & Berger           Expires 2 June 2022                 [Page 18]
+Thubert & Berger          Expires 16 June 2022                 [Page 18]

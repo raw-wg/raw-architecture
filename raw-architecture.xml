@@ -397,6 +397,8 @@
     </t>
     </section>
     </section><!--Path and Tracks-->
+
+
     <section><name>Deterministic Networking</name>
     <t>This document reuses the terminology in section 2 of
     <xref target="RFC8557"/> and section 4.1.2 of <xref target="RFC8655"/>
@@ -413,6 +415,7 @@
     control of the PSE.
     </t>
     </section>
+
     <section><name>Deterministic Flow Identifier (L2)</name>
     <t>
      A tuple identified by a stream_handle, and provided by a bridge, in
@@ -432,6 +435,14 @@
      purpose.
      </t>
      </section>
+     <section><name>TSN</name>
+    <t>
+    TSN stands for Time Sensitive Networking and denotes the efforts at IEEE
+    802 for deterministic networking, originally for use on Ethernet. Wireless
+    TSN (WTSN) denotes extensions of the TSN work on wireless media such as
+    the selected RAW technologies <xref target="I-D.ietf-raw-technologies"/>.
+    </t>
+    </section>
      </section><!--Deterministic Networking -->
 
 

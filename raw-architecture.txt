@@ -79,7 +79,7 @@ Table of Contents
        2.1.5.  Reliability and Availability  . . . . . . . . . . . .   9
        2.1.6.  OAM variations  . . . . . . . . . . . . . . . . . . .  10
      2.2.  Reliability and Availability  . . . . . . . . . . . . . .  11
-       2.2.1.  High Availability Engineering Principles  . . . . . .  11
+       2.2.1.  High Availability Engineering Principles  . . . . . .  12
        2.2.2.  Applying Reliability Concepts to Networking . . . . .  14
        2.2.3.  Reliability in the Context of RAW . . . . . . . . . .  15
      2.3.  Routing Time Scale vs. Forwarding Time Scale  . . . . . .  16
@@ -476,6 +476,13 @@ Internet-Draft         RAW Architecture/Framework          December 2021
    extra field is the DSCP field in the packet.  The IPv6 flow label is
    not used. for that purpose.
 
+2.1.4.4.  TSN
+
+   TSN stands for Time Sensitive Networking and denotes the efforts at
+   IEEE 802 for deterministic networking, originally for use on
+   Ethernet.  Wireless TSN (WTSN) denotes extensions of the TSN work on
+   wireless media such as the selected RAW technologies [RAW-TECHNOS].
+
 2.1.5.  Reliability and Availability
 
    In the context of the RAW work, Reliability and Availability are
@@ -488,13 +495,6 @@ Internet-Draft         RAW Architecture/Framework          December 2021
    about measurable metrics such as latency boundaries, consecutive
    losses, and packet delivery ratio (PDR).
 
-2.1.5.2.  Service Level Objective
-
-   A service level objective (SLO) is one term in the SLO, for which
-   specific network setting and operations are implemented.  For
-   instance, a dynamic tuning of the packet redundancy will address an
-   SLO of consecutive losses in a row by augmenting the chances of
-   delivery of a packet that follows a loss.).
 
 
 
@@ -505,6 +505,14 @@ Thubert & Papadopoulos    Expires 16 June 2022                  [Page 9]
 
 Internet-Draft         RAW Architecture/Framework          December 2021
 
+
+2.1.5.2.  Service Level Objective
+
+   A service level objective (SLO) is one term in the SLO, for which
+   specific network setting and operations are implemented.  For
+   instance, a dynamic tuning of the packet redundancy will address an
+   SLO of consecutive losses in a row by augmenting the chances of
+   delivery of a packet that follows a loss.).
 
 2.1.5.3.  Service Level Indicator
 
@@ -544,14 +552,6 @@ Internet-Draft         RAW Architecture/Framework          December 2021
    a particular Track, subTrack, or Segment of a Track regardless of
    whether it is used for traffic at that time.
 
-2.1.6.2.  In-Band OAM
-
-   An active OAM packet is considered in-band for the monitored Track
-   when it traverses the same set of links and interfaces and if the OAM
-   packet receives the same QoS and PAREO treatment as the packets of
-   the data flows that are injected in the Track.
-
-
 
 
 
@@ -561,6 +561,13 @@ Thubert & Papadopoulos    Expires 16 June 2022                 [Page 10]
 
 Internet-Draft         RAW Architecture/Framework          December 2021
 
+
+2.1.6.2.  In-Band OAM
+
+   An active OAM packet is considered in-band for the monitored Track
+   when it traverses the same set of links and interfaces and if the OAM
+   packet receives the same QoS and PAREO treatment as the packets of
+   the data flows that are injected in the Track.
 
 2.1.6.3.  Out-of-Band OAM
 
@@ -601,14 +608,7 @@ Internet-Draft         RAW Architecture/Framework          December 2021
 
 2.2.  Reliability and Availability
 
-2.2.1.  High Availability Engineering Principles
 
-   The reliability criteria of a critical system pervade through its
-   elements, and if the system comprises a data network then the data
-   network is also subject to the inherited reliability and availability
-   criteria.  It is only natural to consider the art of high
-   availability engineering and apply it to wireless communications in
-   the context of RAW.
 
 
 
@@ -617,6 +617,15 @@ Thubert & Papadopoulos    Expires 16 June 2022                 [Page 11]
 
 Internet-Draft         RAW Architecture/Framework          December 2021
 
+
+2.2.1.  High Availability Engineering Principles
+
+   The reliability criteria of a critical system pervade through its
+   elements, and if the system comprises a data network then the data
+   network is also subject to the inherited reliability and availability
+   criteria.  It is only natural to consider the art of high
+   availability engineering and apply it to wireless communications in
+   the context of RAW.
 
    There are three principles [pillars] of high availability
    engineering:
@@ -656,15 +665,6 @@ Internet-Draft         RAW Architecture/Framework          December 2021
    the transmissions over the air to combat the additional causes of
    transmission loss.
 
-   From an economics standpoint, executing this principle properly
-   generally increases capitalization expense because of the redundant
-   equipment.  In a constrained network where the waste of energy and
-   bandwidth should be minimized, an excessive use of redundant links
-   must be avoided; for RAW this means that the extra bandwidth must be
-   used wisely and with parcimony.
-
-
-
 
 
 
@@ -673,6 +673,13 @@ Thubert & Papadopoulos    Expires 16 June 2022                 [Page 12]
 
 Internet-Draft         RAW Architecture/Framework          December 2021
 
+
+   From an economics standpoint, executing this principle properly
+   generally increases capitalization expense because of the redundant
+   equipment.  In a constrained network where the waste of energy and
+   bandwidth should be minimized, an excessive use of redundant links
+   must be avoided; for RAW this means that the extra bandwidth must be
+   used wisely and with parcimony.
 
 2.2.1.2.  Reliable Crossover
 
@@ -715,13 +722,6 @@ Internet-Draft         RAW Architecture/Framework          December 2021
    configuration, accounting, performance, security is a handy mental
    checklist) but fault monitoring is sufficient reason.
 
-   "An Architecture for Describing Simple Network Management Protocol
-   (SNMP) Management Frameworks" [STD 62] describes how to use SNMP to
-   observe and correct long-term faults.
-
-
-
-
 
 
 
@@ -729,6 +729,10 @@ Thubert & Papadopoulos    Expires 16 June 2022                 [Page 13]
 
 Internet-Draft         RAW Architecture/Framework          December 2021
 
+
+   "An Architecture for Describing Simple Network Management Protocol
+   (SNMP) Management Frameworks" [STD 62] describes how to use SNMP to
+   observe and correct long-term faults.
 
    "Overview and Principles of Internet Traffic Engineering" [TE]
    discusses the importance of measurement for network protection, and
@@ -774,10 +778,6 @@ Internet-Draft         RAW Architecture/Framework          December 2021
    consecutive losses, and a high MTBF is desired as a guarantee that
    this will not happen, IOW that the number of losses-in-a-row can be
    bounded.  In that case, what is really desired is a Maximum
-   Consecutive Failures (MCF).  If the number of losses in a row passes
-   the MCF, the control loop has to abort and the system, e.g., the
-   production line, may need to enter an emergency stop condition.
-
 
 
 
@@ -785,6 +785,10 @@ Thubert & Papadopoulos    Expires 16 June 2022                 [Page 14]
 
 Internet-Draft         RAW Architecture/Framework          December 2021
 
+
+   Consecutive Failures (MCF).  If the number of losses in a row passes
+   the MCF, the control loop has to abort and the system, e.g., the
+   production line, may need to enter an emergency stop condition.
 
    Engineers that build automated processes may use the network
    reliability expressed in nines or as an MTBF as a proxy to indicate
@@ -829,10 +833,6 @@ Internet-Draft         RAW Architecture/Framework          December 2021
       Fresnel Zone between the sender and the receiver is free of
       obstacles.
 
-      As long as a physical object (e.g., a metallic trolley between
-      peers) that affects the transmission is not removed, the quality
-      of the link is affected.
-
 
 
 
@@ -841,6 +841,10 @@ Thubert & Papadopoulos    Expires 16 June 2022                 [Page 15]
 
 Internet-Draft         RAW Architecture/Framework          December 2021
 
+
+      As long as a physical object (e.g., a metallic trolley between
+      peers) that affects the transmission is not removed, the quality
+      of the link is affected.
 
    In an environment that is rich of metallic structures and mobile
    objects, a single radio link will provide a fuzzy service, meaning
@@ -883,10 +887,6 @@ Internet-Draft         RAW Architecture/Framework          December 2021
    represent its properties as shades of gray as opposed to numerical
    values such as a link quality indicator, or a boolean value for
    either up or down.
-
-
-
-
 
 
 

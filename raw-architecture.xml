@@ -342,7 +342,7 @@
     </t>
     <blockquote>
       A sequence of adjacent path elements over which a packet can
-      be transmitted, starting and ending with a node.  A path is
+     f be transmitted, starting and ending with a node.  A path is
       unidirectional.  Paths are time-dependent, i.e., the sequence of
       path elements over which packets are sent from one node to another
       may change.  A path is defined between two nodes.
@@ -728,9 +728,9 @@
     and make the long term reactive decision to rebuild a complex  path. But RAW
     itself operates in the Network Plane at a faster time scale. To act on the
     Data Plane, RAW needs live information from the Operational Plane , e.g.,
-    using <xref target="RFC5880">Bidirectional Forwarding Detection</xref>
-    and its variants (bidirectional and remote BFD) to protect a link, and
-    OAM techniques to protect a path.
+    using <xref target="RFC8175">Dynamic Link Exchange Protocol (DLEP)</xref>
+    to obtain timely and accurate knowledge of the characteristics of the link
+    (speed, state, etc.).
     </t>
 
 <!--
@@ -1136,10 +1136,7 @@
     <t>
     Active RAW OAM may
     be needed to observe the unused segments and evaluate the desirability of
-    a rerouting decision. The art of <xref target="RFC5880"> Bidirectional
-    Forwarding Detection (BFD)</xref> expects serial paths and needs one
-    session per path, which makes it suited to observe a Segment but not a
-    complete Track.
+    a rerouting decision.
     </t>
     <t>
     Finally, the RAW Service Layer Assurance may observe the individual PAREO
@@ -1669,7 +1666,7 @@ Ingress =   |      |      |   = Egress
 
 <displayreference   target="RFC1122"                  to="INT-ARCHI"/>
 <displayreference   target="RFC3272"                  to="TE"/>
-<displayreference   target="RFC5880"                  to="BFD"/>
+<displayreference   target="RFC8175"                  to="DLEP"/>
 <displayreference   target="RFC3411"                  to="STD 62"/>
 <displayreference   target="RFC7490"                  to="RLFA-FRR"/>
 <displayreference   target="RFC5714"                  to="FRR"/>
@@ -1698,8 +1695,6 @@ Ingress =   |      |      |   = Egress
 <xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.4655.xml"/>
 <!-- PCE -->
 
-<xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.5880.xml"/>
-<!-- Bidirectional Forwarding Detection  -->
 
 <xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.6291.xml"/>
 <!-- Guidelines for the Use of the "OAM" Acronym in the IETF  -->
@@ -1752,6 +1747,9 @@ Ingress =   |      |      |   = Egress
 
 <xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.8938.xml"/>
 <!--   Deterministic Networking (DetNet) Data Plane Framework -->
+
+<xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.8175.xml"/>
+<!--  Dynamic Link Exchange Protocol  -->
 
 <xi:include href="http://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.irtf-panrg-path-properties.xml"/>
 

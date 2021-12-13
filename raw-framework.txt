@@ -70,27 +70,28 @@ Internet-Draft         RAW Architecture/Framework          December 2021
 Table of Contents
 
    1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   2
-   2.  Use Cases and Requirements Served . . . . . . . . . . . . . .   4
-     2.1.  Radio Access Protection . . . . . . . . . . . . . . . . .   4
-     2.2.  End-to-End Protection in a Wireless Mesh  . . . . . . . .   5
-   3.  Related Work at The IETF  . . . . . . . . . . . . . . . . . .   5
-   4.  Scope and Prerequisites . . . . . . . . . . . . . . . . . . .   6
-   5.  Wireless Tracks . . . . . . . . . . . . . . . . . . . . . . .   7
-   6.  Flow Identification vs. Path Identification . . . . . . . . .   7
-   7.  Source-Routed vs. Distributed Forwarding Decision . . . . . .  10
-   8.  Encapsulation and Decapsulation . . . . . . . . . . . . . . .  11
-   9.  Operations Administration and Maintenance . . . . . . . . . .  11
-     9.1.  DetNet OAM  . . . . . . . . . . . . . . . . . . . . . . .  11
-     9.2.  RAW Extensions  . . . . . . . . . . . . . . . . . . . . .  12
-     9.3.  Observed Metrics  . . . . . . . . . . . . . . . . . . . .  13
-   10. Security Considerations . . . . . . . . . . . . . . . . . . .  13
-     10.1.  Forced Access  . . . . . . . . . . . . . . . . . . . . .  13
-   11. IANA Considerations . . . . . . . . . . . . . . . . . . . . .  13
-   12. Acknowledgments . . . . . . . . . . . . . . . . . . . . . . .  13
-   13. References  . . . . . . . . . . . . . . . . . . . . . . . . .  14
-     13.1.  Normative References . . . . . . . . . . . . . . . . . .  14
-     13.2.  Informative References . . . . . . . . . . . . . . . . .  15
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  18
+   2.  Terminology . . . . . . . . . . . . . . . . . . . . . . . . .   3
+   3.  Use Cases and Requirements Served . . . . . . . . . . . . . .   4
+     3.1.  Radio Access Protection . . . . . . . . . . . . . . . . .   4
+     3.2.  End-to-End Protection in a Wireless Mesh  . . . . . . . .   5
+   4.  Related Work at The IETF  . . . . . . . . . . . . . . . . . .   5
+   5.  Scope and Prerequisites . . . . . . . . . . . . . . . . . . .   6
+   6.  Wireless Tracks . . . . . . . . . . . . . . . . . . . . . . .   7
+   7.  Flow Identification vs. Path Identification . . . . . . . . .   7
+   8.  Source-Routed vs. Distributed Forwarding Decision . . . . . .  10
+   9.  Encapsulation and Decapsulation . . . . . . . . . . . . . . .  11
+   10. Operations Administration and Maintenance . . . . . . . . . .  11
+     10.1.  DetNet OAM . . . . . . . . . . . . . . . . . . . . . . .  11
+     10.2.  RAW Extensions . . . . . . . . . . . . . . . . . . . . .  12
+     10.3.  Observed Metrics . . . . . . . . . . . . . . . . . . . .  13
+   11. Security Considerations . . . . . . . . . . . . . . . . . . .  13
+     11.1.  Forced Access  . . . . . . . . . . . . . . . . . . . . .  13
+   12. IANA Considerations . . . . . . . . . . . . . . . . . . . . .  13
+   13. Acknowledgments . . . . . . . . . . . . . . . . . . . . . . .  13
+   14. References  . . . . . . . . . . . . . . . . . . . . . . . . .  14
+     14.1.  Normative References . . . . . . . . . . . . . . . . . .  14
+     14.2.  Informative References . . . . . . . . . . . . . . . . .  15
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  17
 
 1.  Introduction
 
@@ -105,7 +106,6 @@ Table of Contents
    and frequency domains.  The challenge is to provide enough diversity
    and redundancy to ensure the timely packet delivery while preserving
    energy and optimizing the use of the shared spectrum.
-
 
 
 
@@ -156,10 +156,10 @@ Internet-Draft         RAW Architecture/Framework          December 2021
    redundancy while minimizing the use of constrained resources such as
    spectrum and battery.
 
+2.  Terminology
 
-
-
-
+   This document uses the terminology defined in the "RAW Architecture"
+   [RAW-ARCHI].
 
 
 
@@ -170,7 +170,7 @@ Thubert & Berger          Expires 16 June 2022                  [Page 3]
 Internet-Draft         RAW Architecture/Framework          December 2021
 
 
-2.  Use Cases and Requirements Served
+3.  Use Cases and Requirements Served
 
    In order to focus on real-worlds issues and assert the feasibility of
    the proposed capabilities, RAW focuses on selected technologies that
@@ -190,7 +190,7 @@ Internet-Draft         RAW Architecture/Framework          December 2021
    and Strict Protection, e.g., providing End-to-End Protection in a
    wireless mesh.
 
-2.1.  Radio Access Protection
+3.1.  Radio Access Protection
 
    To maintain the required SLA at all times, a wireless Host may use
    more than one Radio Access Network (RAN) in parallel.
@@ -239,12 +239,12 @@ Internet-Draft         RAW Architecture/Framework          December 2021
    the core.  The resulting loose Track may be instantiated, e.g., using
    tunneling or loose source routing between the RANs.
 
-2.2.  End-to-End Protection in a Wireless Mesh
+3.2.  End-to-End Protection in a Wireless Mesh
 
    In radio technologies that support mesh networking (e.g., Wi-Fi and
    TSCH), a Track is a complex path with distributed PAREO capabilities.
    In that case, RAW operates through the multipath and makes decisions
-   either at the Ingress or at every hop (more in Section 5).
+   either at the Ingress or at every hop (more in Section 6).
 
                            A-------B-------C-----D
                           /  \   /       /        \
@@ -261,18 +261,18 @@ Internet-Draft         RAW Architecture/Framework          December 2021
    intermediate Nodes to estimate the quality of the rest of the
    feasible paths in the remainder of the Track to the destination.
 
-3.  Related Work at The IETF
+4.  Related Work at The IETF
 
    RAW intersects with protocols or practices in development at the IETF
    as follows:
 
-   *  The Dynamic Link Exchange Protocol (DLEP) [RFC8175] from [MANET]
-      can be leveraged at each hop to derive generic radio metrics
-      (e.g., based on LQI, RSSI, queueing delays and ETX) on individual
-      hops.
+   *  The Dynamic Link Exchange Protocol (DLEP) [DLEP] from [MANET] can
+      be leveraged at each hop to derive generic radio metrics (e.g.,
+      based on LQI, RSSI, queueing delays and ETX) on individual hops,
+      and obtain link characteristics such as speed in a timely manner.
 
    *  [detnet] provides an OAM framework with [DetNet-OAM] that applies
-      within the DetNet dataplane described in [DetNet-DP],which is
+      within the DetNet dataplane described in [DetNet-DP], which is
       typically based on MPLS or IPv6 pseudowires.
 
 
@@ -282,16 +282,19 @@ Thubert & Berger          Expires 16 June 2022                  [Page 5]
 Internet-Draft         RAW Architecture/Framework          December 2021
 
 
-   *  [BFD] detect faults in the path between an Ingress and an Egress
-      forwarding engines, but is unaware of the complexity of a path
-      with replication, and expects bidirectionality.  BFD asynchronous
-      mode considers delivery as success whereas with DetNet and RAW,
-      the bounded latency can be as important as the delivery itself,
-      and delivering too late is actually a failure.  Note that the BFD
-      Demand mode with unsolicited notifications may be more suitable
-      then the Asynchronous BFD mode.  The use of the Demand mode in
-      MPLS is analyzed in [I-D.mirsky-bfd-mpls-demand] and similar
-      considerations could apply to IP as well.
+   *  Bidirectional Forwarding Detection [BFD] and its variants
+      (bidirectional and remote BFD) detects faults in the path between
+      an Ingress and an Egress forwarding engines.  The art of BFD
+      expects a serial path and needs one session per path, which makes
+      it suited to observe a Segment it is unaware of the complexity of
+      a track , and expects bidirectionality.  to protect a path.  [BFD]
+      BFD asynchronous mode considers delivery as success whereas with
+      DetNet and RAW, the bounded latency can be as important as the
+      delivery itself, and delivering too late is actually a failure.
+      Note that the BFD Demand mode with unsolicited notifications may
+      be more suitable then the Asynchronous BFD mode.  The use of the
+      Demand mode in MPLS is analyzed in [I-D.mirsky-bfd-mpls-demand]
+      and similar considerations could apply to IP as well.
 
    *  [SPRING] and [BIER] define in-band signaling that influences the
       routing when decided at the head-end on the path.  There's already
@@ -312,7 +315,7 @@ Internet-Draft         RAW Architecture/Framework          December 2021
       delivery services and applications running over transport layer
       protocols (e.g.  TCP, UDP) over IP.
 
-4.  Scope and Prerequisites
+5.  Scope and Prerequisites
 
    A prerequisite to the RAW operation is that an end-to-end routing
    function computes a complex sub-topology along which forwarding can
@@ -327,9 +330,6 @@ Internet-Draft         RAW Architecture/Framework          December 2021
    How the routing operation (e.g., PCE) in the Controller Plane
    computes the Track is out of scope for RAW.  The scope of the RAW
    operation is one Track, and the goal of the RAW operation is to
-   optimize the use of the Track at the forwarding timescale to maintain
-   the expected SLA while optimizing the usage of constrained resources
-   such as energy and spectrum.
 
 
 
@@ -337,6 +337,10 @@ Thubert & Berger          Expires 16 June 2022                  [Page 6]
 
 Internet-Draft         RAW Architecture/Framework          December 2021
 
+
+   optimize the use of the Track at the forwarding timescale to maintain
+   the expected SLA while optimizing the usage of constrained resources
+   such as energy and spectrum.
 
    Another prerequisite is that an IP link can be established over the
    radio with some guarantees in terms of service reliability, e.g., it
@@ -353,7 +357,7 @@ Internet-Draft         RAW Architecture/Framework          December 2021
    for RAW.  Whether it is a single hop or a mesh is also unknown and
    out of scope.
 
-5.  Wireless Tracks
+6.  Wireless Tracks
 
    The "6TiSCH Architecture" [6TiSCH-ARCHI] introduces the concept of
    Track.  RAW extends the concept to any wireless mesh technology,
@@ -376,16 +380,12 @@ Internet-Draft         RAW Architecture/Framework          December 2021
    individual packet follows a destination-oriented directed acyclic
    graph (DODAG) towards a destination Node inside the Complex Track.
 
-6.  Flow Identification vs. Path Identification
+7.  Flow Identification vs. Path Identification
 
    Section 4.7 of the DetNet Architecture [RFC8655] ties the app-flow
    identification which is an application-layer concept with the network
    path identification that depends on the networking technology by
    "exporting of flow identification", e.g., to a MPLS label.
-
-   With RAW, this exporting operation is injective but not bijective.
-   e.g., a flow is fully placed within one RAW Track, but not all
-   packets along that Track are necessarily part of the same flow.  For
 
 
 
@@ -394,6 +394,9 @@ Thubert & Berger          Expires 16 June 2022                  [Page 7]
 Internet-Draft         RAW Architecture/Framework          December 2021
 
 
+   With RAW, this exporting operation is injective but not bijective.
+   e.g., a flow is fully placed within one RAW Track, but not all
+   packets along that Track are necessarily part of the same flow.  For
    instance, out-of-band OAM packets must circulate in the exact same
    fashion as the flows that they observe.  It results that the flow
    identification that maps to an application layer flowat the network
@@ -422,9 +425,6 @@ Internet-Draft         RAW Architecture/Framework          December 2021
    Each packet is forwarded within the subTrack that provides the best
    adequation with the SLA of the flow and the energy and bandwidth
    constraints of the network.
-
-
-
 
 
 
@@ -506,7 +506,7 @@ Thubert & Berger          Expires 16 June 2022                  [Page 9]
 Internet-Draft         RAW Architecture/Framework          December 2021
 
 
-7.  Source-Routed vs. Distributed Forwarding Decision
+8.  Source-Routed vs. Distributed Forwarding Decision
 
    Within a large routed topology, the route-over mesh operation builds
    a particular complex Track with one source and one or more
@@ -562,7 +562,7 @@ Thubert & Berger          Expires 16 June 2022                 [Page 10]
 Internet-Draft         RAW Architecture/Framework          December 2021
 
 
-8.  Encapsulation and Decapsulation
+9.  Encapsulation and Decapsulation
 
    In the generic case where the Track Ingress Node is not the source of
    the Packet, the Ingress Node needs to encapsulate IP-in-IP to ensure
@@ -581,9 +581,9 @@ Internet-Draft         RAW Architecture/Framework          December 2021
    recommmended since its validity is within the Track only.
 
 
-9.  Operations Administration and Maintenance
+10.  Operations Administration and Maintenance
 
-9.1.  DetNet OAM
+10.1.  DetNet OAM
 
    [detnet] provides an OAM framework with [DetNet-OAM] that applies
    within the DetNet dataplane described in [DetNet-DP],which is
@@ -630,7 +630,7 @@ Internet-Draft         RAW Architecture/Framework          December 2021
    determine availability/unavailability of a path according to
    predefined SLA.
 
-9.2.  RAW Extensions
+10.2.  RAW Extensions
 
    Classical OAM typically measures information at the transmitter,
    e.g., residence time in the node or transmit queue size.  With RAW,
@@ -680,17 +680,17 @@ Internet-Draft         RAW Architecture/Framework          December 2021
    technique.  [RAW-OAM] provides more information on the RAW OAM
    problem and solution approaches.
 
-9.3.  Observed Metrics
+10.3.  Observed Metrics
 
-   The Dynamic Link Exchange Protocol (DLEP) [RFC8175] from [MANET] can
-   be leveraged at each hop to derive generic radio metrics (e.g., based
-   on LQI, RSSI, queueing delays and ETX) on individual hops.
+   The Dynamic Link Exchange Protocol (DLEP) [DLEP] from [MANET] can be
+   leveraged at each hop to derive generic radio metrics (e.g., based on
+   LQI, RSSI, queueing delays and ETX) on individual hops.
 
    Those lower-layer metrics are aggregated along a multihop segment
    into abstract layer 3 information that reflect the instant
    reliability and latency of the observed path.
 
-10.  Security Considerations
+11.  Security Considerations
 
    RAW uses all forms of diversity including radio technology and
    physical path to increase the reliability and availability in the
@@ -698,7 +698,7 @@ Internet-Draft         RAW Architecture/Framework          December 2021
    specifically to defeat an attacker, the amount of diversity used in
    RAW makes an attack harder to achieve.
 
-10.1.  Forced Access
+11.1.  Forced Access
 
    RAW will typically select the cheapest collection of links that
    matches the requested SLA, for instance, leverage free WI-Fi vs. paid
@@ -706,11 +706,11 @@ Internet-Draft         RAW Architecture/Framework          December 2021
    interference) the attacker can force an End System to use the paid
    access and increase the cost of the transmission for the user.
 
-11.  IANA Considerations
+12.  IANA Considerations
 
    This document has no IANA actions.
 
-12.  Acknowledgments
+13.  Acknowledgments
 
    The editor wishes to thank:
 
@@ -737,9 +737,9 @@ Internet-Draft         RAW Architecture/Framework          December 2021
    for their contributions to the text and ideas exposed in this
    document.
 
-13.  References
+14.  References
 
-13.1.  Normative References
+14.1.  Normative References
 
    [6TiSCH-ARCHI]
               Thubert, P., Ed., "An Architecture for IPv6 over the Time-
@@ -758,10 +758,6 @@ Internet-Draft         RAW Architecture/Framework          December 2021
               (BFD)", RFC 5880, DOI 10.17487/RFC5880, June 2010,
               <https://www.rfc-editor.org/info/rfc5880>.
 
-   [RFC7799]  Morton, A., "Active and Passive Metrics and Methods (with
-              Hybrid Types In-Between)", RFC 7799, DOI 10.17487/RFC7799,
-              May 2016, <https://www.rfc-editor.org/info/rfc7799>.
-
    [RFC8578]  Grossman, E., Ed., "Deterministic Networking Use Cases",
               RFC 8578, DOI 10.17487/RFC8578, May 2019,
               <https://www.rfc-editor.org/info/rfc8578>.
@@ -776,7 +772,11 @@ Internet-Draft         RAW Architecture/Framework          December 2021
               Routing Architecture", RFC 8402, DOI 10.17487/RFC8402,
               July 2018, <https://www.rfc-editor.org/info/rfc8402>.
 
-
+   [BIER]     Wijnands, IJ., Ed., Rosen, E., Ed., Dolganow, A.,
+              Przygienda, T., and S. Aldrin, "Multicast Using Bit Index
+              Explicit Replication (BIER)", RFC 8279,
+              DOI 10.17487/RFC8279, November 2017,
+              <https://www.rfc-editor.org/info/rfc8279>.
 
 
 
@@ -786,13 +786,7 @@ Thubert & Berger          Expires 16 June 2022                 [Page 14]
 Internet-Draft         RAW Architecture/Framework          December 2021
 
 
-   [BIER]     Wijnands, IJ., Ed., Rosen, E., Ed., Dolganow, A.,
-              Przygienda, T., and S. Aldrin, "Multicast Using Bit Index
-              Explicit Replication (BIER)", RFC 8279,
-              DOI 10.17487/RFC8279, November 2017,
-              <https://www.rfc-editor.org/info/rfc8279>.
-
-   [RFC8175]  Ratliff, S., Jury, S., Satterwhite, D., Taylor, R., and B.
+   [DLEP]     Ratliff, S., Jury, S., Satterwhite, D., Taylor, R., and B.
               Berry, "Dynamic Link Exchange Protocol (DLEP)", RFC 8175,
               DOI 10.17487/RFC8175, June 2017,
               <https://www.rfc-editor.org/info/rfc8175>.
@@ -802,7 +796,7 @@ Internet-Draft         RAW Architecture/Framework          December 2021
               DOI 10.17487/RFC8655, October 2019,
               <https://www.rfc-editor.org/info/rfc8655>.
 
-13.2.  Informative References
+14.2.  Informative References
 
    [RAW-TECHNOS]
               Thubert, P., Cavalcanti, D., Vilajosana, X., Schmitt, C.,
@@ -832,7 +826,13 @@ Internet-Draft         RAW Architecture/Framework          December 2021
               March 2018, <https://tools.ietf.org/html/draft-thubert-
               bier-replication-elimination-03>.
 
-
+   [DetNet-IP-OAM]
+              Mirsky, G., Chen, M., and D. Black, "Operations,
+              Administration and Maintenance (OAM) for Deterministic
+              Networks (DetNet) with IP Data Plane", Work in Progress,
+              Internet-Draft, draft-ietf-detnet-ip-oam-03, 19 September
+              2021,
+              <https://tools.ietf.org/html/draft-ietf-detnet-ip-oam-03>.
 
 
 
@@ -841,14 +841,6 @@ Thubert & Berger          Expires 16 June 2022                 [Page 15]
 
 Internet-Draft         RAW Architecture/Framework          December 2021
 
-
-   [DetNet-IP-OAM]
-              Mirsky, G., Chen, M., and D. Black, "Operations,
-              Administration and Maintenance (OAM) for Deterministic
-              Networks (DetNet) with IP Data Plane", Work in Progress,
-              Internet-Draft, draft-ietf-detnet-ip-oam-03, 19 September
-              2021,
-              <https://tools.ietf.org/html/draft-ietf-detnet-ip-oam-03>.
 
    [RAW-5G]   Farkas, J., Dudda, T., Shapin, A., and S. Sandberg, "5G -
               Ultra-Reliable Wireless Technology with Low Latency", Work
@@ -886,6 +878,14 @@ Internet-Draft         RAW Architecture/Framework          December 2021
               <https://tools.ietf.org/html/draft-ietf-detnet-oam-
               framework-05>.
 
+   [I-D.mirsky-ippm-hybrid-two-step]
+              Mirsky, G., Lingqiang, W., Zhui, G., and H. Song, "Hybrid
+              Two-Step Performance Measurement Method", Work in
+              Progress, Internet-Draft, draft-mirsky-ippm-hybrid-two-
+              step-11, 8 July 2021, <https://tools.ietf.org/html/draft-
+              mirsky-ippm-hybrid-two-step-11>.
+
+
 
 
 
@@ -897,13 +897,6 @@ Thubert & Berger          Expires 16 June 2022                 [Page 16]
 
 Internet-Draft         RAW Architecture/Framework          December 2021
 
-
-   [I-D.mirsky-ippm-hybrid-two-step]
-              Mirsky, G., Lingqiang, W., Zhui, G., and H. Song, "Hybrid
-              Two-Step Performance Measurement Method", Work in
-              Progress, Internet-Draft, draft-mirsky-ippm-hybrid-two-
-              step-11, 8 July 2021, <https://tools.ietf.org/html/draft-
-              mirsky-ippm-hybrid-two-step-11>.
 
    [I-D.mirsky-ippm-epm]
               Mirsky, G., Halpern, J., Min, X., and L. Han, "Error
@@ -947,6 +940,13 @@ Internet-Draft         RAW Architecture/Framework          December 2021
    [IPPM]     IETF, "IP Performance Measurement",
               <https://dataTracker.ietf.org/doc/charter-ietf-ippm/>.
 
+Authors' Addresses
+
+   Pascal Thubert (editor)
+   Cisco Systems, Inc
+   Building D
+   45 Allee des Ormes - BP1200
+
 
 
 Thubert & Berger          Expires 16 June 2022                 [Page 17]
@@ -954,12 +954,6 @@ Thubert & Berger          Expires 16 June 2022                 [Page 17]
 Internet-Draft         RAW Architecture/Framework          December 2021
 
 
-Authors' Addresses
-
-   Pascal Thubert (editor)
-   Cisco Systems, Inc
-   Building D
-   45 Allee des Ormes - BP1200
    06254 MOUGINS - Sophia Antipolis
    France
 
@@ -972,6 +966,12 @@ Authors' Addresses
    United States of America
 
    Email: lberger@labn.net
+
+
+
+
+
+
 
 
 

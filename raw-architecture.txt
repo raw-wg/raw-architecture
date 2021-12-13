@@ -379,7 +379,7 @@ Internet-Draft         RAW Architecture/Framework          December 2021
    Section 2 of [I-D.irtf-panrg-path-properties] points to a longer,
    more modern definition of path, which begins as follows:
 
-   |  A sequence of adjacent path elements over which a packet can be
+   |  A sequence of adjacent path elements over which a packet can f be
    |  transmitted, starting and ending with a node.  A path is
    |  unidirectional.  Paths are time-dependent, i.e., the sequence of
    |  path elements over which packets are sent from one node to another
@@ -744,9 +744,9 @@ Internet-Draft         RAW Architecture/Framework          December 2021
    controller and make the long term reactive decision to rebuild a
    complex path.  But RAW itself operates in the Network Plane at a
    faster time scale.  To act on the Data Plane, RAW needs live
-   information from the Operational Plane , e.g., using Bidirectional
-   Forwarding Detection [BFD] and its variants (bidirectional and remote
-   BFD) to protect a link, and OAM techniques to protect a path.
+   information from the Operational Plane , e.g., using Dynamic Link
+   Exchange Protocol (DLEP) [DLEP] to obtain timely and accurate
+   knowledge of the characteristics of the link (speed, state, etc.).
 
 2.2.2.  Applying Reliability Concepts to Networking
 
@@ -1125,13 +1125,20 @@ Internet-Draft         RAW Architecture/Framework          December 2021
 4.1.  Observe: The RAW OAM
 
    RAW In-situ OAM operation in the Network Plane may observe either a
-   full Track or subTracks that are being used at this time.  Active RAW
-   OAM may be needed to observe the unused segments and evaluate the
-   desirability of a rerouting decision.  Finally, the RAW Service Layer
-   Assurance may observe the individual PAREO operation of a relay node
-   to ensure that it is conforming; this might require injecting an OAM
-   packet at an upstream point inside the Track and extracting that
-   packet at another point downstream before it reaches the egress.
+   full Track or subTracks that are being used at this time.  As packets
+   may be load balanced, replicated, eliminated, and / or fragmented for
+   Network Coding (NC) forward error correction (FEC), the RAW In-situ
+   operation needs to be able to signal which operation occured to an
+   individual packet.
+
+   Active RAW OAM may be needed to observe the unused segments and
+   evaluate the desirability of a rerouting decision.
+
+   Finally, the RAW Service Layer Assurance may observe the individual
+   PAREO operation of a relay node to ensure that it is conforming; this
+   might require injecting an OAM packet at an upstream point inside the
+   Track and extracting that packet at another point downstream before
+   it reaches the egress.
 
    This observation feeds the RAW PSE that makes the decision on which
    PAREO function in actioned at which RAW Node, for one a small
@@ -1163,13 +1170,6 @@ Internet-Draft         RAW Architecture/Framework          December 2021
    protected; the loss of a packet that was sent over one of the
    possible first hops is attributed to that first hop, even if a
    particular loss effectively happens farther down the path.
-
-
-
-
-
-
-
 
 
 
@@ -1575,10 +1575,6 @@ Internet-Draft         RAW Architecture/Framework          December 2021
               DOI 10.17487/RFC4655, August 2006,
               <https://www.rfc-editor.org/info/rfc4655>.
 
-   [BFD]      Katz, D. and D. Ward, "Bidirectional Forwarding Detection
-              (BFD)", RFC 5880, DOI 10.17487/RFC5880, June 2010,
-              <https://www.rfc-editor.org/info/rfc5880>.
-
    [RFC6291]  Andersson, L., van Helvoort, H., Bonica, R., Romascanu,
               D., and S. Mansfield, "Guidelines for the Use of the "OAM"
               Acronym in the IETF", BCP 161, RFC 6291,
@@ -1619,16 +1615,16 @@ Internet-Draft         RAW Architecture/Framework          December 2021
 
 9.2.  Informative References
 
+   [RFC0791]  Postel, J., "Internet Protocol", STD 5, RFC 791,
+              DOI 10.17487/RFC0791, September 1981,
+              <https://www.rfc-editor.org/info/rfc791>.
+
 
 
 Thubert & Papadopoulos    Expires 16 June 2022                 [Page 29]
 
 Internet-Draft         RAW Architecture/Framework          December 2021
 
-
-   [RFC0791]  Postel, J., "Internet Protocol", STD 5, RFC 791,
-              DOI 10.17487/RFC0791, September 1981,
-              <https://www.rfc-editor.org/info/rfc791>.
 
    [TE]       Awduche, D., Chiu, A., Elwalid, A., Widjaja, I., and X.
               Xiao, "Overview and Principles of Internet Traffic
@@ -1661,6 +1657,11 @@ Internet-Draft         RAW Architecture/Framework          December 2021
               Framework", RFC 8938, DOI 10.17487/RFC8938, November 2020,
               <https://www.rfc-editor.org/info/rfc8938>.
 
+   [DLEP]     Ratliff, S., Jury, S., Satterwhite, D., Taylor, R., and B.
+              Berry, "Dynamic Link Exchange Protocol (DLEP)", RFC 8175,
+              DOI 10.17487/RFC8175, June 2017,
+              <https://www.rfc-editor.org/info/rfc8175>.
+
    [I-D.irtf-panrg-path-properties]
               Enghardt, T. and C. Kraehenbuehl, "A Vocabulary of Path
               Properties", Work in Progress, Internet-Draft, draft-irtf-
@@ -1668,12 +1669,11 @@ Internet-Draft         RAW Architecture/Framework          December 2021
               <https://tools.ietf.org/html/draft-irtf-panrg-path-
               properties-04>.
 
-   [IPoWIRELESS]
-              Thubert, P., "IPv6 Neighbor Discovery on Wireless
-              Networks", Work in Progress, Internet-Draft, draft-
-              thubert-6man-ipv6-over-wireless-10, 18 November 2021,
-              <https://tools.ietf.org/html/draft-thubert-6man-ipv6-over-
-              wireless-10>.
+
+
+
+
+
 
 
 
@@ -1681,6 +1681,13 @@ Thubert & Papadopoulos    Expires 16 June 2022                 [Page 30]
 
 Internet-Draft         RAW Architecture/Framework          December 2021
 
+
+   [IPoWIRELESS]
+              Thubert, P., "IPv6 Neighbor Discovery on Wireless
+              Networks", Work in Progress, Internet-Draft, draft-
+              thubert-6man-ipv6-over-wireless-10, 18 November 2021,
+              <https://tools.ietf.org/html/draft-thubert-6man-ipv6-over-
+              wireless-10>.
 
    [DetNet-OAM]
               Mirsky, G., Theoleyre, F., Papadopoulos, G. Z., Bernardos,
@@ -1717,13 +1724,6 @@ Authors' Addresses
 
    Phone: +33 299 12 70 04
    Email: georgios.papadopoulos@imt-atlantique.fr
-
-
-
-
-
-
-
 
 
 

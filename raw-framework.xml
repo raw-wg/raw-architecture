@@ -150,6 +150,14 @@
 
 
     <section numbered="true" toc="default">
+      <name>Terminology</name>
+    <t>
+    This document uses the terminology defined in the <xref target="I-D.ietf-raw-architecture">"RAW Architecture"</xref>.
+    </t>
+
+    </section> <!-- Terminology -->
+
+    <section numbered="true" toc="default">
       <name>Use Cases and Requirements Served</name>
         <t>
    In order to focus on real-worlds issues and assert the feasibility of
@@ -279,20 +287,27 @@ zzz = flapping now
       <xref target="RFC8175" format="default"/> from
       <xref target="MANET" format="default"/> can be leveraged at each hop
       to derive generic radio metrics (e.g., based on LQI, RSSI, queueing delays
-      and ETX) on individual hops.
-      </li>
+      and ETX) on individual hops, and obtain link characteristics such as speed
+      in a timely manner.
+    </li>
     <li>
       <xref target="detnet" format="default"/> provides an OAM framework with
       <xref target="I-D.ietf-detnet-oam-framework" format="default"/> that
       applies within the DetNet dataplane described in
-      <xref target="RFC8938" format="default"/>,which is typically based on
+      <xref target="RFC8938" format="default"/>, which is typically based on
       MPLS or IPv6 pseudowires.
-
-      </li>
+    </li>
     <li>
-      <xref target="BFD" format="default"/> detect faults in the path between an
-      Ingress and an Egress forwarding engines, but is unaware of the complexity
-      of a path with replication, and expects bidirectionality.
+      <xref target="RFC5880">Bidirectional Forwarding Detection</xref> and its
+      variants (bidirectional and remote BFD) detects faults in the path
+      between an Ingress and an Egress forwarding engines. The art of BFD
+      expects a serial path and needs one session per path, which makes it
+      suited to observe a Segment it is unaware of the complexity
+      of a track , and expects bidirectionality.
+
+        to protect a path.
+
+      <xref target="BFD" format="default"/>
       BFD asynchronous mode considers delivery as success whereas with DetNet
       and RAW, the bounded latency can be as important as the delivery itself,
       and delivering too late is actually a failure. Note that the
@@ -773,6 +788,7 @@ zzz = flapping now
 
 <displayreference   target="I-D.ietf-bier-te-arch"    to="BIER-TE"/>
 <displayreference   target="RFC5880"                  to="BFD"/>
+<displayreference   target="RFC8175"                  to="DLEP"/>
 <displayreference   target="RFC8402"                  to="SR-ARCHI"/>
 <displayreference   target="RFC8200"                  to="IPv6"/>
 <displayreference   target="RFC8279"                  to="BIER"/>
@@ -796,8 +812,8 @@ zzz = flapping now
 <!-- Bidirectional Forwarding Detection  -->
 
 
-<xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.7799.xml"/>
-<!-- Active and Passive Metrics and Methods for OAM  -->
+<!-- xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.7799.xml"/>
+    Active and Passive Metrics and Methods for OAM  -->
 
 <xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.8578.xml"/>
 <!-- Deterministic Networking Use Cases -->

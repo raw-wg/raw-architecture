@@ -95,7 +95,7 @@
    Bringing determinism in a packet network means eliminating the statistical
    effects of multiplexing that result in probabilistic jitter and loss.
    This can be approached with a tight control of the physical resources to
-   maintain the amount of traffic within a budgetted volume of data per unit of
+   maintain the amount of traffic within a budgeted volume of data per unit of
    time that fits the physical capabilities of the underlying network, and
    the use of time-shared resources (bandwidth and buffers) per circuit, and/or
    by shaping and/or scheduling the packets at every hop.
@@ -141,7 +141,7 @@
    </t>
       <t>
    RAW provides DetNet elements that are specialized for IPv6 flows
-   <xref target="RFC8200"/> over deterministic short range radios
+   <xref target="RFC8200"/> over selected deterministic radios technologies
    <xref target="I-D.ietf-raw-technologies"/>.
    Conceptually, RAW is agnostic to the radio layer underneath though the
    capability to schedule transmissions is assumed.
@@ -159,8 +159,8 @@
    5G backhaul.
       </t>
       <t>
-    RAW and DetNet associate application that that require a particular
-    treatment to a path that was provisionned to procure that treatment.
+    RAW and DetNet route application flows that require a special
+    treatment along the paths that will provide that treatment.
     This may be seen as a form of Path Aware Networking and may be subject to
     impediments documented in <xref target="RFC9049"/>.
       </t>
@@ -184,8 +184,8 @@
    controlled by RAW.
       </t>
       <t>
-   The RAW Architecture is structured as an OODA Loop (Observe, Orient, Decide,
-   Act). It involves:
+   The RAW Architecture is based on an abstract OODA Loop (Observe, Orient, Decide,
+   Act). The generic concept involves:
       </t>
       <ol>
       <li> Network Plane measurement protocols for Operations, Administration
@@ -202,7 +202,7 @@
       </li>
       <li> Packet (hybrid) ARQ, Replication, Elimination and Ordering Dataplane
       actions that operate at the DetNet Service Layer to increase the
-      reliability of the end-to-end transmission. The RAW architecture also
+      reliability of the end-to-end transmissions. The RAW architecture also
       covers in-situ signalling when the decision is Acted by a node that
       down the Track from the PSE.
       </li>
@@ -211,12 +211,17 @@
    required reliability and availability Service Level Agreement (SLA) while
    minimizing the use of constrained resources such as spectrum and battery.
    </t>
+   <t>This document presents the RAW problem and associated terminology in
+   <xref target="problem"/>, and elaborates in <xref target="ooda"/>
+   on the OODA loop based on the RAW conceptual model presented in
+   <xref target="model"/>.
+   </t>
 
     </section>
     <!-- Introduction -->
     <!--  000000000000000000000    -->
 
-    <section numbered="true" toc="default">
+    <section anchor="problem" numbered="true" toc="default">
       <name>The RAW problem</name>
 
    <section anchor="terms" numbered="true" toc="default">
@@ -228,9 +233,9 @@
     </t>
     <t>
     RAW also reuses terminology defined for 6TiSCH in <xref target=
-    "RFC9030" format="default"/> such as the term Track.
-    A Track as a complex path with associated PAREO operations. The concept is
-    abstract to the underlaying technology and applies to any fully or partially
+    "RFC9030" format="default"/> such as the term Track. A Track associates a
+    complex path with PAREO and shaping operations. The concept is agnostic to
+    the underlaying technology and applies to any fully or partially
     wireless mesh, including, e.g., a Wi-Fi mesh.
     RAW specifies strict and loose Tracks depending on whether the path is fully
     controlled by RAW or traverses an opaque network where RAW cannot observe
@@ -245,10 +250,10 @@
     <t>
     Automatic Repeat Request, enabling an acknowledged
     transmission and retries. ARQ is a typical model at Layer-2 on a wireless
-    medium. It is typically avoided end-to-end on deterministic flows because
-    it introduces excessive indetermination in latency, but a limited number
-    of retries within a bounded time may be used over a wireless link and yet
-    respect end-to-end constraints.
+    medium. ARQ is typically implemented hop-by-hop and not end-to-end in
+    wireless networks. Else, it introduces excessive indetermination in latency,
+    but a limited number  of retries within a bounded time may be used within
+    end-to-end constraints.
     </t>
     </section>
     <section><name>OAM</name>
@@ -277,6 +282,7 @@
     Packet (hybrid) ARQ, Replication, Elimination and
     Ordering. PAREO is a superset Of DetNet's PREOF that includes
     radio-specific techniques such as short range broadcast, MUMIMO,
+    PHY rate and other Modulation Coding Scheme (MCS) adaptation,
     constructive interference and overhearing, which can be
     leveraged separately or combined to increase the reliability.
     </t>
@@ -310,7 +316,7 @@
 
     <section><name>Downstream</name>
     <t>
-     Following the the direction of the flow data path along a Track.
+     Following the direction of the flow data path along a Track.
      </t>
     </section>
 
@@ -357,8 +363,8 @@
     <section anchor="trk"><name>Track</name>
 
     <t>A networking graph that can be followed to transport packets with
-    equivalent treatment; as opposed to the definition of a path above,
-    a Track Track is not necessarily linear. It may contain multiple paths that
+    equivalent treatment; as opposed to the definition of a path above, a Track
+    is not necessarily a linear sequence. It may contain multiple paths that
     may fork and rejoin, for instance to enable the RAW PAREO operations.
     </t>
     <t>
@@ -431,7 +437,7 @@
      See section 3.3 of <xref target="RFC8938"/>. The classical IP 5-tuple that
      identifies a flow comprises the src IP, dst IP, src port, dest port, and
      the upper layer protocol (ULP). DetNet uses a 6-tuple where the extra field
-     is the DSCP field in the packet. The IPv6 flow label is not used. for that
+     is the DSCP field in the packet. The IPv6 flow label is not used for that
      purpose.
      </t>
      </section>
@@ -462,7 +468,7 @@
     </section>
     <section><name>Service Level Objective</name>
     <t>
-    A service level objective (SLO) is one term in the SLO, for which specific
+    A service level objective (SLO) is one term in the SLA, for which specific
     network setting and operations are implemented. For instance, a dynamic
     tuning of the packet redundancy will address an SLO of consecutive losses in
     a row by augmenting the chances of delivery of a packet that follows a loss.).
@@ -471,7 +477,7 @@
 
     <section><name>Service Level Indicator</name>
     <t>
-    A service level indicator (SLI) measures the complience of an SLO to the
+    A service level indicator (SLI) measures the compliance of an SLO to the
     terms of the contrast. It can be for instance the statistics of individual
     losses and losses in a row as time series.).
     </t>
@@ -583,7 +589,7 @@
       <name>High Availability Engineering Principles</name>
 
     <t>
-    The reliability criteria of a critical system pervade through its elements,
+    The reliability criteria of a critical system pervades through its elements,
     and if the system comprises a data network then the data network is also
     subject to the inherited reliability and availability criteria.
     It is only natural to consider the art of high availability engineering and
@@ -633,8 +639,9 @@
     and the air medium itself can become single points of failure. For High
     Availability, it is thus required to use physically link- and Node-disjoint
     paths; in the wireless space, it is also required to use the highest
-    possible degree of diversity in the transmissions over the air to combat the
-    additional causes of transmission loss.
+    possible degree of diversity (time, space, code, frequency, channel width)
+    in the transmissions over the air to combat the additional causes of
+    transmission loss.
     </t>
     <t>
     From an economics standpoint, executing this principle properly generally
@@ -828,7 +835,7 @@
     The affected frequencies depend on the relative position of the sender, the
     receiver, and all the reflecting objects in the environment.
     A given hop will suffer from multipath fading for multiple packets in a
-    row till the something moves that changes the reflection patterns.
+    row till a phyqical movement changes the reflection patterns.
     </t>
     </dd>
     <dt>Co-channel Interference</dt>
@@ -993,7 +1000,7 @@
    on whether RAW observes and takes actions on all hops or not. For instance,
    the packets between two wireless entities may be relayed over a wired
    infrastructure such as a Wi-Fi extended service set (ESS) or a 5G Core; in
-   that case, RAW observes and control the transmission over the wireless first
+   that case, RAW observes and controls the transmission over the wireless first
    and last hops, as well as end-to-end metrics such as latency, jitter, and
    delivery ratio. This operation is loose since the structure and properties of
    the wired infrastructure are ignored, and may be either controlled by other
@@ -1041,8 +1048,9 @@
     <t>
     The Link-Layer metrics are reported to the PCE in a time-aggregated, e.g.,
     statistical fashion. Example Link-Layer metrics include typical Link
-    bandwidth (the medium speed depends dynamically on the PHY mode and the
-    number of users sharing the spectrum) and average and mean squared deviation
+    bandwidth (the medium speed depends dynamically on the PHY mode), number of
+    flows (bandwidth that can be reserved for a flomw depends on the number and
+    size of flows sharing the spectrum) and average and mean squared deviation
     of availability and reliability figures such as Packet Delivery Ratio (PDR)
     over long periods of time.
     </t><t>
@@ -1071,7 +1079,7 @@
 
     <!--  1111111111111   -->
 
-<section anchor="stack" numbered="true" toc="default">
+<section anchor="ooda" numbered="true" toc="default">
     <name>The OODA Loop</name>
 
       <t>
@@ -1146,7 +1154,7 @@
     egress.
     </t><t>
     This observation feeds the RAW
-    PSE that makes the decision on which PAREO function in actioned at which RAW
+    PSE that makes the decision on which PAREO function is actioned at which RAW
     Node, for one a small continuous series of packets.
      </t>
 <figure anchor="Figranp2">
@@ -1255,12 +1263,12 @@
     </t>
    <t>
         Compared to the PCE,
-    the PSE operates on metrics that evolve faster, but that needs to be
+    the PSE operates on metrics that evolve faster, but that need to be
     advertised at a fast rate but only locally, within the Track.
     The forwarding decision may also change rapidly, but with a scope that is
     also contained within the Track, with no visibility to the other Tracks and
-    flows in the network. This is as opposed to the PCE that needs to observe
-    the  whole network, and optimize all the Tracks globally, which can only be
+    flows in the network. This is as opposed to the PCE that must observe
+    the  whole network and optimize all the Tracks globally, which can only be
     done at a slow pace and using long-term statistical metrics, as presented in
     <xref target="PCEPSEtable"/>.
     </t>
@@ -1367,7 +1375,7 @@
     Optionally, promiscuous listening between paths is possible, such that the Nodes
     on one path may overhear transmissions along the other path.
     Considering the scenario shown in <xref target="fig_ladder"/>, many
-    different paths are possible for to traverse the network from ingress to
+    different paths are possible to traverse the network from ingress to
     egress. A simple way to benefit from this topology could be to use the
     two independent paths via Nodes A, C, E and via B, D, F.  But
     more complex paths are possible by interleaving transmissions
@@ -1396,7 +1404,8 @@ Ingress =   |      |      |   = Egress
      For instance, when the source sends to Node A, Node B may listen
      promiscuously and get a second chance to receive the frame without an
      additional transmission. Note that B would not have to listen if it
-     already received that particular frame at an earlier timeslot in a dedicated transmission towards B.
+     already received that particular frame at an earlier timeslot in a dedicated
+     transmission towards B.
 <!-- [->] This is assuming some sort of implicit knowledge in B. Not sure if this is  -->
 <!-- possible without specific signaling.   -->
 <!-- [GP] Yes, we may need additional 6P transactions from the source to B, or  -->
@@ -1548,7 +1557,10 @@ Ingress =   |      |      |   = Egress
 
 ]]></artwork>
     </figure>
-
+<t>
+     Variations on the same idea such as link-layer anycast and multicast
+     may also be used to reach more than one next-hop with a single frame.
+</t>
 
 </section>
 

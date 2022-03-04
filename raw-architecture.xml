@@ -363,11 +363,11 @@
     longer, more modern definition of path, which begins as follows:
     </t>
     <blockquote>
-      A sequence of adjacent path elements over which a packet can
-     f be transmitted, starting and ending with a node.  A path is
-      unidirectional.  Paths are time-dependent, i.e., the sequence of
-      path elements over which packets are sent from one node to another
-      may change.  A path is defined between two nodes.
+    A sequence of adjacent path elements over which a packet can
+    be transmitted, starting and ending with a node.  A path is
+    unidirectional.  Paths are time-dependent, i.e., the sequence of
+    path elements over which packets are sent from one node to another
+    may change.  A path is defined between two nodes.
     </blockquote>
     <t>
     It follows that the general acceptance of a path is a linear sequence of
@@ -400,12 +400,43 @@
     of a flow. It may contain multiple paths that may overlap, fork and rejoin,
     for instance to enable the RAW PAREO operations.
     </t>
+   <figure anchor="Figtrk">
+          <name>Example IoT Track to an IoT gateway with 1+1 redundancy</name>
+       <artwork align="center" name="" type="" alt="">
+       <![CDATA[
+             +---------+
+             | IoT G/W |
+             +---------+
+                 EGR  <=== Elimination at Egress
+                 | |
+         /------/   \-------\    Wired backbone
+         |                  |
+      +--|--+            +--|--+
+      |  |  | Backbone   |  |  | Backbone
+      |  |  | Router     |  |  | Router
+      +--|--+            +--|--+
+         |                  |
+      o   \     o          / Track branch
+    o      o      o---o---o   o      o   o  o
+            \  o /    o          o         o
+     o   o   \  /       o        low power lossy network
+              \/ o           o        o
+           o  IN <=== Replication at Track Ingress
+               |
+               o <- source device
+    ]]>
+       </artwork>
+       </figure>
+
     <t>
     In DetNet <xref target="RFC8655"/> terms, a Track has the following
     properties:
     </t>
     <ul>
     <li>
+    A Track is a layer-3 abstraction built upon P2P IP links between routers.
+    A router may form multiple P2P IP links over a single radio interface.
+    </li><li>
     A Track has one Ingress and one Egress nodes, which operate as DetNet Edge
     nodes.
     </li><li>
@@ -504,7 +535,7 @@
     A service level objective (SLO) is one term in the SLA, for which specific
     network setting and operations are implemented. For instance, a dynamic
     tuning of the packet redundancy will address an SLO of consecutive losses in
-    a row by augmenting the chances of delivery of a packet that follows a loss.).
+    a row by augmenting the chances of delivery of a packet that follows a loss.
     </t>
     </section>
 
@@ -765,12 +796,13 @@
 
     <t>
     Those measurements are needed in the context of RAW to inform the controller
-    and make the long term reactive decision to rebuild a complex  path. But RAW
-    itself operates in the Network Plane at a faster time scale. To act on the
-    Data Plane, RAW needs live information from the Operational Plane , e.g.,
-    using <xref target="RFC8175">Dynamic Link Exchange Protocol (DLEP)</xref>
-    to obtain timely and accurate knowledge of the characteristics of the link
-    (speed, state, etc.).
+    and make the long term reactive decision to rebuild a complex  path based on
+    statistical and aggregated information. RAW itself operates in the Network
+    Plane at a faster time scale with live information on speed, state, etc...
+    This live information can be obtained directly from the lower layer, e.g.,
+    using L2 triggers, read from a protocol such as the <xref target="RFC8175">
+    Dynamic Link Exchange Protocol (DLEP)</xref>, or transported over multiple
+    hops using OAM and reverse OAM, as illustrated in <xref target="Figlearn"/>.
     </t>
 
 <!--
@@ -843,7 +875,7 @@
     <!--  22222222222222222222    -->
 
     <section numbered="true" toc="default">
-      <name>Reliability in the Context of RAW</name>
+      <name>Wireless Effects Affecting Reliability</name>
     <t>
     In contrast with wired networks, errors in transmission are the predominant
     source of packet loss in wireless networks.
@@ -868,7 +900,7 @@
     The affected frequencies depend on the relative position of the sender, the
     receiver, and all the reflecting objects in the environment.
     A given hop will suffer from multipath fading for multiple packets in a
-    row till a phyqical movement changes the reflection patterns.
+    row till a physical movement changes the reflection patterns.
     </t>
     </dd>
     <dt>Co-channel Interference</dt>
@@ -972,10 +1004,10 @@
             ....    .  | .       .......
          ....          v               ...
        ..    A-------B-------C---D        ..
-    ...     /  \   /       /      \      ..
+    ...     /  \           /      \      ..
    .       I ----M-------N--***-- E        ..
-   ..       \      \   /         /         ...
-     ..      P--***--Q----------R        ....
+   ..       \         /         /         ...
+     ..      P--***--Q-----M---R        ....
        ..                              ....
         .   <----- Fast ------->    ....
          .......                ....
@@ -1065,16 +1097,16 @@
  _-._-._-._-._-._-._-._-._-._-._-._-._-._-._-._-._-._-._-._-._-._-
 
 
-                 RAW  --z   RAW  --z   RAW  --z   RAW
-             z-- Node  z--  Node  z--  Node  z--  Node --z
-  Ingress --z    /          /                           z-- Egress
-  End           \          \         .. .                   End
-  Node   ---z   /          /       .. ..  .             z-- Node
-           z-- RAW  --z   RAW     ( non-RAW ) -- RAW --z
-               Node  z--  Node --- ( Nodes  )   Node
+                 RAW  --/   RAW  --/   RAW  --/   RAW
+             /-- Node  /--  Node  /--  Node  /--  Node --/
+  Ingress --/    /          /                           /-- Egress
+  End           /          /         .. .                   End
+  Node   ---/   /          /       .. ..  .             /-- Node
+           /-- RAW  --/   RAW     ( non-RAW ) -- RAW --/
+               Node  /--  Node --- ( Nodes  )   Node
                                       ... .
-  --z   wireless           wired
-   z--  link           --- link
+  --/   wireless           wired
+   /--  link           --- link
 </artwork>
 </figure>
 
@@ -1135,7 +1167,7 @@
       </li>
       <li> Packet (hybrid) ARQ, Replication, Elimination and Ordering Dataplane
       actions that operate at the DetNet Service Layer to increase the
-      reliability o fthe end-to-end transmission. The RAW architecture also
+      reliability of the end-to-end transmission. The RAW architecture also
       covers in-situ signalling when the decision is Acted by a node that
       down the Track from the PSE, more in <xref target = "PAREO" />.
       </li>
@@ -1149,7 +1181,6 @@
      |          link stats,         |
      |       pre-trained model      |
      |             ...              |
-     |                              |
      |                              v
  Observe (OAM)                Decide (PSE)
      ^                              |
@@ -1212,14 +1243,14 @@
 </figure>
    <t>
     In the case of a End-to-End Protection in a Wireless Mesh, the Track is strict and congruent
-    with the path so all links are observed. Conversely, in the case of Radio
-    Access Protection, the Track is Loose and in that case only the first hop is observed; the rest of the path is abstracted and considered infinitely reliable.
+    with the path so all links are observed.
     </t>
     <t>
-    In the case of the Radio Access Protection, only the first hop is protected;
-    the loss of a packet that was sent over one of the possible first hops is
-    attributed to that first hop, even if a particular loss effectively happens
-    farther down the path.
+    Conversely, in the case of Radio Access Protection illustrated in <xref target="Figranp2"/>, the Track is Loose and only the first hop is observed; the rest of the path is abstracted and considered infinitely reliable.
+    The loss if a packet is attributed to the first hop Radio Access Network (RAN),
+    even if a particular loss effectively happens farther down the path.
+    In that case, RAW enables technology diversity (e.g. Wi-Fi and 5G) which in
+    turn improves the diversity in spectrum usage.
     </t>
     <t>
     The Links that are not observed by OAM are opaque to it, meaning that the
@@ -1242,12 +1273,14 @@
     <name>Orient: The Path Computation Engine</name>
 
    <t>
-   RAW separates the path computation time scale at which a complex path is
-   recomputed from the path selection time scale at which the forwarding
-   decision is taken for one or a few packets (see in <xref target="timescale"
-   />).
+   RAW separates the long time scale at which a Track is elaborated and installed,
+   from the short time scale at which the forwarding decision is taken for one
+   or a few packets (see in <xref target="timescale"/>) that will experience the
+   same path until the network conditions evolve and another patyh is selected
+   within the same Track.
    </t>
-   <t>The path computation is out of scope, but RAW expects that the Controller
+   <t>
+   The Track computation is out of scope, but RAW expects that the Controller
    plane protocol that installs the Track also provides related knowledge
    in the form of meta data about the links, segments and possible subTracks.
    That meta data can be a pre-digested statistical model, and may include
@@ -1271,7 +1304,7 @@
    <t>The Track is installed with measurable objectives that are computed by
    the PCE to achieve the RAW SLA. The objectives can be expressed as any of
    maximum number of packet lost in a row, bounded latency, maximal jitter,
-   maximum nmuber of interleaved out of order packets,
+   maximum number of interleaved out of order packets,
    average number of copies received at the elimination point, and maximal
    delay between the first and the last received copy of the same packet.
    </t>
@@ -1355,10 +1388,10 @@
     retagging the packet to indicate so. On the other hand, the PSE interacts
     with the lower layers and with its peers to obtain up-to-date information
     about its radio links and the quality of the overall Track, respectively,
-    as illustrated in <xref target="FigPSEcomp"/>.
+    as illustrated in <xref target="Figlearn"/>.
     </t>
 
-<figure anchor="FigPSEcomp">
+<figure anchor="Figlearn">
           <name>PSE</name>
        <artwork align="center" name="" type="" alt=""><![CDATA[
             |
@@ -1391,8 +1424,9 @@
       <name>Act: The PAREO Functions</name>
       <t>
     RAW may control whether and how to use packet replication and elimination
-    (PRE), Automatic Repeat reQuest (ARQ), Hybrid ARQ (HARQ) that includes
-    Forward Error Correction (FEC) and coding, and other wireless-specific
+    (PRE), fragmentation, and network coding, and how the lower layers performs
+    Automatic Repeat reQuest (ARQ), Hybrid ARQ (HARQ) that includes
+    Forward Error Correction (FEC), and other wireless-specific
     techniques such as overhearing and constructive interferences, in order to
     increase the reliabiility and availability of the end-to-end transmission.
     </t>
@@ -1646,6 +1680,15 @@ Ingress =   |      |      |   = Egress
 
 
     <section numbered="true" toc="default">
+      <name>Layer-2 encryption</name>
+    <t>
+    Radio networks typically encrypt at the MAC layer to protect the
+    transmission. If the encryption is per pair of peers, then certain
+    RAW operations like promiscuous overhearing become impossible.
+    </t>
+
+      </section><!-- Layer 2 encryption -->
+    <section numbered="true" toc="default">
       <name>Forced Access</name>
     <t>
     RAW will typically select the cheapest collection of links that matches the
@@ -1794,7 +1837,7 @@ Ingress =   |      |      |   = Egress
 <!--   Deterministic Networking (DetNet) Data Plane Framework -->
 
 <xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.8175.xml"/>
-<!--  Dynamic Link Exchange Protocol  -->
+ <!--    Dynamic Link Exchange Protocol  -->
 
 <xi:include href="http://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.irtf-panrg-path-properties.xml"/>
 

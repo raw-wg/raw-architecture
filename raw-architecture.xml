@@ -127,10 +127,15 @@
    Reliable and Available Wireless (RAW) takes up the challenge of providing
    highly available and reliable end-to-end performances in a network with
    scheduled wireless segments.
-   To defeat those additional causes of transmission delay and loss, RAW
-   leverages deterministic layer-2 capabilities while controlling the use of
-   diversity in the spatial, time, code, radio technology, and frequency domains
-   from layer-3.
+   To defeat those additional causes of transmission delay and loss in wireless
+   transmission, RAW requires and leverages deterministic layer-2 capabilities.
+   Operating at the layer-3, RAW can further increase diversity in the spatial,
+   time, code, and frequency domains by enabling multiple link-layer wired and
+   wireless technologies in parallel or sequentially, for a higher resilience
+   and a wider applicability. RAW can also provide homogeneous services to
+   critical applications beyond the boundaries of a single subnetwork, e.g.,
+   controlling the use of diverse radio access technologies to optimize the
+   end-to-end application experience.
    </t>
    <t>
    While the generic <xref target="RFC8557">"Deterministic Networking
@@ -153,10 +158,20 @@
       <t>
    The <xref target="RFC8655">"Deterministic Networking Architecture"</xref> is
    composed of three planes: the Application (User) Plane, the Controller Plane,
-   and the Network Plane. The RAW Architecture extends the DetNet Network Plane,
-   to accommodate one or multiple hops of homogeneous or heterogeneous wireless
-   technologies, e.g. a Wi-Fi6 Mesh or parallel CBRS access links federated by a
-   5G backhaul.
+   and the Network Plane.
+   The DetNet Network Plane is composed of a DetNet service sublayer that
+   focuses on flow protection (e.g., using redundancy) and can be fully operated
+   at layer-3, and a DetNet forwarding sublayer that associates the flows to the
+   paths, ensures the availability of the necessary resources, and leverages
+   layer-2 functionalities for timely delivery to the next Detnet system.
+      </t>
+      <t>
+   The RAW Architecture extends the DetNet Network Plane, to accommodate one or
+   multiple hops of homogeneous or heterogeneous wired and wireless technologies.
+   RAW adds reactivity to the DetNet service sublayer to compensate the dynamics
+   for the radio links in terms of lossiness and bandwidth. This may apply for
+   instance to mesh networks as illustrated in <xref target ="FigCPF"/>, or
+   diverse radio access networks as illustrated in <xref target ="Figranp2"/>.
       </t>
       <t>
     RAW and DetNet route application flows that require a special
@@ -170,18 +185,19 @@
    networks, the action of installing a path over a set of wireless links
    may be very slow relative to the speed at which the radio conditions vary,
    and it makes sense in the wireless case to provide redundant forwarding
-   solutions along a complex path and to leave it to the Network Plane to
-   select which of those forwarding solutions are to be used for a given packet
-   based on the current conditions.
+   solutions along a complex path (see <xref target="pt"/>) and to leave it
+   to the Network Plane to select which of those forwarding solutions are to be
+   used for a given packet based on the current conditions.
       </t>
       <t>
    RAW distinguishes the longer time scale at which routes are computed from the
    the shorter forwarding time scale where per-packet decisions are made.
    RAW operates within the Network Plane at the forwarding time scale on one
-   DetNet flow over a complex path called a Track. The Track is preestablished
-   and installed by means outside of the scope of RAW; it may be strict or loose
-   depending on whether each or just a subset of the hops are observed and
-   controlled by RAW.
+   DetNet flow over a complex path delineated by a Track
+   (see <xref target="trk"/>). The Track is
+   preestablished and installed by means outside of the scope of RAW; it may be
+   strict or loose depending on whether each or just a subset of the hops are
+   observed and controlled by RAW.
       </t>
       <t>
    The RAW Architecture is based on an abstract OODA Loop (Observe, Orient, Decide,
@@ -235,8 +251,8 @@
     RAW also reuses terminology defined for 6TiSCH in <xref target=
     "RFC9030" format="default"/> such as the term Track. A Track associates a
     complex path with PAREO and shaping operations. The concept is agnostic to
-    the underlaying technology and applies to any fully or partially
-    wireless mesh, including, e.g., a Wi-Fi mesh.
+    the underlaying technology and applies but is not limited to any fully or
+    partially wireless mesh.
     RAW specifies strict and loose Tracks depending on whether the path is fully
     controlled by RAW or traverses an opaque network where RAW cannot observe
     and control the individual hops.
@@ -329,7 +345,7 @@
     </section><!-- Link and Direction -->
 
 
-    <section><name>Path and Tracks</name>
+    <section anchor="pt"><name>Path and Tracks</name>
     <section><name>Path</name>
 
     <t>
@@ -355,17 +371,34 @@
     </blockquote>
     <t>
     It follows that the general acceptance of a path is a linear sequence of
-    nodes, as opposed to a multi-dimensional graph. In the context of this
-    document, a path is observed by following one copy of a packet that is
-    injected in a Track and possibly replicated within.
+    nodes, as opposed to a multi-dimensional graph, defined by the experience of
+    the packet that went from a node A to a node B.
+    </t>
+    <t> With DetNet and RAW,
+    a packet may be duplicated, fragmented and network-coded, and the various
+    byproducts may travel different paths that are not necessarily end-to-end
+    between A and B; we refer to that experience as a complex path.
+    The complex path does not fit the traditional description of a path, and
+    is subject to change from a packet to the next. This is why we introduce
+    below the term of a Track as the overall topology where the possible
+    complex paths are all contained.
+    </t>
+    <t>
+    In the context of this document, a path is observed by following one copy
+    or one fragment of a packet that conserves its uniqueness and integrity.
+    For instance, if C replicates to E and F and D eliminates on the way from A
+    to B, a packet from A to B experiences 2 paths, A->C->E->D->B and
+    A->C->F->D->B.
     </t>
     </section>
     <section anchor="trk"><name>Track</name>
 
     <t>A networking graph that can be followed to transport packets with
     equivalent treatment; as opposed to the definition of a path above, a Track
-    is not necessarily a linear sequence. It may contain multiple paths that
-    may fork and rejoin, for instance to enable the RAW PAREO operations.
+    represents not an experience but a potential, is not necessarily a linear
+    sequence, and is not necessarily fully traversed (flooded) by all packets
+    of a flow. It may contain multiple paths that may overlap, fork and rejoin,
+    for instance to enable the RAW PAREO operations.
     </t>
     <t>
     In DetNet <xref target="RFC8655"/> terms, a Track has the following
@@ -1091,7 +1124,7 @@
       and Maintenance (OAM) to Observe some or all hops along a Track as well as
       the end-to-end packet delivery, more in <xref target = "aom" />;
       </li>
-      <li> Controller plane elements to reports the links statistics to a Path
+      <li> Controller plane elements to report the links statistics to a Path
       computation Element (PCE) in a centralized controller that computes and
       installs the Tracks and provides meta data to Orient the routing
       decision, more in <xref target = "pce" />;

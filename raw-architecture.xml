@@ -15,7 +15,7 @@
 <?rfc subcompact="no"?>
 <?rfc authorship="yes"?>
 <?rfc tocappendix="yes"?>
-<rfc xmlns:xi="http://www.w3.org/2001/XInclude" category="info" docName="draft-ietf-raw-architecture-04"
+<rfc xmlns:xi="http://www.w3.org/2001/XInclude" category="info" docName="draft-ietf-raw-architecture-05"
      ipr="trust200902" obsoletes="" updates="" submissionType="IETF" xml:lang="en" version="3">
   <front>
     <title abbrev="RAW Architecture/Framework">Reliable and Available Wireless Architecture</title>
@@ -371,7 +371,7 @@
     </blockquote>
     <t>
     It follows that the general acceptance of a path is a linear sequence of
-    nodes, as opposed to a multi-dimensional graph, defined by the experience of
+    links and nodes, as opposed to a multi-dimensional graph, defined by the experience of
     the packet that went from a node A to a node B.
     </t>
     <t> With DetNet and RAW,
@@ -1734,7 +1734,8 @@ Ingress =   |      |      |   = Egress
     <!--  000000000000000000000    -->
 
    <section><name>Acknowledgments</name>
-   <t>TBD
+   <t>The authors wish to thank Dave Cavalcanti and Fabrice Theoleyre for their
+   in-depth reviews during the development of this document.
    </t>
    </section>
    <!-- Acknowledgments -->

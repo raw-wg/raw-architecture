@@ -5,12 +5,12 @@
 RAW                                                      P. Thubert, Ed.
 Internet-Draft                                             Cisco Systems
 Intended status: Informational                         G.Z. Papadopoulos
-Expires: 5 September 2022                                 IMT Atlantique
-                                                            4 March 2022
+Expires: 16 September 2022                                IMT Atlantique
+                                                           15 March 2022
 
 
               Reliable and Available Wireless Architecture
-                     draft-ietf-raw-architecture-04
+                     draft-ietf-raw-architecture-05
 
 Abstract
 
@@ -41,7 +41,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 5 September 2022.
+   This Internet-Draft will expire on 16 September 2022.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Thubert & Papadopoulos  Expires 5 September 2022                [Page 1]
+Thubert & Papadopoulos  Expires 16 September 2022               [Page 1]
 
 Internet-Draft         RAW Architecture/Framework             March 2022
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Thubert & Papadopoulos  Expires 5 September 2022                [Page 2]
+Thubert & Papadopoulos  Expires 16 September 2022               [Page 2]
 
 Internet-Draft         RAW Architecture/Framework             March 2022
 
@@ -165,7 +165,7 @@ Internet-Draft         RAW Architecture/Framework             March 2022
 
 
 
-Thubert & Papadopoulos  Expires 5 September 2022                [Page 3]
+Thubert & Papadopoulos  Expires 16 September 2022               [Page 3]
 
 Internet-Draft         RAW Architecture/Framework             March 2022
 
@@ -221,7 +221,7 @@ Internet-Draft         RAW Architecture/Framework             March 2022
 
 
 
-Thubert & Papadopoulos  Expires 5 September 2022                [Page 4]
+Thubert & Papadopoulos  Expires 16 September 2022               [Page 4]
 
 Internet-Draft         RAW Architecture/Framework             March 2022
 
@@ -277,7 +277,7 @@ Internet-Draft         RAW Architecture/Framework             March 2022
 
 
 
-Thubert & Papadopoulos  Expires 5 September 2022                [Page 5]
+Thubert & Papadopoulos  Expires 16 September 2022               [Page 5]
 
 Internet-Draft         RAW Architecture/Framework             March 2022
 
@@ -333,7 +333,7 @@ Internet-Draft         RAW Architecture/Framework             March 2022
 
 
 
-Thubert & Papadopoulos  Expires 5 September 2022                [Page 6]
+Thubert & Papadopoulos  Expires 16 September 2022               [Page 6]
 
 Internet-Draft         RAW Architecture/Framework             March 2022
 
@@ -389,7 +389,7 @@ Internet-Draft         RAW Architecture/Framework             March 2022
 
 
 
-Thubert & Papadopoulos  Expires 5 September 2022                [Page 7]
+Thubert & Papadopoulos  Expires 16 September 2022               [Page 7]
 
 Internet-Draft         RAW Architecture/Framework             March 2022
 
@@ -417,8 +417,8 @@ Internet-Draft         RAW Architecture/Framework             March 2022
    |  may change.  A path is defined between two nodes.
 
    It follows that the general acceptance of a path is a linear sequence
-   of nodes, as opposed to a multi-dimensional graph, defined by the
-   experience of the packet that went from a node A to a node B.
+   of links and nodes, as opposed to a multi-dimensional graph, defined
+   by the experience of the packet that went from a node A to a node B.
 
    With DetNet and RAW, a packet may be duplicated, fragmented and
    network-coded, and the various byproducts may travel different paths
@@ -445,7 +445,7 @@ Internet-Draft         RAW Architecture/Framework             March 2022
 
 
 
-Thubert & Papadopoulos  Expires 5 September 2022                [Page 8]
+Thubert & Papadopoulos  Expires 16 September 2022               [Page 8]
 
 Internet-Draft         RAW Architecture/Framework             March 2022
 
@@ -501,7 +501,7 @@ Internet-Draft         RAW Architecture/Framework             March 2022
 
 
 
-Thubert & Papadopoulos  Expires 5 September 2022                [Page 9]
+Thubert & Papadopoulos  Expires 16 September 2022               [Page 9]
 
 Internet-Draft         RAW Architecture/Framework             March 2022
 
@@ -557,7 +557,7 @@ Internet-Draft         RAW Architecture/Framework             March 2022
 
 
 
-Thubert & Papadopoulos  Expires 5 September 2022               [Page 10]
+Thubert & Papadopoulos  Expires 16 September 2022              [Page 10]
 
 Internet-Draft         RAW Architecture/Framework             March 2022
 
@@ -613,7 +613,7 @@ Internet-Draft         RAW Architecture/Framework             March 2022
 
 
 
-Thubert & Papadopoulos  Expires 5 September 2022               [Page 11]
+Thubert & Papadopoulos  Expires 16 September 2022              [Page 11]
 
 Internet-Draft         RAW Architecture/Framework             March 2022
 
@@ -669,7 +669,7 @@ Internet-Draft         RAW Architecture/Framework             March 2022
 
 
 
-Thubert & Papadopoulos  Expires 5 September 2022               [Page 12]
+Thubert & Papadopoulos  Expires 16 September 2022              [Page 12]
 
 Internet-Draft         RAW Architecture/Framework             March 2022
 
@@ -725,7 +725,7 @@ Internet-Draft         RAW Architecture/Framework             March 2022
 
 
 
-Thubert & Papadopoulos  Expires 5 September 2022               [Page 13]
+Thubert & Papadopoulos  Expires 16 September 2022              [Page 13]
 
 Internet-Draft         RAW Architecture/Framework             March 2022
 
@@ -781,7 +781,7 @@ Internet-Draft         RAW Architecture/Framework             March 2022
 
 
 
-Thubert & Papadopoulos  Expires 5 September 2022               [Page 14]
+Thubert & Papadopoulos  Expires 16 September 2022              [Page 14]
 
 Internet-Draft         RAW Architecture/Framework             March 2022
 
@@ -837,7 +837,7 @@ Internet-Draft         RAW Architecture/Framework             March 2022
 
 
 
-Thubert & Papadopoulos  Expires 5 September 2022               [Page 15]
+Thubert & Papadopoulos  Expires 16 September 2022              [Page 15]
 
 Internet-Draft         RAW Architecture/Framework             March 2022
 
@@ -893,7 +893,7 @@ Internet-Draft         RAW Architecture/Framework             March 2022
 
 
 
-Thubert & Papadopoulos  Expires 5 September 2022               [Page 16]
+Thubert & Papadopoulos  Expires 16 September 2022              [Page 16]
 
 Internet-Draft         RAW Architecture/Framework             March 2022
 
@@ -949,7 +949,7 @@ Internet-Draft         RAW Architecture/Framework             March 2022
 
 
 
-Thubert & Papadopoulos  Expires 5 September 2022               [Page 17]
+Thubert & Papadopoulos  Expires 16 September 2022              [Page 17]
 
 Internet-Draft         RAW Architecture/Framework             March 2022
 
@@ -1005,7 +1005,7 @@ Internet-Draft         RAW Architecture/Framework             March 2022
 
 
 
-Thubert & Papadopoulos  Expires 5 September 2022               [Page 18]
+Thubert & Papadopoulos  Expires 16 September 2022              [Page 18]
 
 Internet-Draft         RAW Architecture/Framework             March 2022
 
@@ -1061,7 +1061,7 @@ Internet-Draft         RAW Architecture/Framework             March 2022
 
 
 
-Thubert & Papadopoulos  Expires 5 September 2022               [Page 19]
+Thubert & Papadopoulos  Expires 16 September 2022              [Page 19]
 
 Internet-Draft         RAW Architecture/Framework             March 2022
 
@@ -1117,7 +1117,7 @@ Internet-Draft         RAW Architecture/Framework             March 2022
 
 
 
-Thubert & Papadopoulos  Expires 5 September 2022               [Page 20]
+Thubert & Papadopoulos  Expires 16 September 2022              [Page 20]
 
 Internet-Draft         RAW Architecture/Framework             March 2022
 
@@ -1173,7 +1173,7 @@ Internet-Draft         RAW Architecture/Framework             March 2022
 
 
 
-Thubert & Papadopoulos  Expires 5 September 2022               [Page 21]
+Thubert & Papadopoulos  Expires 16 September 2022              [Page 21]
 
 Internet-Draft         RAW Architecture/Framework             March 2022
 
@@ -1229,7 +1229,7 @@ Internet-Draft         RAW Architecture/Framework             March 2022
 
 
 
-Thubert & Papadopoulos  Expires 5 September 2022               [Page 22]
+Thubert & Papadopoulos  Expires 16 September 2022              [Page 22]
 
 Internet-Draft         RAW Architecture/Framework             March 2022
 
@@ -1285,7 +1285,7 @@ Internet-Draft         RAW Architecture/Framework             March 2022
 
 
 
-Thubert & Papadopoulos  Expires 5 September 2022               [Page 23]
+Thubert & Papadopoulos  Expires 16 September 2022              [Page 23]
 
 Internet-Draft         RAW Architecture/Framework             March 2022
 
@@ -1341,7 +1341,7 @@ Internet-Draft         RAW Architecture/Framework             March 2022
 
 
 
-Thubert & Papadopoulos  Expires 5 September 2022               [Page 24]
+Thubert & Papadopoulos  Expires 16 September 2022              [Page 24]
 
 Internet-Draft         RAW Architecture/Framework             March 2022
 
@@ -1397,7 +1397,7 @@ Internet-Draft         RAW Architecture/Framework             March 2022
 
 
 
-Thubert & Papadopoulos  Expires 5 September 2022               [Page 25]
+Thubert & Papadopoulos  Expires 16 September 2022              [Page 25]
 
 Internet-Draft         RAW Architecture/Framework             March 2022
 
@@ -1453,7 +1453,7 @@ Internet-Draft         RAW Architecture/Framework             March 2022
 
 
 
-Thubert & Papadopoulos  Expires 5 September 2022               [Page 26]
+Thubert & Papadopoulos  Expires 16 September 2022              [Page 26]
 
 Internet-Draft         RAW Architecture/Framework             March 2022
 
@@ -1509,7 +1509,7 @@ Internet-Draft         RAW Architecture/Framework             March 2022
 
 
 
-Thubert & Papadopoulos  Expires 5 September 2022               [Page 27]
+Thubert & Papadopoulos  Expires 16 September 2022              [Page 27]
 
 Internet-Draft         RAW Architecture/Framework             March 2022
 
@@ -1565,7 +1565,7 @@ Internet-Draft         RAW Architecture/Framework             March 2022
 
 
 
-Thubert & Papadopoulos  Expires 5 September 2022               [Page 28]
+Thubert & Papadopoulos  Expires 16 September 2022              [Page 28]
 
 Internet-Draft         RAW Architecture/Framework             March 2022
 
@@ -1621,7 +1621,7 @@ Internet-Draft         RAW Architecture/Framework             March 2022
 
 
 
-Thubert & Papadopoulos  Expires 5 September 2022               [Page 29]
+Thubert & Papadopoulos  Expires 16 September 2022              [Page 29]
 
 Internet-Draft         RAW Architecture/Framework             March 2022
 
@@ -1650,7 +1650,8 @@ Internet-Draft         RAW Architecture/Framework             March 2022
 
 8.  Acknowledgments
 
-   TBD
+   The authors wish to thank Dave Cavalcanti and Fabrice Theoleyre for
+   their in-depth reviews during the development of this document.
 
 9.  References
 
@@ -1676,8 +1677,7 @@ Internet-Draft         RAW Architecture/Framework             March 2022
 
 
 
-
-Thubert & Papadopoulos  Expires 5 September 2022               [Page 30]
+Thubert & Papadopoulos  Expires 16 September 2022              [Page 30]
 
 Internet-Draft         RAW Architecture/Framework             March 2022
 
@@ -1693,8 +1693,8 @@ Internet-Draft         RAW Architecture/Framework             March 2022
    [RAW-USE-CASES]
               Bernardos, C. J., Papadopoulos, G. Z., Thubert, P., and F.
               Theoleyre, "RAW use-cases", Work in Progress, Internet-
-              Draft, draft-ietf-raw-use-cases-04, 4 February 2022,
-              <https://tools.ietf.org/html/draft-ietf-raw-use-cases-04>.
+              Draft, draft-ietf-raw-use-cases-05, 23 February 2022,
+              <https://tools.ietf.org/html/draft-ietf-raw-use-cases-05>.
 
    [RFC4655]  Farrel, A., Vasseur, J.-P., and J. Ash, "A Path
               Computation Element (PCE)-Based Architecture", RFC 4655,
@@ -1733,7 +1733,7 @@ Internet-Draft         RAW Architecture/Framework             March 2022
 
 
 
-Thubert & Papadopoulos  Expires 5 September 2022               [Page 31]
+Thubert & Papadopoulos  Expires 16 September 2022              [Page 31]
 
 Internet-Draft         RAW Architecture/Framework             March 2022
 
@@ -1789,7 +1789,7 @@ Internet-Draft         RAW Architecture/Framework             March 2022
 
 
 
-Thubert & Papadopoulos  Expires 5 September 2022               [Page 32]
+Thubert & Papadopoulos  Expires 16 September 2022              [Page 32]
 
 Internet-Draft         RAW Architecture/Framework             March 2022
 
@@ -1800,11 +1800,11 @@ Internet-Draft         RAW Architecture/Framework             March 2022
               <https://www.rfc-editor.org/info/rfc8175>.
 
    [I-D.irtf-panrg-path-properties]
-              Enghardt, T. and C. Kraehenbuehl, "A Vocabulary of Path
+              Enghardt, T. and C. Krähenbühl, "A Vocabulary of Path
               Properties", Work in Progress, Internet-Draft, draft-irtf-
-              panrg-path-properties-04, 25 October 2021,
+              panrg-path-properties-05, 7 March 2022,
               <https://tools.ietf.org/html/draft-irtf-panrg-path-
-              properties-04>.
+              properties-05>.
 
    [IPoWIRELESS]
               Thubert, P., "IPv6 Neighbor Discovery on Wireless
@@ -1845,7 +1845,7 @@ Authors' Addresses
 
 
 
-Thubert & Papadopoulos  Expires 5 September 2022               [Page 33]
+Thubert & Papadopoulos  Expires 16 September 2022              [Page 33]
 
 Internet-Draft         RAW Architecture/Framework             March 2022
 
@@ -1901,4 +1901,4 @@ Internet-Draft         RAW Architecture/Framework             March 2022
 
 
 
-Thubert & Papadopoulos  Expires 5 September 2022               [Page 34]
+Thubert & Papadopoulos  Expires 16 September 2022              [Page 34]

@@ -479,7 +479,7 @@ zzz = flapping now
                   +---------+---------+
                             |
                             |
-     Track i (Ingress IP Address, RPLinstanceId)
+     Track i (Ingress IP Address, Track Id)
                             |
                             |
                             |
@@ -502,7 +502,7 @@ zzz = flapping now
 </figure>
 <t>
     With 6TiSCH,
-    packets are tagged with the same (destination address, instance ID)
+    packets are tagged with the same (source address, instance ID)
     will experience the same RAW service regardless of the IPv6 6-tuple
     that indicates the flow. The forwarding does not depend on whether the
     packets transport application flows or OAM. In the generic

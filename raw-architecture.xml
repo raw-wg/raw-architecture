@@ -145,8 +145,8 @@
    transmissions, energy conservation and shared spectrum efficiency.
    </t>
       <t>
-   RAW provides DetNet elements that are specialized for IPv6 flows
-   <xref target="RFC8200"/> over selected deterministic radios technologies
+   RAW provides DetNet elements that are specialized for transporting IP flows
+   over deterministic radios technologies such as listed in
    <xref target="I-D.ietf-raw-technologies"/>.
    Conceptually, RAW is agnostic to the radio layer underneath though the
    capability to schedule transmissions is assumed.

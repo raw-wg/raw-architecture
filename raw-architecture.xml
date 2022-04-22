@@ -63,17 +63,16 @@
        !-->
 
       Reliable and Available Wireless (RAW) provides for high
-      reliability and availability for IP connectivity over a
-      wireless medium. The wireless medium presents significant
-      challenges to achieve deterministic properties such as low
-      packet error rate, bounded consecutive losses, and bounded
-      latency. This document defines the RAW Architecture following
-      an OODA loop that involves OAM, PCE, PSE and PAREO functions.
-      It builds on the DetNet Architecture and discusses specific
-      challenges and technology considerations needed to deliver
-      DetNet service utilizing scheduled wireless segments and
-      other media, e.g., frequency/time-sharing physical media
-      resources with stochastic traffic.
+      reliability and availability for IP connectivity across
+      any combination of wired and wireless network segments.
+      The RAW Architecture extends the DetNet Architecture and other
+      standard IETF concepts and mechanisms to adapt to the specific challenges
+      of the wireless medium.
+      This document defines an architecture element for the RAW data plane, in
+      the form of an OODA loop, that optimizes the use of constrained spectrum
+      and energy while maintaining the expected connectivity properties.
+      The loop involves OAM, PCE, and PREOF extensions, and a new component
+      called the Path Selection Engine (PSE).
 
       </t>
     </abstract>
@@ -105,6 +104,7 @@
    Time Sensitive networking (TSN) - for Ethernet LANs - and IETF DetNet.
    But the wired and the wireless media are fundamentally different at the
    physical level and in the possible abstractions that can be built for IPv6
+   <xref target="RFC8200"/>, more in
    <xref target="I-D.thubert-6man-ipv6-over-wireless" format="default"/>.
    Nevertheless, deterministic capabilities are required in a number of wireless
    use cases as well <xref target="I-D.ietf-raw-use-cases"/>. With new scheduled
@@ -208,10 +208,10 @@
       and Maintenance (OAM) to Observe some or all hops along a Track as well as
       the end-to-end packet delivery
       </li>
-      <li> Controller plane elements to reports the links statistics to a Path
-      computation Element (PCE) in a centralized controller that computes and
-      installs the Tracks and provides meta data to Orient the routing
-      decision
+      <li> Optional Controller plane elements to reports the links statistics
+      to a Path computation Element (PCE) in a centralized controller that
+      computes and installs the Tracks and provides meta data to Orient the
+      routing decision
       </li>
       <li> A Runtime distributed Path Selection Engine (PSE) that Decides which
       subTrack to use for the next packet(s) that are routed along the Track
@@ -967,8 +967,12 @@
     <section anchor="timescale" numbered="true" toc="default">
       <name>Routing Time Scale vs. Forwarding Time Scale</name>
       <t>
-   With DetNet, the Controller Plane Function that handles the routing computation and maintenance (the PCE) can be centralized and can
-   reside outside the network.
+   With DetNet, the Controller Plane Function (CPF) handles the routing
+   computation and maintenance. With RAW, the CPF also performs the PSE
+   orientation, proposing SubTracks to use in response to network events.
+   The CPF can be can be centralized in a PCE, and can reside outside the
+   network. This is how the remainder of this document depics it, though
+   the CPF could be implemented otherwise without affecting the architecture.
    In a wireless mesh, the path to the PCE can be expensive and slow,
    possibly going across the whole mesh and back.
    Reaching to the PCE can also be slow in regards to the speed

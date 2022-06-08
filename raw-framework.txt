@@ -10,7 +10,7 @@ Expires: 10 December 2022                        LabN Consulting, L.L.C.
 
 
                Reliable and Available Wireless Framework
-                      draft-ietf-raw-framework-01
+                      draft-ietf-raw-framework-02
 
 Abstract
 

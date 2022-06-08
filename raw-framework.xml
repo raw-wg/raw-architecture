@@ -15,7 +15,7 @@
 <?rfc subcompact="no"?>
 <?rfc authorship="yes"?>
 <?rfc tocappendix="yes"?>
-<rfc xmlns:xi="http://www.w3.org/2001/XInclude" category="info" docName="draft-ietf-raw-framework-00"
+<rfc xmlns:xi="http://www.w3.org/2001/XInclude" category="info" docName="draft-ietf-raw-framework-01"
      ipr="trust200902" obsoletes="" updates="" submissionType="IETF" xml:lang="en" version="3">
   <front>
     <title abbrev="RAW Architecture/Framework">Reliable and Available Wireless Framework</title>
@@ -100,7 +100,7 @@
    document presents the RAW problem and architectural concepts such as path and
    Tracks to provide IPv6 <xref target="RFC8200"/> flows with Service Level
    Objectives (SLO) in terms of packet delivery ratio (PDR), maximum contiguous
-   losses or lantency boundaries over wireless access and meshes.
+   losses or latency boundaries over wireless access and meshes.
    </t>
       <t>
    RAW distinguishes the longer time scale at which routes are computed from the
@@ -131,7 +131,7 @@
       <li> Packet (hybrid) ARQ, Replication, Elimination and Ordering Dataplane
       actions that operate at the DetNet Service Layer to increase the
       reliability of the end-to-end transmission. The RAW architecture also
-      covers in-situ signalling when the decision is Acted by a node that
+      covers in-situ signaling when the decision is Acted by a node that
       down the Track from the PSE.
       </li>
       </ol>
@@ -433,9 +433,9 @@ zzz = flapping now
     e.g., a flow is fully placed within one RAW Track, but not all packets along
     that Track are necessarily part of the same flow. For instance, out-of-band
     OAM packets must circulate in the exact same fashion as the flows that they
-    observe. It results that the flow identification that maps to an application
-    layer flowat the network layer must be separate from the path identification
-    that is used to forward a packet.
+    observe. It results that the network layer identification of an application
+    layer flow (typically ther 5- or 6- tuple) must be separate from the path
+    identification that is used to forward a packet.
 </t><t>
 
     Section 3.4 of the DetNet data-plane framework <xref target="RFC8938" format="default"/> indicates that for
@@ -584,7 +584,7 @@ zzz = flapping now
     headers and that the destination is set to the Egress Node. Forwarding
     to a final destination beyond the Egress Node is possible, e.g., with a
     Segment Routing Header that signals the rest of the way. In that case
-    a Hop-by-Hop Header is not recommmended since its validity is within the
+    a Hop-by-Hop Header is not recommended since its validity is within the
     Track only.
  </t><t>
  </t>

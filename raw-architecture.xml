@@ -15,7 +15,7 @@
 <?rfc subcompact="no"?>
 <?rfc authorship="yes"?>
 <?rfc tocappendix="yes"?>
-<rfc xmlns:xi="http://www.w3.org/2001/XInclude" category="info" docName="draft-ietf-raw-architecture-05"
+<rfc xmlns:xi="http://www.w3.org/2001/XInclude" category="info" docName="draft-ietf-raw-architecture-06"
      ipr="trust200902" obsoletes="" updates="" submissionType="IETF" xml:lang="en" version="3">
   <front>
     <title abbrev="RAW Architecture/Framework">Reliable and Available Wireless Architecture</title>
@@ -109,7 +109,7 @@
    Nevertheless, deterministic capabilities are required in a number of wireless
    use cases as well <xref target="I-D.ietf-raw-use-cases"/>. With new scheduled
    radios such as TSCH and OFDMA <xref target="I-D.ietf-raw-technologies"/>
-   being developped to provide determinism over wireless links at the lower
+   being developed to provide determinism over wireless links at the lower
    layers, providing DetNet capabilities is now becoming possible.
    </t>
    <t>
@@ -159,16 +159,16 @@
    The <xref target="RFC8655">"Deterministic Networking Architecture"</xref> is
    composed of three planes: the Application (User) Plane, the Controller Plane,
    and the Network Plane.
-   The DetNet Network Plane is composed of a DetNet service sublayer that
+   The DetNet Network Plane is composed of a DetNet service sub-layer that
    focuses on flow protection (e.g., using redundancy) and can be fully operated
-   at layer-3, and a DetNet forwarding sublayer that associates the flows to the
+   at layer-3, and a DetNet forwarding sub-layer that associates the flows to the
    paths, ensures the availability of the necessary resources, and leverages
-   layer-2 functionalities for timely delivery to the next Detnet system.
+   layer-2 functionalities for timely delivery to the next DetNet system.
       </t>
       <t>
    The RAW Architecture extends the DetNet Network Plane, to accommodate one or
    multiple hops of homogeneous or heterogeneous wired and wireless technologies.
-   RAW adds reactivity to the DetNet service sublayer to compensate the dynamics
+   RAW adds reactivity to the DetNet service sub-layer to compensate the dynamics
    for the radio links in terms of lossiness and bandwidth. This may apply for
    instance to mesh networks as illustrated in <xref target ="FigCPF"/>, or
    diverse radio access networks as illustrated in <xref target ="Figranp2"/>.
@@ -219,7 +219,7 @@
       <li> Packet (hybrid) ARQ, Replication, Elimination and Ordering Dataplane
       actions that operate at the DetNet Service Layer to increase the
       reliability of the end-to-end transmissions. The RAW architecture also
-      covers in-situ signalling when the decision is Acted by a node that
+      covers in-situ signaling when the decision is Acted by a node that
       down the Track from the PSE.
       </li>
       </ol>
@@ -379,7 +379,7 @@
     byproducts may travel different paths that are not necessarily end-to-end
     between A and B; we refer to that experience as a complex path.
     The complex path does not fit the traditional description of a path, and
-    is subject to change from a packet to the next. This is why we introduce
+    is subject to change from a packet to the next. Therefore we introduce
     below the term of a Track as the overall topology where the possible
     complex paths are all contained.
     </t>
@@ -444,10 +444,10 @@
     of data packets, e.g., to carry OAM measurements or control messages back to
     the Ingress.
     </li><li>
-    The vertices of the Track are DetNet Relay nodes that operate at the DetNet Service sublayer and provide the PAREO functions.
+    The vertices of the Track are DetNet Relay nodes that operate at the DetNet Service sub-layer and provide the PAREO functions.
     </li><li>
     The topological edges of the graph are serial sequences of DetNet Transit
-    nodes that operate at the DetNet Forwarding sublayer.
+    nodes that operate at the DetNet Forwarding sub-layer.
     </li>
     </ul>
     </section>
@@ -490,7 +490,7 @@
     <t>
      A tuple identified by a stream_handle, and provided by a bridge, in
      accordance with IEEE 802.1CB.
-     The tuple comprises at least src MAC, dst MAC, VLAN ID, and L2 priority.
+     The tuple comprises at least source MAC, destination MAC, VLAN ID, and L2 priority.
      Continuous streams are characterized by bandwidth and max packet size;
      scheduled streams are characterized by a repeating pattern of timed
      transmissions.
@@ -499,7 +499,8 @@
     <section><name>Deterministic Flow Identifier (L3)</name>
     <t>
      See section 3.3 of <xref target="RFC8938"/>. The classical IP 5-tuple that
-     identifies a flow comprises the src IP, dst IP, src port, dest port, and
+     identifies a flow comprises the source IP, destination IP, source port,
+     destination port, and
      the upper layer protocol (ULP). DetNet uses a 6-tuple where the extra field
      is the DSCP field in the packet. The IPv6 flow label is not used for that
      purpose.
@@ -712,7 +713,7 @@
     increases capitalization expense because of the redundant equipment. In a
     constrained network where the waste of energy and bandwidth should be
     minimized, an excessive use of redundant links must be avoided; for RAW this
-    means that the extra bandwidth must be used wisely and with parcimony.
+    means that the extra bandwidth must be used wisely and with parsimony.
     </t>
 
     </section>
@@ -742,7 +743,7 @@
     </t>
     <t>
     Deterministic flows, on the contrary, are attached to specific paths where
-    dedicated resources are reserved for each flow. This is why each DetNet path
+    dedicated resources are reserved for each flow. Therefore each DetNet path
     must inherently provide sufficient redundancy to provide the guaranteed SLA
     at all times.
     The DetNet PREOF typically leverages 1+1 redundancy whereby a packet is sent
@@ -971,7 +972,7 @@
    computation and maintenance. With RAW, the CPF also performs the PSE
    orientation, proposing SubTracks to use in response to network events.
    The CPF can be can be centralized in a PCE, and can reside outside the
-   network. This is how the remainder of this document depics it, though
+   network. This is how the remainder of this document depicts it, though
    the CPF could be implemented otherwise without affecting the architecture.
    In a wireless mesh, the path to the PCE can be expensive and slow,
    possibly going across the whole mesh and back.
@@ -1063,8 +1064,12 @@
     RAW inherits the conceptual model described in section 4 of the DetNet
     Architecture <xref target="RFC8655"/>. RAW extends the DetNet service
     layer to provide additional agility against transmission loss.
-    </t><t>
+    </t>
 
+
+<section anchor="plane" numbered="true" toc="default">
+    <name>The RAW Planes</name>
+    <t>
    A RAW Network Plane may be strict or loose, depending
    on whether RAW observes and takes actions on all hops or not. For instance,
    the packets between two wireless entities may be relayed over a wired
@@ -1076,13 +1081,18 @@
    means such as DetNet/TSN, or neglected in the face of the wireless hops.
 
     </t><t>
-    A Controller Plane Function (CPF) called the
-    Path Computation Element (PCE) <xref target="RFC4655"/> interacts with
-    RAW Nodes over a Southbound API. The RAW Nodes are DetNet relays that are capable of additional diversity mechanisms and measurement functions related
-    to the radio interface, in particular the PAREO diversity mechanisms.
+   A Controller Plane Function (CPF) called the
+   Path Computation Element (PCE) <xref target="RFC4655"/> interacts with
+   RAW Nodes over a Southbound API. The RAW Nodes are DetNet relays that
+   are capable of additional diversity mechanisms and measurement functions
+   related to the radio interface, in particular the PAREO diversity mechanisms.
+   RAW leverages a CPF that operates inside the RAW Nodes (typically the Ingress
+   Edge Nodes) to dynamically adapt the path of the packets and optimizes the
+   resource usage.
     </t><t>
     The PCE defines a complex Track between an Ingress End System and an Egress
-    End System, and indicates to the RAW Nodes where the PAREO operations may be actionned in the Network Plane. The Track may be expressed loosely to enable
+    End System, and indicates to the RAW Nodes where the PAREO operations may be
+    actioned in the Network Plane. The Track may be expressed loosely to enable
     traversing a non-RAW subnetwork. In that case, the expectation is that the
     non-RAW subnetwork can be neglected in the RAW computation, that is,
     considered infinitely fast, reliable and/or available in comparison with the
@@ -1118,7 +1128,7 @@
     The Link-Layer metrics are reported to the PCE in a time-aggregated, e.g.,
     statistical fashion. Example Link-Layer metrics include typical Link
     bandwidth (the medium speed depends dynamically on the PHY mode), number of
-    flows (bandwidth that can be reserved for a flomw depends on the number and
+    flows (bandwidth that can be reserved for a flow depends on the number and
     size of flows sharing the spectrum) and average and mean squared deviation
     of availability and reliability figures such as Packet Delivery Ratio (PDR)
     over long periods of time.
@@ -1142,6 +1152,163 @@
     and availability statistics are periodically reported to the PCE to assure that
     the SLA can be met or have it recompute the Track if not.
     </t>
+
+    </section> <!--The RAW Network Plane -->
+
+<section anchor="DetNet" numbered="true" toc="default">
+    <name>RAW vs. DetNet</name>
+<t>
+  RAW leverages the DetNet Forwarding sub-layer and requires the support of
+  in-situ OAM in DetNet Transit Nodes (see fig 3 of <xref target="RFC8655"/>
+  for the dynamic acquisition of link capacity and state to maintain a strict RAW
+  service, end-to-end, over a DetNet Network.
+</t>
+<t>
+  RAW extends the DetNet Stack (see fig 4 of <xref target="RFC8655"/>) with
+  additional functionality at the DetNet Service sub-layer for the PSE operation.
+  PREOF is extended with the PAREO capabilities (see <xref target="PAREO"/>) and
+  the RAW PAREO Actuator manages dynamically the PAREO operations.
+  The RAW Service sub-layer also adds the OAM Propagator that (re)generates the
+  OAM information as it is formed and propagated In-Band or Out-of-Band.
+  The RAW Service sub-layer may be present in DetNet Edge and Relay Nodes, though
+  the PAREO Actuator has no operation in the Egress Edge Node.
+</t>
+<t>
+  RAW also adds a Control sub-layer that operates in the DetNet Controller Plane.
+  The RAW Control sub-layer typically runs only in the DetNet Ingress Edge Node
+  or End System, though it may also run in DetNet Relay Nodes when the RAW
+  Control sub-layer is distributed along the Track.
+  The RAW Control sub-layer functionality includes the PSE that decides the
+  subTrack for the next packets of a flows and controls
+  the PAREO Actuators along the subTrack through specific signaling,
+  and the OAM Supervisor that triggers, and learns from, OAM observations, and
+  feeds the PSE for its next decision.
+</t>
+
+
+<figure anchor="FigDN">
+          <name>RAW DetNet Services</name>
+       <artwork align="left" name="" type="" alt="">
+
+ +------------------------------+ +--------------------------------+
+ |                              | |                                |
+.....................................................................
+ |                              | |                                |
+ | +----------+  +------------+ | | .-.-.-.-.-.--.  .-.-.-.-.-.--. |
+ | | PSE      |  | OAM        | | | | Distr. PSE |  | Distr. OAM | |
+ | |          |  | Supervisor | | | |            |  | Supervisor | |
+ | +----------+  +------------+ | | .-.-.-.-.-.--.  .-.-.-.-.-.--. |
+ |                              | |    optional         optional   |
+    RAW Control sub-layer
+.....................................................................
+    DetNet Service sub-layer
+ |                              | |                                |
+ | +----------+  +------------+ | | +------------+  +------------+ |
+ | | PAREO    |  |  OAM       | | | |  PAREO     |  |  OAM       | |
+ | | Actuator |  |  Observer  | | | |  Actuator  |  |  Observer  | |
+ | +----------+  +------------+ | | +------------+  +------------+ |
+ |                              | |                                |
+    DetNet Service sub-layer
+.....................................................................
+    DetNet Forwarding sub-layer
+ |                              | |                                |
+ |               +------------+ | |                 +------------+ |
+ |               |In-Situ OAM | | |                 |In-Situ OAM | |
+ |               +------------+ | |                 +------------+ |
+ |                              | |                                |
+ +------------------------------+ +--------------------------------+
+
+         End System or                       Relay
+       Ingress Edge Node                     Node
+
+</artwork>
+</figure>
+
+<t> There are 2 main proposed models to deploy RAW and DetNet. In the first
+  model (strict) illustrated in <xref target="FigDN2"/>, RAW operates over a
+  continuous DetNet Service end-to-end between the Ingress and the Egress Edge
+  Nodes or End Systems.
+</t>
+<t>
+  A minimal Forwarding sub-layer service is provided at all DetNet Nodes
+  to ensure that the OAM information flows. Relay Nodes may or may not support
+  RAW services, and the Edge nodes do support RAW. DetNet guarantees such as
+  latency are provided end-to-end, and RAW supports the DetNet Service to
+  optimize the use of resources.
+</t>
+
+
+<figure anchor="FigDN2">
+          <name>(Strict) RAW over DetNet</name>
+       <artwork align="left" name="" type="" alt="">
+
+--------------------Flow Direction---------------------------------->
+
++---------+
+| RAW     |
+| Control |
++---------+                           +---------+        +---------+
+| RAW +   |                           | RAW +   |        | RAW +   |
+| DetNet  |                           | DetNet  |        | DetNet  |
+| Service |                           | Service |        | Service |
++---------+---------------------------+---------+--------+---------+
+|                       DetNet                                     |
+|                     Forwarding                                   |
++------------------------------------------------------------------+
+
+  Ingress             Transit            Relay              Egress
+  Edge      ...       Nodes     ...      Nodes     ...        Edge
+  Node                                                        Node
+
+&lt;--------------------Full Guarantees------------------------------->
+
+</artwork>
+</figure>
+
+
+<t> In the second model (loose), illustrated in <xref target="FigDN3"/>, RAW
+  operates over a partial DetNet Service where typically only the Ingress and
+  the Egress End Systems support RAW. The DetNet Domain may extend beyond the
+  Ingress node, or there may be a DetNet domain starting at an Ingress
+  Edge Node at the first hop after the End System.
+</t>
+<t>
+  In the loose model, RAW cannot observe the hops in network, and the path
+  beyond the first hop is opaque; RAW can still observe the end-to-end
+  behavior and use Layer-3 measurements to decide whether to replicate a packet
+  and select the first hop interface(s).
+</t>
+<figure anchor="FigDN3">
+          <name>Loose RAW</name>
+       <artwork align="left" name="" type="" alt="">
+
+--------------------Flow Direction---------------------------------->
+
++---------+
+| RAW     |
+| Control |
++---------+            +---------+                       +---------+
+| RAW +   |            | DetNet  |                       | RAW +   |
+| DetNet  |            |  Only   |                       | DetNet  |
+| Service |            | Service |                       | Service |
++---------+----------------------+---+               +---+---------+
+|          DetNet                    |               |   DetNet    |
+|         Forwarding                 |               | Forwarding  |
++------------------------------------+               +-------------+
+
+ Ingress    Transit       Relay           Internet           Egress
+ End  ...   Nodes   ...   Nodes    ...                ...       End
+ System                                                      System
+
+&lt;----------------------No Guarantee-------------------------------->
+
+</artwork>
+</figure>
+
+
+    </section>      <!-- RAW vs. DetNet -->
+
+
 
     </section> <!-- The RAW Conceptual Model -->
 
@@ -1172,7 +1339,7 @@
       <li> Packet (hybrid) ARQ, Replication, Elimination and Ordering Dataplane
       actions that operate at the DetNet Service Layer to increase the
       reliability of the end-to-end transmission. The RAW architecture also
-      covers in-situ signalling when the decision is Acted by a node that
+      covers in-situ signaling when the decision is Acted by a node that
       down the Track from the PSE, more in <xref target = "PAREO" />.
       </li>
       </ol>
@@ -1192,7 +1359,7 @@
      |                              |
      +-------- Act (PAREO) <--------+
                 At DetNet
-             Service sublayer
+             Service sub-layer
 
 ]]></artwork>
 </figure>
@@ -1280,7 +1447,7 @@
    RAW separates the long time scale at which a Track is elaborated and installed,
    from the short time scale at which the forwarding decision is taken for one
    or a few packets (see in <xref target="timescale"/>) that will experience the
-   same path until the network conditions evolve and another patyh is selected
+   same path until the network conditions evolve and another path is selected
    within the same Track.
    </t>
    <t>
@@ -1607,7 +1774,7 @@ Ingress =   |      |      |   = Egress
     In <xref target="fig_overhearing"/>, when Node A is transmitting to its DP
     (Node C), the AP (Node D) and its sibling (Node B) may decode this data packet as
     well.
-    As a result, by employing corellated paths, a Node may have multiple
+    As a result, by employing correlated paths, a Node may have multiple
     opportunities to receive a given data packet.
     <!--
     This feature not only enhances the end-to-end reliability but also it reduces the

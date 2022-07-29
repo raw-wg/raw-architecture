@@ -59,7 +59,7 @@
     <abstract>
       <t>
       <!--
-      Due to uncontrolled interferences, including the self-induced multipath fading, deterministic networking can only be approached on wireless links. The radio conditions may change -way- faster than a centralized routing can adapt and reprogram, in particular when the controller is distant and connectivity is slow and limited. RAW separates the routing time scale at which a complex path is recomputed from the forwarding time scale at which the forwarding decision is taken for an individual packet. RAW operates at the forwarding time scale. The RAW problem is to decide, within the redundant solutions that are proposed by the routing, which will be used for each individual packet to provide a DetNet service while minimizing the waste of resources.
+      Due to uncontrolled interferences, including the self-induced multipath fading, deterministic networking can only be approached on wireless links. The radio conditions may change -way- faster than routing can adapt and reprogram, in particular when the controller is distant and connectivity is slow and limited. RAW separates the routing time scale at which a complex path is recomputed from the forwarding time scale at which the forwarding decision is taken for an individual packet. RAW operates at the forwarding time scale. The RAW problem is to decide, within the redundant solutions that are proposed by the routing, which will be used for each individual packet to provide a DetNet service while minimizing the waste of resources.
        !-->
 
       Reliable and Available Wireless (RAW) provides for high
@@ -71,6 +71,8 @@
       This document defines an architecture element for the RAW data plane, in
       the form of an OODA loop, that optimizes the use of constrained spectrum
       and energy while maintaining the expected connectivity properties.
+      It also introduces a new Control plane Function to prepare alternate
+      paths to go around local failures.
       The loop involves OAM, PCE, and PREOF extensions, and a new component
       called the Path Selection Engine (PSE).
 
@@ -181,7 +183,16 @@
       </t>
       <t>
    The establishment of a path is not in-scope for RAW. It may be the product of
-   a centralized Controller Plane as described for DetNet. As opposed to wired
+   a centralized Controller Plane Function like a Path computation Element (PCE)
+   <xref target="RFC4655"/> or a distributed routing protocol.
+   For the most part, the remainder of the
+   document mentions centralized control and PCE, but conceptually, the same
+   issues and needs would arise for a distributed protocol that would attempt to
+   allocate constrained resources and optimize globally, and the distributed
+   approach is considered in scope too.
+   </t>
+   <t>
+   As opposed to wired
    networks, the action of installing a path over a set of wireless links
    may be very slow relative to the speed at which the radio conditions vary,
    and it makes sense in the wireless case to provide redundant forwarding
@@ -208,16 +219,15 @@
       and Maintenance (OAM) to Observe some or all hops along a Track as well as
       the end-to-end packet delivery
       </li>
-      <li> Optional Controller plane elements to reports the links statistics
-      to a Path computation Element (PCE) in a centralized controller that
-      computes and installs the Tracks and provides meta data to Orient the
-      routing decision
+      <li> Optional Controller plane elements that report the links statistics
+      to be used to compute and install the Tracks, and provides meta data to
+      Orient the routing decision, e.g., by a PCE in a centralized controller
       </li>
       <li> A Runtime distributed Path Selection Engine (PSE) that Decides which
       subTrack to use for the next packet(s) that are routed along the Track
       </li>
       <li> Packet (hybrid) ARQ, Replication, Elimination and Ordering Dataplane
-      actions that operate at the DetNet Service Layer to increase the
+      actions that operate at the DetNet Service sublayer to increase the
       reliability of the end-to-end transmissions. The RAW architecture also
       covers in-situ signaling when the decision is Acted by a node that
       down the Track from the PSE.
@@ -301,6 +311,9 @@
     PHY rate and other Modulation Coding Scheme (MCS) adaptation,
     constructive interference and overhearing, which can be
     leveraged separately or combined to increase the reliability.
+    As can the case for other functions such as shaping, the PAREO functions may
+    be actuated at the lower layers but controlled through abstractions from the
+    RAW extensions in the DetNet Service sublayer.
     </t>
     </section>
     </section><!--Acronyms-->
@@ -444,7 +457,8 @@
     of data packets, e.g., to carry OAM measurements or control messages back to
     the Ingress.
     </li><li>
-    The vertices of the Track are DetNet Relay nodes that operate at the DetNet Service sub-layer and provide the PAREO functions.
+    The vertices of the Track are DetNet Relay nodes that operate at the DetNet
+    Service sub-layer and provide the PAREO functions.
     </li><li>
     The topological edges of the graph are serial sequences of DetNet Transit
     nodes that operate at the DetNet Forwarding sub-layer.
@@ -543,7 +557,7 @@
     <section><name>Service Level Indicator</name>
     <t>
     A service level indicator (SLI) measures the compliance of an SLO to the
-    terms of the contrast. It can be for instance the statistics of individual
+    terms of the contract. It can be for instance the statistics of individual
     losses and losses in a row as time series.).
     </t>
     </section>
@@ -609,7 +623,7 @@
       of the Track, though not from Ingress to Egress.  It is injected
       in the datapath and extracted from the datapath around the
       particular function or subnetwork (e.g., around a relay providing
-      a service layer replication point) that is being tested.
+      a Service sublayer replication point) that is being tested.
      </t>
     </section>
     <section><name>Upstream OAM</name>
@@ -695,7 +709,8 @@
     of a failure. There is a rather open-ended issue over alternate routes --
     for example, when links are cabled through the same conduit, they form a
     shared risk link group (SRLG), and will share the same fate if the bundle is
-    cut. The same effect can happen with virtual links that end up in a same physical transport through the games of encapsulation. In a same fashion,
+    cut. The same effect can happen with virtual links that end up in a same
+    physical transport through the games of encapsulation. In a same fashion,
     an interferer or an obstacle may affect multiple wireless transmissions at
     the same time, even between different sets of peers.
     </t>
@@ -978,6 +993,8 @@
    possibly going across the whole mesh and back.
    Reaching to the PCE can also be slow in regards to the speed
    of events that affect the forwarding operation at the radio layer.
+   In the same fashion, a distributed routing protocol may also take time and
+   consume excessive wireless resources to reconverge to a new optimized state.
 
       </t><t>
    Due to that cost and latency, the Controller Plane is not
@@ -1070,7 +1087,8 @@
 <section anchor="plane" numbered="true" toc="default">
     <name>The RAW Planes</name>
     <t>
-   A RAW Network Plane may be strict or loose, depending
+   A RAW Network Plane may be strict (as illustrated in <xref target='FigDN2'/>
+   or loose (as illustrated in <xref target='FigDN3'/>, depending
    on whether RAW observes and takes actions on all hops or not. For instance,
    the packets between two wireless entities may be relayed over a wired
    infrastructure such as a Wi-Fi extended service set (ESS) or a 5G Core; in
@@ -1081,9 +1099,9 @@
    means such as DetNet/TSN, or neglected in the face of the wireless hops.
 
     </t><t>
-   A Controller Plane Function (CPF) called the
-   Path Computation Element (PCE) <xref target="RFC4655"/> interacts with
-   RAW Nodes over a Southbound API. The RAW Nodes are DetNet relays that
+   A Controller Plane Function (CPF) such as a PCE
+   interacts with RAW Nodes over a Southbound API.
+   The RAW Nodes are DetNet relays that
    are capable of additional diversity mechanisms and measurement functions
    related to the radio interface, in particular the PAREO diversity mechanisms.
    RAW leverages a CPF that operates inside the RAW Nodes (typically the Ingress
@@ -1092,11 +1110,17 @@
     </t><t>
     The PCE defines a complex Track between an Ingress End System and an Egress
     End System, and indicates to the RAW Nodes where the PAREO operations may be
-    actioned in the Network Plane. The Track may be expressed loosely to enable
-    traversing a non-RAW subnetwork. In that case, the expectation is that the
-    non-RAW subnetwork can be neglected in the RAW computation, that is,
-    considered infinitely fast, reliable and/or available in comparison with the
-    links between RAW nodes.
+    actioned in the Network Plane. The Track may be strict, meaning that the
+    DetNet forwarding sublayer operations are enforced end-to-end
+
+    The Track may be expressed loosely to enable traversing a non-RAW subnetwork
+    as in <xref target='FigDN3'/>.
+    In that case, RAW can not leverage end-to-end DetNet and cannot provide
+    latency guarantees.
+    The non-RAW subnetwork is neglected in the RAW computation, that is,
+    considered jitterless, and infinitely reliable and/or available in comparison
+    with the links between RAW nodes, so loss and jitter that is measured
+    end-to-end is attributed to the RAW hops (typically an access link).
     </t>
 <figure anchor="FigCPF">
           <name>RAW Nodes</name>
@@ -1161,7 +1185,7 @@
     <t>RAW improves the reliability of transmissions and the availability of the
     communication resources, but does not provide scheduling and shaping, so RAW
     itself does not provide guarantees such as latency for the application
-    payload. Rather, it should be seen as an dynamic optimization of the use of
+    payload. Rather, it should be seen as a dynamic optimization of the use of
     redundancy to maintain it within certain boundaries.
     </t>
     <t>
@@ -1195,8 +1219,25 @@
 <t>
   RAW extends the DetNet Stack (see fig 4 of <xref target="RFC8655"/>) with
   additional functionality at the DetNet Service sub-layer for the PSE operation.
-  PREOF is extended with the PAREO capabilities (see <xref target="PAREO"/>) and
-  the RAW PAREO Actuator manages dynamically the PAREO operations.
+  Layer-3 in general and DetNet in particular operates on abstractions of the
+  lower layers and through APIs to control those abstractions. For instance,
+  DetNet already leverages lower layers for time-sensitive operations such as
+  time synchronization and traffic shapers. Because the performances of the
+  radio layers are subject to rapid changes, so RAW needs more dynamic gauges
+  and knobs. To that effect, the DetNet PREOF is extended with
+  the PAREO capabilities (see <xref target="PAREO"/>) and the RAW PAREO Actuator
+  manages dynamically the PAREO operations, which may be performed either within
+  the DetNet sublayers or at a lower layer, using a common radio abstraction and
+  APIs in the latter case.
+  In particular, PAREO needs the capability to push reliability and timing hints
+  like suggest X retries (min, max) within a time window, or send unicast (one
+  next hop) or multicast (for overhearing). The other way around RAW needs hints
+  about the radio conditions like L2 triggers (RSSI, LQI, ETX…) over all the
+  wireless hops. This information is useful in the controller plane for both the
+  PCE and PSE.
+
+  </t>
+  <t>
   The RAW Service sub-layer also adds the OAM Propagator that (re)generates the
   OAM information as it is formed and propagated In-Band or Out-of-Band.
   The RAW Service sub-layer may be present in DetNet Edge and Relay Nodes, though
@@ -1216,7 +1257,7 @@
 
 
 <figure anchor="FigDN">
-          <name>RAW DetNet Services</name>
+          <name>RAW functional posture within DetNet sublayers</name>
        <artwork align="left" name="" type="" alt="">
 
  +------------------------------+ +--------------------------------+
@@ -1356,17 +1397,18 @@
       and Maintenance (OAM) to Observe some or all hops along a Track as well as
       the end-to-end packet delivery, more in <xref target = "aom" />;
       </li>
-      <li> Controller plane elements to report the links statistics to a Path
-      computation Element (PCE) in a centralized controller that computes and
-      installs the Tracks and provides meta data to Orient the routing
-      decision, more in <xref target = "pce" />;
+      <li> Controller plane elements to report the links statistics to a
+      distributed or centralized control function such as a Path Computation
+      Element (PCE), that computes and installs the Tracks, and
+      provides meta data to Orient the routing decision, more in
+      <xref target = "pce" />;
       </li>
       <li> A Runtime distributed Path Selection Engine (PSE) thar Decides which
       subTrack to use for the next packet(s) that are routed along the Track,
       more in <xref target = "psepce" />;
       </li>
       <li> Packet (hybrid) ARQ, Replication, Elimination and Ordering Dataplane
-      actions that operate at the DetNet Service Layer to increase the
+      actions are controlled from the DetNet Service sublayer to increase the
       reliability of the end-to-end transmission. The RAW architecture also
       covers in-situ signaling when the decision is Acted by a node that
       down the Track from the PSE, more in <xref target = "PAREO" />.
@@ -1411,7 +1453,7 @@
     a rerouting decision.
     </t>
     <t>
-    Finally, the RAW Service Layer Assurance may observe the individual PAREO
+    Finally, the RAW Service sublayer Assurance may observe the individual PAREO
     operation of a relay node to ensure that it is conforming; this might
     require injecting an OAM packet at an upstream point inside the Track and
     extracting that packet at another point downstream before it reaches the
@@ -1549,7 +1591,7 @@
    </thead><tbody>
 
 			<tr><td>Operation</td>
-    			<td align='center'>Centralized</td>
+    			<td align='center'>Typically Centralized</td>
     			<td align='center'>Source-Routed or Distributed</td>
         </tr>
 

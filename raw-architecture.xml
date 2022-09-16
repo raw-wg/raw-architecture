@@ -15,7 +15,7 @@
 <?rfc subcompact="no"?>
 <?rfc authorship="yes"?>
 <?rfc tocappendix="yes"?>
-<rfc xmlns:xi="http://www.w3.org/2001/XInclude" category="info" docName="draft-ietf-raw-architecture-06"
+<rfc xmlns:xi="http://www.w3.org/2001/XInclude" category="info" docName="draft-ietf-raw-architecture-07"
      ipr="trust200902" obsoletes="" updates="" submissionType="IETF" xml:lang="en" version="3">
   <front>
     <title abbrev="RAW Architecture/Framework">Reliable and Available Wireless Architecture</title>
@@ -130,8 +130,8 @@
    highly available and reliable end-to-end performances in a network with
    scheduled wireless segments.
    To defeat those additional causes of transmission delay and loss in wireless
-   transmission, RAW requires and leverages deterministic layer-2 capabilities.
-   Operating at the layer-3, RAW can further increase diversity in the spatial,
+   transmission, RAW requires and leverages deterministic Layer-2 capabilities.
+   Operating at the Layer-3, RAW can further increase diversity in the spatial,
    time, code, and frequency domains by enabling multiple link-layer wired and
    wireless technologies in parallel or sequentially, for a higher resilience
    and a wider applicability. RAW can also provide homogeneous services to
@@ -163,9 +163,9 @@
    and the Network Plane.
    The DetNet Network Plane is composed of a DetNet service sub-layer that
    focuses on flow protection (e.g., using redundancy) and can be fully operated
-   at layer-3, and a DetNet forwarding sub-layer that associates the flows to the
+   at Layer-3, and a DetNet forwarding sub-layer that associates the flows to the
    paths, ensures the availability of the necessary resources, and leverages
-   layer-2 functionalities for timely delivery to the next DetNet system.
+   Layer-2 functionalities for timely delivery to the next DetNet system.
       </t>
       <t>
    The RAW Architecture extends the DetNet Network Plane, to accommodate one or
@@ -447,7 +447,7 @@
     </t>
     <ul>
     <li>
-    A Track is a layer-3 abstraction built upon P2P IP links between routers.
+    A Track is a Layer-3 abstraction built upon P2P IP links between routers.
     A router may form multiple P2P IP links over a single radio interface.
     </li><li>
     A Track has one Ingress and one Egress nodes, which operate as DetNet Edge
@@ -1186,7 +1186,11 @@
     communication resources, but does not provide scheduling and shaping, so RAW
     itself does not provide guarantees such as latency for the application
     payload. Rather, it should be seen as a dynamic optimization of the use of
-    redundancy to maintain it within certain boundaries.
+    redundancy to maintain it within certain boundaries. For instance, ARQ,
+    which is part of the PAREO capabilities (see <xref target="PAREO"/>) is
+    operated by the lower layers and RAW will only abstract the concept and hint
+    the lower layers on the desired outcome, as opposed to performing the
+    retries at Layer-3.
     </t>
     <t>
     Guarantees such as bounded latency depend on the upper layers (Transport or
@@ -1209,12 +1213,16 @@
     </section> <!--The RAW Network Plane -->
 
 <section anchor="DetNet" numbered="true" toc="default">
-    <name>RAW vs. DetNet</name>
+    <name>RAW and DetNet</name>
 <t>
   RAW leverages the DetNet Forwarding sub-layer and requires the support of
   in-situ OAM in DetNet Transit Nodes (see fig 3 of <xref target="RFC8655"/>
   for the dynamic acquisition of link capacity and state to maintain a strict RAW
-  service, end-to-end, over a DetNet Network.
+  service, end-to-end, over a DetNet Network. RAW enhances DetNet to improve the
+  protection against link errors such as transient flapping that are far more
+  common in wireless links. Nevertheless, the RAW methods are for the most part
+  applicable to wired links as well, e.g., when energy savings are desirable and
+  the available path diversity exceeds 1+1 linear redundancy.
 </t>
 <t>
   RAW extends the DetNet Stack (see fig 4 of <xref target="RFC8655"/>) with
@@ -1376,7 +1384,7 @@
 </figure>
 
 
-    </section>      <!-- RAW vs. DetNet -->
+    </section>      <!-- RAW and DetNet -->
 
 
 
@@ -1671,6 +1679,12 @@
     Forward Error Correction (FEC), and other wireless-specific
     techniques such as overhearing and constructive interferences, in order to
     increase the reliabiility and availability of the end-to-end transmission.
+    Because RAW may be leveraged on wired links, e.g., to save power, it is not
+    expected that all lower layers support all RAW capabilities. Either way,
+    RAW will manipulate the abstractions of the lower layer services and hint on
+    the expected outcome, and the lower layer will act on those hints to provide
+    the best approximation of the desired outcome, e.g., a level of reliability
+    for one-hop transmission within a bounded budget.
     </t>
     <t>
     Collectively, those function are called PAREO for Packet (hybrid) ARQ, Replication, Elimination and Ordering. By tuning dynamically the use of
@@ -1929,7 +1943,7 @@ Ingress =   |      |      |   = Egress
     RAW operations like promiscuous overhearing become impossible.
     </t>
 
-      </section><!-- Layer 2 encryption -->
+      </section><!-- Layer-2 encryption -->
     <section numbered="true" toc="default">
       <name>Forced Access</name>
     <t>

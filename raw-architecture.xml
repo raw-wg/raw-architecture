@@ -1359,7 +1359,7 @@
 
 
 </section> <!-- The RAW Conceptual Model -->
-<section anchor="ooda" numbered="true" toc="default">
+<section anchor="control" numbered="true" toc="default">
     <name>The RAW Control Loop</name>
 
 
@@ -1453,33 +1453,36 @@
     <!--Routing Time Scale vs. Forwarding Time Scale-->
 
 <section anchor="ooda" numbered="true" toc="default">
-    <name>OODA</name>
+    <name>A OODA Loop</name>
       <t>
-   The RAW Architecture is structured as an OODA (Observe, Orient, Decide,
-   Act) Control Loop. It involves:
+   OODA (Observe, Orient, Decide, Act) is a generic formalism to represent the
+   operational steps in a Control Loop.
+   The RAW Architecture applies that generic model to continuously optimize the
+   spectrum and energy used to forward packets within a Track, instantiating the
+   OODA steps as follows:
       </t>
-      <ol>
-      <li> Network Plane measurement protocols for Operations, Administration
+      <dl>
+      <dt>Observe:</dt><dd> Network Plane measurement protocols for Operations, Administration
       and Maintenance (OAM) to Observe some or all hops along a Track as well as
       the end-to-end packet delivery, more in <xref target = "aom" />;
-      </li>
-      <li> Controller plane elements to report the links statistics to a
+      </dd>
+      <dt>Orient:</dt><dd> Controller plane elements to report the links statistics to a
       distributed or centralized control function such as a Path Computation
       Element (PCE), that computes and installs the Tracks, and
       provides meta data to Orient the routing decision, more in
       <xref target = "pce" />;
-      </li>
-      <li> A Runtime distributed Path Selection Engine (PSE) thar Decides which
+      </dd>
+      <dt>Decide:</dt><dd> A Runtime distributed Path Selection Engine (PSE) thar Decides which
       subTrack to use for the next packet(s) that are routed along the Track,
       more in <xref target = "psepce" />;
-      </li>
-      <li> Packet (hybrid) ARQ, Replication, Elimination and Ordering Dataplane
+      </dd>
+      <dt>Act:</dt><dd> Packet (hybrid) ARQ, Replication, Elimination and Ordering Dataplane
       actions are controlled from the DetNet Service sublayer to increase the
       reliability of the end-to-end transmission. The RAW architecture also
       covers in-situ signaling when the decision is Acted by a node that
       down the Track from the PSE, more in <xref target = "PAREO" />.
-      </li>
-      </ol>
+      </dd>
+      </dl>
       <figure anchor="oodaloop">
           <name>The RAW OODA Loop</name>
        <artwork align="center" name="" type="" alt="">
@@ -1506,7 +1509,7 @@
    </t>
 
 
-</section > <!-- OODA -->
+</section > <!-- A OODA Loop -->
 <section anchor="aom" numbered="true" toc="default">
     <name>Observe: The RAW OAM </name><t>
     RAW In-situ OAM operation in the Network Plane may observe either a full

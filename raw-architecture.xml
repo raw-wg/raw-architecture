@@ -136,172 +136,6 @@
     <!-- Introduction -->
     <!--  000000000000000000000    -->
 
-    <section anchor="raw" numbered="true" toc="default">
-      <name>Reliable and Available Wireless</name>
-
-    <section anchor="problem" numbered="true" toc="default">
-      <name>The RAW problem</name>
-   <t>
-   While the generic <xref target="RFC8557">"Deterministic Networking
-   Problem Statement"</xref> applies to both the wired and the wireless media,
-   the methods to achieve RAW must extend those used to support time-sensitive
-   networking over wires, as a RAW solution has to address less consistent
-   transmissions, energy conservation and shared spectrum efficiency.
-   </t>
-   <t>
-
-   Operating at the Layer-3, RAW can further increase diversity in the spatial,
-   time, code, and frequency domains by enabling multiple link-layer wired and
-   wireless technologies in parallel or sequentially, for a higher resilience
-   and a wider applicability. RAW can also provide homogeneous services to
-   critical applications beyond the boundaries of a single subnetwork, e.g.,
-   controlling the use of diverse radio access technologies to optimize the
-   end-to-end application experience.
-   </t>
-      <t>
-   RAW provides DetNet elements that are specialized for transporting IP flows
-   over deterministic radios technologies such as listed in
-   <xref target="I-D.ietf-raw-technologies"/>.
-   Conceptually, RAW is agnostic to the radio layer underneath though the
-   capability to schedule transmissions is assumed.
-   How the PHY is programmed to do so, and whether the radio is single-hop
-   or meshed, are unknown at the IP layer and not part of the RAW abstraction.
-   Nevertheless, cross-layer optimizations may take place to ensure proper
-   link awareness (think, link quality) and packet handling (think, scheduling).
-      </t>
-      <t>
-   The <xref target="RFC8655">"Deterministic Networking Architecture"</xref> is
-   composed of three planes: the Application (User) Plane, the Controller Plane,
-   and the Network Plane.
-   The DetNet Network Plane is composed of a DetNet service sub-layer that
-   focuses on flow protection (e.g., using redundancy) and can be fully operated
-   at Layer-3, and a DetNet forwarding sub-layer that associates the flows to the
-   paths, ensures the availability of the necessary resources, and leverages
-   Layer-2 functionalities for timely delivery to the next DetNet system.
-      </t>
-      <t>
-   The RAW Architecture extends the DetNet Network Plane, to accommodate one or
-   multiple hops of homogeneous or heterogeneous wired and wireless technologies.
-   RAW adds reactivity to the DetNet service sub-layer to compensate the dynamics
-   for the radio links in terms of lossiness and bandwidth. This may apply for
-   instance to mesh networks as illustrated in <xref target ="FigCPF"/>, or
-   diverse radio access networks as illustrated in <xref target ="Figranp2"/>.
-      </t>
-
-
-    <t>
-    As opposed to wired links, the availability and performance of an individual
-    wireless link cannot be trusted over the long term; it will vary with transient service discontinuity, and any serial path that includes wireless
-    hops is bound to experience service discontinuity. On the other hand, the
-    wireless medium provides unique capabilities that cannot be found on wires
-    and that the RAW Architecture leverages opportunistically to improve the
-    end-to-end reliability over a collection of links.
-    </t>
-    <t>
-    Those capabilities include:
-    </t>
-    <dl>
-    <dt>Promiscuous Overhearing:</dt><dd> Because the medium is broadcast as opposed to physically point to point like a wire, more than one
-    node in the forward direction of the packet may hear or overhear a
-    transmission, and the reception by one may compensate the loss by another.
-    The concept of path can be revisited in favor multipoint to multipoint
-    progress in the orward direction and statistical chances of successful
-    reception of any of the transmissions by any of the receivers.
-    </dd>
-    <dt>L2-aware routing:</dt><dd> As the quality and speed of a link variates
-    over time, the concept of metric must also be revisited. Shortest path loses
-    its absolute value, and hop count turns into a bad idea as the link budget
-    drops with the distance. Routing over radio requires both 1) a new and more
-    dynamic sense of the link, with new protocols such as DLEP and L2-trigger to
-    maintain L3 up to date with the link quality and availability, and 2) a new
-    approach to multipath routing, where non-equal cost multipath becomes the
-    norm as shortest path loses its meaning with the instability of the metrics.
-    </dd>
-    <dt>ARQ, FEC and codes:</dt><dd>Though feasible on any technology, proactive
-    (forward) and reactive (ARQ) error correction are typical to the wireless
-    media. Bounded latency can still be obtained on a wireless link while
-    operating those technologies, provided that the extra transmission happens
-    within the budget allocated to that hop, or that the introduced delay is
-    compensated along the path. In the case of coded fragments and retries, it
-    makes sense to variate all the possible physical properties of the
-    transmission to reduce the chances that the same effect causes the loss of
-    both original and redundant transimissions.
-    </dd>
-    <dt>Relay Coordination and constructive interference:</dt><dd>Though it can be difficult to achieve at high speed, a fine time synchronization and a
-    precide sense of phase allows the energy from multiple coordinated senders
-    to add up at the receiver and actually improve the signal quality,
-    compensating for either distance or physical objects in the Fresnel zone
-    that would reduce the link budget.
-    </dd>
-      </dl>
-      <t>
-    RAW and DetNet route application flows that require a special
-    treatment along the paths that will provide that treatment.
-    This may be seen as a form of Path Aware Networking and may be subject to
-    impediments documented in <xref target="RFC9049"/>.
-      </t>
-      <t>
-   The establishment of a path is not in-scope for RAW. It may be the product of
-   a centralized Controller Plane Function like a Path computation Element (PCE)
-   <xref target="RFC4655"/> or a distributed routing protocol.
-   For the most part, the remainder of the
-   document mentions centralized control and PCE, but conceptually, the same
-   issues and needs would arise for a distributed protocol that would attempt to
-   allocate constrained resources and optimize globally, and the distributed
-   approach is considered in scope too.
-   </t>
-   <t>
-   As opposed to wired
-   networks, the action of installing a path over a set of wireless links
-   may be very slow relative to the speed at which the radio conditions vary,
-   and it makes sense in the wireless case to provide redundant forwarding
-   solutions along a complex path (see <xref target="pt"/>) and to leave it
-   to the Network Plane to select which of those forwarding solutions are to be
-   used for a given packet based on the current conditions.
-      </t>
-      <t>
-   RAW distinguishes the longer time scale at which routes are computed from the
-   the shorter forwarding time scale where per-packet decisions are made.
-   RAW operates within the Network Plane at the forwarding time scale on one
-   DetNet flow over a complex path delineated by a Track
-   (see <xref target="trk"/>). The Track is
-   preestablished and installed by means outside of the scope of RAW; it may be
-   strict or loose depending on whether each or just a subset of the hops are
-   observed and controlled by RAW.
-      </t>
-      <t>
-   The RAW Architecture is based on an abstract OODA Loop (Observe, Orient, Decide,
-   Act). The generic concept involves:
-      </t>
-      <ol>
-      <li> Network Plane measurement protocols for Operations, Administration
-      and Maintenance (OAM) to Observe some or all hops along a Track as well as
-      the end-to-end packet delivery
-      </li>
-      <li> Optional Controller plane elements that report the links statistics
-      to be used to compute and install the Tracks, and provides meta data to
-      Orient the routing decision, e.g., by a PCE in a centralized controller
-      </li>
-      <li> A Runtime distributed Path Selection Engine (PSE) that Decides which
-      subTrack to use for the next packet(s) that are routed along the Track
-      </li>
-      <li> Packet (hybrid) ARQ, Replication, Elimination and Ordering Dataplane
-      actions that operate at the DetNet Service sublayer to increase the
-      reliability of the end-to-end transmissions. The RAW architecture also
-      covers in-situ signaling when the decision is Acted by a node that
-      down the Track from the PSE.
-      </li>
-      </ol>
-   <t> The overall OODA Loop optimizes the use of redundancy to achieve the
-   required reliability and availability Service Level Agreement (SLA) while
-   minimizing the use of constrained resources such as spectrum and battery.
-   </t>
-   <t>This document presents the RAW problem and associated terminology in
-   <xref target="problem"/>, and elaborates in <xref target="ooda"/>
-   on the OODA loop based on the RAW conceptual model presented in
-   <xref target="model"/>.
-   </t>
-
 
    <section anchor="terms" numbered="true" toc="default">
     <name>Terminology</name>
@@ -711,6 +545,11 @@
 
     </section><!-- Terminology -->
     <!--  1111111111111111    -->
+    <section anchor="raw" numbered="true" toc="default">
+      <name>Reliable and Available Wireless</name>
+
+
+    <!--  111  -->
 
     <section numbered="true" toc="default">
       <name>Reliability and Availability</name>
@@ -1122,10 +961,171 @@
     </section >
     <!--Routing Time Scale vs. Forwarding Time Scale-->
 
+    <section anchor="problem" numbered="true" toc="default">
+      <name>The RAW problem</name>
+   <t>
+   While the generic <xref target="RFC8557">"Deterministic Networking
+   Problem Statement"</xref> applies to both the wired and the wireless media,
+   the methods to achieve RAW must extend those used to support time-sensitive
+   networking over wires, as a RAW solution has to address less consistent
+   transmissions, energy conservation and shared spectrum efficiency.
+   </t>
+   <t>
+
+   Operating at the Layer-3, RAW does not change the wireless technology at the lower layers. OTOH, it can can further increase diversity in the spatial,
+   time, code, and frequency domains by enabling multiple link-layer wired and
+   wireless technologies in parallel or sequentially, for a higher resilience
+   and a wider applicability. RAW can also provide homogeneous services to
+   critical applications beyond the boundaries of a single subnetwork, e.g.,
+   controlling the use of diverse radio access technologies to optimize the
+   end-to-end application experience.
+   </t>
+      <t>
+   RAW improves the DetNet services by providing elements that are specialized
+   for transporting IP flows over deterministic radios technologies such as
+   listed in <xref target="I-D.ietf-raw-technologies"/>.
+   Conceptually, RAW is agnostic to the radio layer underneath though the
+   capability to schedule transmissions is assumed.
+   How the PHY is programmed to do so, and whether the radio is single-hop
+   or meshed, are unknown at the IP layer and not part of the RAW abstraction.
+   Nevertheless, cross-layer optimizations may take place to ensure proper
+   link awareness (think, link quality) and packet handling (think, scheduling).
+      </t>
+      <t>
+   The <xref target="RFC8655">"Deterministic Networking Architecture"</xref> is
+   composed of three planes: the Application (User) Plane, the Controller Plane,
+   and the Network Plane.
+   The DetNet Network Plane is composed of a DetNet service sub-layer that
+   focuses on flow protection (e.g., using redundancy) and can be fully operated
+   at Layer-3, and a DetNet forwarding sub-layer that associates the flows to the
+   paths, ensures the availability of the necessary resources, and leverages
+   Layer-2 functionalities for timely delivery to the next DetNet system.
+      </t>
+      <t>
+   The RAW Architecture extends the DetNet Network Plane, to accommodate one or
+   multiple hops of homogeneous or heterogeneous wired and wireless technologies.
+   RAW adds reactivity to the DetNet service sub-layer to compensate the dynamics
+   for the radio links in terms of lossiness and bandwidth. This may apply for
+   instance to mesh networks as illustrated in <xref target ="FigCPF"/>, or
+   diverse radio access networks as illustrated in <xref target ="Figranp2"/>.
+      </t>
+
+
+    <t>
+    As opposed to wired links, the availability and performance of an individual
+    wireless link cannot be trusted over the long term; it will vary with transient service discontinuity, and any serial path that includes wireless
+    hops is bound to experience service discontinuity. On the other hand, the
+    wireless medium provides unique capabilities that cannot be found on wires
+    and that the RAW Architecture leverages opportunistically to improve the
+    end-to-end reliability over a collection of links.
+    </t>
+    <t>
+    Those capabilities include:
+    </t>
+    <dl>
+    <dt>Promiscuous Overhearing:</dt><dd> Because the medium is broadcast as opposed to physically point to point like a wire, more than one
+    node in the forward direction of the packet may hear or overhear a
+    transmission, and the reception by one may compensate the loss by another.
+    The concept of path can be revisited in favor multipoint to multipoint
+    progress in the orward direction and statistical chances of successful
+    reception of any of the transmissions by any of the receivers.
+    </dd>
+    <dt>L2-aware routing:</dt><dd> As the quality and speed of a link variates
+    over time, the concept of metric must also be revisited. Shortest path loses
+    its absolute value, and hop count turns into a bad idea as the link budget
+    drops with the distance. Routing over radio requires both 1) a new and more
+    dynamic sense of the link, with new protocols such as DLEP and L2-trigger to
+    maintain L3 up to date with the link quality and availability, and 2) a new
+    approach to multipath routing, where non-equal cost multipath becomes the
+    norm as shortest path loses its meaning with the instability of the metrics.
+    </dd>
+    <dt>ARQ, FEC and codes:</dt><dd>Though feasible on any technology, proactive
+    (forward) and reactive (ARQ) error correction are typical to the wireless
+    media. Bounded latency can still be obtained on a wireless link while
+    operating those technologies, provided that the extra transmission happens
+    within the budget allocated to that hop, or that the introduced delay is
+    compensated along the path. In the case of coded fragments and retries, it
+    makes sense to variate all the possible physical properties of the
+    transmission to reduce the chances that the same effect causes the loss of
+    both original and redundant transimissions.
+    </dd>
+    <dt>Relay Coordination and constructive interference:</dt><dd>Though it can be difficult to achieve at high speed, a fine time synchronization and a
+    precise sense of phase allows the energy from multiple coordinated senders
+    to add up at the receiver and actually improve the signal quality,
+    compensating for either distance or physical objects in the Fresnel zone
+    that would reduce the link budget.
+    </dd>
+      </dl>
+      <t>
+    RAW and DetNet route application flows that require a special
+    treatment along the paths that will provide that treatment.
+    This may be seen as a form of Path Aware Networking and may be subject to
+    impediments documented in <xref target="RFC9049"/>.
+      </t>
+      <t>
+   The establishment of a path is not in-scope for RAW. It may be the product of
+   a centralized Controller Plane Function like a Path computation Element (PCE)
+   <xref target="RFC4655"/> or a distributed routing protocol.
+   For the most part, the remainder of the
+   document mentions centralized control and PCE, but conceptually, the same
+   issues and needs would arise for a distributed protocol that would attempt to
+   allocate constrained resources and optimize globally, and the distributed
+   approach is considered in scope too.
+   </t>
+   <t>
+   As opposed to wired
+   networks, the action of installing a path over a set of wireless links
+   may be very slow relative to the speed at which the radio conditions vary,
+   and it makes sense in the wireless case to provide redundant forwarding
+   solutions along a complex path (see <xref target="pt"/>) and to leave it
+   to the Network Plane to select which of those forwarding solutions are to be
+   used for a given packet based on the current conditions.
+      </t>
+      <t>
+   RAW distinguishes the longer time scale at which routes are computed from the
+   the shorter forwarding time scale where per-packet decisions are made.
+   RAW operates within the Network Plane at the forwarding time scale on one
+   DetNet flow over a complex path delineated by a Track
+   (see <xref target="trk"/>). The Track is
+   preestablished and installed by means outside of the scope of RAW; it may be
+   strict or loose depending on whether each or just a subset of the hops are
+   observed and controlled by RAW.
+      </t>
+      <t>
+   The RAW Architecture is based on an abstract OODA Loop (Observe, Orient, Decide,
+   Act). The generic concept involves:
+      </t>
+      <ol>
+      <li> Network Plane measurement protocols for Operations, Administration
+      and Maintenance (OAM) to Observe some or all hops along a Track as well as
+      the end-to-end packet delivery
+      </li>
+      <li> Optional Controller plane elements that report the links statistics
+      to be used to compute and install the Tracks, and provides meta data to
+      Orient the routing decision, e.g., by a PCE in a centralized controller
+      </li>
+      <li> A Runtime distributed Path Selection Engine (PSE) that Decides which
+      subTrack to use for the next packet(s) that are routed along the Track
+      </li>
+      <li> Packet (hybrid) ARQ, Replication, Elimination and Ordering Dataplane
+      actions that operate at the DetNet Service sublayer to increase the
+      reliability of the end-to-end transmissions. The RAW architecture also
+      covers in-situ signaling when the decision is Acted by a node that
+      down the Track from the PSE.
+      </li>
+      </ol>
+   <t> The overall OODA Loop optimizes the use of redundancy to achieve the
+   required reliability and availability Service Level Agreement (SLA) while
+   minimizing the use of constrained resources such as spectrum and battery.
+   </t>
+   <t>This document presents the RAW problem and associated terminology in
+   <xref target="problem"/>, and elaborates in <xref target="ooda"/>
+   on the OODA loop based on the RAW conceptual model presented in
+   <xref target="model"/>.
+   </t>
+
+
     </section>      <!-- The RAW problem -->
-
-    <!--  111  -->
-
      </section>   <!-- Reliable and Available Wireless -->
 
     <!--  000000000000000000000    -->

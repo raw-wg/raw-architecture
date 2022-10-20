@@ -872,94 +872,6 @@
     <!--  11111111111111111111    -->
 
 
-    <section anchor="timescale" numbered="true" toc="default">
-      <name>Routing Time Scale vs. Forwarding Time Scale</name>
-      <t>
-   With DetNet, the Controller Plane Function (CPF) handles the routing
-   computation and maintenance. With RAW, the CPF also performs the PSE
-   orientation, proposing SubTracks to use in response to network events.
-   The CPF can be can be centralized in a PCE, and can reside outside the
-   network. This is how the remainder of this document depicts it, though
-   the CPF could be implemented otherwise without affecting the architecture.
-   In a wireless mesh, the path to the PCE can be expensive and slow,
-   possibly going across the whole mesh and back.
-   Reaching to the PCE can also be slow in regards to the speed
-   of events that affect the forwarding operation at the radio layer.
-   In the same fashion, a distributed routing protocol may also take time and
-   consume excessive wireless resources to reconverge to a new optimized state.
-
-      </t><t>
-   Due to that cost and latency, the Controller Plane is not
-   expected to be sensitive/reactive to transient changes. The abstraction of a
-   link at the routing level is expected to use statistical metrics
-   that aggregate the behavior of a link over long periods of time, and
-   represent its properties as shades of gray as opposed to numerical values
-   such as a link quality indicator, or a boolean value for either up or down.
-      </t>
-
-         <figure anchor="Figcontrol">
-          <name>Time Scales</name>
-       <artwork align="center" name="" type="" alt="">
-       <![CDATA[
-               +----------------+
-               |  Controller    |
-               |    [PCE]       |
-               +----------------+
-                       ^
-                       |
-                      Slow
-                       |
-   _-._-._-._-._-._-.  |  ._-._-._-._-._-._-._-._-._-._-._-._-
- _-._-._-._-._-._-._-. | _-._-._-._-._-._-._-._-._-._-._-._-
-                       |
-                    Expensive
-                       |
-                ....   |  .......
-            ....    .  | .       .......
-         ....          v               ...
-       ..    A-------B-------C---D        ..
-    ...     /  \           /      \      ..
-   .       I ----M-------N--***-- E        ..
-   ..       \         /         /         ...
-     ..      P--***--Q-----M---R        ....
-       ..                              ....
-        .   <----- Fast ------->    ....
-         .......                ....
-                .................
-
-*** = flapping at this time
-    ]]>
-       </artwork>
-       </figure>
-      <t>
-   In the case of wireless, the changes that affect the forwarding decision can
-   happen frequently and often for short durations, e.g., a mobile object moves
-   between a transmitter and a receiver, and will cancel the line of sight
-   transmission for a few seconds, or a radar measures the depth of a pool and
-   interferes on a particular channel for a split second.
-      </t>
-      <t>
-   There is thus a desire to separate the long term computation of the route and
-   the short term forwarding decision. In that model, the routing operation
-   computes a complex Track that enables multiple Non-Equal Cost Multi-Path
-   (N-ECMP) forwarding solutions, and leaves it to the Data Plane to make
-   the per-packet decision of which of these possibilities should be used.
-      </t>
-      <t>
-   In the wired world, and more specifically in the context of Traffic
-   Engineering (TE), an alternate path can be used upon the detection of a
-   failure in the main path, e.g., using OAM in MPLS-TP or BFD over a
-   collection of SD-WAN tunnels. RAW
-   formalizes a forwarding time scale that is an order(s) of magnitude shorter
-   than the controller plane routing time scale, and separates the protocols
-   and metrics that are used at both scales.
-   Routing can operate on long term statistics such as delivery
-   ratio over minutes to hours, but as a first approximation can ignore flapping.
-   On the other hand, the RAW forwarding decision is made at the scale of the packet rate, and uses information that must be pertinent at the present time for the current transmission(s).
-      </t>
-
-    </section >
-    <!--Routing Time Scale vs. Forwarding Time Scale-->
 
     <section anchor="problem" numbered="true" toc="default">
       <name>The RAW problem</name>
@@ -1443,17 +1355,108 @@
 
 
 
-    </section> <!-- The RAW Conceptual Model -->
-
-
     <!--  1111111111111   -->
 
-<section anchor="ooda" numbered="true" toc="default">
-    <name>The OODA Loop</name>
 
+</section> <!-- The RAW Conceptual Model -->
+<section anchor="ooda" numbered="true" toc="default">
+    <name>The RAW Control Loop</name>
+
+
+    <section anchor="timescale" numbered="true" toc="default">
+      <name>Routing Time Scale vs. Forwarding Time Scale</name>
       <t>
-   The RAW Architecture is structured as an OODA Loop (Observe, Orient, Decide,
-   Act). It involves:
+   With DetNet, the Controller Plane Function (CPF) handles the routing
+   computation and maintenance. With RAW, the CPF also performs the PSE
+   orientation, proposing SubTracks to use in response to network events.
+   The CPF can be can be centralized in a PCE, and can reside outside the
+   network. This is how the remainder of this document depicts it, though
+   the CPF could be implemented otherwise without affecting the architecture.
+   In a wireless mesh, the path to the PCE can be expensive and slow,
+   possibly going across the whole mesh and back.
+   Reaching to the PCE can also be slow in regards to the speed
+   of events that affect the forwarding operation at the radio layer.
+   In the same fashion, a distributed routing protocol may also take time and
+   consume excessive wireless resources to reconverge to a new optimized state.
+
+      </t><t>
+   Due to that cost and latency, the Controller Plane is not
+   expected to be sensitive/reactive to transient changes. The abstraction of a
+   link at the routing level is expected to use statistical metrics
+   that aggregate the behavior of a link over long periods of time, and
+   represent its properties as shades of gray as opposed to numerical values
+   such as a link quality indicator, or a boolean value for either up or down.
+      </t>
+
+         <figure anchor="Figcontrol">
+          <name>Time Scales</name>
+       <artwork align="center" name="" type="" alt="">
+       <![CDATA[
+               +----------------+
+               |  Controller    |
+               |    [PCE]       |
+               +----------------+
+                       ^
+                       |
+                      Slow
+                       |
+   _-._-._-._-._-._-.  |  ._-._-._-._-._-._-._-._-._-._-._-._-
+ _-._-._-._-._-._-._-. | _-._-._-._-._-._-._-._-._-._-._-._-
+                       |
+                    Expensive
+                       |
+                ....   |  .......
+            ....    .  | .       .......
+         ....          v               ...
+       ..    A-------B-------C---D        ..
+    ...     /  \           /      \      ..
+   .       I ----M-------N--***-- E        ..
+   ..       \         /         /         ...
+     ..      P--***--Q-----M---R        ....
+       ..                              ....
+        .   <----- Fast ------->    ....
+         .......                ....
+                .................
+
+*** = flapping at this time
+    ]]>
+       </artwork>
+       </figure>
+      <t>
+   In the case of wireless, the changes that affect the forwarding decision can
+   happen frequently and often for short durations, e.g., a mobile object moves
+   between a transmitter and a receiver, and will cancel the line of sight
+   transmission for a few seconds, or a radar measures the depth of a pool and
+   interferes on a particular channel for a split second.
+      </t>
+      <t>
+   There is thus a desire to separate the long term computation of the route and
+   the short term forwarding decision. In that model, the routing operation
+   computes a complex Track that enables multiple Non-Equal Cost Multi-Path
+   (N-ECMP) forwarding solutions, and leaves it to the Data Plane to make
+   the per-packet decision of which of these possibilities should be used.
+      </t>
+      <t>
+   In the wired world, and more specifically in the context of Traffic
+   Engineering (TE), an alternate path can be used upon the detection of a
+   failure in the main path, e.g., using OAM in MPLS-TP or BFD over a
+   collection of SD-WAN tunnels. RAW
+   formalizes a forwarding time scale that is an order(s) of magnitude shorter
+   than the controller plane routing time scale, and separates the protocols
+   and metrics that are used at both scales.
+   Routing can operate on long term statistics such as delivery
+   ratio over minutes to hours, but as a first approximation can ignore flapping.
+   On the other hand, the RAW forwarding decision is made at the scale of the packet rate, and uses information that must be pertinent at the present time for the current transmission(s).
+      </t>
+
+    </section >
+    <!--Routing Time Scale vs. Forwarding Time Scale-->
+
+<section anchor="ooda" numbered="true" toc="default">
+    <name>OODA</name>
+      <t>
+   The RAW Architecture is structured as an OODA (Observe, Orient, Decide,
+   Act) Control Loop. It involves:
       </t>
       <ol>
       <li> Network Plane measurement protocols for Operations, Administration
@@ -1502,6 +1505,8 @@
    minimizing the use of constrained resources such as spectrum and battery.
    </t>
 
+
+</section > <!-- OODA -->
 <section anchor="aom" numbered="true" toc="default">
     <name>Observe: The RAW OAM </name><t>
     RAW In-situ OAM operation in the Network Plane may observe either a full
@@ -1972,7 +1977,7 @@ Ingress =   |      |      |   = Egress
 </section>      <!-- Act: The PAREO Functions-->
 
 </section>
-   <!-- The OODA Loop -->
+   <!-- The RAW Control Loop -->
 
     <!--  000000000000000000000    -->
 

@@ -15,10 +15,12 @@
 <?rfc subcompact="no"?>
 <?rfc authorship="yes"?>
 <?rfc tocappendix="yes"?>
-<rfc xmlns:xi="http://www.w3.org/2001/XInclude" category="info" docName="draft-ietf-raw-architecture-07"
-     ipr="trust200902" obsoletes="" updates="" submissionType="IETF" xml:lang="en" version="3">
+<rfc xmlns:xi="http://www.w3.org/2001/XInclude" category="info" docName="draft-ietf-raw-architecture-09"
+     ipr="trust200902" obsoletes="" updates="" submissionType="IETF"
+     xml:lang="en" version="3">
   <front>
-    <title abbrev="RAW Architecture/Framework">Reliable and Available Wireless Architecture</title>
+    <title abbrev="RAW Architecture/Framework">Reliable and Available Wireless
+    Architecture</title>
     <author initials="P" surname="Thubert" fullname="Pascal Thubert" role="editor">
       <organization abbrev="Cisco Systems">Cisco Systems, Inc</organization>
       <address>
@@ -124,13 +126,30 @@
    Multiple links and transmissions must be used, and the challenge is to
    provide enough diversity and redundancy to ensure the timely packet delivery
    while preserving energy and optimizing the use of the shared spectrum.
-      </t>
-   <t>
+   </t><t>
    Reliable and Available Wireless (RAW) takes up the challenge of providing
    highly available and reliable end-to-end performances in a network with
    scheduled wireless segments.
-   To defeat those additional causes of transmission delay and loss in wireless
-   transmission, RAW requires and leverages deterministic Layer-2 capabilities.
+      </t>
+
+    </section>
+    <!-- Introduction -->
+    <!--  000000000000000000000    -->
+
+    <section anchor="raw" numbered="true" toc="default">
+      <name>Reliable and Available Wireless</name>
+
+    <section anchor="problem" numbered="true" toc="default">
+      <name>The RAW problem</name>
+   <t>
+   While the generic <xref target="RFC8557">"Deterministic Networking
+   Problem Statement"</xref> applies to both the wired and the wireless media,
+   the methods to achieve RAW must extend those used to support time-sensitive
+   networking over wires, as a RAW solution has to address less consistent
+   transmissions, energy conservation and shared spectrum efficiency.
+   </t>
+   <t>
+
    Operating at the Layer-3, RAW can further increase diversity in the spatial,
    time, code, and frequency domains by enabling multiple link-layer wired and
    wireless technologies in parallel or sequentially, for a higher resilience
@@ -138,13 +157,6 @@
    critical applications beyond the boundaries of a single subnetwork, e.g.,
    controlling the use of diverse radio access technologies to optimize the
    end-to-end application experience.
-   </t>
-   <t>
-   While the generic <xref target="RFC8557">"Deterministic Networking
-   Problem Statement"</xref> applies to both the wired and the wireless media,
-   the methods to achieve RAW must extend those used to support time-sensitive
-   networking over wires, as a RAW solution has to address less consistent
-   transmissions, energy conservation and shared spectrum efficiency.
    </t>
       <t>
    RAW provides DetNet elements that are specialized for transporting IP flows
@@ -175,6 +187,53 @@
    instance to mesh networks as illustrated in <xref target ="FigCPF"/>, or
    diverse radio access networks as illustrated in <xref target ="Figranp2"/>.
       </t>
+
+
+    <t>
+    As opposed to wired links, the availability and performance of an individual
+    wireless link cannot be trusted over the long term; it will vary with transient service discontinuity, and any serial path that includes wireless
+    hops is bound to experience service discontinuity. On the other hand, the
+    wireless medium provides unique capabilities that cannot be found on wires
+    and that the RAW Architecture leverages opportunistically to improve the
+    end-to-end reliability over a collection of links.
+    </t>
+    <t>
+    Those capabilities include:
+    </t>
+    <dl>
+    <dt>Promiscuous Overhearing:</dt><dd> Because the medium is broadcast as opposed to physically point to point like a wire, more than one
+    node in the forward direction of the packet may hear or overhear a
+    transmission, and the reception by one may compensate the loss by another.
+    The concept of path can be revisited in favor multipoint to multipoint
+    progress in the orward direction and statistical chances of successful
+    reception of any of the transmissions by any of the receivers.
+    </dd>
+    <dt>L2-aware routing:</dt><dd> As the quality and speed of a link variates
+    over time, the concept of metric must also be revisited. Shortest path loses
+    its absolute value, and hop count turns into a bad idea as the link budget
+    drops with the distance. Routing over radio requires both 1) a new and more
+    dynamic sense of the link, with new protocols such as DLEP and L2-trigger to
+    maintain L3 up to date with the link quality and availability, and 2) a new
+    approach to multipath routing, where non-equal cost multipath becomes the
+    norm as shortest path loses its meaning with the instability of the metrics.
+    </dd>
+    <dt>ARQ, FEC and codes:</dt><dd>Though feasible on any technology, proactive
+    (forward) and reactive (ARQ) error correction are typical to the wireless
+    media. Bounded latency can still be obtained on a wireless link while
+    operating those technologies, provided that the extra transmission happens
+    within the budget allocated to that hop, or that the introduced delay is
+    compensated along the path. In the case of coded fragments and retries, it
+    makes sense to variate all the possible physical properties of the
+    transmission to reduce the chances that the same effect causes the loss of
+    both original and redundant transimissions.
+    </dd>
+    <dt>Relay Coordination and constructive interference:</dt><dd>Though it can be difficult to achieve at high speed, a fine time synchronization and a
+    precide sense of phase allows the energy from multiple coordinated senders
+    to add up at the receiver and actually improve the signal quality,
+    compensating for either distance or physical objects in the Fresnel zone
+    that would reduce the link budget.
+    </dd>
+      </dl>
       <t>
     RAW and DetNet route application flows that require a special
     treatment along the paths that will provide that treatment.
@@ -243,12 +302,6 @@
    <xref target="model"/>.
    </t>
 
-    </section>
-    <!-- Introduction -->
-    <!--  000000000000000000000    -->
-
-    <section anchor="problem" numbered="true" toc="default">
-      <name>The RAW problem</name>
 
    <section anchor="terms" numbered="true" toc="default">
     <name>Terminology</name>
@@ -1070,10 +1123,12 @@
     <!--Routing Time Scale vs. Forwarding Time Scale-->
 
     </section>      <!-- The RAW problem -->
+
+    <!--  111  -->
+
+     </section>   <!-- Reliable and Available Wireless -->
+
     <!--  000000000000000000000    -->
-
-
-
 
 <section anchor="model" numbered="true" toc="default">
     <name>The RAW Conceptual Model</name>
@@ -1977,6 +2032,7 @@ Ingress =   |      |      |   = Egress
       <t>The editor wishes to thank:
       </t>
       <dl>
+    <dt>Lou Berger:</dt><dd>Lab N</dd>
     <dt>Xavi Vilajosana:</dt><dd>Wireless Networks Research Lab, Universitat Oberta de Catalunya</dd>
     <dt>Remous-Aris Koutsiamanis:</dt><dd>IMT Atlantique</dd>
     <dt>Nicolas Montavont:</dt><dd>IMT Atlantique</dd>
@@ -1990,6 +2046,8 @@ Ingress =   |      |      |   = Egress
     <!--  000000000000000000000    -->
 
    <section><name>Acknowledgments</name>
+   <t>This architecture could never have been completed without the support and recommendations from the DetNet Chairs Janos Farkas and Lou Berger. Many thanks to both.
+   </t>
    <t>The authors wish to thank Dave Cavalcanti and Fabrice Theoleyre for their
    in-depth reviews during the development of this document.
    </t>

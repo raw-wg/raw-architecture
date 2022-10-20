@@ -5,12 +5,12 @@
 RAW                                                      P. Thubert, Ed.
 Internet-Draft                                             Cisco Systems
 Intended status: Informational                         G.Z. Papadopoulos
-Expires: 20 March 2023                                    IMT Atlantique
-                                                       16 September 2022
+Expires: 23 April 2023                                    IMT Atlantique
+                                                         20 October 2022
 
 
               Reliable and Available Wireless Architecture
-                     draft-ietf-raw-architecture-07
+                     draft-ietf-raw-architecture-09
 
 Abstract
 
@@ -42,7 +42,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 20 March 2023.
+   This Internet-Draft will expire on 23 April 2023.
 
 Copyright Notice
 
@@ -53,9 +53,9 @@ Copyright Notice
 
 
 
-Thubert & Papadopoulos    Expires 20 March 2023                 [Page 1]
+Thubert & Papadopoulos    Expires 23 April 2023                 [Page 1]
 
-Internet-Draft         RAW Architecture/Framework         September 2022
+Internet-Draft         RAW Architecture/Framework           October 2022
 
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -70,48 +70,48 @@ Internet-Draft         RAW Architecture/Framework         September 2022
 Table of Contents
 
    1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   3
-   2.  The RAW problem . . . . . . . . . . . . . . . . . . . . . . .   6
-     2.1.  Terminology . . . . . . . . . . . . . . . . . . . . . . .   6
-       2.1.1.  Acronyms  . . . . . . . . . . . . . . . . . . . . . .   6
-       2.1.2.  Link and Direction  . . . . . . . . . . . . . . . . .   7
-       2.1.3.  Path and Tracks . . . . . . . . . . . . . . . . . . .   7
-       2.1.4.  Deterministic Networking  . . . . . . . . . . . . . .  10
-       2.1.5.  Reliability and Availability  . . . . . . . . . . . .  11
-       2.1.6.  OAM variations  . . . . . . . . . . . . . . . . . . .  12
-     2.2.  Reliability and Availability  . . . . . . . . . . . . . .  13
-       2.2.1.  High Availability Engineering Principles  . . . . . .  13
-       2.2.2.  Applying Reliability Concepts to Networking . . . . .  15
-       2.2.3.  Wireless Effects Affecting Reliability  . . . . . . .  16
-     2.3.  Routing Time Scale vs. Forwarding Time Scale  . . . . . .  18
-   3.  The RAW Conceptual Model  . . . . . . . . . . . . . . . . . .  20
-     3.1.  The RAW Planes  . . . . . . . . . . . . . . . . . . . . .  20
-     3.2.  RAW vs. Upper and Lower Layers  . . . . . . . . . . . . .  22
-     3.3.  RAW and DetNet  . . . . . . . . . . . . . . . . . . . . .  23
-   4.  The OODA Loop . . . . . . . . . . . . . . . . . . . . . . . .  26
-     4.1.  Observe: The RAW OAM  . . . . . . . . . . . . . . . . . .  27
-     4.2.  Orient: The Path Computation Engine . . . . . . . . . . .  28
-     4.3.  Decide: The Path Selection Engine . . . . . . . . . . . .  29
-     4.4.  Act: The PAREO Functions  . . . . . . . . . . . . . . . .  31
-       4.4.1.  Packet Replication  . . . . . . . . . . . . . . . . .  32
-       4.4.2.  Packet Elimination  . . . . . . . . . . . . . . . . .  33
-       4.4.3.  Promiscuous Overhearing . . . . . . . . . . . . . . .  33
-       4.4.4.  Constructive Interference . . . . . . . . . . . . . .  33
-   5.  Security Considerations . . . . . . . . . . . . . . . . . . .  34
-     5.1.  Layer-2 encryption  . . . . . . . . . . . . . . . . . . .  34
-     5.2.  Forced Access . . . . . . . . . . . . . . . . . . . . . .  34
-   6.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  34
-   7.  Contributors  . . . . . . . . . . . . . . . . . . . . . . . .  34
-   8.  Acknowledgments . . . . . . . . . . . . . . . . . . . . . . .  35
-   9.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  35
-     9.1.  Normative References  . . . . . . . . . . . . . . . . . .  35
-     9.2.  Informative References  . . . . . . . . . . . . . . . . .  36
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  38
+   2.  Reliable and Available Wireless . . . . . . . . . . . . . . .   3
+     2.1.  The RAW problem . . . . . . . . . . . . . . . . . . . . .   4
+       2.1.1.  Terminology . . . . . . . . . . . . . . . . . . . . .   7
+       2.1.2.  Reliability and Availability  . . . . . . . . . . . .  14
+       2.1.3.  Routing Time Scale vs. Forwarding Time Scale  . . . .  19
+   3.  The RAW Conceptual Model  . . . . . . . . . . . . . . . . . .  21
+     3.1.  The RAW Planes  . . . . . . . . . . . . . . . . . . . . .  21
+     3.2.  RAW vs. Upper and Lower Layers  . . . . . . . . . . . . .  23
+     3.3.  RAW and DetNet  . . . . . . . . . . . . . . . . . . . . .  24
+   4.  The OODA Loop . . . . . . . . . . . . . . . . . . . . . . . .  27
+     4.1.  Observe: The RAW OAM  . . . . . . . . . . . . . . . . . .  28
+     4.2.  Orient: The Path Computation Engine . . . . . . . . . . .  29
+     4.3.  Decide: The Path Selection Engine . . . . . . . . . . . .  30
+     4.4.  Act: The PAREO Functions  . . . . . . . . . . . . . . . .  32
+       4.4.1.  Packet Replication  . . . . . . . . . . . . . . . . .  33
+       4.4.2.  Packet Elimination  . . . . . . . . . . . . . . . . .  34
+       4.4.3.  Promiscuous Overhearing . . . . . . . . . . . . . . .  34
+       4.4.4.  Constructive Interference . . . . . . . . . . . . . .  34
+   5.  Security Considerations . . . . . . . . . . . . . . . . . . .  35
+     5.1.  Layer-2 encryption  . . . . . . . . . . . . . . . . . . .  35
+     5.2.  Forced Access . . . . . . . . . . . . . . . . . . . . . .  35
+   6.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  35
+   7.  Contributors  . . . . . . . . . . . . . . . . . . . . . . . .  35
+   8.  Acknowledgments . . . . . . . . . . . . . . . . . . . . . . .  36
+   9.  References  . . . . . . . . . . . . . . . . . . . . . . . . .  36
+     9.1.  Normative References  . . . . . . . . . . . . . . . . . .  36
+     9.2.  Informative References  . . . . . . . . . . . . . . . . .  37
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  39
 
 
 
-Thubert & Papadopoulos    Expires 20 March 2023                 [Page 2]
+
+
+
+
+
+
+
+
+Thubert & Papadopoulos    Expires 23 April 2023                 [Page 2]
 
-Internet-Draft         RAW Architecture/Framework         September 2022
+Internet-Draft         RAW Architecture/Framework           October 2022
 
 
 1.  Introduction
@@ -158,25 +158,19 @@ Internet-Draft         RAW Architecture/Framework         September 2022
 
    Reliable and Available Wireless (RAW) takes up the challenge of
    providing highly available and reliable end-to-end performances in a
-   network with scheduled wireless segments.  To defeat those additional
-   causes of transmission delay and loss in wireless transmission, RAW
-   requires and leverages deterministic Layer-2 capabilities.  Operating
-   at the Layer-3, RAW can further increase diversity in the spatial,
+   network with scheduled wireless segments.
+
+2.  Reliable and Available Wireless
 
 
 
-Thubert & Papadopoulos    Expires 20 March 2023                 [Page 3]
+
+Thubert & Papadopoulos    Expires 23 April 2023                 [Page 3]
 
-Internet-Draft         RAW Architecture/Framework         September 2022
+Internet-Draft         RAW Architecture/Framework           October 2022
 
 
-   time, code, and frequency domains by enabling multiple link-layer
-   wired and wireless technologies in parallel or sequentially, for a
-   higher resilience and a wider applicability.  RAW can also provide
-   homogeneous services to critical applications beyond the boundaries
-   of a single subnetwork, e.g., controlling the use of diverse radio
-   access technologies to optimize the end-to-end application
-   experience.
+2.1.  The RAW problem
 
    While the generic "Deterministic Networking Problem Statement"
    [RFC8557] applies to both the wired and the wireless media, the
@@ -184,6 +178,15 @@ Internet-Draft         RAW Architecture/Framework         September 2022
    sensitive networking over wires, as a RAW solution has to address
    less consistent transmissions, energy conservation and shared
    spectrum efficiency.
+
+   Operating at the Layer-3, RAW can further increase diversity in the
+   spatial, time, code, and frequency domains by enabling multiple link-
+   layer wired and wireless technologies in parallel or sequentially,
+   for a higher resilience and a wider applicability.  RAW can also
+   provide homogeneous services to critical applications beyond the
+   boundaries of a single subnetwork, e.g., controlling the use of
+   diverse radio access technologies to optimize the end-to-end
+   application experience.
 
    RAW provides DetNet elements that are specialized for transporting IP
    flows over deterministic radios technologies such as listed in
@@ -212,19 +215,77 @@ Internet-Draft         RAW Architecture/Framework         September 2022
    networks as illustrated in Figure 3, or diverse radio access networks
    as illustrated in Figure 8.
 
+   As opposed to wired links, the availability and performance of an
+   individual wireless link cannot be trusted over the long term; it
+   will vary with transient service discontinuity, and any serial path
+
+
+
+Thubert & Papadopoulos    Expires 23 April 2023                 [Page 4]
+
+Internet-Draft         RAW Architecture/Framework           October 2022
+
+
+   that includes wireless hops is bound to experience service
+   discontinuity.  On the other hand, the wireless medium provides
+   unique capabilities that cannot be found on wires and that the RAW
+   Architecture leverages opportunistically to improve the end-to-end
+   reliability over a collection of links.
+
+   Those capabilities include:
+
+   Promiscuous Overhearing:  Because the medium is broadcast as opposed
+      to physically point to point like a wire, more than one node in
+      the forward direction of the packet may hear or overhear a
+      transmission, and the reception by one may compensate the loss by
+      another.  The concept of path can be revisited in favor multipoint
+      to multipoint progress in the orward direction and statistical
+      chances of successful reception of any of the transmissions by any
+      of the receivers.
+
+   L2-aware routing:  As the quality and speed of a link variates over
+      time, the concept of metric must also be revisited.  Shortest path
+      loses its absolute value, and hop count turns into a bad idea as
+      the link budget drops with the distance.  Routing over radio
+      requires both 1) a new and more dynamic sense of the link, with
+      new protocols such as DLEP and L2-trigger to maintain L3 up to
+      date with the link quality and availability, and 2) a new approach
+      to multipath routing, where non-equal cost multipath becomes the
+      norm as shortest path loses its meaning with the instability of
+      the metrics.
+
+   ARQ, FEC and codes:  Though feasible on any technology, proactive
+      (forward) and reactive (ARQ) error correction are typical to the
+      wireless media.  Bounded latency can still be obtained on a
+      wireless link while operating those technologies, provided that
+      the extra transmission happens within the budget allocated to that
+      hop, or that the introduced delay is compensated along the path.
+      In the case of coded fragments and retries, it makes sense to
+      variate all the possible physical properties of the transmission
+      to reduce the chances that the same effect causes the loss of both
+      original and redundant transimissions.
+
+   Relay Coordination and constructive interference:  Though it can be
+      difficult to achieve at high speed, a fine time synchronization
+      and a precide sense of phase allows the energy from multiple
+      coordinated senders to add up at the receiver and actually improve
+      the signal quality, compensating for either distance or physical
+      objects in the Fresnel zone that would reduce the link budget.
+
+
+
+
+
+
+Thubert & Papadopoulos    Expires 23 April 2023                 [Page 5]
+
+Internet-Draft         RAW Architecture/Framework           October 2022
+
+
    RAW and DetNet route application flows that require a special
    treatment along the paths that will provide that treatment.  This may
    be seen as a form of Path Aware Networking and may be subject to
    impediments documented in [RFC9049].
-
-
-
-
-
-Thubert & Papadopoulos    Expires 20 March 2023                 [Page 4]
-
-Internet-Draft         RAW Architecture/Framework         September 2022
-
 
    The establishment of a path is not in-scope for RAW.  It may be the
    product of a centralized Controller Plane Function like a Path
@@ -239,7 +300,7 @@ Internet-Draft         RAW Architecture/Framework         September 2022
    set of wireless links may be very slow relative to the speed at which
    the radio conditions vary, and it makes sense in the wireless case to
    provide redundant forwarding solutions along a complex path (see
-   Section 2.1.3) and to leave it to the Network Plane to select which
+   Section 2.1.1.3) and to leave it to the Network Plane to select which
    of those forwarding solutions are to be used for a given packet based
    on the current conditions.
 
@@ -247,7 +308,7 @@ Internet-Draft         RAW Architecture/Framework         September 2022
    from the the shorter forwarding time scale where per-packet decisions
    are made.  RAW operates within the Network Plane at the forwarding
    time scale on one DetNet flow over a complex path delineated by a
-   Track (see Section 2.1.3.2).  The Track is preestablished and
+   Track (see Section 2.1.1.3.2).  The Track is preestablished and
    installed by means outside of the scope of RAW; it may be strict or
    loose depending on whether each or just a subset of the hops are
    observed and controlled by RAW.
@@ -268,19 +329,20 @@ Internet-Draft         RAW Architecture/Framework         September 2022
        which subTrack to use for the next packet(s) that are routed
        along the Track
 
+
+
+
+
+Thubert & Papadopoulos    Expires 23 April 2023                 [Page 6]
+
+Internet-Draft         RAW Architecture/Framework           October 2022
+
+
    4.  Packet (hybrid) ARQ, Replication, Elimination and Ordering
        Dataplane actions that operate at the DetNet Service sublayer to
        increase the reliability of the end-to-end transmissions.  The
        RAW architecture also covers in-situ signaling when the decision
        is Acted by a node that down the Track from the PSE.
-
-
-
-
-Thubert & Papadopoulos    Expires 20 March 2023                 [Page 5]
-
-Internet-Draft         RAW Architecture/Framework         September 2022
-
 
    The overall OODA Loop optimizes the use of redundancy to achieve the
    required reliability and availability Service Level Agreement (SLA)
@@ -288,12 +350,10 @@ Internet-Draft         RAW Architecture/Framework         September 2022
    and battery.
 
    This document presents the RAW problem and associated terminology in
-   Section 2, and elaborates in Section 4 on the OODA loop based on the
-   RAW conceptual model presented in Section 3.
+   Section 2.1, and elaborates in Section 4 on the OODA loop based on
+   the RAW conceptual model presented in Section 3.
 
-2.  The RAW problem
-
-2.1.  Terminology
+2.1.1.  Terminology
 
    RAW reuses terminology defined for DetNet in the "Deterministic
    Networking Architecture" [RFC8655], e.g., PREOF for Packet
@@ -309,9 +369,9 @@ Internet-Draft         RAW Architecture/Framework         September 2022
 
    RAW uses the following terminology and acronyms:
 
-2.1.1.  Acronyms
+2.1.1.1.  Acronyms
 
-2.1.1.1.  ARQ
+2.1.1.1.1.  ARQ
 
    Automatic Repeat Request, enabling an acknowledged transmission and
    retries.  ARQ is a typical model at Layer-2 on a wireless medium.
@@ -320,7 +380,21 @@ Internet-Draft         RAW Architecture/Framework         September 2022
    latency, but a limited number of retries within a bounded time may be
    used within end-to-end constraints.
 
-2.1.1.2.  OAM
+
+
+
+
+
+
+
+
+
+Thubert & Papadopoulos    Expires 23 April 2023                 [Page 7]
+
+Internet-Draft         RAW Architecture/Framework           October 2022
+
+
+2.1.1.1.2.  OAM
 
    OAM stands for Operations, Administration, and Maintenance, and
    covers the processes, activities, tools, and standards involved with
@@ -330,22 +404,14 @@ Internet-Draft         RAW Architecture/Framework         September 2022
    in the IETF' [RFC6291] and the system observed by the RAW OAM is the
    Track.
 
-
-
-
-Thubert & Papadopoulos    Expires 20 March 2023                 [Page 6]
-
-Internet-Draft         RAW Architecture/Framework         September 2022
-
-
-2.1.1.3.  OODA
+2.1.1.1.3.  OODA
 
    Observe, Orient, Decide, Act. The OODA Loop is a conceptual cyclic
    model developed by USAF Colonel John Boyd, and that is applicable in
    multiple domains where agility can provide benefits against brute
    force.
 
-2.1.1.4.  PAREO
+2.1.1.1.4.  PAREO
 
    Packet (hybrid) ARQ, Replication, Elimination and Ordering.  PAREO is
    a superset Of DetNet's PREOF that includes radio-specific techniques
@@ -357,44 +423,44 @@ Internet-Draft         RAW Architecture/Framework         September 2022
    but controlled through abstractions from the RAW extensions in the
    DetNet Service sublayer.
 
-2.1.2.  Link and Direction
+2.1.1.2.  Link and Direction
 
-2.1.2.1.  Flapping
+2.1.1.2.1.  Flapping
 
    In the context of RAW, a link flaps when the reliability of the
    wireless connectivity drops abruptly for a short period of time,
    typically of a subsecond to seconds duration.
 
-2.1.2.2.  Uplink
+2.1.1.2.2.  Uplink
 
    Connection from end-devices to a data communication equipment.  In
    the context of wireless, uplink refers to the connection between a
    station (STA) and a controller (AP) or a User Equipment (UE) to a
    Base Station (BS) such as a 3GPP 5G gNodeB (gNb).
 
-2.1.2.3.  Downlink
+2.1.1.2.3.  Downlink
 
    The reverse direction from uplink.
 
-2.1.2.4.  Downstream
+
+
+
+Thubert & Papadopoulos    Expires 23 April 2023                 [Page 8]
+
+Internet-Draft         RAW Architecture/Framework           October 2022
+
+
+2.1.1.2.4.  Downstream
 
    Following the direction of the flow data path along a Track.
 
-2.1.2.5.  Upstream
+2.1.1.2.5.  Upstream
 
    Against the direction of the flow data path along a Track.
 
-2.1.3.  Path and Tracks
+2.1.1.3.  Path and Tracks
 
-
-
-
-Thubert & Papadopoulos    Expires 20 March 2023                 [Page 7]
-
-Internet-Draft         RAW Architecture/Framework         September 2022
-
-
-2.1.3.1.  Path
+2.1.1.3.1.  Path
 
    Quoting section 1.1.3 of [INT-ARCHI]:
 
@@ -433,7 +499,14 @@ Internet-Draft         RAW Architecture/Framework         September 2022
    on the way from A to B, a packet from A to B experiences 2 paths,
    A->C->E->D->B and A->C->F->D->B.
 
-2.1.3.2.  Track
+
+
+Thubert & Papadopoulos    Expires 23 April 2023                 [Page 9]
+
+Internet-Draft         RAW Architecture/Framework           October 2022
+
+
+2.1.1.3.2.  Track
 
    A networking graph that can be followed to transport packets with
    equivalent treatment; as opposed to the definition of a path above, a
@@ -442,12 +515,6 @@ Internet-Draft         RAW Architecture/Framework         September 2022
    (flooded) by all packets of a flow.  It may contain multiple paths
    that may overlap, fork and rejoin, for instance to enable the RAW
    PAREO operations.
-
-
-
-Thubert & Papadopoulos    Expires 20 March 2023                 [Page 8]
-
-Internet-Draft         RAW Architecture/Framework         September 2022
 
 
                       +---------+
@@ -487,26 +554,27 @@ Internet-Draft         RAW Architecture/Framework         September 2022
       the flow of data packets, e.g., to carry OAM measurements or
       control messages back to the Ingress.
 
+
+
+
+Thubert & Papadopoulos    Expires 23 April 2023                [Page 10]
+
+Internet-Draft         RAW Architecture/Framework           October 2022
+
+
    *  The vertices of the Track are DetNet Relay nodes that operate at
       the DetNet Service sub-layer and provide the PAREO functions.
 
    *  The topological edges of the graph are serial sequences of DetNet
       Transit nodes that operate at the DetNet Forwarding sub-layer.
 
-2.1.3.3.  SubTrack
+2.1.1.3.3.  SubTrack
 
    A Track within a Track.  The RAW PSE selects a subTrack on a per-
    packet or a per-collection of packets basis to provide the desired
    reliability for the transported flows.
 
-
-
-Thubert & Papadopoulos    Expires 20 March 2023                 [Page 9]
-
-Internet-Draft         RAW Architecture/Framework         September 2022
-
-
-2.1.3.4.  Segment
+2.1.1.3.4.  Segment
 
    A serial path formed by a topological edge of a Track.  East-West
    Segments are oriented from Ingress (East) to Egress (West).  North/
@@ -514,13 +582,13 @@ Internet-Draft         RAW Architecture/Framework         September 2022
    taken to ensure that a given packet flows either Northwards or
    Southwards along a bidirectional Segment, but never bounces back.
 
-2.1.4.  Deterministic Networking
+2.1.1.4.  Deterministic Networking
 
    This document reuses the terminology in section 2 of [RFC8557] and
    section 4.1.2 of [RFC8655] for deterministic networking and
    deterministic networks.
 
-2.1.4.1.  Flow
+2.1.1.4.1.  Flow
 
    A collection of consecutive IP packets defined by the upper layers
    and signaled by the same 5 or 6-tuple, see section 5.1 of [RFC8939].
@@ -530,7 +598,7 @@ Internet-Draft         RAW Architecture/Framework         September 2022
    that is selected for the flow may change over time under the control
    of the PSE.
 
-2.1.4.2.  Deterministic Flow Identifier (L2)
+2.1.1.4.2.  Deterministic Flow Identifier (L2)
 
    A tuple identified by a stream_handle, and provided by a bridge, in
    accordance with IEEE 802.1CB.  The tuple comprises at least source
@@ -538,7 +606,19 @@ Internet-Draft         RAW Architecture/Framework         September 2022
    are characterized by bandwidth and max packet size; scheduled streams
    are characterized by a repeating pattern of timed transmissions.
 
-2.1.4.3.  Deterministic Flow Identifier (L3)
+
+
+
+
+
+
+
+Thubert & Papadopoulos    Expires 23 April 2023                [Page 11]
+
+Internet-Draft         RAW Architecture/Framework           October 2022
+
+
+2.1.1.4.3.  Deterministic Flow Identifier (L3)
 
    See section 3.3 of [DetNet-DP].  The classical IP 5-tuple that
    identifies a flow comprises the source IP, destination IP, source
@@ -546,35 +626,26 @@ Internet-Draft         RAW Architecture/Framework         September 2022
    uses a 6-tuple where the extra field is the DSCP field in the packet.
    The IPv6 flow label is not used for that purpose.
 
-2.1.4.4.  TSN
+2.1.1.4.4.  TSN
 
    TSN stands for Time Sensitive Networking and denotes the efforts at
    IEEE 802 for deterministic networking, originally for use on
    Ethernet.  Wireless TSN (WTSN) denotes extensions of the TSN work on
    wireless media such as the selected RAW technologies [RAW-TECHNOS].
 
-
-
-
-
-Thubert & Papadopoulos    Expires 20 March 2023                [Page 10]
-
-Internet-Draft         RAW Architecture/Framework         September 2022
-
-
-2.1.5.  Reliability and Availability
+2.1.1.5.  Reliability and Availability
 
    In the context of the RAW work, Reliability and Availability are
    defined as follows:
 
-2.1.5.1.  Service Level Agreement
+2.1.1.5.1.  Service Level Agreement
 
    In the context of RAW, an SLA (service level agreement) is a contract
    between a provider, the network, and a client, the application flow,
    about measurable metrics such as latency boundaries, consecutive
    losses, and packet delivery ratio (PDR).
 
-2.1.5.2.  Service Level Objective
+2.1.1.5.2.  Service Level Objective
 
    A service level objective (SLO) is one term in the SLA, for which
    specific network setting and operations are implemented.  For
@@ -582,13 +653,13 @@ Internet-Draft         RAW Architecture/Framework         September 2022
    SLO of consecutive losses in a row by augmenting the chances of
    delivery of a packet that follows a loss.
 
-2.1.5.3.  Service Level Indicator
+2.1.1.5.3.  Service Level Indicator
 
    A service level indicator (SLI) measures the compliance of an SLO to
    the terms of the contract.  It can be for instance the statistics of
    individual losses and losses in a row as time series.).
 
-2.1.5.4.  Reliability
+2.1.1.5.4.  Reliability
 
    Reliability is a measure of the probability that an item will perform
    its intended function for a specified interval under stated
@@ -596,29 +667,20 @@ Internet-Draft         RAW Architecture/Framework         September 2022
    Between Failure (MTBF) and Maximum Consecutive Failures (MCF).  More
    in [NASA].).
 
-2.1.5.5.  Available
+
+
+Thubert & Papadopoulos    Expires 23 April 2023                [Page 12]
+
+Internet-Draft         RAW Architecture/Framework           October 2022
+
+
+2.1.1.5.5.  Available
 
    That is exempt of unscheduled outage or derivation from the terms of
    the SLA.  A basic expectation for a RAW network is that the flow is
    maintained in the face of any single breakage or flapping.
 
-
-
-
-
-
-
-
-
-
-
-
-Thubert & Papadopoulos    Expires 20 March 2023                [Page 11]
-
-Internet-Draft         RAW Architecture/Framework         September 2022
-
-
-2.1.5.6.  Availability
+2.1.1.5.6.  Availability
 
    Availability is a measure of the relative amount of time where a RAW
    Network operates in stated condition (SLA), expressed as
@@ -628,29 +690,29 @@ Internet-Draft         RAW Architecture/Framework         September 2022
    availability implies a journey that is a lot more complex than
    following a serial path.
 
-2.1.6.  OAM variations
+2.1.1.6.  OAM variations
 
-2.1.6.1.  Active OAM
+2.1.1.6.1.  Active OAM
 
    See [RFC7799].  In the context of RAW, Active OAM is used to observe
    a particular Track, subTrack, or Segment of a Track regardless of
    whether it is used for traffic at that time.
 
-2.1.6.2.  In-Band OAM
+2.1.1.6.2.  In-Band OAM
 
    An active OAM packet is considered in-band for the monitored Track
    when it traverses the same set of links and interfaces and if the OAM
    packet receives the same QoS and PAREO treatment as the packets of
    the data flows that are injected in the Track.
 
-2.1.6.3.  Out-of-Band OAM
+2.1.1.6.3.  Out-of-Band OAM
 
    Out-of-band OAM is an active OAM whose path is not topologically
    congruent to the Track, or its test packets receive a QoS and/or
    PAREO treatment that is different from that of the packets of the
    data flows that are injected in the Track, or both.
 
-2.1.6.4.  Limited OAM
+2.1.1.6.4.  Limited OAM
 
    An active OAM packet is a Limited OAM packet when it observes the RAW
    operation over a node, a segment, or a subTrack of the Track, though
@@ -659,7 +721,16 @@ Internet-Draft         RAW Architecture/Framework         September 2022
    subnetwork (e.g., around a relay providing a Service sublayer
    replication point) that is being tested.
 
-2.1.6.5.  Upstream OAM
+
+
+
+
+Thubert & Papadopoulos    Expires 23 April 2023                [Page 13]
+
+Internet-Draft         RAW Architecture/Framework           October 2022
+
+
+2.1.1.6.5.  Upstream OAM
 
    An upstream OAM packet is an Out-of-Band OAM packet that traverses
    the Track from egress to ingress on the reverse direction, to capture
@@ -667,29 +738,22 @@ Internet-Draft         RAW Architecture/Framework         September 2022
    information along the whole Track, or it may only learn select data
    across all, or only a particular subTrack, or Segment of a Track.
 
-
-
-Thubert & Papadopoulos    Expires 20 March 2023                [Page 12]
-
-Internet-Draft         RAW Architecture/Framework         September 2022
-
-
-2.1.6.6.  Residence Time
+2.1.1.6.6.  Residence Time
 
    A residence time (RT) is defined as the time period between the
    reception of a packet starts and the transmission of the packet
    begins.  In the context of RAW, RT is useful for a transit node, not
    ingress or egress.
 
-2.1.6.7.  Additional References
+2.1.1.6.7.  Additional References
 
    [DetNet-OAM] provides additional terminology related to OAM in the
    context of DetNet and by extension of RAW, whereas [RFC7799] defines
    the Active, Passive, and Hybrid OAM methods.
 
-2.2.  Reliability and Availability
+2.1.2.  Reliability and Availability
 
-2.2.1.  High Availability Engineering Principles
+2.1.2.1.  High Availability Engineering Principles
 
    The reliability criteria of a critical system pervades through its
    elements, and if the system comprises a data network then the data
@@ -709,7 +773,20 @@ Internet-Draft         RAW Architecture/Framework         September 2022
    just ones with Internet technology at the center.  Examples of both
    non-Internet and Internet are included.
 
-2.2.1.1.  Elimination of Single Points of Failure
+
+
+
+
+
+
+
+
+Thubert & Papadopoulos    Expires 23 April 2023                [Page 14]
+
+Internet-Draft         RAW Architecture/Framework           October 2022
+
+
+2.1.2.1.1.  Elimination of Single Points of Failure
 
    Physical and logical components in a system happen to fail, either as
    the effect of wear and tear, when used beyond acceptable limits, or
@@ -722,14 +799,6 @@ Internet-Draft         RAW Architecture/Framework         September 2022
    case of a failure.  There is a rather open-ended issue over alternate
    routes -- for example, when links are cabled through the same
    conduit, they form a shared risk link group (SRLG), and will share
-
-
-
-Thubert & Papadopoulos    Expires 20 March 2023                [Page 13]
-
-Internet-Draft         RAW Architecture/Framework         September 2022
-
-
    the same fate if the bundle is cut.  The same effect can happen with
    virtual links that end up in a same physical transport through the
    games of encapsulation.  In a same fashion, an interferer or an
@@ -751,7 +820,7 @@ Internet-Draft         RAW Architecture/Framework         September 2022
    must be avoided; for RAW this means that the extra bandwidth must be
    used wisely and with parsimony.
 
-2.2.1.2.  Reliable Crossover
+2.1.2.1.2.  Reliable Crossover
 
    Having a backup equipment has a limited value unless it can be
    reliably switched into use within the down-time parameters.  IP
@@ -766,6 +835,13 @@ Internet-Draft         RAW Architecture/Framework         September 2022
    (LSP) tunnels for the local repair of LSP tunnels using RSVP-TE
    [RFC4090].
 
+
+
+Thubert & Papadopoulos    Expires 23 April 2023                [Page 15]
+
+Internet-Draft         RAW Architecture/Framework           October 2022
+
+
    Deterministic flows, on the contrary, are attached to specific paths
    where dedicated resources are reserved for each flow.  Therefore each
    DetNet path must inherently provide sufficient redundancy to provide
@@ -778,19 +854,11 @@ Internet-Draft         RAW Architecture/Framework         September 2022
    may happen in overlapping time windows, in which case the 1+1
    redundancy with delayed reestablishment of the second path will not
    provide the required guarantees.  The Data Plane must be configured
-
-
-
-Thubert & Papadopoulos    Expires 20 March 2023                [Page 14]
-
-Internet-Draft         RAW Architecture/Framework         September 2022
-
-
    with a sufficient degree of redundancy to select an alternate
    redundant path immediately upon a fault, without the need for a slow
    intervention from the controller plane.
 
-2.2.1.3.  Prompt Notification of Failures
+2.1.2.1.3.  Prompt Notification of Failures
 
    The execution of the two above principles is likely to render a
    system where the user will rarely see a failure.  But someone needs
@@ -820,27 +888,24 @@ Internet-Draft         RAW Architecture/Framework         September 2022
    [DLEP], or transported over multiple hops using OAM and reverse OAM,
    as illustrated in Figure 9.
 
-2.2.2.  Applying Reliability Concepts to Networking
+
+
+
+
+
+Thubert & Papadopoulos    Expires 23 April 2023                [Page 16]
+
+Internet-Draft         RAW Architecture/Framework           October 2022
+
+
+2.1.2.2.  Applying Reliability Concepts to Networking
 
    The terms Reliability and Availability are defined for use in RAW in
-   Section 2.1 and the reader is invited to read [NASA] for more details
-   on the general definition of Reliability.  Practically speaking a
-   number of nines is often used to indicate the reliability of a data
-   link, e.g., 5 nines indicate a Packet Delivery Ratio (PDR) of
-   99.999%.
-
-
-
-
-
-
-
-
-
-Thubert & Papadopoulos    Expires 20 March 2023                [Page 15]
-
-Internet-Draft         RAW Architecture/Framework         September 2022
-
+   Section 2.1.1 and the reader is invited to read [NASA] for more
+   details on the general definition of Reliability.  Practically
+   speaking a number of nines is often used to indicate the reliability
+   of a data link, e.g., 5 nines indicate a Packet Delivery Ratio (PDR)
+   of 99.999%.
 
    This number is typical in a wired environment where the loss is due
    to a random event such as a solar particle that affects the
@@ -872,7 +937,7 @@ Internet-Draft         RAW Architecture/Framework         September 2022
    an MCF, e.g., as described in section 7.4 of the "Deterministic
    Networking Use Cases" [RFC8578].
 
-2.2.3.  Wireless Effects Affecting Reliability
+2.1.2.3.  Wireless Effects Affecting Reliability
 
    In contrast with wired networks, errors in transmission are the
    predominant source of packet loss in wireless networks.
@@ -881,6 +946,14 @@ Internet-Draft         RAW Architecture/Framework         September 2022
    the use of different forms of diversity:
 
    Multipath Fading  A destructive interference by a reflection of the
+
+
+
+Thubert & Papadopoulos    Expires 23 April 2023                [Page 17]
+
+Internet-Draft         RAW Architecture/Framework           October 2022
+
+
       original signal.
 
       A radio signal may be received directly (line-of-sight) and/or as
@@ -890,13 +963,6 @@ Internet-Draft         RAW Architecture/Framework         September 2022
       echo lands with a different phase which may add up to
       (constructive interference) or cancel the direct signal
       (destructive interference).
-
-
-
-Thubert & Papadopoulos    Expires 20 March 2023                [Page 16]
-
-Internet-Draft         RAW Architecture/Framework         September 2022
-
 
       The affected frequencies depend on the relative position of the
       sender, the receiver, and all the reflecting objects in the
@@ -937,6 +1003,13 @@ Internet-Draft         RAW Architecture/Framework         September 2022
    of loss and the use of diversity must be maximized to optimize the
    PDR.
 
+
+
+Thubert & Papadopoulos    Expires 23 April 2023                [Page 18]
+
+Internet-Draft         RAW Architecture/Framework           October 2022
+
+
    A single packet may be sent at different times (time diversity) over
    diverse paths (spatial diversity) that rely on diverse radio channels
    (frequency diversity) and diverse PHY technologies, e.g., narrowband
@@ -946,15 +1019,7 @@ Internet-Draft         RAW Architecture/Framework         September 2022
    relatively innocuous to one another and can be used for diversity in
    the presence of the other.
 
-
-
-
-Thubert & Papadopoulos    Expires 20 March 2023                [Page 17]
-
-Internet-Draft         RAW Architecture/Framework         September 2022
-
-
-2.3.  Routing Time Scale vs. Forwarding Time Scale
+2.1.3.  Routing Time Scale vs. Forwarding Time Scale
 
    With DetNet, the Controller Plane Function (CPF) handles the routing
    computation and maintenance.  With RAW, the CPF also performs the PSE
@@ -996,18 +1061,9 @@ Internet-Draft         RAW Architecture/Framework         September 2022
 
 
 
-
-
-
-
-
-
-
-
-
-Thubert & Papadopoulos    Expires 20 March 2023                [Page 18]
+Thubert & Papadopoulos    Expires 23 April 2023                [Page 19]
 
-Internet-Draft         RAW Architecture/Framework         September 2022
+Internet-Draft         RAW Architecture/Framework           October 2022
 
 
                      +----------------+
@@ -1061,9 +1117,9 @@ Internet-Draft         RAW Architecture/Framework         September 2022
 
 
 
-Thubert & Papadopoulos    Expires 20 March 2023                [Page 19]
+Thubert & Papadopoulos    Expires 23 April 2023                [Page 20]
 
-Internet-Draft         RAW Architecture/Framework         September 2022
+Internet-Draft         RAW Architecture/Framework           October 2022
 
 
    collection of SD-WAN tunnels.  RAW formalizes a forwarding time scale
@@ -1117,9 +1173,9 @@ Internet-Draft         RAW Architecture/Framework         September 2022
 
 
 
-Thubert & Papadopoulos    Expires 20 March 2023                [Page 20]
+Thubert & Papadopoulos    Expires 23 April 2023                [Page 21]
 
-Internet-Draft         RAW Architecture/Framework         September 2022
+Internet-Draft         RAW Architecture/Framework           October 2022
 
 
    The PCE defines a complex Track between an Ingress End System and an
@@ -1173,9 +1229,9 @@ Internet-Draft         RAW Architecture/Framework         September 2022
 
 
 
-Thubert & Papadopoulos    Expires 20 March 2023                [Page 21]
+Thubert & Papadopoulos    Expires 23 April 2023                [Page 22]
 
-Internet-Draft         RAW Architecture/Framework         September 2022
+Internet-Draft         RAW Architecture/Framework           October 2022
 
 
    Based on those metrics, the PCE installs the Track with enough
@@ -1229,9 +1285,9 @@ Internet-Draft         RAW Architecture/Framework         September 2022
 
 
 
-Thubert & Papadopoulos    Expires 20 March 2023                [Page 22]
+Thubert & Papadopoulos    Expires 23 April 2023                [Page 23]
 
-Internet-Draft         RAW Architecture/Framework         September 2022
+Internet-Draft         RAW Architecture/Framework           October 2022
 
 
 3.3.  RAW and DetNet
@@ -1285,9 +1341,9 @@ Internet-Draft         RAW Architecture/Framework         September 2022
 
 
 
-Thubert & Papadopoulos    Expires 20 March 2023                [Page 23]
+Thubert & Papadopoulos    Expires 23 April 2023                [Page 24]
 
-Internet-Draft         RAW Architecture/Framework         September 2022
+Internet-Draft         RAW Architecture/Framework           October 2022
 
 
     +------------------------------+ +--------------------------------+
@@ -1341,9 +1397,9 @@ Internet-Draft         RAW Architecture/Framework         September 2022
 
 
 
-Thubert & Papadopoulos    Expires 20 March 2023                [Page 24]
+Thubert & Papadopoulos    Expires 23 April 2023                [Page 25]
 
-Internet-Draft         RAW Architecture/Framework         September 2022
+Internet-Draft         RAW Architecture/Framework           October 2022
 
 
    --------------------Flow Direction---------------------------------->
@@ -1397,9 +1453,9 @@ Internet-Draft         RAW Architecture/Framework         September 2022
 
 
 
-Thubert & Papadopoulos    Expires 20 March 2023                [Page 25]
+Thubert & Papadopoulos    Expires 23 April 2023                [Page 26]
 
-Internet-Draft         RAW Architecture/Framework         September 2022
+Internet-Draft         RAW Architecture/Framework           October 2022
 
 
    --------------------Flow Direction---------------------------------->
@@ -1453,9 +1509,9 @@ Internet-Draft         RAW Architecture/Framework         September 2022
 
 
 
-Thubert & Papadopoulos    Expires 20 March 2023                [Page 26]
+Thubert & Papadopoulos    Expires 23 April 2023                [Page 27]
 
-Internet-Draft         RAW Architecture/Framework         September 2022
+Internet-Draft         RAW Architecture/Framework           October 2022
 
 
                      +-------> Orient (PCE) --------+
@@ -1509,9 +1565,9 @@ Internet-Draft         RAW Architecture/Framework         September 2022
 
 
 
-Thubert & Papadopoulos    Expires 20 March 2023                [Page 27]
+Thubert & Papadopoulos    Expires 23 April 2023                [Page 28]
 
-Internet-Draft         RAW Architecture/Framework         September 2022
+Internet-Draft         RAW Architecture/Framework           October 2022
 
 
                                          ...   ..
@@ -1554,7 +1610,7 @@ Internet-Draft         RAW Architecture/Framework         September 2022
 
    RAW separates the long time scale at which a Track is elaborated and
    installed, from the short time scale at which the forwarding decision
-   is taken for one or a few packets (see in Section 2.3) that will
+   is taken for one or a few packets (see in Section 2.1.3) that will
    experience the same path until the network conditions evolve and
    another path is selected within the same Track.
 
@@ -1565,9 +1621,9 @@ Internet-Draft         RAW Architecture/Framework         September 2022
 
 
 
-Thubert & Papadopoulos    Expires 20 March 2023                [Page 28]
+Thubert & Papadopoulos    Expires 23 April 2023                [Page 29]
 
-Internet-Draft         RAW Architecture/Framework         September 2022
+Internet-Draft         RAW Architecture/Framework           October 2022
 
 
    The Track computation is out of scope, but RAW expects that the
@@ -1621,9 +1677,9 @@ Internet-Draft         RAW Architecture/Framework         September 2022
 
 
 
-Thubert & Papadopoulos    Expires 20 March 2023                [Page 29]
+Thubert & Papadopoulos    Expires 23 April 2023                [Page 30]
 
-Internet-Draft         RAW Architecture/Framework         September 2022
+Internet-Draft         RAW Architecture/Framework           October 2022
 
 
       +===============+========================+===================+
@@ -1677,9 +1733,9 @@ Internet-Draft         RAW Architecture/Framework         September 2022
 
 
 
-Thubert & Papadopoulos    Expires 20 March 2023                [Page 30]
+Thubert & Papadopoulos    Expires 23 April 2023                [Page 31]
 
-Internet-Draft         RAW Architecture/Framework         September 2022
+Internet-Draft         RAW Architecture/Framework           October 2022
 
 
 4.4.  Act: The PAREO Functions
@@ -1733,9 +1789,9 @@ Internet-Draft         RAW Architecture/Framework         September 2022
 
 
 
-Thubert & Papadopoulos    Expires 20 March 2023                [Page 31]
+Thubert & Papadopoulos    Expires 23 April 2023                [Page 32]
 
-Internet-Draft         RAW Architecture/Framework         September 2022
+Internet-Draft         RAW Architecture/Framework           October 2022
 
 
    For instance, when the source sends to Node A, Node B may listen
@@ -1789,9 +1845,9 @@ Internet-Draft         RAW Architecture/Framework         September 2022
 
 
 
-Thubert & Papadopoulos    Expires 20 March 2023                [Page 32]
+Thubert & Papadopoulos    Expires 23 April 2023                [Page 33]
 
-Internet-Draft         RAW Architecture/Framework         September 2022
+Internet-Draft         RAW Architecture/Framework           October 2022
 
 
 4.4.2.  Packet Elimination
@@ -1845,9 +1901,9 @@ Internet-Draft         RAW Architecture/Framework         September 2022
 
 
 
-Thubert & Papadopoulos    Expires 20 March 2023                [Page 33]
+Thubert & Papadopoulos    Expires 23 April 2023                [Page 34]
 
-Internet-Draft         RAW Architecture/Framework         September 2022
+Internet-Draft         RAW Architecture/Framework           October 2022
 
 
    difference of distance of the transmitters to the receiver at the
@@ -1884,6 +1940,8 @@ Internet-Draft         RAW Architecture/Framework         September 2022
 
    The editor wishes to thank:
 
+   Lou Berger:  Lab N
+
    Xavi Vilajosana:  Wireless Networks Research Lab, Universitat Oberta
       de Catalunya
 
@@ -1895,18 +1953,23 @@ Internet-Draft         RAW Architecture/Framework         September 2022
 
    Greg Mirsky:  ZTE
 
+
+
+
+
+Thubert & Papadopoulos    Expires 23 April 2023                [Page 35]
+
+Internet-Draft         RAW Architecture/Framework           October 2022
+
+
    for their contributions to the text and ideas exposed in this
    document.
 
-
-
-
-Thubert & Papadopoulos    Expires 20 March 2023                [Page 34]
-
-Internet-Draft         RAW Architecture/Framework         September 2022
-
-
 8.  Acknowledgments
+
+   This architecture could never have been completed without the support
+   and recommendations from the DetNet Chairs Janos Farkas and Lou
+   Berger.  Many thanks to both.
 
    The authors wish to thank Dave Cavalcanti and Fabrice Theoleyre for
    their in-depth reviews during the development of this document.
@@ -1937,30 +2000,29 @@ Internet-Draft         RAW Architecture/Framework         September 2022
 
    [RAW-USE-CASES]
               Bernardos, C. J., Papadopoulos, G. Z., Thubert, P., and F.
-              Theoleyre, "RAW use-cases", Work in Progress, Internet-
-              Draft, draft-ietf-raw-use-cases-05, 23 February 2022,
+              Theoleyre, "RAW Use-Cases", Work in Progress, Internet-
+              Draft, draft-ietf-raw-use-cases-07, 22 September 2022,
               <https://www.ietf.org/archive/id/draft-ietf-raw-use-cases-
-              05.txt>.
+              07.txt>.
 
    [RFC4655]  Farrel, A., Vasseur, J.-P., and J. Ash, "A Path
               Computation Element (PCE)-Based Architecture", RFC 4655,
               DOI 10.17487/RFC4655, August 2006,
               <https://www.rfc-editor.org/info/rfc4655>.
 
+
+
+
+Thubert & Papadopoulos    Expires 23 April 2023                [Page 36]
+
+Internet-Draft         RAW Architecture/Framework           October 2022
+
+
    [RFC6291]  Andersson, L., van Helvoort, H., Bonica, R., Romascanu,
               D., and S. Mansfield, "Guidelines for the Use of the "OAM"
               Acronym in the IETF", BCP 161, RFC 6291,
               DOI 10.17487/RFC6291, June 2011,
               <https://www.rfc-editor.org/info/rfc6291>.
-
-
-
-
-
-Thubert & Papadopoulos    Expires 20 March 2023                [Page 35]
-
-Internet-Draft         RAW Architecture/Framework         September 2022
-
 
    [RFC7799]  Morton, A., "Active and Passive Metrics and Methods (with
               Hybrid Types In-Between)", RFC 7799, DOI 10.17487/RFC7799,
@@ -2005,18 +2067,18 @@ Internet-Draft         RAW Architecture/Framework         September 2022
               Engineering", RFC 3272, DOI 10.17487/RFC3272, May 2002,
               <https://www.rfc-editor.org/info/rfc3272>.
 
+
+
+Thubert & Papadopoulos    Expires 23 April 2023                [Page 37]
+
+Internet-Draft         RAW Architecture/Framework           October 2022
+
+
    [STD 62]   Harrington, D., Presuhn, R., and B. Wijnen, "An
               Architecture for Describing Simple Network Management
               Protocol (SNMP) Management Frameworks", STD 62, RFC 3411,
               DOI 10.17487/RFC3411, December 2002,
               <https://www.rfc-editor.org/info/rfc3411>.
-
-
-
-Thubert & Papadopoulos    Expires 20 March 2023                [Page 36]
-
-Internet-Draft         RAW Architecture/Framework         September 2022
-
 
    [RFC4090]  Pan, P., Ed., Swallow, G., Ed., and A. Atlas, Ed., "Fast
               Reroute Extensions to RSVP-TE for LSP Tunnels", RFC 4090,
@@ -2044,35 +2106,35 @@ Internet-Draft         RAW Architecture/Framework         September 2022
               <https://www.rfc-editor.org/info/rfc8175>.
 
    [I-D.irtf-panrg-path-properties]
-              Enghardt, T. and C. Krähenbühl, "A Vocabulary of Path
+              Enghardt, R. and C. Krähenbühl, "A Vocabulary of Path
               Properties", Work in Progress, Internet-Draft, draft-irtf-
-              panrg-path-properties-05, 7 March 2022,
+              panrg-path-properties-06, 22 September 2022,
               <https://www.ietf.org/archive/id/draft-irtf-panrg-path-
-              properties-05.txt>.
+              properties-06.txt>.
 
    [IPoWIRELESS]
               Thubert, P., "IPv6 Neighbor Discovery on Wireless
               Networks", Work in Progress, Internet-Draft, draft-
-              thubert-6man-ipv6-over-wireless-11, 15 December 2021,
+              thubert-6man-ipv6-over-wireless-12, 11 October 2022,
               <https://www.ietf.org/archive/id/draft-thubert-6man-ipv6-
-              over-wireless-11.txt>.
+              over-wireless-12.txt>.
 
    [DetNet-OAM]
               Mirsky, G., Theoleyre, F., Papadopoulos, G. Z., Bernardos,
               C. J., Varga, B., and J. Farkas, "Framework of Operations,
+
+
+
+Thubert & Papadopoulos    Expires 23 April 2023                [Page 38]
+
+Internet-Draft         RAW Architecture/Framework           October 2022
+
+
               Administration and Maintenance (OAM) for Deterministic
               Networking (DetNet)", Work in Progress, Internet-Draft,
-              draft-ietf-detnet-oam-framework-06, 13 June 2022,
+              draft-ietf-detnet-oam-framework-07, 6 October 2022,
               <https://www.ietf.org/archive/id/draft-ietf-detnet-oam-
-              framework-06.txt>.
-
-
-
-
-Thubert & Papadopoulos    Expires 20 March 2023                [Page 37]
-
-Internet-Draft         RAW Architecture/Framework         September 2022
-
+              framework-07.txt>.
 
    [NASA]     Adams, T., "RELIABILITY: Definition & Quantitative
               Illustration", <https://kscddms.ksc.nasa.gov/Reliability/
@@ -2119,10 +2181,4 @@ Authors' Addresses
 
 
 
-
-
-
-
-
-
-Thubert & Papadopoulos    Expires 20 March 2023                [Page 38]
+Thubert & Papadopoulos    Expires 23 April 2023                [Page 39]

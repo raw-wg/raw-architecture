@@ -15,7 +15,7 @@
 <?rfc subcompact="no"?>
 <?rfc authorship="yes"?>
 <?rfc tocappendix="yes"?>
-<rfc xmlns:xi="http://www.w3.org/2001/XInclude" category="info" docName="draft-ietf-raw-architecture-09"
+<rfc xmlns:xi="http://www.w3.org/2001/XInclude" category="info" docName="draft-ietf-raw-architecture-10"
      ipr="trust200902" obsoletes="" updates="" submissionType="IETF"
      xml:lang="en" version="3">
   <front>
@@ -884,7 +884,7 @@
    </t>
    <t>
 
-   Operating at the Layer-3, RAW does not change the wireless technology at the lower layers. OTOH, it can can further increase diversity in the spatial,
+   Operating at the Layer-3, RAW does not change the wireless technology at the lower layers. OTOH, it can further increase diversity in the spatial,
    time, code, and frequency domains by enabling multiple link-layer wired and
    wireless technologies in parallel or sequentially, for a higher resilience
    and a wider applicability. RAW can also provide homogeneous services to

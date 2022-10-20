@@ -10,7 +10,7 @@ Expires: 23 April 2023                                    IMT Atlantique
 
 
               Reliable and Available Wireless Architecture
-                     draft-ietf-raw-architecture-09
+                     draft-ietf-raw-architecture-10
 
 Abstract
 
@@ -192,14 +192,14 @@ Internet-Draft         RAW Architecture/Framework           October 2022
    unpredictable variations of the throughput and packet delivery ratio
    (PDR) of a wireless link.  This adds new dimensions to the
    statistical effects that affect the quality and reliability of the
-   link.  Multiple links and transmissions must be used, and the
-   challenge is to provide enough diversity and redundancy to ensure the
-   timely packet delivery while preserving energy and optimizing the use
-   of the shared spectrum.
+   link.
 
    Reliable and Available Wireless (RAW) takes up the challenge of
    providing highly available and reliable end-to-end performances in a
-   network with scheduled wireless segments.
+   network with scheduled wireless segments.  To achieve this, RAW
+   leverages multiple links and parallel transmissions, providing enough
+   diversity and redundancy to ensure the timely packet delivery while
+   preserving energy and optimizing the use of the shared spectrum.
 
 2.  Terminology
 
@@ -789,7 +789,7 @@ Internet-Draft         RAW Architecture/Framework           October 2022
    The root cause for the loss may be of multiple origins, calling for
    the use of different forms of diversity:
 
-   Multipath Fading  A destructive interference by a reflection of the
+   Multipath Fading:  A destructive interference by a reflection of the
       original signal.
 
       A radio signal may be received directly (line-of-sight) and/or as
@@ -806,7 +806,7 @@ Internet-Draft         RAW Architecture/Framework           October 2022
       multiple packets in a row till a physical movement changes the
       reflection patterns.
 
-   Co-channel Interference  Energy in the spectrum used for the
+   Co-channel Interference:  Energy in the spectrum used for the
       transmission confuses the receiver.
 
       The wireless medium itself is a Shared Risk Link Group (SRLG) for
@@ -815,7 +815,7 @@ Internet-Draft         RAW Architecture/Framework           October 2022
       the interference domain of the interferer, possibly even when they
       use different technologies.
 
-   Obstacle in Fresnel Zone  The optimal transmission happens when the
+   Obstacle in Fresnel Zone:  The optimal transmission happens when the
       Fresnel Zone between the sender and the receiver is free of
       obstacles.
 
@@ -866,12 +866,12 @@ Internet-Draft         RAW Architecture/Framework           October 2022
    spectrum efficiency.
 
    Operating at the Layer-3, RAW does not change the wireless technology
-   at the lower layers.  OTOH, it can can further increase diversity in
-   the spatial, time, code, and frequency domains by enabling multiple
-   link-layer wired and wireless technologies in parallel or
-   sequentially, for a higher resilience and a wider applicability.  RAW
-   can also provide homogeneous services to critical applications beyond
-   the boundaries of a single subnetwork, e.g., controlling the use of
+   at the lower layers.  OTOH, it can further increase diversity in the
+   spatial, time, code, and frequency domains by enabling multiple link-
+   layer wired and wireless technologies in parallel or sequentially,
+   for a higher resilience and a wider applicability.  RAW can also
+   provide homogeneous services to critical applications beyond the
+   boundaries of a single subnetwork, e.g., controlling the use of
    diverse radio access technologies to optimize the end-to-end
    application experience.
 

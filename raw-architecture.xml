@@ -123,13 +123,12 @@
    causing transient and unpredictable variations of the throughput and packet
    delivery ratio (PDR) of a wireless link. This adds new dimensions to the
    statistical effects that affect the quality and reliability of the link.
-   Multiple links and transmissions must be used, and the challenge is to
-   provide enough diversity and redundancy to ensure the timely packet delivery
-   while preserving energy and optimizing the use of the shared spectrum.
    </t><t>
    Reliable and Available Wireless (RAW) takes up the challenge of providing
    highly available and reliable end-to-end performances in a network with
-   scheduled wireless segments.
+   scheduled wireless segments. To achieve this, RAW leverages multiple links and parallel transmissions, providing enough diversity and redundancy to
+   ensure the timely packet delivery while preserving energy and optimizing the
+   use of the shared spectrum.
       </t>
 
     </section>
@@ -793,7 +792,7 @@
     the use of different forms of diversity:
     </t>
     <dl>
-    <dt>Multipath Fading</dt>
+    <dt>Multipath Fading:</dt>
     <dd>
     <t>A destructive interference by a reflection of the original signal.
     </t>
@@ -811,7 +810,7 @@
     row till a physical movement changes the reflection patterns.
     </t>
     </dd>
-    <dt>Co-channel Interference</dt>
+    <dt>Co-channel Interference:</dt>
     <dd>
     <t>
     Energy in the spectrum used for the transmission confuses the receiver.
@@ -823,7 +822,7 @@
     interferer, possibly even when they use different technologies.
     </t>
     </dd>
-    <dt>Obstacle in Fresnel Zone</dt>
+    <dt>Obstacle in Fresnel Zone:</dt>
     <dd>
 
     <t>

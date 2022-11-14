@@ -15,7 +15,7 @@
 <?rfc subcompact="no"?>
 <?rfc authorship="yes"?>
 <?rfc tocappendix="yes"?>
-<rfc xmlns:xi="http://www.w3.org/2001/XInclude" category="info" docName="draft-ietf-raw-architecture-10"
+<rfc xmlns:xi="http://www.w3.org/2001/XInclude" category="info" docName="draft-ietf-raw-architecture-11"
      ipr="trust200902" obsoletes="" updates="" submissionType="IETF"
      xml:lang="en" version="3">
   <front>
@@ -36,23 +36,6 @@
       </address>
     </author>
 
-    <author initials="G.Z." surname="Papadopoulos" fullname="Georgios Z. Papadopoulos">
-      <organization>IMT Atlantique</organization>
-      <address>
-    <postal>
-      <street>Office B00 - 114A</street>
-      <street>2 Rue de la Chataigneraie</street>
-      <city>Cesson-Sevigne - Rennes</city>
-      <code>35510</code>
-      <country>France</country>
-    </postal>
-    <phone>+33 299 12 70 04</phone>
-    <email>georgios.papadopoulos@imt-atlantique.fr</email>
-      </address>
-    </author>
-
-
-
 
     <date/>
     <area>Routing Area</area>
@@ -64,19 +47,21 @@
       Due to uncontrolled interferences, including the self-induced multipath fading, deterministic networking can only be approached on wireless links. The radio conditions may change -way- faster than routing can adapt and reprogram, in particular when the controller is distant and connectivity is slow and limited. RAW separates the routing time scale at which a complex path is recomputed from the forwarding time scale at which the forwarding decision is taken for an individual packet. RAW operates at the forwarding time scale. The RAW problem is to decide, within the redundant solutions that are proposed by the routing, which will be used for each individual packet to provide a DetNet service while minimizing the waste of resources.
        !-->
 
-      Reliable and Available Wireless (RAW) provides for high
-      reliability and availability for IP connectivity across
-      any combination of wired and wireless network segments.
+      Reliable and Available Wireless (RAW) provides for high reliability and
+      availability for IP connectivity across any combination of wired and
+      wireless network segments.
+
       The RAW Architecture extends the DetNet Architecture and other
       standard IETF concepts and mechanisms to adapt to the specific challenges
-      of the wireless medium.
-      This document defines an architecture element for the RAW data plane, in
-      the form of an OODA loop, that optimizes the use of constrained spectrum
-      and energy while maintaining the expected connectivity properties.
-      It also introduces a new Control plane Function to prepare alternate
-      paths to go around local failures.
-      The loop involves OAM, PCE, and PREOF extensions, and a new component
-      called the Path Selection Engine (PSE).
+      of the wireless medium, in particular intermittently lossy connectivity.
+
+      This document defines a network control loop that optimizes the use of
+      constrained spectrum and energy while maintaining the expected
+      connectivity properties, typically reliability and latency.
+
+      The loop involves OAM, PCE, and PREOF extensions, and a new Controller
+      plane Function called the Path Selection Engine, that dynamically selects
+      the DetNet path for the next packets to route around local failures.
 
       </t>
     </abstract>
@@ -91,8 +76,8 @@
    link over a switched fabric, by providing a bounded latency and eliminating
    congestion loss, even when co-existing with best-effort traffic.
    It is getting traction in various industries including professional A/V,
-   manufacturing, online gaming, and smartgrid automation, enabling cost and
-   performance optimizations (e.g., vs. loads of P2P cables).
+   manufacturing, online gaming, and smartgrid automation, with both cost
+   savings and complexity benefits (e.g., vs. loads of P2P cables).
       </t>
       <t>
    Bringing determinism in a packet network means eliminating the statistical
@@ -146,7 +131,23 @@
     <t>
     RAW also reuses terminology defined for 6TiSCH in <xref target=
     "RFC9030" format="default"/> such as the term Track. A Track associates a
-    complex path with PAREO and shaping operations. The concept is agnostic to
+    topological graph with usage metadata that represent how the paths within
+    the Track are used.
+    </t>
+    <t>In an quantic analogy, a Track is to a path what an atomic orbital is to
+    a planetary orbit, in that the electron has a probability of presence within
+    a known shape as opposed to a deterministic trajectory.
+    </t>
+    <t>
+    In a herding gnous analogy, a gnou follows its own path that it marks with
+    its hooves as it goes; before the herd starts, any point within the Track
+    has a statistical chance to be marked by one or more hooves, meaning on path
+    for those gnous; once the herd has passed, the Track can be observed from
+    above, but it was there in advance as a potential that the gnous were to
+    follow.
+    </t>
+    <t>
+    The concept of Track is agnostic to
     the underlaying technology and applies but is not limited to any fully or
     partially wireless mesh.
     RAW specifies strict and loose Tracks depending on whether the path is fully
@@ -166,6 +167,17 @@
     wireless networks. Else, it introduces excessive indetermination in latency,
     but a limited number  of retries within a bounded time may be used within
     end-to-end constraints.
+    </t>
+    </section>
+    <section><name>FEC</name>
+    <t>
+    Forward Error Correction, adding redundant data to protect against a partial
+    loss without retries.
+    </t>
+    </section>
+    <section><name>HARQ</name>
+    <t>
+    Hybrid Automatic Repeat Request, combining FEC and ARQ.
     </t>
     </section>
     <section><name>OAM</name>
@@ -192,14 +204,14 @@
     <section><name>PAREO</name>
     <t>
     Packet (hybrid) ARQ, Replication, Elimination and
-    Ordering. PAREO is a superset Of DetNet's PREOF that includes
-    radio-specific techniques such as short range broadcast, MUMIMO,
-    PHY rate and other Modulation Coding Scheme (MCS) adaptation,
-    constructive interference and overhearing, which can be
-    leveraged separately or combined to increase the reliability.
-    As can the case for other functions such as shaping, the PAREO functions may
-    be actuated at the lower layers but controlled through abstractions from the
-    RAW extensions in the DetNet Service sublayer.
+    Ordering. PAREO is a superset Of DetNet's PREOF that includes leveraging
+    lower-layer (typically wireless) techniques such as short range broadcast,
+    MUMIMO, PHY rate and other Modulation Coding Scheme (MCS) adaptation,
+    constructive interference and overhearing, separately or in combination,
+    to increase the end-to-end reliability.
+    PAREO functions that are actuated at the lower layers may be controlled
+    through abstract interfaces by the RAW extensions within the DetNet Service
+    sublayer.
     </t>
     </section>
     </section><!--Acronyms-->
@@ -270,34 +282,42 @@
     </blockquote>
     <t>
     It follows that the general acceptance of a path is a linear sequence of
-    links and nodes, as opposed to a multi-dimensional graph, defined by the experience of
-    the packet that went from a node A to a node B.
-    </t>
-    <t> With DetNet and RAW,
-    a packet may be duplicated, fragmented and network-coded, and the various
-    byproducts may travel different paths that are not necessarily end-to-end
-    between A and B; we refer to that experience as a complex path.
-    The complex path does not fit the traditional description of a path, and
-    is subject to change from a packet to the next. Therefore we introduce
-    below the term of a Track as the overall topology where the possible
-    complex paths are all contained.
-    </t>
-    <t>
+    links and nodes, as opposed to a multi-dimensional graph, defined by the
+    experience of the packet that went from a node A to a node B.
     In the context of this document, a path is observed by following one copy
     or one fragment of a packet that conserves its uniqueness and integrity.
     For instance, if C replicates to E and F and D eliminates on the way from A
     to B, a packet from A to B experiences 2 paths, A->C->E->D->B and
-    A->C->F->D->B.
+    A->C->F->D->B. The adjectives "serial" or "simple" are used to clarify when
+    dealing with such path.
+    </t>
+    <t> With DetNet and RAW,
+    a packet may be duplicated, fragmented and network-coded, and the various
+    byproducts may travel different paths that are not necessarily end-to-end
+    between A and B; we refer to that complex experience as a DetNet path.
+    As such, the DetNet path extends the above description of a path,
+    but it still matches the experience of a packet that traverses the network.
+    </t>
+    <t>
+    With RAW, that experience is subject to change from a packet to the next,
+    but all the possible experiences are all contained within a finite set.
+    Therefore we introduce below the term of a Track that coalesces that set
+    and covers the overall topology where the possible DetNet paths are all
+    contained. As such, the Track coalesces all the possible paths that a flow
+    may experience, each with its own statistical probability to be used.
     </t>
     </section>
     <section anchor="trk"><name>Track</name>
 
     <t>A networking graph that can be followed to transport packets with
-    equivalent treatment; as opposed to the definition of a path above, a Track
-    represents not an experience but a potential, is not necessarily a linear
-    sequence, and is not necessarily fully traversed (flooded) by all packets
-    of a flow. It may contain multiple paths that may overlap, fork and rejoin,
-    for instance to enable the RAW PAREO operations.
+    equivalent treatment, associated with useage metadata; as opposed to the
+    definition of a path above, a Track represents not an actual but a potential,
+    it is not necessarily a linear sequence like a simple path, and is not
+    necessarily fully traversed (flooded) by all packets of a flow like a Detnet
+    Path. Still, and as a simplification, the casual reader may consider that a
+    Track is very much like a DetNet path, aggregating multiple paths that may
+    overlap, fork and rejoin, for instance to enable a protection service by the
+    PREOF operations.
     </t>
    <figure anchor="Figtrk">
           <name>Example IoT Track to an IoT gateway with 1+1 redundancy</name>
@@ -328,6 +348,22 @@
        </figure>
 
     <t>
+    Refining further, a Track is defined as the coalescence of the collection
+    of all the feasible DetNet Paths that a packet which flow is assigned to the
+    Track may be forwarded along.
+    A packet that is assigned to the Track will experience one of the feasible
+    DetNet Paths based on the current selection by the PSE at the time the
+    packet traverses the network.
+    </t>
+    <t>
+    Refining even further, the feasible DetNet Paths within the Track may or may
+    not be computed in advance, but decided upon the detection of a change from
+    a clean slate.
+    Furthermore, the PSE decision may be distributed, which yields a large
+    combination of possible and dependant decisions, with no node in the network
+    capable of reporting which is the current DetNet Path within the Track.
+    </t>
+    <t>
     In DetNet <xref target="RFC8655"/> terms, a Track has the following
     properties:
     </t>
@@ -339,23 +375,17 @@
     A Track has one Ingress and one Egress nodes, which operate as DetNet Edge
     nodes.
     </li><li>
-    A Track is reversible, meaning that packets can be routed against the flow
-    of data packets, e.g., to carry OAM measurements or control messages back to
-    the Ingress.
+    The graph of a Track is reversible, meaning that packets can be routed against
+    the flow of data packets, e.g., to carry OAM measurements or control
+    messages back to the Ingress.
     </li><li>
-    The vertices of the Track are DetNet Relay nodes that operate at the DetNet
-    Service sub-layer and provide the PAREO functions.
+    The vertices of that graph are DetNet Relay nodes that operate at the
+    DetNet Service sub-layer and provide the PAREO functions.
     </li><li>
     The topological edges of the graph are serial sequences of DetNet Transit
     nodes that operate at the DetNet Forwarding sub-layer.
     </li>
     </ul>
-    </section>
-    <section><name>SubTrack</name>
-    <t>
-    A Track within a Track. The RAW PSE selects a subTrack
-    on a per-packet or a per-collection of packets basis to provide the desired reliability for the transported flows.
-    </t>
     </section>
     <section><name>Segment</name>
     <t>
@@ -381,7 +411,7 @@
     <xref target="RFC8939"/>. Packets of the same flow must be placed
     on the same Track to receive an equivalent treatment from Ingress to Egress
     within the Track. Multiple flows may be transported along the same Track.
-    The subTrack that is selected for the flow may change over time under the
+    The DetNet Path that is selected for the flow may change over time under the
     control of the PSE.
     </t>
     </section>
@@ -482,7 +512,7 @@
     <section><name>Active OAM</name>
     <t>
      See <xref target="RFC7799"/>. In the context of RAW, Active OAM is used to
-     observe a particular Track, subTrack, or Segment of a Track regardless of
+     observe a particular Track, DetNet Path, or Segment of a Track regardless of
      whether it is used for traffic at that time.
      </t>
     </section>
@@ -505,7 +535,7 @@
     <section><name>Limited OAM</name>
     <t>
      An active OAM packet is a Limited OAM packet when
-      it observes the RAW operation over a node, a segment, or a subTrack
+      it observes the RAW operation over a node, a segment, or a DetNet Path
       of the Track, though not from Ingress to Egress.  It is injected
       in the datapath and extracted from the datapath around the
       particular function or subnetwork (e.g., around a relay providing
@@ -519,7 +549,7 @@
     from egress to ingress on the reverse direction, to capture and  report OAM
     measurements upstream. The collection may capture all information along the
     whole Track, or it may only learn select data across all, or only a
-    particular subTrack, or Segment of a Track.
+    particular DetNet Path, or Segment of a Track.
      </t>
 </section> <!-- Upstream OAM -->
 
@@ -995,9 +1025,9 @@
       <t>
    RAW distinguishes the longer time scale at which routes are computed from the
    the shorter forwarding time scale where per-packet decisions are made.
-   RAW operates within the Network Plane at the forwarding time scale on one
+   RAW Network Plane operations happen at the forwarding time scale on one
    DetNet flow over a complex path delineated by a Track
-   (see <xref target="trk"/>). The Track is
+    (see <xref target="trk"/>). The Track is
    preestablished and installed by means outside of the scope of RAW; it may be
    strict or loose depending on whether each or just a subset of the hops are
    observed and controlled by RAW.
@@ -1016,7 +1046,7 @@
       Orient the routing decision, e.g., by a PCE in a centralized controller
       </li>
       <li> A Runtime distributed Path Selection Engine (PSE) that Decides which
-      subTrack to use for the next packet(s) that are routed along the Track
+      DetNet Path to use for the next packet(s) that are routed along the Track
       </li>
       <li> Packet (hybrid) ARQ, Replication, Elimination and Ordering Dataplane
       actions that operate at the DetNet Service sublayer to increase the
@@ -1223,8 +1253,8 @@
   or End System, though it may also run in DetNet Relay Nodes when the RAW
   Control sub-layer is distributed along the Track.
   The RAW Control sub-layer functionality includes the PSE that decides the
-  subTrack for the next packets of a flows and controls
-  the PAREO Actuators along the subTrack through specific signaling,
+  DetNet Path for the next packets of a flows and controls
+  the PAREO Actuators along the DetNet Path through specific signaling,
   and the OAM Supervisor that triggers, and learns from, OAM observations, and
   feeds the PSE for its next decision.
 </t>
@@ -1367,7 +1397,7 @@
       <t>
    With DetNet, the Controller Plane Function (CPF) handles the routing
    computation and maintenance. With RAW, the CPF also performs the PSE
-   orientation, proposing SubTracks to use in response to network events.
+   orientation, proposing DetNet Paths to use in response to network events.
    The CPF can be can be centralized in a PCE, and can reside outside the
    network. This is how the remainder of this document depicts it, though
    the CPF could be implemented otherwise without affecting the architecture.
@@ -1472,7 +1502,7 @@
       <xref target = "pce" />;
       </dd>
       <dt>Decide:</dt><dd> A Runtime distributed Path Selection Engine (PSE) thar Decides which
-      subTrack to use for the next packet(s) that are routed along the Track,
+      DetNet Path to use for the next packet(s) that are routed along the Track,
       more in <xref target = "psepce" />;
       </dd>
       <dt>Act:</dt><dd> Packet (hybrid) ARQ, Replication, Elimination and Ordering Dataplane
@@ -1512,7 +1542,7 @@
 <section anchor="aom" numbered="true" toc="default">
     <name>Observe: The RAW OAM </name><t>
     RAW In-situ OAM operation in the Network Plane may observe either a full
-    Track or subTracks that are being used at this time. As packets may be load
+    Track or DetNet Paths that are being used at this time. As packets may be load
     balanced, replicated, eliminated, and / or fragmented for Network Coding
     (NC) forward error correction (FEC), the RAW In-situ operation needs to be
     able to signal which operation occured to an individual packet.
@@ -1594,7 +1624,7 @@
    <t>
    The Track computation is out of scope, but RAW expects that the Controller
    plane protocol that installs the Track also provides related knowledge
-   in the form of meta data about the links, segments and possible subTracks.
+   in the form of meta data about the links, segments and possible DetNet Paths.
    That meta data can be a pre-digested statistical model, and may include
    prediction of future flaps and packet loss, as well as recommended actions
    when that happens.
@@ -1604,7 +1634,7 @@
    </t>
    <ul>
    <li>
-   Pre-Determined subTracks to match predictable error profiles
+   Pre-Determined DetNet Paths to match predictable error profiles
    </li>
    <li>
    Pre-Trained models
@@ -1733,246 +1763,48 @@
 
     <!--  11111111111111111    -->
     <section anchor="PAREO" numbered="true" toc="default">
-      <name>Act: The PAREO Functions</name>
+      <name>Act: DetNet Path Selection and PAREO functions</name>
       <t>
-    RAW may control whether and how to use packet replication and elimination
-    (PRE), fragmentation, and network coding, and how the lower layers performs
-    Automatic Repeat reQuest (ARQ), Hybrid ARQ (HARQ) that includes
-    Forward Error Correction (FEC), and other wireless-specific
-    techniques such as overhearing and constructive interferences, in order to
-    increase the reliabiility and availability of the end-to-end transmission.
+    The main action by the PSE is the swapping of the DetNet Path within the
+    Track for the next series of packets.
+    The candidate DetNet Paths represent different energy and spectrum profiles,
+    and provide protection against different failures.
+    </t>
+    <t>RAW also extends the DetNet protection services (typically, PREOF)
+    to possibly control lower layer one-hop reliability functions that are more
+    typical to wireless than wires, including Automatic Repeat reQuest (ARQ),
+    Forward Error Correction (FEC), Hybrid ARQ (HARQ) that includes both, and
+    other techniques such as overhearing and constructive interferences.
     Because RAW may be leveraged on wired links, e.g., to save power, it is not
-    expected that all lower layers support all RAW capabilities. Either way,
-    RAW will manipulate the abstractions of the lower layer services and hint on
-    the expected outcome, and the lower layer will act on those hints to provide
-    the best approximation of the desired outcome, e.g., a level of reliability
-    for one-hop transmission within a bounded budget.
+    expected that all lower layers support all those capabilities.
     </t>
     <t>
-    Collectively, those function are called PAREO for Packet (hybrid) ARQ, Replication, Elimination and Ordering. By tuning dynamically the use of
-    PAREO functions, RAW avoids the waste of critical resources such as spectrum
-    and energy while providing that the guaranteed SLA, e.g., by adding redundancy only when a spike of loss is observed.
+    RAW manipulates abstractions of the lower layer services to hint on the
+    desired outcome, and the lower layer acts on those hints to provide
+    the best approximation of that outcome, e.g., a level of reliability
+    for one-hop transmission within a bounded budget of time and/or energy.
+    The term PAREO is coined to represent both that the set of PREOF reliability
+    functions is extended and the fact that some extensions are only controlled
+    from Layer-3 using an abstract interface, while they are really operated at
+    the lower layers.
     </t>
     <t>
-    In a nutshell, PAREO establishes several paths in a
-    network to provide redundancy and parallel transmissions to
-    bound the end-to-end delay to traverse the network.
-    Optionally, promiscuous listening between paths is possible, such that the Nodes
-    on one path may overhear transmissions along the other path.
-    Considering the scenario shown in <xref target="fig_ladder"/>, many
-    different paths are possible to traverse the network from ingress to
-    egress. A simple way to benefit from this topology could be to use the
-    two independent paths via Nodes A, C, E and via B, D, F.  But
-    more complex paths are possible by interleaving transmissions
-    from the lower level of the path to the upper level.
-    </t>
-
-
-
-      <figure anchor="fig_ladder" align="center" title="A Ladder Shape with Two Parallel Paths">
-     <artwork align="center">
-
-           (A) -- (C) -- (E)
-         /                   \
-Ingress =   |      |      |   = Egress
-         \                   /
-           (B) -- (D) -- (F)
-
-</artwork>
-     </figure>
-    <t>
-     PAREO may also take advantage of
-     the shared properties of the wireless medium to compensate for the
-     potential loss that is incurred with radio transmissions.
+    The RAW Path Selection can be implemented in both centralized and distributed
+    scheduling approaches.
+    In the centralized approach, the PSE may obtain a set of pre-computed DetNet
+    paths matching a set of expected failures, and apply the appropriate DetNet
+    paths for the current state of the wireless links.
+    In the distributed approach, the signaling in the packet may be more
+    abstract than an explicit Path, and the PSE decision might be revised along
+    the select DetNet Path based on a better knowledge of the rest of the way.
     </t>
     <t>
-     For instance, when the source sends to Node A, Node B may listen
-     promiscuously and get a second chance to receive the frame without an
-     additional transmission. Note that B would not have to listen if it
-     already received that particular frame at an earlier timeslot in a dedicated
-     transmission towards B.
-<!-- [->] This is assuming some sort of implicit knowledge in B. Not sure if this is  -->
-<!-- possible without specific signaling.   -->
-<!-- [GP] Yes, we may need additional 6P transactions from the source to B, or  -->
-<!-- multicast 6P transaction from the source to both A and B. However, this  -->
-<!-- need to be discussed and defined. We have referred to these requirements in the "Requirements Related to Cell Reservation" section in the upcoming version.  (DONE) -->
+    The dynamic DetNet Path selection in RAW avoids the waste of critical
+    resources such as spectrum and energy while providing for the
+    guaranteed SLA, e.g., by rerouting and/or adding redundancy only when a
+    spike of loss is observed.
     </t>
 
-
-    <t>
-    The PAREO model can be implemented in both centralized and distributed scheduling approaches.
-    In the centralized approach, a Path Computation Element (PCE) scheduler calculates a Track and schedules the communication.
-    In the distributed approach, the Track is computed within the network,
-    and signaled in the packets, e.g., using BIER-TE, Segment Routing, or a
-    Source Routing Header.
-    </t>
-
-
-
-    <section numbered="true" toc="default">
-      <name>Packet Replication</name>
-
-    <t>
-    By employing a Packet Replication procedure, a Node forwards
-    a copy of each data packet to more than one successor.
-    To do so, each Node (i.e., Ingress and intermediate Node) sends the
-    data packet multiple times as separate unicast transmissions.
-    For instance, in <xref target="fig_replication"/>, the Ingress Node is
-    transmitting the packet to both successors, nodes A and B, at two different
-    times.
-    </t>
-
-
-    <figure anchor="fig_replication" align="center"
-        title="Packet Replication">
-        <artwork align="center"><![CDATA[
-
-             ===> (A) => (C) => (E) ===
-           //        \\//   \\//       \\
-   Ingress           //\\   //\\          Egress
-           \\       //  \\ //  \\      //
-             ===> (B) => (D) => (F) ===
-
-        ]]></artwork>
-    </figure>
-    <t>
-    An example schedule is shown in <xref target="tab_replication_schedule"/>.
-    This way, the transmission leverages with the time and spatial forms of diversity.
-    </t>
-    <table anchor="tab_replication_schedule"><name>Packet Replication: Sample schedule</name>
-   <thead>
-      <tr>
-		   <th align='center'>Channel</th>
-		   <th align='center'>0</th>
-		   <th align='center'>1</th>
-		   <th align='center'>2</th>
-		   <th align='center'>3</th>
-		   <th align='center'>4</th>
-		   <th align='center'>5</th>
-		   <th align='center'>6</th>
-      </tr>
-
-   </thead><tbody>
-
-			<tr><td>0</td>
-    			<td align='center'>S->A</td>
-    			<td align='center'>S->B</td>
-    			<td align='center'>B->C</td>
-    			<td align='center'>B->D</td>
-    			<td align='center'>C->F</td>
-    			<td align='center'>E->R</td>
-    			<td align='center'>F->R</td>
-        </tr>
-
-
-			<tr><td>1</td>
-    			<td align='center'> </td>
-    			<td align='center'>A->C</td>
-    			<td align='center'>A->D</td>
-    			<td align='center'>C->E</td>
-    			<td align='center'>D->E</td>
-    			<td align='center'>D->F</td>
-    			<td align='center'> </td>
-        </tr>
-
-    </tbody>
-    </table>
-
-
-<!-- [XV] here you are only considering duplication at the source. While would be better IMHO to duplicate before those links that show lower performance. Would you also consider duplication at inner hops?  -->
-<!-- [GP] Yes, definitely, there is replication (duplication) at inner hops.  -->
-<!-- For instance, A will transmit both to its default parent C and alternative B. -->
-<!-- The Figure 2 and the text in 4.1 is updated. (Modified, DONE) -->
-<!-- As far as only duplicating at lower performance links, this is a very good point and a nice optimisation target. This needs to be discussed further -->
-
-<!-- [GP] Do you think a Figure with the TSCH schedule representation would be helpful?     -->
-<!-- [RK] Yes, I do. Added  fig_replication_schedule -->
-
-</section>
-
-
-
-
-    <section numbered="true" toc="default">
-      <name>Packet Elimination</name>
-
-
-    <t>
-    The replication operation increases the traffic load in the
-    network, due to packet duplications.  This may occur at several stages inside the Track, and to avoid an explosion of the number of copies, a Packet Elimination procedure must be applied as well. To this aim, once a Node receives the first copy of a data packet, it discards the subsequent copies.
-    </t><t>
-    The logical functions of Replication and Elimination may be collocated in an intermediate Node, the  Node first eliminating the redundant copies and then sending the packet exactly once to each of the selected successors.
-    </t>
-
-</section>
-
-
-
-
-    <section numbered="true" toc="default">
-      <name>Promiscuous Overhearing</name>
-
-
-
-    <t>
-    Considering that the wireless medium is broadcast by nature, any neighbor of
-    a transmitter may overhear a transmission.
-    By employing the Promiscuous Overhearing operation, the next hops have additional opportunities to capture the data packets.
-    In <xref target="fig_overhearing"/>, when Node A is transmitting to its DP
-    (Node C), the AP (Node D) and its sibling (Node B) may decode this data packet as
-    well.
-    As a result, by employing correlated paths, a Node may have multiple
-    opportunities to receive a given data packet.
-    <!--
-    This feature not only enhances the end-to-end reliability but also it reduces the
-    end-to-end delay and increases energy efficiency.
-    -->
-    </t>
-
-
-    <figure anchor="fig_overhearing" align="center"
-        title="Unicast with Overhearing">
-        <artwork align="center"><![CDATA[
-
-           ===> (A) ====> (C) ====> (E) ====
-         //     ^ | \\                      \\
-  Ingress       | |   \\                      Egress
-         \\     | v     \\                  //
-           ===> (B) ====> (D) ====> (F) ====
-
-]]></artwork>
-    </figure>
-<t>
-     Variations on the same idea such as link-layer anycast and multicast
-     may also be used to reach more than one next-hop with a single frame.
-</t>
-
-</section>
-
-
-
-
-
-
-    <section numbered="true" toc="default">
-      <name>Constructive Interference</name>
-
-<t>
-    Constructive Interference can be seen as the reverse of Promiscuous
-    Overhearing, and refers to the case where two senders transmit the exact
-    same signal in a fashion that the emitted symbols add up at the receiver and
-    permit a reception that would not be possible with a single sender at the
-    same PHY mode and  the same power level.
-</t><t>
-    Constructive Interference was proposed on 5G, Wi-Fi7 and even tested on
-    IEEE Std 802.14.5.  The hard piece is to synchronize the senders to the
-    point that the signals are emitted at slightly different time to offset the
-    difference of propagation delay that corresponds to the difference of
-    distance of the transmitters to the receiver at the speed of light to the
-    point that the symbols are superposed long enough to be recognizable.
-</t>
-
-</section>
 
 
 
@@ -2036,13 +1868,13 @@ Ingress =   |      |      |   = Egress
 
     <section numbered="true" toc="default">
       <name>Contributors</name>
-      <t>The editor wishes to thank:
+      <t>The editor wishes to thank the document co-authors:
       </t>
       <dl>
     <dt>Lou Berger:</dt><dd>Lab N</dd>
     <dt>Xavi Vilajosana:</dt><dd>Wireless Networks Research Lab, Universitat Oberta de Catalunya</dd>
+    <dt>Geogios Papadopolous:</dt><dd>IMT Atlantique</dd>
     <dt>Remous-Aris Koutsiamanis:</dt><dd>IMT Atlantique</dd>
-    <dt>Nicolas Montavont:</dt><dd>IMT Atlantique</dd>
     <dt>Rex Buddenberg:</dt><dd>Individual contributor</dd>
     <dt>Greg Mirsky:</dt><dd>ZTE</dd>
       </dl>
@@ -2053,10 +1885,13 @@ Ingress =   |      |      |   = Egress
     <!--  000000000000000000000    -->
 
    <section><name>Acknowledgments</name>
-   <t>This architecture could never have been completed without the support and recommendations from the DetNet Chairs Janos Farkas and Lou Berger. Many thanks to both.
+   <t>This architecture could never have been completed without the support and
+   recommendations from the DetNet Chairs Janos Farkas and Lou Berger.
+   Many thanks to both.
    </t>
-   <t>The authors wish to thank Dave Cavalcanti and Fabrice Theoleyre for their
-   in-depth reviews during the development of this document.
+   <t>The authors wish to thank Balazs Varga, Dave Cavalcanti, Don Fedyk,
+   Nicolas Montavont, and Fabrice Theoleyre for their in-depth reviews during
+   the development of this document.
    </t>
    </section>
    <!-- Acknowledgments -->

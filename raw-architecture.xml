@@ -126,7 +126,8 @@
 
     <t>RAW reuses terminology defined for DetNet in the <xref target="RFC8655">
     "Deterministic Networking Architecture"</xref>, e.g., PREOF for Packet
-    Replication, Elimination and Ordering Functions.
+    Replication, Elimination and Ordering Functions. RAW inherits and augments
+    the IETF art of Protection as seen in DetNet and Traffic Engineering.
     </t>
     <t>
     RAW also reuses terminology defined for 6TiSCH in <xref target=
@@ -310,7 +311,7 @@
     <section anchor="trk"><name>Track</name>
 
     <t>A networking graph that can be followed to transport packets with
-    equivalent treatment, associated with useage metadata; as opposed to the
+    equivalent treatment, associated with usage metadata; as opposed to the
     definition of a path above, a Track represents not an actual but a potential,
     it is not necessarily a linear sequence like a simple path, and is not
     necessarily fully traversed (flooded) by all packets of a flow like a Detnet
@@ -382,18 +383,82 @@
     The vertices of that graph are DetNet Relay nodes that operate at the
     DetNet Service sub-layer and provide the PAREO functions.
     </li><li>
-    The topological edges of the graph are serial sequences of DetNet Transit
+    The topological edges of the graph are strict sequences of DetNet Transit
     nodes that operate at the DetNet Forwarding sub-layer.
     </li>
     </ul>
+
+
+
+
+    <t>
+    <xref target='TRK'/> illustrates the generic concept of a Track, between an
+    Ingress Node that represents East and an Egress Node that represents West.
+
+    The Track is composed of East-West Lanes and East-West or North-South
+    Segments, see the definition for those terms in the next sections.
+    A Protection Path contains at least 2 Lanes.
+</t>
+<figure anchor='TRK'><name>A Track and its Components</name>
+              <artwork align="center"><![CDATA[
+North East                                   North West
+
+       a ==> b ==> C -=- F ==> G ==> H     T1       I: Ingress
+     /              \   /      |       \ /          E: Egress
+   I                  o        n        E -=- T2    T1, T2, T3:
+     \              /   \      |       / \            External
+       p ==> q ==> R -=- T ==> U ==> v     T3         Targets
+
+South East                                   South West
+
+      Uppercase: DetNet Relay nodes
+      Lowercase: DetNet Transit nodes
+
+      I ==> a ==> b ==> C : an East-West Segment to targets F and o
+      C ==> o ==> T: an East-West Segment to target T (and/or U)
+      G | n | U : a North-South Segment to targets C or R
+      I --> F --> E : an East-West Lane to targets T1, T2, and T3
+
+      I, a, b, C, F, G, H, E : a path to T1, T2, and/or T3
+      I, p, q, R, o, F, G, H, E : lane-crossing alternate path
+
+]]></artwork>
+</figure>
+
+
     </section>
+  <section><name>East, West, North, and South</name>
+    <t>
+    East-West refers to progress towards the Track Egress. East-West links are
+    directional, and packets that are forwarded along the Track can only be
+    transmitted along the link direction. North-South links are bidirectional,
+    meaning that they can be used in both directions, though a given packet may
+    use the link in one direction only. A Segment can be East-West, in which
+    case it is composed of East-West links only, or North-South, in which
+    case it is composed of North-South links only. A lane is always East-West,
+    meaning that is is composed of East-West links and Segments.
+    </t>
+    </section>
+  <section><name>Lane</name>
+    <t>
+    An end-to-end East-West serial path between the Ingress and Egress Nodes
+    of a Track. A Track Lane is expressed as a
+    loose sequence of DetNet Relay nodes that are joined by Track Segments.
+    </t> <t>
+    As the Non-Storing Mode Via Information option (NSM-VIO) can only signal
+    sequences of nodes, it takes one Non-Storing Mode P-DAO message per Lane to
+    signal the structure of a complex Track.
+    </t> <t>
+    Each NSM-VIO for the same
+    TrackId but with a different Segment ID signals a different Lane that the
+    Track Ingress adds to the topology.
+    </t>
+  </section>
     <section><name>Segment</name>
     <t>
-    A serial path formed by a topological edge of a Track.
-    East-West Segments are oriented from Ingress (East) to Egress (West).
-    North/South Segments can be bidirectional; to avoid loops, measures must be
-    taken to ensure that a given packet flows either Northwards or Southwards
-    along a bidirectional Segment, but never bounces back.
+    A strict sequence of DetNet Transit nodes between 2 DetNet Relay nodes; a
+    Segment of a Track is composed topologically of two vertices of the Track
+    and one edge of the Track between those vertices.
     </t>
     </section>
     </section><!--Path and Tracks-->
@@ -526,8 +591,8 @@
     </section>
     <section><name>Out-of-Band OAM</name>
     <t>
-     Out-of-band OAM is an active OAM whose path is
-      not topologically congruent to the Track, or its test packets receive a
+     Out-of-band OAM is an active OAM whose path is not topologically congruent
+     to the Track, or its test packets receive a
       QoS and/or PAREO treatment that is different from that of the packets of
       the data flows that are injected in the Track, or both.
      </t>

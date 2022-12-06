@@ -19,7 +19,7 @@
      ipr="trust200902" obsoletes="" updates="" submissionType="IETF"
      xml:lang="en" version="3">
   <front>
-    <title abbrev="RAW Architecture/Framework">Reliable and Available Wireless
+    <title abbrev="RAW Architecture">Reliable and Available Wireless
     Architecture</title>
     <author initials="P" surname="Thubert" fullname="Pascal Thubert" role="editor">
       <organization abbrev="Cisco Systems">Cisco Systems, Inc</organization>

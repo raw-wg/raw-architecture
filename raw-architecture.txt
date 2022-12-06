@@ -55,7 +55,7 @@ Copyright Notice
 
 Thubert                    Expires 9 June 2023                  [Page 1]
 
-Internet-Draft         RAW Architecture/Framework          December 2022
+Internet-Draft              RAW Architecture               December 2022
 
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -111,7 +111,7 @@ Table of Contents
 
 Thubert                    Expires 9 June 2023                  [Page 2]
 
-Internet-Draft         RAW Architecture/Framework          December 2022
+Internet-Draft              RAW Architecture               December 2022
 
 
        2.6.4.  Limited OAM . . . . . . . . . . . . . . . . . . . . .  13
@@ -167,7 +167,7 @@ Internet-Draft         RAW Architecture/Framework          December 2022
 
 Thubert                    Expires 9 June 2023                  [Page 3]
 
-Internet-Draft         RAW Architecture/Framework          December 2022
+Internet-Draft              RAW Architecture               December 2022
 
 
    Bringing determinism in a packet network means eliminating the
@@ -223,7 +223,7 @@ Internet-Draft         RAW Architecture/Framework          December 2022
 
 Thubert                    Expires 9 June 2023                  [Page 4]
 
-Internet-Draft         RAW Architecture/Framework          December 2022
+Internet-Draft              RAW Architecture               December 2022
 
 
    In an quantic analogy, a Track is to a path what an atomic orbital is
@@ -279,7 +279,7 @@ Internet-Draft         RAW Architecture/Framework          December 2022
 
 Thubert                    Expires 9 June 2023                  [Page 5]
 
-Internet-Draft         RAW Architecture/Framework          December 2022
+Internet-Draft              RAW Architecture               December 2022
 
 
 2.1.4.  OAM
@@ -335,7 +335,7 @@ Internet-Draft         RAW Architecture/Framework          December 2022
 
 Thubert                    Expires 9 June 2023                  [Page 6]
 
-Internet-Draft         RAW Architecture/Framework          December 2022
+Internet-Draft              RAW Architecture               December 2022
 
 
 2.2.4.  Downstream
@@ -391,7 +391,7 @@ Internet-Draft         RAW Architecture/Framework          December 2022
 
 Thubert                    Expires 9 June 2023                  [Page 7]
 
-Internet-Draft         RAW Architecture/Framework          December 2022
+Internet-Draft              RAW Architecture               December 2022
 
 
    With RAW, that experience is subject to change from a packet to the
@@ -447,7 +447,7 @@ Internet-Draft         RAW Architecture/Framework          December 2022
 
 Thubert                    Expires 9 June 2023                  [Page 8]
 
-Internet-Draft         RAW Architecture/Framework          December 2022
+Internet-Draft              RAW Architecture               December 2022
 
 
    assigned to the Track will experience one of the feasible DetNet
@@ -503,7 +503,7 @@ Internet-Draft         RAW Architecture/Framework          December 2022
 
 Thubert                    Expires 9 June 2023                  [Page 9]
 
-Internet-Draft         RAW Architecture/Framework          December 2022
+Internet-Draft              RAW Architecture               December 2022
 
 
     North East                                   North West
@@ -559,7 +559,7 @@ Internet-Draft         RAW Architecture/Framework          December 2022
 
 Thubert                    Expires 9 June 2023                 [Page 10]
 
-Internet-Draft         RAW Architecture/Framework          December 2022
+Internet-Draft              RAW Architecture               December 2022
 
 
 2.3.5.  Segment
@@ -615,7 +615,7 @@ Internet-Draft         RAW Architecture/Framework          December 2022
 
 Thubert                    Expires 9 June 2023                 [Page 11]
 
-Internet-Draft         RAW Architecture/Framework          December 2022
+Internet-Draft              RAW Architecture               December 2022
 
 
 2.5.  Reliability and Availability
@@ -671,7 +671,7 @@ Internet-Draft         RAW Architecture/Framework          December 2022
 
 Thubert                    Expires 9 June 2023                 [Page 12]
 
-Internet-Draft         RAW Architecture/Framework          December 2022
+Internet-Draft              RAW Architecture               December 2022
 
 
 2.5.6.  Availability
@@ -727,7 +727,7 @@ Internet-Draft         RAW Architecture/Framework          December 2022
 
 Thubert                    Expires 9 June 2023                 [Page 13]
 
-Internet-Draft         RAW Architecture/Framework          December 2022
+Internet-Draft              RAW Architecture               December 2022
 
 
 2.6.6.  Residence Time
@@ -783,7 +783,7 @@ Internet-Draft         RAW Architecture/Framework          December 2022
 
 Thubert                    Expires 9 June 2023                 [Page 14]
 
-Internet-Draft         RAW Architecture/Framework          December 2022
+Internet-Draft              RAW Architecture               December 2022
 
 
    IP Routers leverage routing protocols to compute alternate routes in
@@ -839,7 +839,7 @@ Internet-Draft         RAW Architecture/Framework          December 2022
 
 Thubert                    Expires 9 June 2023                 [Page 15]
 
-Internet-Draft         RAW Architecture/Framework          December 2022
+Internet-Draft              RAW Architecture               December 2022
 
 
    In the case of RAW, the expectation is that multiple transient faults
@@ -895,7 +895,7 @@ Internet-Draft         RAW Architecture/Framework          December 2022
 
 Thubert                    Expires 9 June 2023                 [Page 16]
 
-Internet-Draft         RAW Architecture/Framework          December 2022
+Internet-Draft              RAW Architecture               December 2022
 
 
    This number is typical in a wired environment where the loss is due
@@ -951,7 +951,7 @@ Internet-Draft         RAW Architecture/Framework          December 2022
 
 Thubert                    Expires 9 June 2023                 [Page 17]
 
-Internet-Draft         RAW Architecture/Framework          December 2022
+Internet-Draft              RAW Architecture               December 2022
 
 
       The affected frequencies depend on the relative position of the
@@ -1007,7 +1007,7 @@ Internet-Draft         RAW Architecture/Framework          December 2022
 
 Thubert                    Expires 9 June 2023                 [Page 18]
 
-Internet-Draft         RAW Architecture/Framework          December 2022
+Internet-Draft              RAW Architecture               December 2022
 
 
 3.2.  The RAW problem
@@ -1063,7 +1063,7 @@ Internet-Draft         RAW Architecture/Framework          December 2022
 
 Thubert                    Expires 9 June 2023                 [Page 19]
 
-Internet-Draft         RAW Architecture/Framework          December 2022
+Internet-Draft              RAW Architecture               December 2022
 
 
    As opposed to wired links, the availability and performance of an
@@ -1119,7 +1119,7 @@ Internet-Draft         RAW Architecture/Framework          December 2022
 
 Thubert                    Expires 9 June 2023                 [Page 20]
 
-Internet-Draft         RAW Architecture/Framework          December 2022
+Internet-Draft              RAW Architecture               December 2022
 
 
    RAW and DetNet route application flows that require a special
@@ -1175,7 +1175,7 @@ Internet-Draft         RAW Architecture/Framework          December 2022
 
 Thubert                    Expires 9 June 2023                 [Page 21]
 
-Internet-Draft         RAW Architecture/Framework          December 2022
+Internet-Draft              RAW Architecture               December 2022
 
 
    4.  Packet (hybrid) ARQ, Replication, Elimination and Ordering
@@ -1231,7 +1231,7 @@ Internet-Draft         RAW Architecture/Framework          December 2022
 
 Thubert                    Expires 9 June 2023                 [Page 22]
 
-Internet-Draft         RAW Architecture/Framework          December 2022
+Internet-Draft              RAW Architecture               December 2022
 
 
    traversing a non-RAW subnetwork as in Figure 6.  In that case, RAW
@@ -1287,7 +1287,7 @@ Internet-Draft         RAW Architecture/Framework          December 2022
 
 Thubert                    Expires 9 June 2023                 [Page 23]
 
-Internet-Draft         RAW Architecture/Framework          December 2022
+Internet-Draft              RAW Architecture               December 2022
 
 
    Depending on the use case and the SLA, the Track may comprise non-RAW
@@ -1343,7 +1343,7 @@ Internet-Draft         RAW Architecture/Framework          December 2022
 
 Thubert                    Expires 9 June 2023                 [Page 24]
 
-Internet-Draft         RAW Architecture/Framework          December 2022
+Internet-Draft              RAW Architecture               December 2022
 
 
    desirable and the available path diversity exceeds 1+1 linear
@@ -1399,7 +1399,7 @@ Internet-Draft         RAW Architecture/Framework          December 2022
 
 Thubert                    Expires 9 June 2023                 [Page 25]
 
-Internet-Draft         RAW Architecture/Framework          December 2022
+Internet-Draft              RAW Architecture               December 2022
 
 
     +------------------------------+ +--------------------------------+
@@ -1455,7 +1455,7 @@ Internet-Draft         RAW Architecture/Framework          December 2022
 
 Thubert                    Expires 9 June 2023                 [Page 26]
 
-Internet-Draft         RAW Architecture/Framework          December 2022
+Internet-Draft              RAW Architecture               December 2022
 
 
    --------------------Flow Direction---------------------------------->
@@ -1511,7 +1511,7 @@ Internet-Draft         RAW Architecture/Framework          December 2022
 
 Thubert                    Expires 9 June 2023                 [Page 27]
 
-Internet-Draft         RAW Architecture/Framework          December 2022
+Internet-Draft              RAW Architecture               December 2022
 
 
    --------------------Flow Direction---------------------------------->
@@ -1567,7 +1567,7 @@ Internet-Draft         RAW Architecture/Framework          December 2022
 
 Thubert                    Expires 9 June 2023                 [Page 28]
 
-Internet-Draft         RAW Architecture/Framework          December 2022
+Internet-Draft              RAW Architecture               December 2022
 
 
                      +----------------+
@@ -1623,7 +1623,7 @@ Internet-Draft         RAW Architecture/Framework          December 2022
 
 Thubert                    Expires 9 June 2023                 [Page 29]
 
-Internet-Draft         RAW Architecture/Framework          December 2022
+Internet-Draft              RAW Architecture               December 2022
 
 
    collection of SD-WAN tunnels.  RAW formalizes a forwarding time scale
@@ -1679,7 +1679,7 @@ Internet-Draft         RAW Architecture/Framework          December 2022
 
 Thubert                    Expires 9 June 2023                 [Page 30]
 
-Internet-Draft         RAW Architecture/Framework          December 2022
+Internet-Draft              RAW Architecture               December 2022
 
 
                      +-------> Orient (PCE) --------+
@@ -1735,7 +1735,7 @@ Internet-Draft         RAW Architecture/Framework          December 2022
 
 Thubert                    Expires 9 June 2023                 [Page 31]
 
-Internet-Draft         RAW Architecture/Framework          December 2022
+Internet-Draft              RAW Architecture               December 2022
 
 
                                          ...   ..
@@ -1791,7 +1791,7 @@ Internet-Draft         RAW Architecture/Framework          December 2022
 
 Thubert                    Expires 9 June 2023                 [Page 32]
 
-Internet-Draft         RAW Architecture/Framework          December 2022
+Internet-Draft              RAW Architecture               December 2022
 
 
    The Track computation is out of scope, but RAW expects that the
@@ -1847,7 +1847,7 @@ Internet-Draft         RAW Architecture/Framework          December 2022
 
 Thubert                    Expires 9 June 2023                 [Page 33]
 
-Internet-Draft         RAW Architecture/Framework          December 2022
+Internet-Draft              RAW Architecture               December 2022
 
 
       +===============+========================+===================+
@@ -1903,7 +1903,7 @@ Internet-Draft         RAW Architecture/Framework          December 2022
 
 Thubert                    Expires 9 June 2023                 [Page 34]
 
-Internet-Draft         RAW Architecture/Framework          December 2022
+Internet-Draft              RAW Architecture               December 2022
 
 
 5.6.  Act: DetNet Path Selection and PAREO functions
@@ -1959,7 +1959,7 @@ Internet-Draft         RAW Architecture/Framework          December 2022
 
 Thubert                    Expires 9 June 2023                 [Page 35]
 
-Internet-Draft         RAW Architecture/Framework          December 2022
+Internet-Draft              RAW Architecture               December 2022
 
 
 6.1.  Layer-2 encryption
@@ -2015,7 +2015,7 @@ Internet-Draft         RAW Architecture/Framework          December 2022
 
 Thubert                    Expires 9 June 2023                 [Page 36]
 
-Internet-Draft         RAW Architecture/Framework          December 2022
+Internet-Draft              RAW Architecture               December 2022
 
 
 10.  References
@@ -2071,7 +2071,7 @@ Internet-Draft         RAW Architecture/Framework          December 2022
 
 Thubert                    Expires 9 June 2023                 [Page 37]
 
-Internet-Draft         RAW Architecture/Framework          December 2022
+Internet-Draft              RAW Architecture               December 2022
 
 
    [RFC8578]  Grossman, E., Ed., "Deterministic Networking Use Cases",
@@ -2127,7 +2127,7 @@ Internet-Draft         RAW Architecture/Framework          December 2022
 
 Thubert                    Expires 9 June 2023                 [Page 38]
 
-Internet-Draft         RAW Architecture/Framework          December 2022
+Internet-Draft              RAW Architecture               December 2022
 
 
    [RFC4090]  Pan, P., Ed., Swallow, G., Ed., and A. Atlas, Ed., "Fast
@@ -2183,7 +2183,7 @@ Internet-Draft         RAW Architecture/Framework          December 2022
 
 Thubert                    Expires 9 June 2023                 [Page 39]
 
-Internet-Draft         RAW Architecture/Framework          December 2022
+Internet-Draft              RAW Architecture               December 2022
 
 
    [NASA]     Adams, T., "RELIABILITY: Definition & Quantitative

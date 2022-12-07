@@ -114,7 +114,23 @@
    scheduled wireless segments. To achieve this, RAW leverages multiple links and parallel transmissions, providing enough diversity and redundancy to
    ensure the timely packet delivery while preserving energy and optimizing the
    use of the shared spectrum.
-      </t>
+   </t>
+   <t>
+    As opposed to routing trees, Distance-Vector protocols can enable more than
+    one feasible successors along non-equal-cost multipath forwarding graphs.
+    This provide redundancy and allow to dynamically adapt the forwarding
+    operation to the state of the links. But this protection is limited since
+    only a subset of the nodes along the path will have an alternate feasible
+    successor.
+    </t>
+    <t>
+    RAW solves that problem by defining Protection Paths that can be fully
+    non-congruent and can be activated dynamically upon failures. This requires
+    additional control to take the routing decision early enough along the
+    possible paths to route around the failure. RAW defines a end-to-end
+    control loop that dynamically controls the activation and deactivation of
+    the feasible Protection Paths.
+    </t>
 
     </section>
     <!-- Introduction -->
@@ -416,7 +432,7 @@ South East                                   South West
 
       I ==> a ==> b ==> C : an East-West Segment to targets F and o
       C ==> o ==> T: an East-West Segment to target T (and/or U)
-      G | n | U : a North-South Segment to targets C or R
+      G | n | U : a North-South Segment to targets G or U
       I --> F --> E : an East-West Lane to targets T1, T2, and T3
 
       I, a, b, C, F, G, H, E : a path to T1, T2, and/or T3
@@ -442,16 +458,9 @@ South East                                   South West
   <section><name>Lane</name>
     <t>
     An end-to-end East-West serial path between the Ingress and Egress Nodes
-    of a Track. A Track Lane is expressed as a
-    loose sequence of DetNet Relay nodes that are joined by Track Segments.
-    </t> <t>
-    As the Non-Storing Mode Via Information option (NSM-VIO) can only signal
-    sequences of nodes, it takes one Non-Storing Mode P-DAO message per Lane to
-    signal the structure of a complex Track.
-    </t> <t>
-    Each NSM-VIO for the same
-    TrackId but with a different Segment ID signals a different Lane that the
-    Track Ingress adds to the topology.
+    of a Track. A Track Lane is expressed as a strict sequence of DetNet Relay
+    nodes or as a loose sequence of DetNet Relay nodes that are joined by Track
+    Segments.
     </t>
   </section>
     <section><name>Segment</name>
@@ -461,6 +470,18 @@ South East                                   South West
     and one edge of the Track between those vertices.
     </t>
     </section>
+
+  <section><name>Serial Track</name>
+    <t>A Track that has only one Lane. A Serial Track can provide latency
+    guarantees but offers no Protection.
+    </t>
+  </section>
+  <section><name>Complex Track</name>
+    <t>A Track that can be traversed via more than one paths and can be used
+    for Protection. RAW leverages Complex Tracks and implicitly, a Track in this
+    document is always a Complex Track.
+    </t>
+  </section>
     </section><!--Path and Tracks-->
 
 

@@ -15,7 +15,7 @@
 <?rfc subcompact="no"?>
 <?rfc authorship="yes"?>
 <?rfc tocappendix="yes"?>
-<rfc xmlns:xi="http://www.w3.org/2001/XInclude" category="info" docName="draft-ietf-raw-architecture-11"
+<rfc xmlns:xi="http://www.w3.org/2001/XInclude" category="info" docName="draft-ietf-raw-architecture-13"
      ipr="trust200902" obsoletes="" updates="" submissionType="IETF"
      xml:lang="en" version="3">
   <front>
@@ -25,10 +25,10 @@
       <organization abbrev="Cisco Systems">Cisco Systems, Inc</organization>
       <address>
     <postal>
-      <street>Building D</street>
-      <street>45 Allee des Ormes - BP1200 </street>
-      <city>MOUGINS - Sophia Antipolis</city>
-      <code>06254</code>
+            <street>Emerald Square, Batiment C</street>
+            <street>rue Evariste Galois </street>
+            <city>BIOT - Sophia Antipolis</city>
+            <code>06410</code>
       <country>France</country>
     </postal>
     <phone>+33 497 23 26 34</phone>
@@ -195,6 +195,13 @@
     <section><name>HARQ</name>
     <t>
     Hybrid Automatic Repeat Request, combining FEC and ARQ.
+    </t>
+    </section>
+
+    <section><name>MCS</name>
+    <t>
+    Modulation and Coding Scheme. Controls the throughput of the Link to
+    maintain reliable transmissions.
     </t>
     </section>
     <section><name>OAM</name>
@@ -1040,17 +1047,20 @@ South East                                   South West
 
     <t>
     As opposed to wired links, the availability and performance of an individual
-    wireless link cannot be trusted over the long term; it will vary with transient service discontinuity, and any serial path that includes wireless
-    hops is bound to experience service discontinuity. On the other hand, the
-    wireless medium provides unique capabilities that cannot be found on wires
-    and that the RAW Architecture leverages opportunistically to improve the
-    end-to-end reliability over a collection of links.
+    wireless link cannot be trusted over the long term; it will vary with
+    transient service discontinuity, and any serial path that includes wireless
+    hops is bound to face short periods of high loss. On the other hand, being
+    broadcast in nature, the wireless medium provides capabilities that are
+    atypical on modern wired links and that the RAW Architecture leverages
+    opportunistically to improve the end-to-end reliability over a collection of
+    paths.
     </t>
     <t>
     Those capabilities include:
     </t>
     <dl>
-    <dt>Promiscuous Overhearing:</dt><dd> Because the medium is broadcast as opposed to physically point to point like a wire, more than one
+    <dt>Promiscuous Overhearing:</dt><dd> Because the medium is broadcast as
+    opposed to physically point to point like a wire, more than one
     node in the forward direction of the packet may hear or overhear a
     transmission, and the reception by one may compensate the loss by another.
     The concept of path can be revisited in favor multipoint to multipoint

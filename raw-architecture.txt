@@ -4,12 +4,12 @@
 
 RAW                                                      P. Thubert, Ed.
 Internet-Draft                                             Cisco Systems
-Intended status: Informational                           7 December 2022
-Expires: 10 June 2023
+Intended status: Informational                               4 July 2023
+Expires: 5 January 2024
 
 
               Reliable and Available Wireless Architecture
-                     draft-ietf-raw-architecture-11
+                     draft-ietf-raw-architecture-12
 
 Abstract
 
@@ -41,11 +41,11 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 10 June 2023.
+   This Internet-Draft will expire on 5 January 2024.
 
 Copyright Notice
 
-   Copyright (c) 2022 IETF Trust and the persons identified as the
+   Copyright (c) 2023 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
 
@@ -53,9 +53,9 @@ Copyright Notice
 
 
 
-Thubert                   Expires 10 June 2023                  [Page 1]
+Thubert                  Expires 5 January 2024                 [Page 1]
 
-Internet-Draft              RAW Architecture               December 2022
+Internet-Draft              RAW Architecture                   July 2023
 
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -75,12 +75,13 @@ Table of Contents
        2.1.1.  ARQ . . . . . . . . . . . . . . . . . . . . . . . . .   5
        2.1.2.  FEC . . . . . . . . . . . . . . . . . . . . . . . . .   5
        2.1.3.  HARQ  . . . . . . . . . . . . . . . . . . . . . . . .   6
-       2.1.4.  OAM . . . . . . . . . . . . . . . . . . . . . . . . .   6
-       2.1.5.  OODA  . . . . . . . . . . . . . . . . . . . . . . . .   6
-       2.1.6.  PAREO . . . . . . . . . . . . . . . . . . . . . . . .   6
+       2.1.4.  MCS . . . . . . . . . . . . . . . . . . . . . . . . .   6
+       2.1.5.  OAM . . . . . . . . . . . . . . . . . . . . . . . . .   6
+       2.1.6.  OODA  . . . . . . . . . . . . . . . . . . . . . . . .   6
+       2.1.7.  PAREO . . . . . . . . . . . . . . . . . . . . . . . .   6
      2.2.  Link and Direction  . . . . . . . . . . . . . . . . . . .   6
        2.2.1.  Flapping  . . . . . . . . . . . . . . . . . . . . . .   6
-       2.2.2.  Uplink  . . . . . . . . . . . . . . . . . . . . . . .   6
+       2.2.2.  Uplink  . . . . . . . . . . . . . . . . . . . . . . .   7
        2.2.3.  Downlink  . . . . . . . . . . . . . . . . . . . . . .   7
        2.2.4.  Downstream  . . . . . . . . . . . . . . . . . . . . .   7
        2.2.5.  Upstream  . . . . . . . . . . . . . . . . . . . . . .   7
@@ -105,15 +106,15 @@ Table of Contents
        2.5.5.  Available . . . . . . . . . . . . . . . . . . . . . .  13
        2.5.6.  Availability  . . . . . . . . . . . . . . . . . . . .  13
      2.6.  OAM variations  . . . . . . . . . . . . . . . . . . . . .  13
-       2.6.1.  Active OAM  . . . . . . . . . . . . . . . . . . . . .  13
 
 
 
-Thubert                   Expires 10 June 2023                  [Page 2]
+Thubert                  Expires 5 January 2024                 [Page 2]
 
-Internet-Draft              RAW Architecture               December 2022
+Internet-Draft              RAW Architecture                   July 2023
 
 
+       2.6.1.  Active OAM  . . . . . . . . . . . . . . . . . . . . .  13
        2.6.2.  In-Band OAM . . . . . . . . . . . . . . . . . . . . .  13
        2.6.3.  Out-of-Band OAM . . . . . . . . . . . . . . . . . . .  13
        2.6.4.  Limited OAM . . . . . . . . . . . . . . . . . . . . .  14
@@ -161,15 +162,15 @@ Internet-Draft              RAW Architecture               December 2022
    Bringing determinism in a packet network means eliminating the
    statistical effects of multiplexing that result in probabilistic
    jitter and loss.  This can be approached with a tight control of the
-   physical resources to maintain the amount of traffic within a
 
 
 
-Thubert                   Expires 10 June 2023                  [Page 3]
+Thubert                  Expires 5 January 2024                 [Page 3]
 
-Internet-Draft              RAW Architecture               December 2022
+Internet-Draft              RAW Architecture                   July 2023
 
 
+   physical resources to maintain the amount of traffic within a
    budgeted volume of data per unit of time that fits the physical
    capabilities of the underlying network, and the use of time-shared
    resources (bandwidth and buffers) per circuit, and/or by shaping and/
@@ -220,10 +221,9 @@ Internet-Draft              RAW Architecture               December 2022
 
 
 
-
-Thubert                   Expires 10 June 2023                  [Page 4]
+Thubert                  Expires 5 January 2024                 [Page 4]
 
-Internet-Draft              RAW Architecture               December 2022
+Internet-Draft              RAW Architecture                   July 2023
 
 
 2.  Terminology
@@ -277,16 +277,21 @@ Internet-Draft              RAW Architecture               December 2022
 
 
 
-Thubert                   Expires 10 June 2023                  [Page 5]
+Thubert                  Expires 5 January 2024                 [Page 5]
 
-Internet-Draft              RAW Architecture               December 2022
+Internet-Draft              RAW Architecture                   July 2023
 
 
 2.1.3.  HARQ
 
    Hybrid Automatic Repeat Request, combining FEC and ARQ.
 
-2.1.4.  OAM
+2.1.4.  MCS
+
+   Modulation and Coding Scheme.  Controls the throughput of the Link to
+   maintain reliable transmissions.
+
+2.1.5.  OAM
 
    OAM stands for Operations, Administration, and Maintenance, and
    covers the processes, activities, tools, and standards involved with
@@ -296,14 +301,14 @@ Internet-Draft              RAW Architecture               December 2022
    in the IETF' [RFC6291] and the system observed by the RAW OAM is the
    Track.
 
-2.1.5.  OODA
+2.1.6.  OODA
 
    Observe, Orient, Decide, Act. The OODA Loop is a conceptual cyclic
    model developed by USAF Colonel John Boyd, and that is applicable in
    multiple domains where agility can provide benefits against brute
    force.
 
-2.1.6.  PAREO
+2.1.7.  PAREO
 
    Packet (hybrid) ARQ, Replication, Elimination and Ordering.  PAREO is
    a superset Of DetNet's PREOF that includes leveraging lower-layer
@@ -323,20 +328,22 @@ Internet-Draft              RAW Architecture               December 2022
    wireless connectivity drops abruptly for a short period of time,
    typically of a subsecond to seconds duration.
 
+
+
+
+
+
+Thubert                  Expires 5 January 2024                 [Page 6]
+
+Internet-Draft              RAW Architecture                   July 2023
+
+
 2.2.2.  Uplink
 
    Connection from end-devices to a data communication equipment.  In
    the context of wireless, uplink refers to the connection between a
    station (STA) and a controller (AP) or a User Equipment (UE) to a
    Base Station (BS) such as a 3GPP 5G gNodeB (gNb).
-
-
-
-
-Thubert                   Expires 10 June 2023                  [Page 6]
-
-Internet-Draft              RAW Architecture               December 2022
-
 
 2.2.3.  Downlink
 
@@ -372,6 +379,21 @@ Internet-Draft              RAW Architecture               December 2022
    |  path elements over which packets are sent from one node to another
    |  may change.  A path is defined between two nodes.
 
+
+
+
+
+
+
+
+
+
+
+Thubert                  Expires 5 January 2024                 [Page 7]
+
+Internet-Draft              RAW Architecture                   July 2023
+
+
    It follows that the general acceptance of a path is a linear sequence
    of links and nodes, as opposed to a multi-dimensional graph, defined
    by the experience of the packet that went from a node A to a node B.
@@ -381,18 +403,6 @@ Internet-Draft              RAW Architecture               December 2022
    on the way from A to B, a packet from A to B experiences 2 paths,
    A->C->E->D->B and A->C->F->D->B.  The adjectives "serial" or "simple"
    are used to clarify when dealing with such path.
-
-
-
-
-
-
-
-
-Thubert                   Expires 10 June 2023                  [Page 7]
-
-Internet-Draft              RAW Architecture               December 2022
-
 
    With DetNet and RAW, a packet may be duplicated, fragmented and
    network-coded, and the various byproducts may travel different paths
@@ -435,19 +445,9 @@ Internet-Draft              RAW Architecture               December 2022
 
 
 
-
-
-
-
-
-
-
-
-
-
-Thubert                   Expires 10 June 2023                  [Page 8]
+Thubert                  Expires 5 January 2024                 [Page 8]
 
-Internet-Draft              RAW Architecture               December 2022
+Internet-Draft              RAW Architecture                   July 2023
 
 
                       +---------+
@@ -501,9 +501,9 @@ Internet-Draft              RAW Architecture               December 2022
 
 
 
-Thubert                   Expires 10 June 2023                  [Page 9]
+Thubert                  Expires 5 January 2024                 [Page 9]
 
-Internet-Draft              RAW Architecture               December 2022
+Internet-Draft              RAW Architecture                   July 2023
 
 
    *  The graph of a Track is reversible, meaning that packets can be
@@ -557,9 +557,9 @@ Internet-Draft              RAW Architecture               December 2022
 
 
 
-Thubert                   Expires 10 June 2023                 [Page 10]
+Thubert                  Expires 5 January 2024                [Page 10]
 
-Internet-Draft              RAW Architecture               December 2022
+Internet-Draft              RAW Architecture                   July 2023
 
 
    South links only.  A lane is always East-West, meaning that is is
@@ -613,9 +613,9 @@ Internet-Draft              RAW Architecture               December 2022
 
 
 
-Thubert                   Expires 10 June 2023                 [Page 11]
+Thubert                  Expires 5 January 2024                [Page 11]
 
-Internet-Draft              RAW Architecture               December 2022
+Internet-Draft              RAW Architecture                   July 2023
 
 
 2.4.2.  Deterministic Flow Identifier (L2)
@@ -669,9 +669,9 @@ Internet-Draft              RAW Architecture               December 2022
 
 
 
-Thubert                   Expires 10 June 2023                 [Page 12]
+Thubert                  Expires 5 January 2024                [Page 12]
 
-Internet-Draft              RAW Architecture               December 2022
+Internet-Draft              RAW Architecture                   July 2023
 
 
 2.5.4.  Reliability
@@ -725,9 +725,9 @@ Internet-Draft              RAW Architecture               December 2022
 
 
 
-Thubert                   Expires 10 June 2023                 [Page 13]
+Thubert                  Expires 5 January 2024                [Page 13]
 
-Internet-Draft              RAW Architecture               December 2022
+Internet-Draft              RAW Architecture                   July 2023
 
 
 2.6.4.  Limited OAM
@@ -781,9 +781,9 @@ Internet-Draft              RAW Architecture               December 2022
 
 
 
-Thubert                   Expires 10 June 2023                 [Page 14]
+Thubert                  Expires 5 January 2024                [Page 14]
 
-Internet-Draft              RAW Architecture               December 2022
+Internet-Draft              RAW Architecture                   July 2023
 
 
    3.  prompt detection of failures as they occur.
@@ -837,9 +837,9 @@ Internet-Draft              RAW Architecture               December 2022
 
 
 
-Thubert                   Expires 10 June 2023                 [Page 15]
+Thubert                  Expires 5 January 2024                [Page 15]
 
-Internet-Draft              RAW Architecture               December 2022
+Internet-Draft              RAW Architecture                   July 2023
 
 
    Reroute Framework" [FRR] analyzes mechanisms for fast failure
@@ -893,9 +893,9 @@ Internet-Draft              RAW Architecture               December 2022
 
 
 
-Thubert                   Expires 10 June 2023                 [Page 16]
+Thubert                  Expires 5 January 2024                [Page 16]
 
-Internet-Draft              RAW Architecture               December 2022
+Internet-Draft              RAW Architecture                   July 2023
 
 
    obtained directly from the lower layer, e.g., using L2 triggers, read
@@ -949,9 +949,9 @@ Internet-Draft              RAW Architecture               December 2022
 
 
 
-Thubert                   Expires 10 June 2023                 [Page 17]
+Thubert                  Expires 5 January 2024                [Page 17]
 
-Internet-Draft              RAW Architecture               December 2022
+Internet-Draft              RAW Architecture                   July 2023
 
 
    The root cause for the loss may be of multiple origins, calling for
@@ -1005,9 +1005,9 @@ Internet-Draft              RAW Architecture               December 2022
 
 
 
-Thubert                   Expires 10 June 2023                 [Page 18]
+Thubert                  Expires 5 January 2024                [Page 18]
 
-Internet-Draft              RAW Architecture               December 2022
+Internet-Draft              RAW Architecture                   July 2023
 
 
    The key technique to combat those unpredictable losses is diversity.
@@ -1061,9 +1061,9 @@ Internet-Draft              RAW Architecture               December 2022
 
 
 
-Thubert                   Expires 10 June 2023                 [Page 19]
+Thubert                  Expires 5 January 2024                [Page 19]
 
-Internet-Draft              RAW Architecture               December 2022
+Internet-Draft              RAW Architecture                   July 2023
 
 
    forwarding sub-layer that associates the flows to the paths, ensures
@@ -1081,11 +1081,11 @@ Internet-Draft              RAW Architecture               December 2022
    As opposed to wired links, the availability and performance of an
    individual wireless link cannot be trusted over the long term; it
    will vary with transient service discontinuity, and any serial path
-   that includes wireless hops is bound to experience service
-   discontinuity.  On the other hand, the wireless medium provides
-   unique capabilities that cannot be found on wires and that the RAW
-   Architecture leverages opportunistically to improve the end-to-end
-   reliability over a collection of links.
+   that includes wireless hops is bound to face short periods of high
+   loss.  On the other hand, being broadcast in nature, the wireless
+   medium provides capabilities that are atypical on modern wired links
+   and that the RAW Architecture leverages opportunistically to improve
+   the end-to-end reliability over a collection of paths.
 
    Those capabilities include:
 
@@ -1117,9 +1117,9 @@ Internet-Draft              RAW Architecture               December 2022
 
 
 
-Thubert                   Expires 10 June 2023                 [Page 20]
+Thubert                  Expires 5 January 2024                [Page 20]
 
-Internet-Draft              RAW Architecture               December 2022
+Internet-Draft              RAW Architecture                   July 2023
 
 
       hop, or that the introduced delay is compensated along the path.
@@ -1173,9 +1173,9 @@ Internet-Draft              RAW Architecture               December 2022
 
 
 
-Thubert                   Expires 10 June 2023                 [Page 21]
+Thubert                  Expires 5 January 2024                [Page 21]
 
-Internet-Draft              RAW Architecture               December 2022
+Internet-Draft              RAW Architecture                   July 2023
 
 
    1.  Network Plane measurement protocols for Operations,
@@ -1229,9 +1229,9 @@ Internet-Draft              RAW Architecture               December 2022
 
 
 
-Thubert                   Expires 10 June 2023                 [Page 22]
+Thubert                  Expires 5 January 2024                [Page 22]
 
-Internet-Draft              RAW Architecture               December 2022
+Internet-Draft              RAW Architecture                   July 2023
 
 
    A Controller Plane Function (CPF) such as a PCE interacts with RAW
@@ -1285,9 +1285,9 @@ Internet-Draft              RAW Architecture               December 2022
 
 
 
-Thubert                   Expires 10 June 2023                 [Page 23]
+Thubert                  Expires 5 January 2024                [Page 23]
 
-Internet-Draft              RAW Architecture               December 2022
+Internet-Draft              RAW Architecture                   July 2023
 
 
    The Link-Layer metrics are reported to the PCE in a time-aggregated,
@@ -1341,9 +1341,9 @@ Internet-Draft              RAW Architecture               December 2022
 
 
 
-Thubert                   Expires 10 June 2023                 [Page 24]
+Thubert                  Expires 5 January 2024                [Page 24]
 
-Internet-Draft              RAW Architecture               December 2022
+Internet-Draft              RAW Architecture                   July 2023
 
 
    When the traffic from upper layers matches the expectation of the
@@ -1397,9 +1397,9 @@ Internet-Draft              RAW Architecture               December 2022
 
 
 
-Thubert                   Expires 10 June 2023                 [Page 25]
+Thubert                  Expires 5 January 2024                [Page 25]
 
-Internet-Draft              RAW Architecture               December 2022
+Internet-Draft              RAW Architecture                   July 2023
 
 
    RAW also adds a Control sub-layer that operates in the DetNet
@@ -1453,9 +1453,9 @@ Internet-Draft              RAW Architecture               December 2022
 
 
 
-Thubert                   Expires 10 June 2023                 [Page 26]
+Thubert                  Expires 5 January 2024                [Page 26]
 
-Internet-Draft              RAW Architecture               December 2022
+Internet-Draft              RAW Architecture                   July 2023
 
 
    A minimal Forwarding sub-layer service is provided at all DetNet
@@ -1509,9 +1509,9 @@ Internet-Draft              RAW Architecture               December 2022
 
 
 
-Thubert                   Expires 10 June 2023                 [Page 27]
+Thubert                  Expires 5 January 2024                [Page 27]
 
-Internet-Draft              RAW Architecture               December 2022
+Internet-Draft              RAW Architecture                   July 2023
 
 
    --------------------Flow Direction---------------------------------->
@@ -1565,9 +1565,9 @@ Internet-Draft              RAW Architecture               December 2022
 
 
 
-Thubert                   Expires 10 June 2023                 [Page 28]
+Thubert                  Expires 5 January 2024                [Page 28]
 
-Internet-Draft              RAW Architecture               December 2022
+Internet-Draft              RAW Architecture                   July 2023
 
 
                      +----------------+
@@ -1621,9 +1621,9 @@ Internet-Draft              RAW Architecture               December 2022
 
 
 
-Thubert                   Expires 10 June 2023                 [Page 29]
+Thubert                  Expires 5 January 2024                [Page 29]
 
-Internet-Draft              RAW Architecture               December 2022
+Internet-Draft              RAW Architecture                   July 2023
 
 
    collection of SD-WAN tunnels.  RAW formalizes a forwarding time scale
@@ -1677,9 +1677,9 @@ Internet-Draft              RAW Architecture               December 2022
 
 
 
-Thubert                   Expires 10 June 2023                 [Page 30]
+Thubert                  Expires 5 January 2024                [Page 30]
 
-Internet-Draft              RAW Architecture               December 2022
+Internet-Draft              RAW Architecture                   July 2023
 
 
                      +-------> Orient (PCE) --------+
@@ -1733,9 +1733,9 @@ Internet-Draft              RAW Architecture               December 2022
 
 
 
-Thubert                   Expires 10 June 2023                 [Page 31]
+Thubert                  Expires 5 January 2024                [Page 31]
 
-Internet-Draft              RAW Architecture               December 2022
+Internet-Draft              RAW Architecture                   July 2023
 
 
                                          ...   ..
@@ -1789,9 +1789,9 @@ Internet-Draft              RAW Architecture               December 2022
 
 
 
-Thubert                   Expires 10 June 2023                 [Page 32]
+Thubert                  Expires 5 January 2024                [Page 32]
 
-Internet-Draft              RAW Architecture               December 2022
+Internet-Draft              RAW Architecture                   July 2023
 
 
    The Track computation is out of scope, but RAW expects that the
@@ -1845,9 +1845,9 @@ Internet-Draft              RAW Architecture               December 2022
 
 
 
-Thubert                   Expires 10 June 2023                 [Page 33]
+Thubert                  Expires 5 January 2024                [Page 33]
 
-Internet-Draft              RAW Architecture               December 2022
+Internet-Draft              RAW Architecture                   July 2023
 
 
       +===============+========================+===================+
@@ -1901,9 +1901,9 @@ Internet-Draft              RAW Architecture               December 2022
 
 
 
-Thubert                   Expires 10 June 2023                 [Page 34]
+Thubert                  Expires 5 January 2024                [Page 34]
 
-Internet-Draft              RAW Architecture               December 2022
+Internet-Draft              RAW Architecture                   July 2023
 
 
 5.6.  Act: DetNet Path Selection and PAREO functions
@@ -1957,9 +1957,9 @@ Internet-Draft              RAW Architecture               December 2022
 
 
 
-Thubert                   Expires 10 June 2023                 [Page 35]
+Thubert                  Expires 5 January 2024                [Page 35]
 
-Internet-Draft              RAW Architecture               December 2022
+Internet-Draft              RAW Architecture                   July 2023
 
 
 6.1.  Layer-2 encryption
@@ -2013,9 +2013,9 @@ Internet-Draft              RAW Architecture               December 2022
 
 
 
-Thubert                   Expires 10 June 2023                 [Page 36]
+Thubert                  Expires 5 January 2024                [Page 36]
 
-Internet-Draft              RAW Architecture               December 2022
+Internet-Draft              RAW Architecture                   July 2023
 
 
 10.  References
@@ -2038,16 +2038,16 @@ Internet-Draft              RAW Architecture               December 2022
               Thubert, P., Cavalcanti, D., Vilajosana, X., Schmitt, C.,
               and J. Farkas, "Reliable and Available Wireless
               Technologies", Work in Progress, Internet-Draft, draft-
-              ietf-raw-technologies-06, 30 November 2022,
-              <https://www.ietf.org/archive/id/draft-ietf-raw-
-              technologies-06.txt>.
+              ietf-raw-technologies-07, 12 June 2023,
+              <https://datatracker.ietf.org/doc/html/draft-ietf-raw-
+              technologies-07>.
 
    [RAW-USE-CASES]
               Bernardos, C. J., Papadopoulos, G. Z., Thubert, P., and F.
               Theoleyre, "RAW Use-Cases", Work in Progress, Internet-
-              Draft, draft-ietf-raw-use-cases-08, 22 October 2022,
-              <https://www.ietf.org/archive/id/draft-ietf-raw-use-cases-
-              08.txt>.
+              Draft, draft-ietf-raw-use-cases-11, 17 April 2023,
+              <https://datatracker.ietf.org/doc/html/draft-ietf-raw-use-
+              cases-11>.
 
    [RFC4655]  Farrel, A., Vasseur, J.-P., and J. Ash, "A Path
               Computation Element (PCE)-Based Architecture", RFC 4655,
@@ -2069,9 +2069,9 @@ Internet-Draft              RAW Architecture               December 2022
 
 
 
-Thubert                   Expires 10 June 2023                 [Page 37]
+Thubert                  Expires 5 January 2024                [Page 37]
 
-Internet-Draft              RAW Architecture               December 2022
+Internet-Draft              RAW Architecture                   July 2023
 
 
    [RFC8578]  Grossman, E., Ed., "Deterministic Networking Use Cases",
@@ -2125,9 +2125,9 @@ Internet-Draft              RAW Architecture               December 2022
 
 
 
-Thubert                   Expires 10 June 2023                 [Page 38]
+Thubert                  Expires 5 January 2024                [Page 38]
 
-Internet-Draft              RAW Architecture               December 2022
+Internet-Draft              RAW Architecture                   July 2023
 
 
    [RFC4090]  Pan, P., Ed., Swallow, G., Ed., and A. Atlas, Ed., "Fast
@@ -2158,32 +2158,32 @@ Internet-Draft              RAW Architecture               December 2022
    [I-D.irtf-panrg-path-properties]
               Enghardt, R. and C. Krähenbühl, "A Vocabulary of Path
               Properties", Work in Progress, Internet-Draft, draft-irtf-
-              panrg-path-properties-06, 22 September 2022,
-              <https://www.ietf.org/archive/id/draft-irtf-panrg-path-
-              properties-06.txt>.
+              panrg-path-properties-08, 6 March 2023,
+              <https://datatracker.ietf.org/doc/html/draft-irtf-panrg-
+              path-properties-08>.
 
    [IPoWIRELESS]
-              Thubert, P., "IPv6 Neighbor Discovery on Wireless
-              Networks", Work in Progress, Internet-Draft, draft-
-              thubert-6man-ipv6-over-wireless-12, 11 October 2022,
-              <https://www.ietf.org/archive/id/draft-thubert-6man-ipv6-
-              over-wireless-12.txt>.
+              Thubert, P. and M. Richardson, "Architecture and Framework
+              for IPv6 over Non-Broadcast Access", Work in Progress,
+              Internet-Draft, draft-thubert-6man-ipv6-over-wireless-15,
+              8 March 2023, <https://datatracker.ietf.org/doc/html/
+              draft-thubert-6man-ipv6-over-wireless-15>.
 
    [DetNet-OAM]
               Mirsky, G., Theoleyre, F., Papadopoulos, G. Z., Bernardos,
               C. J., Varga, B., and J. Farkas, "Framework of Operations,
               Administration and Maintenance (OAM) for Deterministic
               Networking (DetNet)", Work in Progress, Internet-Draft,
-              draft-ietf-detnet-oam-framework-07, 6 October 2022,
-              <https://www.ietf.org/archive/id/draft-ietf-detnet-oam-
-              framework-07.txt>.
+              draft-ietf-detnet-oam-framework-08, 1 February 2023,
+              <https://datatracker.ietf.org/doc/html/draft-ietf-detnet-
+              oam-framework-08>.
 
 
 
 
-Thubert                   Expires 10 June 2023                 [Page 39]
+Thubert                  Expires 5 January 2024                [Page 39]
 
-Internet-Draft              RAW Architecture               December 2022
+Internet-Draft              RAW Architecture                   July 2023
 
 
    [NASA]     Adams, T., "RELIABILITY: Definition & Quantitative
@@ -2194,9 +2194,9 @@ Author's Address
 
    Pascal Thubert (editor)
    Cisco Systems, Inc
-   Building D
-   45 Allee des Ormes - BP1200
-   06254 MOUGINS - Sophia Antipolis
+   Emerald Square, Batiment C
+   rue Evariste Galois
+   06410 BIOT - Sophia Antipolis
    France
 
    Phone: +33 497 23 26 34
@@ -2237,4 +2237,4 @@ Author's Address
 
 
 
-Thubert                   Expires 10 June 2023                 [Page 40]
+Thubert                  Expires 5 January 2024                [Page 40]

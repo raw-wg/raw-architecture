@@ -4,12 +4,12 @@
 
 RAW                                                      P. Thubert, Ed.
 Internet-Draft                                             Cisco Systems
-Intended status: Informational                               4 July 2023
-Expires: 5 January 2024
+Intended status: Informational                              10 July 2023
+Expires: 11 January 2024
 
 
               Reliable and Available Wireless Architecture
-                     draft-ietf-raw-architecture-12
+                     draft-ietf-raw-architecture-13
 
 Abstract
 
@@ -21,10 +21,11 @@ Abstract
    particular intermittently lossy connectivity.  This document defines
    a network control loop that optimizes the use of constrained spectrum
    and energy while maintaining the expected connectivity properties,
-   typically reliability and latency.  The loop involves OAM, PCE, and
-   PREOF extensions, and a new Controller plane Function called the Path
-   Selection Engine, that dynamically selects the DetNet path for the
-   next packets to route around local failures.
+   typically reliability and latency.  The loop involves OAM, DetNet
+   Controller Plane, and PREOF extensions, and specifically a new
+   Controller plane Function called the Path Selection Engine, that
+   dynamically selects the DetNet path(s) for the next packets to route
+   around local degradations and failures.
 
 Status of This Memo
 
@@ -41,7 +42,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 5 January 2024.
+   This Internet-Draft will expire on 11 January 2024.
 
 Copyright Notice
 
@@ -52,8 +53,7 @@ Copyright Notice
 
 
 
-
-Thubert                  Expires 5 January 2024                 [Page 1]
+Thubert                  Expires 11 January 2024                [Page 1]
 
 Internet-Draft              RAW Architecture                   July 2023
 
@@ -72,15 +72,15 @@ Table of Contents
    1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   3
    2.  Terminology . . . . . . . . . . . . . . . . . . . . . . . . .   5
      2.1.  Acronyms  . . . . . . . . . . . . . . . . . . . . . . . .   5
-       2.1.1.  ARQ . . . . . . . . . . . . . . . . . . . . . . . . .   5
-       2.1.2.  FEC . . . . . . . . . . . . . . . . . . . . . . . . .   5
+       2.1.1.  ARQ . . . . . . . . . . . . . . . . . . . . . . . . .   6
+       2.1.2.  FEC . . . . . . . . . . . . . . . . . . . . . . . . .   6
        2.1.3.  HARQ  . . . . . . . . . . . . . . . . . . . . . . . .   6
        2.1.4.  MCS . . . . . . . . . . . . . . . . . . . . . . . . .   6
        2.1.5.  OAM . . . . . . . . . . . . . . . . . . . . . . . . .   6
        2.1.6.  OODA  . . . . . . . . . . . . . . . . . . . . . . . .   6
        2.1.7.  PAREO . . . . . . . . . . . . . . . . . . . . . . . .   6
-     2.2.  Link and Direction  . . . . . . . . . . . . . . . . . . .   6
-       2.2.1.  Flapping  . . . . . . . . . . . . . . . . . . . . . .   6
+     2.2.  Link and Direction  . . . . . . . . . . . . . . . . . . .   7
+       2.2.1.  Flapping  . . . . . . . . . . . . . . . . . . . . . .   7
        2.2.2.  Uplink  . . . . . . . . . . . . . . . . . . . . . . .   7
        2.2.3.  Downlink  . . . . . . . . . . . . . . . . . . . . . .   7
        2.2.4.  Downstream  . . . . . . . . . . . . . . . . . . . . .   7
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Thubert                  Expires 5 January 2024                 [Page 2]
+Thubert                  Expires 11 January 2024                [Page 2]
 
 Internet-Draft              RAW Architecture                   July 2023
 
@@ -120,34 +120,35 @@ Internet-Draft              RAW Architecture                   July 2023
        2.6.4.  Limited OAM . . . . . . . . . . . . . . . . . . . . .  14
        2.6.5.  Upstream OAM  . . . . . . . . . . . . . . . . . . . .  14
        2.6.6.  Residence Time  . . . . . . . . . . . . . . . . . . .  14
-       2.6.7.  Additional References . . . . . . . . . . . . . . . .  14
+       2.6.7.  Lower Layer information . . . . . . . . . . . . . . .  14
+       2.6.8.  Additional References . . . . . . . . . . . . . . . .  14
    3.  Reliable and Available Wireless . . . . . . . . . . . . . . .  14
      3.1.  Reliability and Availability  . . . . . . . . . . . . . .  14
-       3.1.1.  High Availability Engineering Principles  . . . . . .  14
+       3.1.1.  High Availability Engineering Principles  . . . . . .  15
        3.1.2.  Applying Reliability Concepts to Networking . . . . .  17
-       3.1.3.  Wireless Effects Affecting Reliability  . . . . . . .  17
+       3.1.3.  Wireless Effects Affecting Reliability  . . . . . . .  18
      3.2.  The RAW problem . . . . . . . . . . . . . . . . . . . . .  19
-   4.  The RAW Conceptual Model  . . . . . . . . . . . . . . . . . .  22
-     4.1.  The RAW Planes  . . . . . . . . . . . . . . . . . . . . .  22
-     4.2.  RAW vs. Upper and Lower Layers  . . . . . . . . . . . . .  24
-     4.3.  RAW and DetNet  . . . . . . . . . . . . . . . . . . . . .  25
-   5.  The RAW Control Loop  . . . . . . . . . . . . . . . . . . . .  28
-     5.1.  Routing Time Scale vs. Forwarding Time Scale  . . . . . .  28
-     5.2.  A OODA Loop . . . . . . . . . . . . . . . . . . . . . . .  30
-     5.3.  Observe: The RAW OAM  . . . . . . . . . . . . . . . . . .  31
-     5.4.  Orient: The Path Computation Engine . . . . . . . . . . .  32
-     5.5.  Decide: The Path Selection Engine . . . . . . . . . . . .  33
-     5.6.  Act: DetNet Path Selection and PAREO functions  . . . . .  35
-   6.  Security Considerations . . . . . . . . . . . . . . . . . . .  35
-     6.1.  Layer-2 encryption  . . . . . . . . . . . . . . . . . . .  36
-     6.2.  Forced Access . . . . . . . . . . . . . . . . . . . . . .  36
-   7.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  36
-   8.  Contributors  . . . . . . . . . . . . . . . . . . . . . . . .  36
-   9.  Acknowledgments . . . . . . . . . . . . . . . . . . . . . . .  36
-   10. References  . . . . . . . . . . . . . . . . . . . . . . . . .  37
-     10.1.  Normative References . . . . . . . . . . . . . . . . . .  37
-     10.2.  Informative References . . . . . . . . . . . . . . . . .  38
-   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .  40
+   4.  The RAW Conceptual Model  . . . . . . . . . . . . . . . . . .  23
+     4.1.  The RAW Planes  . . . . . . . . . . . . . . . . . . . . .  23
+     4.2.  RAW vs. Upper and Lower Layers  . . . . . . . . . . . . .  25
+     4.3.  RAW and DetNet  . . . . . . . . . . . . . . . . . . . . .  26
+   5.  The RAW Control Loop  . . . . . . . . . . . . . . . . . . . .  29
+     5.1.  Routing Time Scale vs. Forwarding Time Scale  . . . . . .  29
+     5.2.  A OODA Loop . . . . . . . . . . . . . . . . . . . . . . .  31
+     5.3.  Observe: The RAW OAM  . . . . . . . . . . . . . . . . . .  32
+     5.4.  Orient: The RAW-enhanced DetNet Controller Plane  . . . .  33
+     5.5.  Decide: The Path Selection Engine . . . . . . . . . . . .  34
+     5.6.  Act: DetNet Path Selection and PAREO functions  . . . . .  36
+   6.  Security Considerations . . . . . . . . . . . . . . . . . . .  37
+     6.1.  Layer-2 encryption  . . . . . . . . . . . . . . . . . . .  37
+     6.2.  Forced Access . . . . . . . . . . . . . . . . . . . . . .  37
+   7.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  37
+   8.  Contributors  . . . . . . . . . . . . . . . . . . . . . . . .  37
+   9.  Acknowledgments . . . . . . . . . . . . . . . . . . . . . . .  38
+   10. References  . . . . . . . . . . . . . . . . . . . . . . . . .  38
+     10.1.  Normative References . . . . . . . . . . . . . . . . . .  38
+     10.2.  Informative References . . . . . . . . . . . . . . . . .  39
+   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .  41
 
 1.  Introduction
 
@@ -159,17 +160,19 @@ Internet-Draft              RAW Architecture                   July 2023
    smartgrid automation, with both cost savings and complexity benefits
    (e.g., vs. loads of P2P cables).
 
-   Bringing determinism in a packet network means eliminating the
-   statistical effects of multiplexing that result in probabilistic
-   jitter and loss.  This can be approached with a tight control of the
 
 
 
-Thubert                  Expires 5 January 2024                 [Page 3]
+
+
+Thubert                  Expires 11 January 2024                [Page 3]
 
 Internet-Draft              RAW Architecture                   July 2023
 
 
+   Bringing determinism in a packet network means eliminating the
+   statistical effects of multiplexing that result in probabilistic
+   jitter and loss.  This can be approached with a tight control of the
    physical resources to maintain the amount of traffic within a
    budgeted volume of data per unit of time that fits the physical
    capabilities of the underlying network, and the use of time-shared
@@ -210,6 +213,19 @@ Internet-Draft              RAW Architecture                   July 2023
    protection is limited since only a subset of the nodes along the path
    will have an alternate feasible successor.
 
+
+
+
+
+
+
+
+
+Thubert                  Expires 11 January 2024                [Page 4]
+
+Internet-Draft              RAW Architecture                   July 2023
+
+
    RAW solves that problem by defining Protection Paths that can be
    fully non-congruent and can be activated dynamically upon failures.
    This requires additional control to take the routing decision early
@@ -217,14 +233,10 @@ Internet-Draft              RAW Architecture                   July 2023
    defines a end-to-end control loop that dynamically controls the
    activation and deactivation of the feasible Protection Paths.
 
-
-
-
-
-Thubert                  Expires 5 January 2024                 [Page 4]
-
-Internet-Draft              RAW Architecture                   July 2023
-
+   This document presents the RAW problem and associated terminology in
+   Section 3.2, presents a conceptual model for RAW in Section 4, and,
+   based on that model, elaborates on an in-network optimization control
+   loop in Section 5.2.
 
 2.  Terminology
 
@@ -236,7 +248,7 @@ Internet-Draft              RAW Architecture                   July 2023
 
    RAW also reuses terminology defined for 6TiSCH in [6TiSCH-ARCHI] such
    as the term Track.  A Track associates a topological graph with usage
-   metadata that represent how the paths within the Track are used.
+   metadata that represent how the paths within the Track are selected.
 
    In an quantic analogy, a Track is to a path what an atomic orbital is
    to a planetary orbit, in that the electron has a probability of
@@ -260,6 +272,16 @@ Internet-Draft              RAW Architecture                   July 2023
 
 2.1.  Acronyms
 
+
+
+
+
+
+Thubert                  Expires 11 January 2024                [Page 5]
+
+Internet-Draft              RAW Architecture                   July 2023
+
+
 2.1.1.  ARQ
 
    Automatic Repeat Request, enabling an acknowledged transmission and
@@ -273,14 +295,6 @@ Internet-Draft              RAW Architecture                   July 2023
 
    Forward Error Correction, adding redundant data to protect against a
    partial loss without retries.
-
-
-
-
-Thubert                  Expires 5 January 2024                 [Page 5]
-
-Internet-Draft              RAW Architecture                   July 2023
-
 
 2.1.3.  HARQ
 
@@ -316,6 +330,14 @@ Internet-Draft              RAW Architecture                   July 2023
    MUMIMO, PHY rate and other Modulation Coding Scheme (MCS) adaptation,
    constructive interference and overhearing, separately or in
    combination, to increase the end-to-end reliability.  PAREO functions
+
+
+
+Thubert                  Expires 11 January 2024                [Page 6]
+
+Internet-Draft              RAW Architecture                   July 2023
+
+
    that are actuated at the lower layers may be controlled through
    abstract interfaces by the RAW extensions within the DetNet Service
    sublayer.
@@ -327,16 +349,6 @@ Internet-Draft              RAW Architecture                   July 2023
    In the context of RAW, a link flaps when the reliability of the
    wireless connectivity drops abruptly for a short period of time,
    typically of a subsecond to seconds duration.
-
-
-
-
-
-
-Thubert                  Expires 5 January 2024                 [Page 6]
-
-Internet-Draft              RAW Architecture                   July 2023
-
 
 2.2.2.  Uplink
 
@@ -373,26 +385,20 @@ Internet-Draft              RAW Architecture                   July 2023
    Section 2 of [I-D.irtf-panrg-path-properties] points to a longer,
    more modern definition of path, which begins as follows:
 
+
+
+
+
+Thubert                  Expires 11 January 2024                [Page 7]
+
+Internet-Draft              RAW Architecture                   July 2023
+
+
    |  A sequence of adjacent path elements over which a packet can be
    |  transmitted, starting and ending with a node.  A path is
    |  unidirectional.  Paths are time-dependent, i.e., the sequence of
    |  path elements over which packets are sent from one node to another
    |  may change.  A path is defined between two nodes.
-
-
-
-
-
-
-
-
-
-
-
-Thubert                  Expires 5 January 2024                 [Page 7]
-
-Internet-Draft              RAW Architecture                   July 2023
-
 
    It follows that the general acceptance of a path is a linear sequence
    of links and nodes, as opposed to a multi-dimensional graph, defined
@@ -439,13 +445,7 @@ Internet-Draft              RAW Architecture                   July 2023
 
 
 
-
-
-
-
-
-
-Thubert                  Expires 5 January 2024                 [Page 8]
+Thubert                  Expires 11 January 2024                [Page 8]
 
 Internet-Draft              RAW Architecture                   July 2023
 
@@ -501,7 +501,7 @@ Internet-Draft              RAW Architecture                   July 2023
 
 
 
-Thubert                  Expires 5 January 2024                 [Page 9]
+Thubert                  Expires 11 January 2024                [Page 9]
 
 Internet-Draft              RAW Architecture                   July 2023
 
@@ -557,7 +557,7 @@ Internet-Draft              RAW Architecture                   July 2023
 
 
 
-Thubert                  Expires 5 January 2024                [Page 10]
+Thubert                  Expires 11 January 2024               [Page 10]
 
 Internet-Draft              RAW Architecture                   July 2023
 
@@ -613,7 +613,7 @@ Internet-Draft              RAW Architecture                   July 2023
 
 
 
-Thubert                  Expires 5 January 2024                [Page 11]
+Thubert                  Expires 11 January 2024               [Page 11]
 
 Internet-Draft              RAW Architecture                   July 2023
 
@@ -669,7 +669,7 @@ Internet-Draft              RAW Architecture                   July 2023
 
 
 
-Thubert                  Expires 5 January 2024                [Page 12]
+Thubert                  Expires 11 January 2024               [Page 12]
 
 Internet-Draft              RAW Architecture                   July 2023
 
@@ -725,7 +725,7 @@ Internet-Draft              RAW Architecture                   July 2023
 
 
 
-Thubert                  Expires 5 January 2024                [Page 13]
+Thubert                  Expires 11 January 2024               [Page 13]
 
 Internet-Draft              RAW Architecture                   July 2023
 
@@ -754,7 +754,14 @@ Internet-Draft              RAW Architecture                   July 2023
    begins.  In the context of RAW, RT is useful for a transit node, not
    ingress or egress.
 
-2.6.7.  Additional References
+2.6.7.  Lower Layer information
+
+   RAW OAM may gather and transport information from lower layers about
+   e.g., link quality.  This information may be gathered from inside the
+   device using specialized API (e.g., L2 triggers) or via control
+   protocols such as BFD [RFC5580] or DLEP [DLEP] .
+
+2.6.8.  Additional References
 
    [DetNet-OAM] provides additional terminology related to OAM in the
    context of DetNet and by extension of RAW, whereas [RFC7799] defines
@@ -763,6 +770,21 @@ Internet-Draft              RAW Architecture                   July 2023
 3.  Reliable and Available Wireless
 
 3.1.  Reliability and Availability
+
+
+
+
+
+
+
+
+
+
+
+Thubert                  Expires 11 January 2024               [Page 14]
+
+Internet-Draft              RAW Architecture                   July 2023
+
 
 3.1.1.  High Availability Engineering Principles
 
@@ -778,14 +800,6 @@ Internet-Draft              RAW Architecture                   July 2023
 
    1.  elimination of single points of failure
    2.  reliable crossover
-
-
-
-Thubert                  Expires 5 January 2024                [Page 14]
-
-Internet-Draft              RAW Architecture                   July 2023
-
-
    3.  prompt detection of failures as they occur.
 
    These principles are common to all high availability systems, not
@@ -819,6 +833,15 @@ Internet-Draft              RAW Architecture                   July 2023
    (time, space, code, frequency, channel width) in the transmissions
    over the air to combat the additional causes of transmission loss.
 
+
+
+
+
+Thubert                  Expires 11 January 2024               [Page 15]
+
+Internet-Draft              RAW Architecture                   July 2023
+
+
    From an economics standpoint, executing this principle properly
    generally increases capitalization expense because of the redundant
    equipment.  In a constrained network where the waste of energy and
@@ -834,14 +857,6 @@ Internet-Draft              RAW Architecture                   July 2023
    will use any alternate routes that are available [RFC0791].  This is
    due to the stateless nature of IP datagrams and the dissociation of
    the datagrams from the forwarding routes they take.  The "IP Fast
-
-
-
-Thubert                  Expires 5 January 2024                [Page 15]
-
-Internet-Draft              RAW Architecture                   July 2023
-
-
    Reroute Framework" [FRR] analyzes mechanisms for fast failure
    detection and path repair for IP Fast-Reroute, and discusses the case
    of multiple failures and SRLG.  Examples of FRR techniques include
@@ -875,6 +890,14 @@ Internet-Draft              RAW Architecture                   July 2023
    configuration, accounting, performance, security is a handy mental
    checklist) but fault monitoring is sufficient reason.
 
+
+
+
+Thubert                  Expires 11 January 2024               [Page 16]
+
+Internet-Draft              RAW Architecture                   July 2023
+
+
    "An Architecture for Describing Simple Network Management Protocol
    (SNMP) Management Frameworks" [STD 62] describes how to use SNMP to
    observe and correct long-term faults.
@@ -890,14 +913,6 @@ Internet-Draft              RAW Architecture                   July 2023
    complex path based on statistical and aggregated information.  RAW
    itself operates in the Network Plane at a faster time scale with live
    information on speed, state, etc...  This live information can be
-
-
-
-Thubert                  Expires 5 January 2024                [Page 16]
-
-Internet-Draft              RAW Architecture                   July 2023
-
-
    obtained directly from the lower layer, e.g., using L2 triggers, read
    from a protocol such as the Dynamic Link Exchange Protocol (DLEP)
    [DLEP], or transported over multiple hops using OAM and reverse OAM,
@@ -929,6 +944,16 @@ Internet-Draft              RAW Architecture                   July 2023
    (PRE), or, in a typical control loop, by linear interpolation from
    the previous measurements.
 
+
+
+
+
+
+Thubert                  Expires 11 January 2024               [Page 17]
+
+Internet-Draft              RAW Architecture                   July 2023
+
+
    But the linear interpolation method cannot resist multiple
    consecutive losses, and a high MTBF is desired as a guarantee that
    this will not happen, IOW that the number of losses-in-a-row can be
@@ -946,13 +971,6 @@ Internet-Draft              RAW Architecture                   July 2023
 
    In contrast with wired networks, errors in transmission are the
    predominant source of packet loss in wireless networks.
-
-
-
-Thubert                  Expires 5 January 2024                [Page 17]
-
-Internet-Draft              RAW Architecture                   July 2023
-
 
    The root cause for the loss may be of multiple origins, calling for
    the use of different forms of diversity:
@@ -984,6 +1002,14 @@ Internet-Draft              RAW Architecture                   July 2023
       use different technologies.
 
    Obstacle in Fresnel Zone:  The optimal transmission happens when the
+
+
+
+Thubert                  Expires 11 January 2024               [Page 18]
+
+Internet-Draft              RAW Architecture                   July 2023
+
+
       Fresnel Zone between the sender and the receiver is free of
       obstacles.
 
@@ -1001,14 +1027,6 @@ Internet-Draft              RAW Architecture                   July 2023
    metallic trolley between peers) that affects the transmission is not
    removed, or as long as the interferer (e.g., a radar) keeps
    transmitting, a continuous stream of packets will be affected.
-
-
-
-
-Thubert                  Expires 5 January 2024                [Page 18]
-
-Internet-Draft              RAW Architecture                   July 2023
-
 
    The key technique to combat those unpredictable losses is diversity.
    Different forms of diversity are necessary to combat different causes
@@ -1032,6 +1050,21 @@ Internet-Draft              RAW Architecture                   July 2023
    sensitive networking over wires, as a RAW solution has to address
    less consistent transmissions, energy conservation and shared
    spectrum efficiency.
+
+
+
+
+
+
+
+
+
+
+
+Thubert                  Expires 11 January 2024               [Page 19]
+
+Internet-Draft              RAW Architecture                   July 2023
+
 
    Operating at the Layer-3, RAW does not change the wireless technology
    at the lower layers.  OTOH, it can further increase diversity in the
@@ -1058,14 +1091,6 @@ Internet-Draft              RAW Architecture                   July 2023
    the Network Plane.  The DetNet Network Plane is composed of a DetNet
    service sub-layer that focuses on flow protection (e.g., using
    redundancy) and can be fully operated at Layer-3, and a DetNet
-
-
-
-Thubert                  Expires 5 January 2024                [Page 19]
-
-Internet-Draft              RAW Architecture                   July 2023
-
-
    forwarding sub-layer that associates the flows to the paths, ensures
    the availability of the necessary resources, and leverages Layer-2
    functionalities for timely delivery to the next DetNet system.
@@ -1088,6 +1113,14 @@ Internet-Draft              RAW Architecture                   July 2023
    the end-to-end reliability over a collection of paths.
 
    Those capabilities include:
+
+
+
+
+Thubert                  Expires 11 January 2024               [Page 20]
+
+Internet-Draft              RAW Architecture                   July 2023
+
 
    Promiscuous Overhearing:  Because the medium is broadcast as opposed
       to physically point to point like a wire, more than one node in
@@ -1114,14 +1147,6 @@ Internet-Draft              RAW Architecture                   July 2023
       wireless media.  Bounded latency can still be obtained on a
       wireless link while operating those technologies, provided that
       the extra transmission happens within the budget allocated to that
-
-
-
-Thubert                  Expires 5 January 2024                [Page 20]
-
-Internet-Draft              RAW Architecture                   July 2023
-
-
       hop, or that the introduced delay is compensated along the path.
       In the case of coded fragments and retries, it makes sense to
       variate all the possible physical properties of the transmission
@@ -1140,14 +1165,26 @@ Internet-Draft              RAW Architecture                   July 2023
    be seen as a form of Path Aware Networking and may be subject to
    impediments documented in [RFC9049].
 
-   The establishment of a path is not in-scope for RAW.  It may be the
-   product of a centralized Controller Plane Function like a Path
-   computation Element (PCE) [RFC4655] or a distributed routing
-   protocol.  For the most part, the remainder of the document mentions
-   centralized control and PCE, but conceptually, the same issues and
-   needs would arise for a distributed protocol that would attempt to
-   allocate constrained resources and optimize globally, and the
-   distributed approach is considered in scope too.
+
+
+
+
+
+
+
+
+Thubert                  Expires 11 January 2024               [Page 21]
+
+Internet-Draft              RAW Architecture                   July 2023
+
+
+   The establishment of a path is not in-scope for RAW.  It may be,
+   e.g., the product of a centralized Controller Plane Function like a
+   Path computation Element (PCE) [RFC4655], or may be computed in a
+   distributed fashion ala Resource ReSerVation Protocol (RSVP)
+   [RFC2205].  On the other hand, RAW leverages DetNet Controller Plane
+   enhancements to optimize the use of the paths and match the quality
+   of the transmissions over time.
 
    As opposed to wired networks, the action of installing a path over a
    set of wireless links may be very slow relative to the speed at which
@@ -1169,27 +1206,33 @@ Internet-Draft              RAW Architecture                   July 2023
    The RAW Architecture is based on an abstract OODA Loop (Observe,
    Orient, Decide, Act).  The generic concept involves:
 
-
-
-
-
-Thubert                  Expires 5 January 2024                [Page 21]
-
-Internet-Draft              RAW Architecture                   July 2023
-
-
    1.  Network Plane measurement protocols for Operations,
        Administration and Maintenance (OAM) to Observe some or all hops
        along a Track as well as the end-to-end packet delivery
 
-   2.  Optional Controller plane elements that report the links
-       statistics to be used to compute and install the Tracks, and
-       provides meta data to Orient the routing decision, e.g., by a PCE
-       in a centralized controller
+   2.  An optional asynchronous Controller Plane Function (aCPF) that
+       reports data and information such as link statistics to be used
+       asynchronously by the DetNet Routing CPF to compute, install, and
+       maintain the Tracks, e.g., by generating knowledge and wisdom
+       such as a trained model for link quality prediction, which in
+       turn can be used by the aCPF to Orient the Path selection by the
+       PSE within the RAW OODA loop.
 
    3.  A Runtime distributed Path Selection Engine (PSE) that Decides
        which DetNet Path to use for the next packet(s) that are routed
        along the Track
+
+
+
+
+
+
+
+
+Thubert                  Expires 11 January 2024               [Page 22]
+
+Internet-Draft              RAW Architecture                   July 2023
+
 
    4.  Packet (hybrid) ARQ, Replication, Elimination and Ordering
        Dataplane actions that operate at the DetNet Service sublayer to
@@ -1201,10 +1244,6 @@ Internet-Draft              RAW Architecture                   July 2023
    required reliability and availability Service Level Agreement (SLA)
    while minimizing the use of constrained resources such as spectrum
    and battery.
-
-   This document presents the RAW problem and associated terminology in
-   Section 3.2, and elaborates in Section 5.2 on the OODA loop based on
-   the RAW conceptual model presented in Section 4.
 
 4.  The RAW Conceptual Model
 
@@ -1226,34 +1265,32 @@ Internet-Draft              RAW Architecture                   July 2023
    ignored, and may be either controlled by other means such as DetNet/
    TSN, or neglected in the face of the wireless hops.
 
-
-
-
-Thubert                  Expires 5 January 2024                [Page 22]
-
-Internet-Draft              RAW Architecture                   July 2023
-
-
-   A Controller Plane Function (CPF) such as a PCE interacts with RAW
-   Nodes over a Southbound API.  The RAW Nodes are DetNet relays that
-   are capable of additional diversity mechanisms and measurement
+   The RAW Nodes are DetNet relays that operate in the RAW Network Plane
+   and are capable of additional diversity mechanisms and measurement
    functions related to the radio interface, in particular the PAREO
    diversity mechanisms.  RAW leverages a CPF that operates inside the
    RAW Nodes (typically the Ingress Edge Nodes) to dynamically adapt the
    path of the packets and optimizes the resource usage.
 
-   The PCE defines a complex Track between an Ingress End System and an
-   Egress End System, and indicates to the RAW Nodes where the PAREO
-   operations may be actioned in the Network Plane.  The Track may be
-   strict, meaning that the DetNet forwarding sublayer operations are
-   enforced end-to-end The Track may be expressed loosely to enable
-   traversing a non-RAW subnetwork as in Figure 6.  In that case, RAW
-   can not leverage end-to-end DetNet and cannot provide latency
-   guarantees.  The non-RAW subnetwork is neglected in the RAW
-   computation, that is, considered jitterless, and infinitely reliable
-   and/or available in comparison with the links between RAW nodes, so
-   loss and jitter that is measured end-to-end is attributed to the RAW
-   hops (typically an access link).
+   An RAW-enhanced DetNet Routing Controller Plane Function (CPF)
+   interacts with RAW Nodes over a Southbound API.  It consumes data and
+   information from the network and generates knowledge and wisdom to
+   help steer the traffic optimally inside a Track.
+
+
+
+
+
+
+
+
+
+Thubert                  Expires 11 January 2024               [Page 23]
+
+Internet-Draft              RAW Architecture                   July 2023
+
+
+                            DetNet Routing
 
            CPF               CPF          CPF                 CPF
 
@@ -1276,6 +1313,23 @@ Internet-Draft              RAW Architecture                   July 2023
 
                             Figure 3: RAW Nodes
 
+   When a new flow is defined, a DetNet Routing CPF uses it current
+   knowledge of the network to build a new Track between an Ingress End
+   System and an Egress End System for that flow; it indicates to the
+   RAW Nodes where the PAREO operations may be actioned in the Network
+   Plane.
+
+   *  The Track may be strict, meaning that the DetNet forwarding
+      sublayer operations are enforced end-to-end
+
+   *  The Track may be expressed loosely to enable traversing a non-RAW
+      subnetwork as in Figure 6.  In that case, RAW can not leverage
+      end-to-end DetNet and cannot provide latency guarantees.  The non-
+      RAW subnetwork is neglected in the RAW computation, that is,
+      considered jitterless, and infinitely reliable and/or available in
+      comparison with the links between RAW nodes, so loss and jitter
+      that is measured end-to-end is attributed to the RAW hops
+      (typically an access link).
 
 
 
@@ -1285,27 +1339,29 @@ Internet-Draft              RAW Architecture                   July 2023
 
 
 
-Thubert                  Expires 5 January 2024                [Page 23]
+
+
+Thubert                  Expires 11 January 2024               [Page 24]
 
 Internet-Draft              RAW Architecture                   July 2023
 
 
-   The Link-Layer metrics are reported to the PCE in a time-aggregated,
-   e.g., statistical fashion.  Example Link-Layer metrics include
-   typical Link bandwidth (the medium speed depends dynamically on the
-   PHY mode), number of flows (bandwidth that can be reserved for a flow
-   depends on the number and size of flows sharing the spectrum) and
-   average and mean squared deviation of availability and reliability
-   figures such as Packet Delivery Ratio (PDR) over long periods of
-   time.
+   A local asynchronous CPF in the RAW node reports the Link-Layer
+   metrics to the DetNet Routing CPF in a time-aggregated, e.g.,
+   statistical fashion.  Example Link-Layer metrics include typical Link
+   bandwidth (the medium speed depends dynamically on the PHY mode),
+   number of flows (bandwidth that can be reserved for a flow depends on
+   the number and size of flows sharing the spectrum) and average and
+   mean squared deviation of availability and reliability figures such
+   as Packet Delivery Ratio (PDR) over long periods of time.
 
-   Based on those metrics, the PCE installs the Track with enough
-   redundant forwarding solutions to ensure that the Network Plane can
-   reliably deliver the packets within a System Level Agreement (SLA)
-   associated to the flows that it transports.  The SLA defines end-to-
-   end reliability and availability requirements, where reliability may
-   be expressed as a successful delivery in order and within a bounded
-   delay of at least one copy of a packet.
+   Based on those metrics, the DetNet Routing CPF installs the Track
+   with enough redundant forwarding solutions to ensure that the Network
+   Plane can reliably deliver the packets within a System Level
+   Agreement (SLA) associated to the flows that it transports.  The SLA
+   defines end-to-end reliability and availability requirements, where
+   reliability may be expressed as a successful delivery in order and
+   within a bounded delay of at least one copy of a packet.
 
    Depending on the use case and the SLA, the Track may comprise non-RAW
    segments, either interleaved inside the Track, or all the way to the
@@ -1315,8 +1371,9 @@ Internet-Draft              RAW Architecture                   July 2023
    the PAREO diversity schemes is actioned by which RAW Nodes.
 
    Once a Track is established, per-segment and end-to-end reliability
-   and availability statistics are periodically reported to the PCE to
-   assure that the SLA can be met or have it recompute the Track if not.
+   and availability statistics are periodically reported to the DetNet
+   Routing CPF to assure that the SLA can be met or have it recompute
+   the Track if not.
 
 4.2.  RAW vs. Upper and Lower Layers
 
@@ -1340,8 +1397,7 @@ Internet-Draft              RAW Architecture                   July 2023
 
 
 
-
-Thubert                  Expires 5 January 2024                [Page 24]
+Thubert                  Expires 11 January 2024               [Page 25]
 
 Internet-Draft              RAW Architecture                   July 2023
 
@@ -1383,8 +1439,8 @@ Internet-Draft              RAW Architecture                   July 2023
    a time window, or send unicast (one next hop) or multicast (for
    overhearing).  The other way around RAW needs hints about the radio
    conditions like L2 triggers (RSSI, LQI, ETX...) over all the wireless
-   hops.  This information is useful in the controller plane for both
-   the PCE and PSE.
+   hops.  This information is useful in the controller plane to both the
+   asynchronous CPF and the PSE.
 
    The RAW Service sub-layer also adds the OAM Propagator that
    (re)generates the OAM information as it is formed and propagated In-
@@ -1397,7 +1453,7 @@ Internet-Draft              RAW Architecture                   July 2023
 
 
 
-Thubert                  Expires 5 January 2024                [Page 25]
+Thubert                  Expires 11 January 2024               [Page 26]
 
 Internet-Draft              RAW Architecture                   July 2023
 
@@ -1453,7 +1509,7 @@ Internet-Draft              RAW Architecture                   July 2023
 
 
 
-Thubert                  Expires 5 January 2024                [Page 26]
+Thubert                  Expires 11 January 2024               [Page 27]
 
 Internet-Draft              RAW Architecture                   July 2023
 
@@ -1509,7 +1565,7 @@ Internet-Draft              RAW Architecture                   July 2023
 
 
 
-Thubert                  Expires 5 January 2024                [Page 27]
+Thubert                  Expires 11 January 2024               [Page 28]
 
 Internet-Draft              RAW Architecture                   July 2023
 
@@ -1541,38 +1597,52 @@ Internet-Draft              RAW Architecture                   July 2023
 5.1.  Routing Time Scale vs. Forwarding Time Scale
 
    With DetNet, the Controller Plane Function (CPF) handles the routing
-   computation and maintenance.  With RAW, the CPF also performs the PSE
-   orientation, proposing DetNet Paths to use in response to network
-   events.  The CPF can be can be centralized in a PCE, and can reside
-   outside the network.  This is how the remainder of this document
-   depicts it, though the CPF could be implemented otherwise without
-   affecting the architecture.  In a wireless mesh, the path to the PCE
-   can be expensive and slow, possibly going across the whole mesh and
-   back.  Reaching to the PCE can also be slow in regards to the speed
-   of events that affect the forwarding operation at the radio layer.
-   In the same fashion, a distributed routing protocol may also take
-   time and consume excessive wireless resources to reconverge to a new
+   computation and maintenance.  With RAW, the DetNet Routing CPF
+   remains segregated from the RAW Control Loop, so it may reside
+   outside of the RAW network.  To achieve RAW capabilities, the DetNet
+   Routing CPF is enhanced to generate the information required by the
+   PSE for the orientation component, e.g., by proposing DetNet Paths to
+   be used as a reflex action in response to network events, or by
+   providing aggregated history.
+
+   In a wireless mesh, the path to the DetNet Routing CPF can be
+   expensive and slow, possibly going across the whole mesh and back.
+   Reaching to the DetNet Routing CPF can also be slow in regards to the
+   speed of events that affect the forwarding operation at the radio
+   layer.  Note that a distributed routing protocol may also take time
+   and consume excessive wireless resources to reconverge to a new
    optimized state.
 
-   Due to that cost and latency, the Controller Plane is not expected to
-   be sensitive/reactive to transient changes.  The abstraction of a
-   link at the routing level is expected to use statistical metrics that
-   aggregate the behavior of a link over long periods of time, and
-   represent its properties as shades of gray as opposed to numerical
-   values such as a link quality indicator, or a boolean value for
-   either up or down.
 
 
 
 
-Thubert                  Expires 5 January 2024                [Page 28]
+
+
+
+
+Thubert                  Expires 11 January 2024               [Page 29]
 
 Internet-Draft              RAW Architecture                   July 2023
 
 
+   As a result, the DetNet Routing CPF is not expected to be sensitive/
+   reactive to transient changes.  The abstraction of a link at the
+   routing level is expected to use statistical metrics that aggregate
+   the behavior of a link over long periods of time, and represent its
+   properties as shades of gray as opposed to numerical values such as a
+   link quality indicator, or a boolean value for either up or down.
+
+   The interaction with the (remote) DetNet Routing CPF is handled by a
+   (local) asynchronous CPF that builds reports to the DetNet Routing
+   CPF and digests the control information back, to be used inside a
+   forwarding control loop for traffic steering.
+
+
                      +----------------+
-                     |  Controller    |
-                     |    [PCE]       |
+                     |     DetNet     |
+                     |    Routing     |
+                     |      CPF       |
                      +----------------+
                              ^
                              |
@@ -1604,6 +1674,14 @@ Internet-Draft              RAW Architecture                   July 2023
    In the case of wireless, the changes that affect the forwarding
    decision can happen frequently and often for short durations, e.g., a
    mobile object moves between a transmitter and a receiver, and will
+
+
+
+Thubert                  Expires 11 January 2024               [Page 30]
+
+Internet-Draft              RAW Architecture                   July 2023
+
+
    cancel the line of sight transmission for a few seconds, or a radar
    measures the depth of a pool and interferes on a particular channel
    for a split second.
@@ -1618,14 +1696,6 @@ Internet-Draft              RAW Architecture                   July 2023
    In the wired world, and more specifically in the context of Traffic
    Engineering (TE), an alternate path can be used upon the detection of
    a failure in the main path, e.g., using OAM in MPLS-TP or BFD over a
-
-
-
-Thubert                  Expires 5 January 2024                [Page 29]
-
-Internet-Draft              RAW Architecture                   July 2023
-
-
    collection of SD-WAN tunnels.  RAW formalizes a forwarding time scale
    that is an order(s) of magnitude shorter than the controller plane
    routing time scale, and separates the protocols and metrics that are
@@ -1644,46 +1714,38 @@ Internet-Draft              RAW Architecture                   July 2023
    spectrum and energy used to forward packets within a Track,
    instantiating the OODA steps as follows:
 
-   Observe:  Network Plane measurement protocols for Operations,
-      Administration and Maintenance (OAM) to Observe some or all hops
-      along a Track as well as the end-to-end packet delivery, more in
-      Section 5.3;
+   Observe:  Network Plane measurements, including protocols for
+      Operations, Administration and Maintenance (OAM), to Observe the
+      local state of the links and some or all hops along a Track as
+      well as the end-to-end packet delivery, more in Section 5.3;
 
-   Orient:  Controller plane elements to report the links statistics to
-      a distributed or centralized control function such as a Path
-      Computation Element (PCE), that computes and installs the Tracks,
-      and provides meta data to Orient the routing decision, more in
+   Orient:  An asynchronous CPF that reports data and information such
+      as the link statistics, and leverages offline-computed wisdom and
+      knowledge to Orient the PSE for its forwarding decision, more in
       Section 5.4;
 
-   Decide:  A Runtime distributed Path Selection Engine (PSE) thar
+   Decide:  A local synchronous CPF Path Selection Engine (PSE) thar
       Decides which DetNet Path to use for the next packet(s) that are
       routed along the Track, more in Section 5.5;
 
    Act:  Packet (hybrid) ARQ, Replication, Elimination and Ordering
+
+
+
+
+Thubert                  Expires 11 January 2024               [Page 31]
+
+Internet-Draft              RAW Architecture                   July 2023
+
+
       Dataplane actions are controlled from the DetNet Service sublayer
       to increase the reliability of the end-to-end transmission.  The
       RAW architecture also covers in-situ signaling when the decision
       is Acted by a node that down the Track from the PSE, more in
       Section 5.6.
 
-
-
-
-
-
-
-
-
-
-
-
-Thubert                  Expires 5 January 2024                [Page 30]
-
-Internet-Draft              RAW Architecture                   July 2023
-
-
-                     +-------> Orient (PCE) --------+
-                     |          link stats,         |
+                     +-------> Orient (aCPF) -------+
+                     |        reflex actions        |
                      |       pre-trained model      |
                      |             ...              |
                      |                              v
@@ -1705,7 +1767,7 @@ Internet-Draft              RAW Architecture                   July 2023
 5.3.  Observe: The RAW OAM
 
    RAW In-situ OAM operation in the Network Plane may observe either a
-   full Track or DetNet Paths that are being used at this time.  As
+   full Track or the DetNet Path that is being used at this time.  As
    packets may be load balanced, replicated, eliminated, and / or
    fragmented for Network Coding (NC) forward error correction (FEC),
    the RAW In-situ operation needs to be able to signal which operation
@@ -1727,13 +1789,7 @@ Internet-Draft              RAW Architecture                   July 2023
 
 
 
-
-
-
-
-
-
-Thubert                  Expires 5 January 2024                [Page 31]
+Thubert                  Expires 11 January 2024               [Page 32]
 
 Internet-Draft              RAW Architecture                   July 2023
 
@@ -1774,7 +1830,7 @@ Internet-Draft              RAW Architecture                   July 2023
    whether a packet should be sent over either or a collection of those
    access links.
 
-5.4.  Orient: The Path Computation Engine
+5.4.  Orient: The RAW-enhanced DetNet Controller Plane
 
    RAW separates the long time scale at which a Track is elaborated and
    installed, from the short time scale at which the forwarding decision
@@ -1789,13 +1845,13 @@ Internet-Draft              RAW Architecture                   July 2023
 
 
 
-Thubert                  Expires 5 January 2024                [Page 32]
+Thubert                  Expires 11 January 2024               [Page 33]
 
 Internet-Draft              RAW Architecture                   July 2023
 
 
    The Track computation is out of scope, but RAW expects that the
-   Controller plane protocol that installs the Track also provides
+   Controller plane function that installs the Track also provides
    related knowledge in the form of meta data about the links, segments
    and possible DetNet Paths.  That meta data can be a pre-digested
    statistical model, and may include prediction of future flaps and
@@ -1803,55 +1859,62 @@ Internet-Draft              RAW Architecture                   July 2023
 
    The meta data may include:
 
-   *  Pre-Determined DetNet Paths to match predictable error profiles
+   *  A set of Pre-Determined DetNet Paths that are prepared to match
+      expected link degradation profiles, so the DDCPEs can take reflex
+      rerouting actions when facing a degradation that matches one such
+      profile.
 
-   *  Pre-Trained models
-
-   *  Link Quality Statistics and their projected evolution
+   *  Link Quality Statistics history and pre-trained models, e.g., to
+      predict the short-term variation of quality of the links in a
+      Track
 
    The Track is installed with measurable objectives that are computed
-   by the PCE to achieve the RAW SLA.  The objectives can be expressed
-   as any of maximum number of packet lost in a row, bounded latency,
-   maximal jitter, maximum number of interleaved out of order packets,
-   average number of copies received at the elimination point, and
-   maximal delay between the first and the last received copy of the
-   same packet.
+   by the DetNet Routing CPF to achieve the RAW SLA.  The objectives can
+   be expressed as any of maximum number of packet lost in a row,
+   bounded latency, maximal jitter, maximum number of interleaved out of
+   order packets, average number of copies received at the elimination
+   point, and maximal delay between the first and the last received copy
+   of the same packet.
 
 5.5.  Decide: The Path Selection Engine
 
    The RAW OODA Loop operates at the path selection time scale to
    provide agility vs. the brute force approach of flooding the whole
    Track.  The OODA Loop controls, within the redundant solutions that
-   are proposed by the PCE, which will be used for each packet to
-   provide a Reliable and Available service while minimizing the waste
-   of constrained resources.
+   are proposed by the acynchronous CPF, which will be used for each
+   packet to provide a Reliable and Available service while minimizing
+   the waste of constrained resources.
 
-   To that effect, RAW defines the Path Selection Engine (PSE) that is
-   the counterpart of the PCE to perform rapid local adjustments of the
-   forwarding tables within the diversity that the PCE has selected for
-   the Track.  The PSE enables to exploit the richer forwarding
-   capabilities with PAREO and scheduled transmissions at a faster time
-   scale over the smaller domain that is the Track, in either a loose or
-   a strict fashion.
+   To that effect, RAW defines the Path Selection Engine (PSE) as a
+   synchronous CPF that performs rapid local adjustments of the
+   forwarding tables within the diversity that the asynchronous CPF has
+   in store for the Track.  The PSE enables to exploit the richer
+   forwarding capabilities with PAREO and scheduled transmissions at a
+   faster time scale over the smaller domain that is the Track, in
+   either a loose or a strict fashion.
 
-   Compared to the PCE, the PSE operates on metrics that evolve faster,
-   but that need to be advertised at a fast rate but only locally,
-   within the Track.  The forwarding decision may also change rapidly,
-   but with a scope that is also contained within the Track, with no
-   visibility to the other Tracks and flows in the network.  This is as
-   opposed to the PCE that must observe the whole network and optimize
-   all the Tracks globally, which can only be done at a slow pace and
-   using long-term statistical metrics, as presented in Table 1.
+   The PSE operates on metrics that evolve faster, but that need to be
+   advertised at a fast rate but only locally, within the Track, and
+   reacts on the metrics updates by changing the DetNet path in use for
+   the affected flows.
 
 
 
-Thubert                  Expires 5 January 2024                [Page 33]
+
+Thubert                  Expires 11 January 2024               [Page 34]
 
 Internet-Draft              RAW Architecture                   July 2023
 
 
+   The rapid changes in the forwarding decisions are made and contained
+   within the scope of a Track and the actions of the PSE are not
+   signaled outside the Track.  This is as opposed to the DetNet Routing
+   CPF that must observe the whole network and optimize all the Tracks
+   globally, which can only be done at a slow pace and using long-term
+   statistical metrics, as presented in Table 1.
+
       +===============+========================+===================+
-      |               |   PCE (Not in Scope)   |   PSE (In Scope)  |
+      |               |   DetNet Routing CPF   |   PSE (In Scope)  |
       +===============+========================+===================+
       | Operation     | Typically Centralized  |  Source-Routed or |
       |               |                        |    Distributed    |
@@ -1867,7 +1930,7 @@ Internet-Draft              RAW Architecture                   July 2023
       | Metrics       |     Shade of grey      | boolean condition |
       +---------------+------------------------+-------------------+
 
-                           Table 1: PCE vs. PSE
+                   Table 1: Detnet Routing CPF vs. PSE
 
    The PSE sits in the DetNet Service sub-Layer of Edge and Relay Nodes.
    On the one hand, it operates on the packet flow, learning the Track
@@ -1876,6 +1939,28 @@ Internet-Draft              RAW Architecture                   July 2023
    the PSE interacts with the lower layers and with its peers to obtain
    up-to-date information about its radio links and the quality of the
    overall Track, respectively, as illustrated in Figure 10.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Thubert                  Expires 11 January 2024               [Page 35]
+
+Internet-Draft              RAW Architecture                   July 2023
+
 
                |
         packet | going
@@ -1898,13 +1983,6 @@ Internet-Draft              RAW Architecture                   July 2023
                v                     |                    | v
 
                                Figure 10: PSE
-
-
-
-Thubert                  Expires 5 January 2024                [Page 34]
-
-Internet-Draft              RAW Architecture                   July 2023
-
 
 5.6.  Act: DetNet Path Selection and PAREO functions
 
@@ -1931,6 +2009,15 @@ Internet-Draft              RAW Architecture                   July 2023
    extensions are only controlled from Layer-3 using an abstract
    interface, while they are really operated at the lower layers.
 
+
+
+
+
+Thubert                  Expires 11 January 2024               [Page 36]
+
+Internet-Draft              RAW Architecture                   July 2023
+
+
    The RAW Path Selection can be implemented in both centralized and
    distributed scheduling approaches.  In the centralized approach, the
    PSE may obtain a set of pre-computed DetNet paths matching a set of
@@ -1952,15 +2039,6 @@ Internet-Draft              RAW Architecture                   July 2023
    face of unpredictable conditions.  While this is not done
    specifically to defeat an attacker, the amount of diversity used in
    RAW makes an attack harder to achieve.
-
-
-
-
-
-Thubert                  Expires 5 January 2024                [Page 35]
-
-Internet-Draft              RAW Architecture                   July 2023
-
 
 6.1.  Layer-2 encryption
 
@@ -1989,6 +2067,13 @@ Internet-Draft              RAW Architecture                   July 2023
    Xavi Vilajosana:  Wireless Networks Research Lab, Universitat Oberta
       de Catalunya
 
+
+
+Thubert                  Expires 11 January 2024               [Page 37]
+
+Internet-Draft              RAW Architecture                   July 2023
+
+
    Geogios Papadopolous:  IMT Atlantique
 
    Remous-Aris Koutsiamanis:  IMT Atlantique
@@ -2009,14 +2094,6 @@ Internet-Draft              RAW Architecture                   July 2023
    The authors wish to thank Balazs Varga, Dave Cavalcanti, Don Fedyk,
    Nicolas Montavont, and Fabrice Theoleyre for their in-depth reviews
    during the development of this document.
-
-
-
-
-Thubert                  Expires 5 January 2024                [Page 36]
-
-Internet-Draft              RAW Architecture                   July 2023
-
 
 10.  References
 
@@ -2045,6 +2122,14 @@ Internet-Draft              RAW Architecture                   July 2023
    [RAW-USE-CASES]
               Bernardos, C. J., Papadopoulos, G. Z., Thubert, P., and F.
               Theoleyre, "RAW Use-Cases", Work in Progress, Internet-
+
+
+
+Thubert                  Expires 11 January 2024               [Page 38]
+
+Internet-Draft              RAW Architecture                   July 2023
+
+
               Draft, draft-ietf-raw-use-cases-11, 17 April 2023,
               <https://datatracker.ietf.org/doc/html/draft-ietf-raw-use-
               cases-11>.
@@ -2063,16 +2148,6 @@ Internet-Draft              RAW Architecture                   July 2023
    [RFC7799]  Morton, A., "Active and Passive Metrics and Methods (with
               Hybrid Types In-Between)", RFC 7799, DOI 10.17487/RFC7799,
               May 2016, <https://www.rfc-editor.org/info/rfc7799>.
-
-
-
-
-
-
-Thubert                  Expires 5 January 2024                [Page 37]
-
-Internet-Draft              RAW Architecture                   July 2023
-
 
    [RFC8578]  Grossman, E., Ed., "Deterministic Networking Use Cases",
               RFC 8578, DOI 10.17487/RFC8578, May 2019,
@@ -2104,9 +2179,21 @@ Internet-Draft              RAW Architecture                   July 2023
 
 10.2.  Informative References
 
+
+
+Thubert                  Expires 11 January 2024               [Page 39]
+
+Internet-Draft              RAW Architecture                   July 2023
+
+
    [RFC0791]  Postel, J., "Internet Protocol", STD 5, RFC 791,
               DOI 10.17487/RFC0791, September 1981,
               <https://www.rfc-editor.org/info/rfc791>.
+
+   [RFC2205]  Braden, R., Ed., Zhang, L., Berson, S., Herzog, S., and S.
+              Jamin, "Resource ReSerVation Protocol (RSVP) -- Version 1
+              Functional Specification", RFC 2205, DOI 10.17487/RFC2205,
+              September 1997, <https://www.rfc-editor.org/info/rfc2205>.
 
    [TE]       Awduche, D., Chiu, A., Elwalid, A., Widjaja, I., and X.
               Xiao, "Overview and Principles of Internet Traffic
@@ -2119,21 +2206,15 @@ Internet-Draft              RAW Architecture                   July 2023
               DOI 10.17487/RFC3411, December 2002,
               <https://www.rfc-editor.org/info/rfc3411>.
 
-
-
-
-
-
-
-Thubert                  Expires 5 January 2024                [Page 38]
-
-Internet-Draft              RAW Architecture                   July 2023
-
-
    [RFC4090]  Pan, P., Ed., Swallow, G., Ed., and A. Atlas, Ed., "Fast
               Reroute Extensions to RSVP-TE for LSP Tunnels", RFC 4090,
               DOI 10.17487/RFC4090, May 2005,
               <https://www.rfc-editor.org/info/rfc4090>.
+
+   [RFC5580]  Tschofenig, H., Ed., Adrangi, F., Jones, M., Lior, A., and
+              B. Aboba, "Carrying Location Objects in RADIUS and
+              Diameter", RFC 5580, DOI 10.17487/RFC5580, August 2009,
+              <https://www.rfc-editor.org/info/rfc5580>.
 
    [FRR]      Shand, M. and S. Bryant, "IP Fast Reroute Framework",
               RFC 5714, DOI 10.17487/RFC5714, January 2010,
@@ -2149,6 +2230,17 @@ Internet-Draft              RAW Architecture                   July 2023
               Bryant, "Deterministic Networking (DetNet) Data Plane
               Framework", RFC 8938, DOI 10.17487/RFC8938, November 2020,
               <https://www.rfc-editor.org/info/rfc8938>.
+
+
+
+
+
+
+
+Thubert                  Expires 11 January 2024               [Page 40]
+
+Internet-Draft              RAW Architecture                   July 2023
+
 
    [DLEP]     Ratliff, S., Jury, S., Satterwhite, D., Taylor, R., and B.
               Berry, "Dynamic Link Exchange Protocol (DLEP)", RFC 8175,
@@ -2178,14 +2270,6 @@ Internet-Draft              RAW Architecture                   July 2023
               <https://datatracker.ietf.org/doc/html/draft-ietf-detnet-
               oam-framework-08>.
 
-
-
-
-Thubert                  Expires 5 January 2024                [Page 39]
-
-Internet-Draft              RAW Architecture                   July 2023
-
-
    [NASA]     Adams, T., "RELIABILITY: Definition & Quantitative
               Illustration", <https://kscddms.ksc.nasa.gov/Reliability/
               Documents/150814-3bWhatIsReliability.pdf>.
@@ -2209,32 +2293,4 @@ Author's Address
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Thubert                  Expires 5 January 2024                [Page 40]
+Thubert                  Expires 11 January 2024               [Page 41]

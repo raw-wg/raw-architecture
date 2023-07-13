@@ -61,7 +61,7 @@
 
       The loop involves OAM, DetNet Controller Plane, and PREOF extensions, and
       specifically a new Controller plane Function called the Path Selection
-      Engine, that dynamically selects the DetNet path(s) for the next packets
+      Engine, that dynamically selects the DetNet path(s) for the future packets
       to route around local degradations and failures.
 
       </t>
@@ -1137,10 +1137,11 @@ South East                                   South West
       </t>
       <t>
    RAW distinguishes the longer time scale at which routes are computed from the
-   the shorter forwarding time scale where per-packet decisions are made.
-   RAW Network Plane operations happen at the forwarding time scale on one
-   DetNet flow over a complex path delineated by a Track
-    (see <xref target="trk"/>). The Track is
+   the shorter time scale where forwarding decisions are made for a limited time
+   RAW Network Plane operations happen at a time scale that sits between the
+   routing and the forwarding time scales, on one DetNet flow, to select a DetNet
+   path within the resources delineated by a Track (see <xref target="trk"/>).
+   The Track is
    preestablished and installed by means outside of the scope of RAW; it may be
    strict or loose depending on whether each or just a subset of the hops are
    observed and controlled by RAW.
@@ -1163,7 +1164,8 @@ South East                                   South West
       Orient the Path selection by the PSE within the RAW OODA loop.
       </li>
       <li> A Runtime distributed Path Selection Engine (PSE) that Decides which
-      DetNet Path to use for the next packet(s) that are routed along the Track
+      DetNet Path to use for the future packet that will be routed along the
+      Track
       </li>
       <li> Packet (hybrid) ARQ, Replication, Elimination and Ordering Dataplane
       actions that operate at the DetNet Service sublayer to increase the
@@ -1376,7 +1378,7 @@ South East                                   South West
   or End System, though it may also run in DetNet Relay Nodes when the RAW
   Control sub-layer is distributed along the Track.
   The RAW Control sub-layer functionality includes the PSE that decides the
-  DetNet Path for the next packets of a flows and controls
+  DetNet Path for the future packets of a flows and controls
   the PAREO Actuators along the DetNet Path through specific signaling,
   and the OAM Supervisor that triggers, and learns from, OAM observations, and
   feeds the PSE for its next decision.
@@ -1634,7 +1636,7 @@ South East                                   South West
       the PSE for its forwarding decision, more in <xref target = "pce" />;
       </dd>
       <dt>Decide:</dt><dd> A local synchronous CPF Path Selection Engine (PSE) thar Decides which
-      DetNet Path to use for the next packet(s) that are routed along the Track,
+      DetNet Path to use for the future packet(s) that are routed along the Track,
       more in <xref target = "psepce" />;
       </dd>
       <dt>Act:</dt><dd> Packet (hybrid) ARQ, Replication, Elimination and Ordering Dataplane
@@ -1867,13 +1869,14 @@ South East                                   South West
     one hand, it operates on the packet flow, learning the Track and path
     selection information from the packet, possibly making local decision and
     retagging the packet to indicate so. On the other hand, the PSE interacts
-    with the lower layers and with its peers to obtain up-to-date information
-    about its radio links and the quality of the overall Track, respectively,
-    as illustrated in <xref target="Figlearn"/>.
+    with the lower layers (through triggers and DLEP) and with its peers
+    (through iOAM and IOAM) to obtain up-to-date information about its links and
+    the quality of the overall Track, respectively, as illustrated in
+    <xref target="Figlearn"/>.
     </t>
 
 <figure anchor="Figlearn">
-          <name>PSE</name>
+          <name>PSE Interfaces</name>
        <artwork align="center" name="" type="" alt=""><![CDATA[
             |
      packet | going
@@ -1881,9 +1884,9 @@ South East                                   South West
  +==========v==========+=====================+=====================+
  |   (iOAM + iCTRL)    | (L2 Triggers, DLEP) |       (oOAM)        |
  +==========v==========+=====================+=====================+
- |     Learn from                                 Learn from       |
- |    packet tagging           Maintain           end-to-end       |
- +----------v----------+      Forwarding          OAM packets      |
+ |     Learn from      |                     |    Learn from       |
+ |    packet tagging   >       Maintain      <    end-to-end       |
+ +----------v----------+      Forwarding     |    OAM packets      |
  | Forwarding decision <        State        +---------^-----------|
  +----------v----------+                     |      Enrich or      |
  +    Retag Packet     |  Learn abstracted   >     Regenerate      |
@@ -1905,7 +1908,7 @@ South East                                   South West
       <name>Act: DetNet Path Selection and PAREO functions</name>
       <t>
     The main action by the PSE is the swapping of the DetNet Path within the
-    Track for the next series of packets.
+    Track for the future packets.
     The candidate DetNet Paths represent different energy and spectrum profiles,
     and provide protection against different failures.
     </t>

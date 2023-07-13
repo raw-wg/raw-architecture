@@ -4,12 +4,12 @@
 
 RAW                                                      P. Thubert, Ed.
 Internet-Draft                                             Cisco Systems
-Intended status: Informational                              10 July 2023
-Expires: 11 January 2024
+Intended status: Informational                              13 July 2023
+Expires: 14 January 2024
 
 
               Reliable and Available Wireless Architecture
-                     draft-ietf-raw-architecture-13
+                     draft-ietf-raw-architecture-14
 
 Abstract
 
@@ -24,8 +24,8 @@ Abstract
    typically reliability and latency.  The loop involves OAM, DetNet
    Controller Plane, and PREOF extensions, and specifically a new
    Controller plane Function called the Path Selection Engine, that
-   dynamically selects the DetNet path(s) for the next packets to route
-   around local degradations and failures.
+   dynamically selects the DetNet path(s) for the future packets to
+   route around local degradations and failures.
 
 Status of This Memo
 
@@ -42,7 +42,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 11 January 2024.
+   This Internet-Draft will expire on 14 January 2024.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Thubert                  Expires 11 January 2024                [Page 1]
+Thubert                  Expires 14 January 2024                [Page 1]
 
 Internet-Draft              RAW Architecture                   July 2023
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Thubert                  Expires 11 January 2024                [Page 2]
+Thubert                  Expires 14 January 2024                [Page 2]
 
 Internet-Draft              RAW Architecture                   July 2023
 
@@ -147,7 +147,7 @@ Internet-Draft              RAW Architecture                   July 2023
    9.  Acknowledgments . . . . . . . . . . . . . . . . . . . . . . .  38
    10. References  . . . . . . . . . . . . . . . . . . . . . . . . .  38
      10.1.  Normative References . . . . . . . . . . . . . . . . . .  38
-     10.2.  Informative References . . . . . . . . . . . . . . . . .  39
+     10.2.  Informative References . . . . . . . . . . . . . . . . .  40
    Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .  41
 
 1.  Introduction
@@ -165,7 +165,7 @@ Internet-Draft              RAW Architecture                   July 2023
 
 
 
-Thubert                  Expires 11 January 2024                [Page 3]
+Thubert                  Expires 14 January 2024                [Page 3]
 
 Internet-Draft              RAW Architecture                   July 2023
 
@@ -221,7 +221,7 @@ Internet-Draft              RAW Architecture                   July 2023
 
 
 
-Thubert                  Expires 11 January 2024                [Page 4]
+Thubert                  Expires 14 January 2024                [Page 4]
 
 Internet-Draft              RAW Architecture                   July 2023
 
@@ -277,7 +277,7 @@ Internet-Draft              RAW Architecture                   July 2023
 
 
 
-Thubert                  Expires 11 January 2024                [Page 5]
+Thubert                  Expires 14 January 2024                [Page 5]
 
 Internet-Draft              RAW Architecture                   July 2023
 
@@ -333,7 +333,7 @@ Internet-Draft              RAW Architecture                   July 2023
 
 
 
-Thubert                  Expires 11 January 2024                [Page 6]
+Thubert                  Expires 14 January 2024                [Page 6]
 
 Internet-Draft              RAW Architecture                   July 2023
 
@@ -389,7 +389,7 @@ Internet-Draft              RAW Architecture                   July 2023
 
 
 
-Thubert                  Expires 11 January 2024                [Page 7]
+Thubert                  Expires 14 January 2024                [Page 7]
 
 Internet-Draft              RAW Architecture                   July 2023
 
@@ -445,7 +445,7 @@ Internet-Draft              RAW Architecture                   July 2023
 
 
 
-Thubert                  Expires 11 January 2024                [Page 8]
+Thubert                  Expires 14 January 2024                [Page 8]
 
 Internet-Draft              RAW Architecture                   July 2023
 
@@ -501,7 +501,7 @@ Internet-Draft              RAW Architecture                   July 2023
 
 
 
-Thubert                  Expires 11 January 2024                [Page 9]
+Thubert                  Expires 14 January 2024                [Page 9]
 
 Internet-Draft              RAW Architecture                   July 2023
 
@@ -557,7 +557,7 @@ Internet-Draft              RAW Architecture                   July 2023
 
 
 
-Thubert                  Expires 11 January 2024               [Page 10]
+Thubert                  Expires 14 January 2024               [Page 10]
 
 Internet-Draft              RAW Architecture                   July 2023
 
@@ -613,7 +613,7 @@ Internet-Draft              RAW Architecture                   July 2023
 
 
 
-Thubert                  Expires 11 January 2024               [Page 11]
+Thubert                  Expires 14 January 2024               [Page 11]
 
 Internet-Draft              RAW Architecture                   July 2023
 
@@ -669,7 +669,7 @@ Internet-Draft              RAW Architecture                   July 2023
 
 
 
-Thubert                  Expires 11 January 2024               [Page 12]
+Thubert                  Expires 14 January 2024               [Page 12]
 
 Internet-Draft              RAW Architecture                   July 2023
 
@@ -725,7 +725,7 @@ Internet-Draft              RAW Architecture                   July 2023
 
 
 
-Thubert                  Expires 11 January 2024               [Page 13]
+Thubert                  Expires 14 January 2024               [Page 13]
 
 Internet-Draft              RAW Architecture                   July 2023
 
@@ -781,7 +781,7 @@ Internet-Draft              RAW Architecture                   July 2023
 
 
 
-Thubert                  Expires 11 January 2024               [Page 14]
+Thubert                  Expires 14 January 2024               [Page 14]
 
 Internet-Draft              RAW Architecture                   July 2023
 
@@ -837,7 +837,7 @@ Internet-Draft              RAW Architecture                   July 2023
 
 
 
-Thubert                  Expires 11 January 2024               [Page 15]
+Thubert                  Expires 14 January 2024               [Page 15]
 
 Internet-Draft              RAW Architecture                   July 2023
 
@@ -893,7 +893,7 @@ Internet-Draft              RAW Architecture                   July 2023
 
 
 
-Thubert                  Expires 11 January 2024               [Page 16]
+Thubert                  Expires 14 January 2024               [Page 16]
 
 Internet-Draft              RAW Architecture                   July 2023
 
@@ -949,7 +949,7 @@ Internet-Draft              RAW Architecture                   July 2023
 
 
 
-Thubert                  Expires 11 January 2024               [Page 17]
+Thubert                  Expires 14 January 2024               [Page 17]
 
 Internet-Draft              RAW Architecture                   July 2023
 
@@ -1005,7 +1005,7 @@ Internet-Draft              RAW Architecture                   July 2023
 
 
 
-Thubert                  Expires 11 January 2024               [Page 18]
+Thubert                  Expires 14 January 2024               [Page 18]
 
 Internet-Draft              RAW Architecture                   July 2023
 
@@ -1061,7 +1061,7 @@ Internet-Draft              RAW Architecture                   July 2023
 
 
 
-Thubert                  Expires 11 January 2024               [Page 19]
+Thubert                  Expires 14 January 2024               [Page 19]
 
 Internet-Draft              RAW Architecture                   July 2023
 
@@ -1117,7 +1117,7 @@ Internet-Draft              RAW Architecture                   July 2023
 
 
 
-Thubert                  Expires 11 January 2024               [Page 20]
+Thubert                  Expires 14 January 2024               [Page 20]
 
 Internet-Draft              RAW Architecture                   July 2023
 
@@ -1173,7 +1173,7 @@ Internet-Draft              RAW Architecture                   July 2023
 
 
 
-Thubert                  Expires 11 January 2024               [Page 21]
+Thubert                  Expires 14 January 2024               [Page 21]
 
 Internet-Draft              RAW Architecture                   July 2023
 
@@ -1195,13 +1195,14 @@ Internet-Draft              RAW Architecture                   July 2023
    the current conditions.
 
    RAW distinguishes the longer time scale at which routes are computed
-   from the the shorter forwarding time scale where per-packet decisions
-   are made.  RAW Network Plane operations happen at the forwarding time
-   scale on one DetNet flow over a complex path delineated by a Track
-   (see Section 2.3.2).  The Track is preestablished and installed by
-   means outside of the scope of RAW; it may be strict or loose
-   depending on whether each or just a subset of the hops are observed
-   and controlled by RAW.
+   from the the shorter time scale where forwarding decisions are made
+   for a limited time RAW Network Plane operations happen at a time
+   scale that sits between the routing and the forwarding time scales,
+   on one DetNet flow, to select a DetNet path within the resources
+   delineated by a Track (see Section 2.3.2).  The Track is
+   preestablished and installed by means outside of the scope of RAW; it
+   may be strict or loose depending on whether each or just a subset of
+   the hops are observed and controlled by RAW.
 
    The RAW Architecture is based on an abstract OODA Loop (Observe,
    Orient, Decide, Act).  The generic concept involves:
@@ -1219,8 +1220,8 @@ Internet-Draft              RAW Architecture                   July 2023
        PSE within the RAW OODA loop.
 
    3.  A Runtime distributed Path Selection Engine (PSE) that Decides
-       which DetNet Path to use for the next packet(s) that are routed
-       along the Track
+       which DetNet Path to use for the future packet that will be
+       routed along the Track
 
 
 
@@ -1228,8 +1229,7 @@ Internet-Draft              RAW Architecture                   July 2023
 
 
 
-
-Thubert                  Expires 11 January 2024               [Page 22]
+Thubert                  Expires 14 January 2024               [Page 22]
 
 Internet-Draft              RAW Architecture                   July 2023
 
@@ -1285,7 +1285,7 @@ Internet-Draft              RAW Architecture                   July 2023
 
 
 
-Thubert                  Expires 11 January 2024               [Page 23]
+Thubert                  Expires 14 January 2024               [Page 23]
 
 Internet-Draft              RAW Architecture                   July 2023
 
@@ -1341,7 +1341,7 @@ Internet-Draft              RAW Architecture                   July 2023
 
 
 
-Thubert                  Expires 11 January 2024               [Page 24]
+Thubert                  Expires 14 January 2024               [Page 24]
 
 Internet-Draft              RAW Architecture                   July 2023
 
@@ -1397,7 +1397,7 @@ Internet-Draft              RAW Architecture                   July 2023
 
 
 
-Thubert                  Expires 11 January 2024               [Page 25]
+Thubert                  Expires 14 January 2024               [Page 25]
 
 Internet-Draft              RAW Architecture                   July 2023
 
@@ -1453,7 +1453,7 @@ Internet-Draft              RAW Architecture                   July 2023
 
 
 
-Thubert                  Expires 11 January 2024               [Page 26]
+Thubert                  Expires 14 January 2024               [Page 26]
 
 Internet-Draft              RAW Architecture                   July 2023
 
@@ -1463,8 +1463,8 @@ Internet-Draft              RAW Architecture                   July 2023
    the DetNet Ingress Edge Node or End System, though it may also run in
    DetNet Relay Nodes when the RAW Control sub-layer is distributed
    along the Track.  The RAW Control sub-layer functionality includes
-   the PSE that decides the DetNet Path for the next packets of a flows
-   and controls the PAREO Actuators along the DetNet Path through
+   the PSE that decides the DetNet Path for the future packets of a
+   flows and controls the PAREO Actuators along the DetNet Path through
    specific signaling, and the OAM Supervisor that triggers, and learns
    from, OAM observations, and feeds the PSE for its next decision.
 
@@ -1509,7 +1509,7 @@ Internet-Draft              RAW Architecture                   July 2023
 
 
 
-Thubert                  Expires 11 January 2024               [Page 27]
+Thubert                  Expires 14 January 2024               [Page 27]
 
 Internet-Draft              RAW Architecture                   July 2023
 
@@ -1565,7 +1565,7 @@ Internet-Draft              RAW Architecture                   July 2023
 
 
 
-Thubert                  Expires 11 January 2024               [Page 28]
+Thubert                  Expires 14 January 2024               [Page 28]
 
 Internet-Draft              RAW Architecture                   July 2023
 
@@ -1621,7 +1621,7 @@ Internet-Draft              RAW Architecture                   July 2023
 
 
 
-Thubert                  Expires 11 January 2024               [Page 29]
+Thubert                  Expires 14 January 2024               [Page 29]
 
 Internet-Draft              RAW Architecture                   July 2023
 
@@ -1677,7 +1677,7 @@ Internet-Draft              RAW Architecture                   July 2023
 
 
 
-Thubert                  Expires 11 January 2024               [Page 30]
+Thubert                  Expires 14 January 2024               [Page 30]
 
 Internet-Draft              RAW Architecture                   July 2023
 
@@ -1725,7 +1725,7 @@ Internet-Draft              RAW Architecture                   July 2023
       Section 5.4;
 
    Decide:  A local synchronous CPF Path Selection Engine (PSE) thar
-      Decides which DetNet Path to use for the next packet(s) that are
+      Decides which DetNet Path to use for the future packet(s) that are
       routed along the Track, more in Section 5.5;
 
    Act:  Packet (hybrid) ARQ, Replication, Elimination and Ordering
@@ -1733,7 +1733,7 @@ Internet-Draft              RAW Architecture                   July 2023
 
 
 
-Thubert                  Expires 11 January 2024               [Page 31]
+Thubert                  Expires 14 January 2024               [Page 31]
 
 Internet-Draft              RAW Architecture                   July 2023
 
@@ -1789,7 +1789,7 @@ Internet-Draft              RAW Architecture                   July 2023
 
 
 
-Thubert                  Expires 11 January 2024               [Page 32]
+Thubert                  Expires 14 January 2024               [Page 32]
 
 Internet-Draft              RAW Architecture                   July 2023
 
@@ -1845,7 +1845,7 @@ Internet-Draft              RAW Architecture                   July 2023
 
 
 
-Thubert                  Expires 11 January 2024               [Page 33]
+Thubert                  Expires 14 January 2024               [Page 33]
 
 Internet-Draft              RAW Architecture                   July 2023
 
@@ -1901,7 +1901,7 @@ Internet-Draft              RAW Architecture                   July 2023
 
 
 
-Thubert                  Expires 11 January 2024               [Page 34]
+Thubert                  Expires 14 January 2024               [Page 34]
 
 Internet-Draft              RAW Architecture                   July 2023
 
@@ -1936,9 +1936,10 @@ Internet-Draft              RAW Architecture                   July 2023
    On the one hand, it operates on the packet flow, learning the Track
    and path selection information from the packet, possibly making local
    decision and retagging the packet to indicate so.  On the other hand,
-   the PSE interacts with the lower layers and with its peers to obtain
-   up-to-date information about its radio links and the quality of the
-   overall Track, respectively, as illustrated in Figure 10.
+   the PSE interacts with the lower layers (through triggers and DLEP)
+   and with its peers (through iOAM and IOAM) to obtain up-to-date
+   information about its links and the quality of the overall Track,
+   respectively, as illustrated in Figure 10.
 
 
 
@@ -1956,8 +1957,7 @@ Internet-Draft              RAW Architecture                   July 2023
 
 
 
-
-Thubert                  Expires 11 January 2024               [Page 35]
+Thubert                  Expires 14 January 2024               [Page 35]
 
 Internet-Draft              RAW Architecture                   July 2023
 
@@ -1968,9 +1968,9 @@ Internet-Draft              RAW Architecture                   July 2023
     +==========v==========+=====================+=====================+
     |   (iOAM + iCTRL)    | (L2 Triggers, DLEP) |       (oOAM)        |
     +==========v==========+=====================+=====================+
-    |     Learn from                                 Learn from       |
-    |    packet tagging           Maintain           end-to-end       |
-    +----------v----------+      Forwarding          OAM packets      |
+    |     Learn from      |                     |    Learn from       |
+    |    packet tagging   >       Maintain      <    end-to-end       |
+    +----------v----------+      Forwarding     |    OAM packets      |
     | Forwarding decision <        State        +---------^-----------|
     +----------v----------+                     |      Enrich or      |
     +    Retag Packet     |  Learn abstracted   >     Regenerate      |
@@ -1982,12 +1982,12 @@ Internet-Draft              RAW Architecture                   July 2023
           over | wireless        In  |                 In | | and out
                v                     |                    | v
 
-                               Figure 10: PSE
+                         Figure 10: PSE Interfaces
 
 5.6.  Act: DetNet Path Selection and PAREO functions
 
    The main action by the PSE is the swapping of the DetNet Path within
-   the Track for the next series of packets.  The candidate DetNet Paths
+   the Track for the future packets.  The candidate DetNet Paths
    represent different energy and spectrum profiles, and provide
    protection against different failures.
 
@@ -2013,7 +2013,7 @@ Internet-Draft              RAW Architecture                   July 2023
 
 
 
-Thubert                  Expires 11 January 2024               [Page 36]
+Thubert                  Expires 14 January 2024               [Page 36]
 
 Internet-Draft              RAW Architecture                   July 2023
 
@@ -2069,7 +2069,7 @@ Internet-Draft              RAW Architecture                   July 2023
 
 
 
-Thubert                  Expires 11 January 2024               [Page 37]
+Thubert                  Expires 14 January 2024               [Page 37]
 
 Internet-Draft              RAW Architecture                   July 2023
 
@@ -2089,7 +2089,8 @@ Internet-Draft              RAW Architecture                   July 2023
 
    This architecture could never have been completed without the support
    and recommendations from the DetNet Chairs Janos Farkas and Lou
-   Berger.  Many thanks to both.
+   Berger, and Dave Black, the DetNet Tech Advisor.  Many thanks to all
+   of you.
 
    The authors wish to thank Balazs Varga, Dave Cavalcanti, Don Fedyk,
    Nicolas Montavont, and Fabrice Theoleyre for their in-depth reviews
@@ -2119,17 +2120,19 @@ Internet-Draft              RAW Architecture                   July 2023
               <https://datatracker.ietf.org/doc/html/draft-ietf-raw-
               technologies-07>.
 
-   [RAW-USE-CASES]
-              Bernardos, C. J., Papadopoulos, G. Z., Thubert, P., and F.
-              Theoleyre, "RAW Use-Cases", Work in Progress, Internet-
 
 
 
-Thubert                  Expires 11 January 2024               [Page 38]
+
+
+Thubert                  Expires 14 January 2024               [Page 38]
 
 Internet-Draft              RAW Architecture                   July 2023
 
 
+   [RAW-USE-CASES]
+              Bernardos, C. J., Papadopoulos, G. Z., Thubert, P., and F.
+              Theoleyre, "RAW Use-Cases", Work in Progress, Internet-
               Draft, draft-ietf-raw-use-cases-11, 17 April 2023,
               <https://datatracker.ietf.org/doc/html/draft-ietf-raw-use-
               cases-11>.
@@ -2172,19 +2175,23 @@ Internet-Draft              RAW Architecture                   July 2023
               IP", RFC 8939, DOI 10.17487/RFC8939, November 2020,
               <https://www.rfc-editor.org/info/rfc8939>.
 
+
+
+
+
+
+
+Thubert                  Expires 14 January 2024               [Page 39]
+
+Internet-Draft              RAW Architecture                   July 2023
+
+
    [RFC9049]  Dawkins, S., Ed., "Path Aware Networking: Obstacles to
               Deployment (A Bestiary of Roads Not Taken)", RFC 9049,
               DOI 10.17487/RFC9049, June 2021,
               <https://www.rfc-editor.org/info/rfc9049>.
 
 10.2.  Informative References
-
-
-
-Thubert                  Expires 11 January 2024               [Page 39]
-
-Internet-Draft              RAW Architecture                   July 2023
-
 
    [RFC0791]  Postel, J., "Internet Protocol", STD 5, RFC 791,
               DOI 10.17487/RFC0791, September 1981,
@@ -2225,22 +2232,21 @@ Internet-Draft              RAW Architecture                   July 2023
               RFC 7490, DOI 10.17487/RFC7490, April 2015,
               <https://www.rfc-editor.org/info/rfc7490>.
 
+
+
+
+
+
+Thubert                  Expires 14 January 2024               [Page 40]
+
+Internet-Draft              RAW Architecture                   July 2023
+
+
    [DetNet-DP]
               Varga, B., Ed., Farkas, J., Berger, L., Malis, A., and S.
               Bryant, "Deterministic Networking (DetNet) Data Plane
               Framework", RFC 8938, DOI 10.17487/RFC8938, November 2020,
               <https://www.rfc-editor.org/info/rfc8938>.
-
-
-
-
-
-
-
-Thubert                  Expires 11 January 2024               [Page 40]
-
-Internet-Draft              RAW Architecture                   July 2023
-
 
    [DLEP]     Ratliff, S., Jury, S., Satterwhite, D., Taylor, R., and B.
               Berry, "Dynamic Link Exchange Protocol (DLEP)", RFC 8175,
@@ -2284,6 +2290,14 @@ Author's Address
    France
 
    Phone: +33 497 23 26 34
+
+
+
+Thubert                  Expires 14 January 2024               [Page 41]
+
+Internet-Draft              RAW Architecture                   July 2023
+
+
    Email: pthubert@cisco.com
 
 
@@ -2293,4 +2307,46 @@ Author's Address
 
 
 
-Thubert                  Expires 11 January 2024               [Page 41]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Thubert                  Expires 14 January 2024               [Page 42]

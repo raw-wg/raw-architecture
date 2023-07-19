@@ -1158,11 +1158,12 @@ South East                                   South West
       the end-to-end packet delivery
       </li>
       <li>
-      An optional asynchronous Controller Plane Function (aCPF) that reports
+      The DetNet Controller Plane Function (CPF) is split with an
+      optional asynchronous CPF (aCPF) that reports
       data and information such as link statistics to be used asynchronously
-      by the DetNet Routing CPF to compute, install, and maintain the Tracks,
-      e.g., by generating knowledge and wisdom such as a trained model for
-      link quality prediction, which in turn can be used by the aCPF to
+      by the routing CPF (rCPF) to compute, install, and maintain the
+      Tracks, e.g., by generating knowledge and wisdom such as a trained model
+      for link quality prediction, which in turn can be used by the aCPF to
       Orient the Path selection by the PSE within the RAW OODA loop.
       </li>
       <li> A Runtime distributed Path Selection Engine (PSE) that Decides which
@@ -1218,7 +1219,7 @@ South East                                   South West
    Edge Nodes) to dynamically adapt the path of the packets and optimizes the
    resource usage.
     </t><t>
-   An RAW-enhanced DetNet Routing Controller Plane Function (CPF) interacts
+   An RAW-enhanced rCPF interacts
    with RAW Nodes over a Southbound API. It consumes data and information from
    the network and generates knowledge and wisdom to help steer the traffic optimally
    inside a Track.
@@ -1250,7 +1251,7 @@ South East                                   South West
 </artwork>
 </figure>
 <t>
-   When a new flow is defined, a DetNet Routing CPF uses it current knowledge of
+   When a new flow is defined, the DetNet rCPF uses it current knowledge of
    the network to build a new Track between an Ingress End System and an Egress
    End System for that flow; it indicates to the RAW Nodes where the PAREO
    operations may be actioned in the Network Plane.
@@ -1272,7 +1273,7 @@ South East                                   South West
     </ul>
     <t>
     A local asynchronous CPF in the RAW node reports the Link-Layer metrics
-    to the DetNet Routing CPF in a time-aggregated, e.g., statistical fashion.
+    to the rCPF in a time-aggregated, e.g., statistical fashion.
     Example Link-Layer metrics include typical Link
     bandwidth (the medium speed depends dynamically on the PHY mode), number of
     flows (bandwidth that can be reserved for a flow depends on the number and
@@ -1280,7 +1281,7 @@ South East                                   South West
     of availability and reliability figures such as Packet Delivery Ratio (PDR)
     over long periods of time.
     </t><t>
-    Based on those metrics, the DetNet Routing CPF installs the Track with enough
+    Based on those metrics, the DetNet r CPF installs the Track with enough
     redundant forwarding solutions to ensure that the Network Plane can reliably
     deliver the packets within a System Level Agreement (SLA) associated to the
     flows that it transports.
@@ -1296,7 +1297,7 @@ South East                                   South West
     diversity schemes is actioned by which RAW Nodes.
     </t><t>
     Once a Track is established, per-segment and end-to-end reliability and
-    availability statistics are periodically reported to the DetNet Routing CPF
+    availability statistics are periodically reported to the rCPF
     to assure that the SLA can be met or have it recompute the Track if not.
     </t>
 
@@ -1397,7 +1398,7 @@ South East                                   South West
  |                              | |                                |
  | +----------+  +------------+ | | .-.-.-.-.-.--.  .-.-.-.-.-.--. |
  | | PSE      |  | OAM        | | | | Distr. PSE |  | Distr. OAM | |
- | |          |  | Supervisor | | | |            |  | Supervisor | |
+ | |  /  aCPF |  | Supervisor | | | |            |  | Supervisor | |
  | +----------+  +------------+ | | .-.-.-.-.-.--.  .-.-.-.-.-.--. |
  |                              | |    optional         optional   |
     RAW Control sub-layer
@@ -1522,32 +1523,33 @@ South East                                   South West
     <section anchor="timescale" numbered="true" toc="default">
       <name>Routing Time Scale vs. Forwarding Time Scale</name>
       <t>
-   With DetNet, the Controller Plane Function (CPF) handles the routing
-   computation and maintenance. With RAW, the DetNet Routing CPF remains
+   With DetNet, the Controller Plane Function handles the routing
+   computation and maintenance. With RAW, the rCPF remains
    segregated from the RAW Control Loop, so it may reside outside of the RAW
-   network. To achieve RAW capabilities, the DetNet Routing CPF is enhanced to
-   generate the information required by the PSE for the orientation component,
-   e.g., by proposing DetNet Paths to be used as a reflex action in response to
-   network events, or by providing aggregated history.
+   network. To achieve RAW capabilities, the rCPF is enhanced to generate the
+   information required by the aCPF, which acts as the orientation component in
+   the loop. The rCPF may, e.g., propose DetNet Paths to be used as a reflex
+   action in response to network events, or by provide aggregated history that
+   the aCPF can use to make an oriented decision.
    </t>
 <t>
-   In a wireless mesh, the path to the DetNet Routing CPF can be expensive and
+   In a wireless mesh, the path to the DetNet rCPF can be expensive and
    slow, possibly going across the whole mesh and back.
-   Reaching to the DetNet Routing CPF can also be slow in regards to the speed
+   Reaching to the rCPF can also be slow in regards to the speed
    of events that affect the forwarding operation at the radio layer.
    Note that a distributed routing protocol may also take time and
    consume excessive wireless resources to reconverge to a new optimized state.
 
       </t><t>
-   As a result, the DetNet Routing CPF is not expected to be sensitive/reactive
+   As a result, the DetNet rCPF is not expected to be sensitive/reactive
    to transient changes. The abstraction of a link at the routing level is
    expected to use statistical metrics that aggregate the behavior of a link
    over long periods of time, and  represent its properties as shades of gray as
    opposed to numerical values such as a link quality indicator, or a boolean
    value for either up or down.
       </t><t>
-   The interaction with the (remote) DetNet Routing CPF is handled by a (local)
-   asynchronous CPF that builds reports to the DetNet Routing CPF and digests
+   The interaction with the (remote) DetNet rCPF is handled by a (local)
+   asynchronous CPF that builds reports to the rCPF and digests
    the control information back, to be used inside a forwarding control loop
    for traffic steering.
       </t>
@@ -1780,7 +1782,7 @@ South East                                   South West
    </li>
    </ul>
    <t>The Track is installed with measurable objectives that are computed by the
-   DetNet Routing CPF to achieve the RAW SLA. The objectives can be expressed as
+   DetNet rCPF to achieve the RAW SLA. The objectives can be expressed as
    any of maximum number of packet lost in a row, bounded latency, maximal jitter,
    maximum number of interleaved out of order packets,
    average number of copies received at the elimination point, and maximal
@@ -1815,18 +1817,18 @@ South East                                   South West
    <t>
     The rapid changes in the forwarding decisions are made and contained within
     the scope of a Track and the actions of the PSE are not signaled outside
-    the Track. This is as opposed to the DetNet Routing CPF that must observe
+    the Track. This is as opposed to the rCPF that must observe
     the whole network and optimize all the Tracks globally, which can only be
     done at a slow pace and using long-term statistical metrics, as presented in
     <xref target="PCEPSEtable"/>.
     </t>
 
 
-    <table anchor="PCEPSEtable"><name>Detnet Routing CPF vs. PSE</name>
+    <table anchor="PCEPSEtable"><name>CPF vs. PSE</name>
    <thead>
       <tr>
        <th> </th>
-		   <th align='center'> DetNet Routing CPF </th>
+		   <th align='center'> rCPF </th>
 		   <th align='center'> PSE (In Scope) </th>
       </tr>
 

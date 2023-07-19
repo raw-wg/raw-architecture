@@ -665,10 +665,12 @@ South East                                   South West
 
     <section><name>Lower Layer information</name>
     <t>
-    RAW OAM may gather and transport information from lower layers about e.g.,
-    link quality. This information may be gathered from inside the device using
+    The RAW Controller plane elements (PSE and OAM Supervisor) may gather
+    aggregated information from lower layers about e.g., link quality.
+    This information may be obtained from inside the device using
     specialized API (e.g., L2 triggers) or via control protocols such as BFD
-    <xref target="RFC5580"/> or DLEP <xref target="RFC8175"/> .
+    <xref target="RFC5580"/> or DLEP <xref target="RFC8175"/>. It may then be
+    massaged and exported through oOAM messaging.
     </t>
     </section>
 
@@ -1870,7 +1872,7 @@ South East                                   South West
     selection information from the packet, possibly making local decision and
     retagging the packet to indicate so. On the other hand, the PSE interacts
     with the lower layers (through triggers and DLEP) and with its peers
-    (through iOAM and IOAM) to obtain up-to-date information about its links and
+    (through iOAM and oOAM) to obtain up-to-date information about its links and
     the quality of the overall Track, respectively, as illustrated in
     <xref target="Figlearn"/>.
     </t>

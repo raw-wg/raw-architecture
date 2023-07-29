@@ -4,8 +4,8 @@
 
 RAW                                                      P. Thubert, Ed.
 Internet-Draft                                             Cisco Systems
-Intended status: Informational                              19 July 2023
-Expires: 20 January 2024
+Intended status: Informational                              29 July 2023
+Expires: 30 January 2024
 
 
               Reliable and Available Wireless Architecture
@@ -23,9 +23,9 @@ Abstract
    and energy while maintaining the expected connectivity properties,
    typically reliability and latency.  The loop involves OAM, DetNet
    Controller Plane, and PREOF extensions, and specifically a new
-   Controller plane Function called the Path Selection Engine, that
-   dynamically selects the DetNet path(s) for the future packets to
-   route around local degradations and failures.
+   recovery Function called PAREO and a new Point of Local Repair
+   operation, that dynamically selects the DetNet path(s) for the future
+   packets to route around local degradations and failures.
 
 Status of This Memo
 
@@ -42,7 +42,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 20 January 2024.
+   This Internet-Draft will expire on 30 January 2024.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Thubert                  Expires 20 January 2024                [Page 1]
+Thubert                  Expires 30 January 2024                [Page 1]
 
 Internet-Draft              RAW Architecture                   July 2023
 
@@ -71,84 +71,84 @@ Table of Contents
 
    1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   3
    2.  Terminology . . . . . . . . . . . . . . . . . . . . . . . . .   5
-     2.1.  Acronyms  . . . . . . . . . . . . . . . . . . . . . . . .   5
+     2.1.  Acronyms  . . . . . . . . . . . . . . . . . . . . . . . .   6
        2.1.1.  ARQ . . . . . . . . . . . . . . . . . . . . . . . . .   6
        2.1.2.  FEC . . . . . . . . . . . . . . . . . . . . . . . . .   6
        2.1.3.  HARQ  . . . . . . . . . . . . . . . . . . . . . . . .   6
        2.1.4.  MCS . . . . . . . . . . . . . . . . . . . . . . . . .   6
        2.1.5.  OAM . . . . . . . . . . . . . . . . . . . . . . . . .   6
-       2.1.6.  OODA  . . . . . . . . . . . . . . . . . . . . . . . .   6
-       2.1.7.  PAREO . . . . . . . . . . . . . . . . . . . . . . . .   6
+       2.1.6.  OODA  . . . . . . . . . . . . . . . . . . . . . . . .   7
+       2.1.7.  PAREO . . . . . . . . . . . . . . . . . . . . . . . .   7
      2.2.  Link and Direction  . . . . . . . . . . . . . . . . . . .   7
        2.2.1.  Flapping  . . . . . . . . . . . . . . . . . . . . . .   7
        2.2.2.  Uplink  . . . . . . . . . . . . . . . . . . . . . . .   7
        2.2.3.  Downlink  . . . . . . . . . . . . . . . . . . . . . .   7
        2.2.4.  Downstream  . . . . . . . . . . . . . . . . . . . . .   7
        2.2.5.  Upstream  . . . . . . . . . . . . . . . . . . . . . .   7
-     2.3.  Path and Tracks . . . . . . . . . . . . . . . . . . . . .   7
-       2.3.1.  Path  . . . . . . . . . . . . . . . . . . . . . . . .   7
-       2.3.2.  Track . . . . . . . . . . . . . . . . . . . . . . . .   8
-       2.3.3.  East, West, North, and South  . . . . . . . . . . . .  10
+     2.3.  Path and recovery graphs  . . . . . . . . . . . . . . . .   7
+       2.3.1.  Path  . . . . . . . . . . . . . . . . . . . . . . . .   8
+       2.3.2.  recovery graph  . . . . . . . . . . . . . . . . . . .   9
+       2.3.3.  forward and Crossing  . . . . . . . . . . . . . . . .  11
        2.3.4.  Lane  . . . . . . . . . . . . . . . . . . . . . . . .  11
        2.3.5.  Segment . . . . . . . . . . . . . . . . . . . . . . .  11
-       2.3.6.  Serial Track  . . . . . . . . . . . . . . . . . . . .  11
-       2.3.7.  Complex Track . . . . . . . . . . . . . . . . . . . .  11
-     2.4.  Deterministic Networking  . . . . . . . . . . . . . . . .  11
-       2.4.1.  Flow  . . . . . . . . . . . . . . . . . . . . . . . .  11
+       2.3.6.  Serial recovery graph . . . . . . . . . . . . . . . .  12
+       2.3.7.  Complex recovery graph  . . . . . . . . . . . . . . .  12
+     2.4.  Deterministic Networking  . . . . . . . . . . . . . . . .  12
+       2.4.1.  Flow  . . . . . . . . . . . . . . . . . . . . . . . .  12
        2.4.2.  Deterministic Flow Identifier (L2)  . . . . . . . . .  12
        2.4.3.  Deterministic Flow Identifier (L3)  . . . . . . . . .  12
-       2.4.4.  TSN . . . . . . . . . . . . . . . . . . . . . . . . .  12
-     2.5.  Reliability and Availability  . . . . . . . . . . . . . .  12
-       2.5.1.  Service Level Agreement . . . . . . . . . . . . . . .  12
-       2.5.2.  Service Level Objective . . . . . . . . . . . . . . .  12
-       2.5.3.  Service Level Indicator . . . . . . . . . . . . . . .  12
+       2.4.4.  TSN . . . . . . . . . . . . . . . . . . . . . . . . .  13
+     2.5.  Reliability and Availability  . . . . . . . . . . . . . .  13
+       2.5.1.  Service Level Agreement . . . . . . . . . . . . . . .  13
+       2.5.2.  Service Level Objective . . . . . . . . . . . . . . .  13
+       2.5.3.  Service Level Indicator . . . . . . . . . . . . . . .  13
        2.5.4.  Reliability . . . . . . . . . . . . . . . . . . . . .  13
        2.5.5.  Available . . . . . . . . . . . . . . . . . . . . . .  13
-       2.5.6.  Availability  . . . . . . . . . . . . . . . . . . . .  13
-     2.6.  OAM variations  . . . . . . . . . . . . . . . . . . . . .  13
+       2.5.6.  Availability  . . . . . . . . . . . . . . . . . . . .  14
+     2.6.  OAM variations  . . . . . . . . . . . . . . . . . . . . .  14
 
 
 
-Thubert                  Expires 20 January 2024                [Page 2]
+Thubert                  Expires 30 January 2024                [Page 2]
 
 Internet-Draft              RAW Architecture                   July 2023
 
 
-       2.6.1.  Active OAM  . . . . . . . . . . . . . . . . . . . . .  13
-       2.6.2.  In-Band OAM . . . . . . . . . . . . . . . . . . . . .  13
-       2.6.3.  Out-of-Band OAM . . . . . . . . . . . . . . . . . . .  13
+       2.6.1.  Active OAM  . . . . . . . . . . . . . . . . . . . . .  14
+       2.6.2.  In-Band OAM . . . . . . . . . . . . . . . . . . . . .  14
+       2.6.3.  Out-of-Band OAM . . . . . . . . . . . . . . . . . . .  14
        2.6.4.  Limited OAM . . . . . . . . . . . . . . . . . . . . .  14
-       2.6.5.  Upstream OAM  . . . . . . . . . . . . . . . . . . . .  14
-       2.6.6.  Residence Time  . . . . . . . . . . . . . . . . . . .  14
-       2.6.7.  Lower Layer information . . . . . . . . . . . . . . .  14
-       2.6.8.  Additional References . . . . . . . . . . . . . . . .  14
-   3.  Reliable and Available Wireless . . . . . . . . . . . . . . .  14
-     3.1.  Reliability and Availability  . . . . . . . . . . . . . .  14
+       2.6.5.  Upstream OAM  . . . . . . . . . . . . . . . . . . . .  15
+       2.6.6.  Residence Time  . . . . . . . . . . . . . . . . . . .  15
+       2.6.7.  Lower Layer information . . . . . . . . . . . . . . .  15
+       2.6.8.  Additional References . . . . . . . . . . . . . . . .  15
+   3.  Reliable and Available Wireless . . . . . . . . . . . . . . .  15
+     3.1.  Reliability and Availability  . . . . . . . . . . . . . .  15
        3.1.1.  High Availability Engineering Principles  . . . . . .  15
-       3.1.2.  Applying Reliability Concepts to Networking . . . . .  17
-       3.1.3.  Wireless Effects Affecting Reliability  . . . . . . .  18
-     3.2.  The RAW problem . . . . . . . . . . . . . . . . . . . . .  19
-   4.  The RAW Conceptual Model  . . . . . . . . . . . . . . . . . .  23
-     4.1.  The RAW Planes  . . . . . . . . . . . . . . . . . . . . .  23
-     4.2.  RAW vs. Upper and Lower Layers  . . . . . . . . . . . . .  25
-     4.3.  RAW and DetNet  . . . . . . . . . . . . . . . . . . . . .  26
-   5.  The RAW Control Loop  . . . . . . . . . . . . . . . . . . . .  29
-     5.1.  Routing Time Scale vs. Forwarding Time Scale  . . . . . .  29
-     5.2.  A OODA Loop . . . . . . . . . . . . . . . . . . . . . . .  31
-     5.3.  Observe: The RAW OAM  . . . . . . . . . . . . . . . . . .  32
-     5.4.  Orient: The RAW-enhanced DetNet Controller Plane  . . . .  33
-     5.5.  Decide: The Path Selection Engine . . . . . . . . . . . .  34
-     5.6.  Act: DetNet Path Selection and PAREO functions  . . . . .  36
-   6.  Security Considerations . . . . . . . . . . . . . . . . . . .  37
-     6.1.  Layer-2 encryption  . . . . . . . . . . . . . . . . . . .  37
-     6.2.  Forced Access . . . . . . . . . . . . . . . . . . . . . .  37
-   7.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  37
-   8.  Contributors  . . . . . . . . . . . . . . . . . . . . . . . .  37
-   9.  Acknowledgments . . . . . . . . . . . . . . . . . . . . . . .  38
-   10. References  . . . . . . . . . . . . . . . . . . . . . . . . .  38
-     10.1.  Normative References . . . . . . . . . . . . . . . . . .  38
-     10.2.  Informative References . . . . . . . . . . . . . . . . .  40
-   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .  41
+       3.1.2.  Applying Reliability Concepts to Networking . . . . .  18
+       3.1.3.  Wireless Effects Affecting Reliability  . . . . . . .  19
+     3.2.  The RAW problem . . . . . . . . . . . . . . . . . . . . .  20
+   4.  The RAW Conceptual Model  . . . . . . . . . . . . . . . . . .  24
+     4.1.  The RAW Planes  . . . . . . . . . . . . . . . . . . . . .  24
+     4.2.  RAW vs. Upper and Lower Layers  . . . . . . . . . . . . .  26
+     4.3.  RAW and DetNet  . . . . . . . . . . . . . . . . . . . . .  27
+   5.  The RAW Control Loop  . . . . . . . . . . . . . . . . . . . .  31
+     5.1.  Routing Time Scale vs. Forwarding Time Scale  . . . . . .  31
+     5.2.  A OODA Loop . . . . . . . . . . . . . . . . . . . . . . .  33
+     5.3.  Observe: The RAW OAM  . . . . . . . . . . . . . . . . . .  34
+     5.4.  Orient: The RAW-enhanced DetNet Controller Plane  . . . .  35
+     5.5.  Decide: The Path Selection Engine . . . . . . . . . . . .  36
+     5.6.  Act: DetNet Path Selection and PAREO functions  . . . . .  38
+   6.  Security Considerations . . . . . . . . . . . . . . . . . . .  39
+     6.1.  Layer-2 encryption  . . . . . . . . . . . . . . . . . . .  39
+     6.2.  Forced Access . . . . . . . . . . . . . . . . . . . . . .  39
+   7.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  39
+   8.  Contributors  . . . . . . . . . . . . . . . . . . . . . . . .  39
+   9.  Acknowledgments . . . . . . . . . . . . . . . . . . . . . . .  40
+   10. References  . . . . . . . . . . . . . . . . . . . . . . . . .  40
+     10.1.  Normative References . . . . . . . . . . . . . . . . . .  40
+     10.2.  Informative References . . . . . . . . . . . . . . . . .  42
+   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .  43
 
 1.  Introduction
 
@@ -165,7 +165,7 @@ Internet-Draft              RAW Architecture                   July 2023
 
 
 
-Thubert                  Expires 20 January 2024                [Page 3]
+Thubert                  Expires 30 January 2024                [Page 3]
 
 Internet-Draft              RAW Architecture                   July 2023
 
@@ -221,7 +221,7 @@ Internet-Draft              RAW Architecture                   July 2023
 
 
 
-Thubert                  Expires 20 January 2024                [Page 4]
+Thubert                  Expires 30 January 2024                [Page 4]
 
 Internet-Draft              RAW Architecture                   July 2023
 
@@ -246,41 +246,52 @@ Internet-Draft              RAW Architecture                   July 2023
    augments the IETF art of Protection as seen in DetNet and Traffic
    Engineering.
 
-   RAW also reuses terminology defined for 6TiSCH in [6TiSCH-ARCHI] such
-   as the term Track.  A Track associates a topological graph with usage
-   metadata that represent how the paths within the Track are selected.
+   RAW also reuses terminology defined for MPLS in [RFC4427] such as the
+   term recovery as covering both Protection and Restoration, a number
+   of recovery types, That document defines a number of concepts like
+   recovery domain that are used in thie RAW works, and creates thenew
+   term recovery graph.  A recovery graph associates a topological graph
+   with usage metadata that represent how the paths within the recovery
+   graph are built.
 
-   In an quantic analogy, a Track is to a path what an atomic orbital is
-   to a planetary orbit, in that the electron has a probability of
-   presence within a known shape as opposed to a deterministic
-   trajectory.
+   RAW also reuses terminology defined for RSVP-TE in [RFC4090] such as
+   the Point of Local Repair (PLR).  The concept of backup path is
+   generalized with protection path, which is the trerm mostly found in
+   recent standards and used in this document.
+
+   RAW also reuses terminology defined for 6TiSCH in [6TiSCH-ARCHI] and
+   equates the concept of recovery graph with that of a recovery graph.
+
+   In an quantic analogy, a recovery graph is to a path what an atomic
+   orbital is to a planetary orbit, in that the electron has a
+   probability of presence within a known shape as opposed to a
+   deterministic trajectory.
 
    In a herding gnous analogy, a gnou follows its own path that it marks
    with its hooves as it goes; before the herd starts, any point within
-   the Track has a statistical chance to be marked by one or more
-   hooves, meaning on path for those gnous; once the herd has passed,
-   the Track can be observed from above, but it was there in advance as
-   a potential that the gnous were to follow.
+   the recovery graph has a statistical chance to be marked by one or
+   more hooves, meaning on path for those gnous; once the herd has
+   passed, the recovery graph can be observed from above, but it was
+   there in advance as a potential that the gnous were to follow.
 
-   The concept of Track is agnostic to the underlaying technology and
-   applies but is not limited to any fully or partially wireless mesh.
-   RAW specifies strict and loose Tracks depending on whether the path
-   is fully controlled by RAW or traverses an opaque network where RAW
-   cannot observe and control the individual hops.
+
+
+
+Thubert                  Expires 30 January 2024                [Page 5]
+
+Internet-Draft              RAW Architecture                   July 2023
+
+
+   The concept of recovery graph is agnostic to the underlaying
+   technology and applies but is not limited to any fully or partially
+   wireless mesh.  RAW specifies strict and loose recovery graphs
+   depending on whether the path is fully controlled by RAW or traverses
+   an opaque network where RAW cannot observe and control the individual
+   hops.
 
    RAW uses the following terminology and acronyms:
 
 2.1.  Acronyms
-
-
-
-
-
-
-Thubert                  Expires 20 January 2024                [Page 5]
-
-Internet-Draft              RAW Architecture                   July 2023
-
 
 2.1.1.  ARQ
 
@@ -313,7 +324,19 @@ Internet-Draft              RAW Architecture                   July 2023
    document uses the terms Operations, Administration, and Maintenance,
    in conformance with the 'Guidelines for the Use of the "OAM" Acronym
    in the IETF' [RFC6291] and the system observed by the RAW OAM is the
-   Track.
+   recovery graph.
+
+
+
+
+
+
+
+
+Thubert                  Expires 30 January 2024                [Page 6]
+
+Internet-Draft              RAW Architecture                   July 2023
+
 
 2.1.6.  OODA
 
@@ -330,14 +353,6 @@ Internet-Draft              RAW Architecture                   July 2023
    MUMIMO, PHY rate and other Modulation Coding Scheme (MCS) adaptation,
    constructive interference and overhearing, separately or in
    combination, to increase the end-to-end reliability.  PAREO functions
-
-
-
-Thubert                  Expires 20 January 2024                [Page 6]
-
-Internet-Draft              RAW Architecture                   July 2023
-
-
    that are actuated at the lower layers may be controlled through
    abstract interfaces by the RAW extensions within the DetNet Service
    sublayer.
@@ -363,13 +378,21 @@ Internet-Draft              RAW Architecture                   July 2023
 
 2.2.4.  Downstream
 
-   Following the direction of the flow data path along a Track.
+   Following the direction of the flow data path along a recovery graph.
 
 2.2.5.  Upstream
 
-   Against the direction of the flow data path along a Track.
+   Against the direction of the flow data path along a recovery graph.
 
-2.3.  Path and Tracks
+2.3.  Path and recovery graphs
+
+
+
+
+Thubert                  Expires 30 January 2024                [Page 7]
+
+Internet-Draft              RAW Architecture                   July 2023
+
 
 2.3.1.  Path
 
@@ -384,15 +407,6 @@ Internet-Draft              RAW Architecture                   July 2023
 
    Section 2 of [I-D.irtf-panrg-path-properties] points to a longer,
    more modern definition of path, which begins as follows:
-
-
-
-
-
-Thubert                  Expires 20 January 2024                [Page 7]
-
-Internet-Draft              RAW Architecture                   July 2023
-
 
    |  A sequence of adjacent path elements over which a packet can be
    |  transmitted, starting and ending with a node.  A path is
@@ -419,95 +433,99 @@ Internet-Draft              RAW Architecture                   July 2023
 
    With RAW, that experience is subject to change from a packet to the
    next, but all the possible experiences are all contained within a
-   finite set.  Therefore we introduce below the term of a Track that
-   coalesces that set and covers the overall topology where the possible
-   DetNet paths are all contained.  As such, the Track coalesces all the
-   possible paths that a flow may experience, each with its own
-   statistical probability to be used.
+   finite set.  Therefore we introduce below the term of a recovery
+   graph that coalesces that set and covers the overall topology where
+   the possible DetNet paths are all contained.  As such, the recovery
+   graph coalesces all the possible paths that a flow may experience,
+   each with its own statistical probability to be used.
 
-2.3.2.  Track
+
+
+
+
+
+
+Thubert                  Expires 30 January 2024                [Page 8]
+
+Internet-Draft              RAW Architecture                   July 2023
+
+
+2.3.2.  recovery graph
 
    A networking graph that can be followed to transport packets with
    equivalent treatment, associated with usage metadata; as opposed to
-   the definition of a path above, a Track represents not an actual but
-   a potential, it is not necessarily a linear sequence like a simple
-   path, and is not necessarily fully traversed (flooded) by all packets
-   of a flow like a Detnet Path.  Still, and as a simplification, the
-   casual reader may consider that a Track is very much like a DetNet
-   path, aggregating multiple paths that may overlap, fork and rejoin,
-   for instance to enable a protection service by the PREOF operations.
+   the definition of a path above, a recovery graph represents not an
+   actual but a potential, it is not necessarily a linear sequence like
+   a simple path, and is not necessarily fully traversed (flooded) by
+   all packets of a flow like a Detnet Path.  Still, and as a
+   simplification, the casual reader may consider that a recovery graph
+   is very much like a DetNet path, aggregating multiple paths that may
+   overlap, fork and rejoin, for instance to enable a protection service
+   by the PREOF operations.
+
+
+                     +---------+
+                     | IoT G/W |
+                     +---------+
+                         EGR  <=== Elimination at Egress
+                         | |
+                 /------/   \-------\    Wired backbone
+                 |                  |
+              +--|--+            +--|--+
+              |  |  | Backbone   |  |  | Backbone
+              |  |  | Router     |  |  | Router
+              +--|--+            +--|--+
+                 |                  |
+              o   \     o          / recovery graph branch
+            o      o      o---o---o   o      o   o  o
+                    \  o /    o          o         o
+             o   o   \  /       o        low power lossy network
+                      \/ o           o        o
+                   o  IN <=== Replication at recovery graph Ingress
+                       |
+                       o <- source device
+
+
+      Figure 1: Example IoT recovery graph to an IoT gateway with 1+1
+                                 redundancy
+
+   Refining further, a recovery graph is defined as the coalescence of
+   the collection of all the feasible DetNet Paths that a packet which
+   flow is assigned to the recovery graph may be forwarded along.  A
+   packet that is assigned to the recovery graph will experience one of
+   the feasible DetNet Paths based on the current selection by the PLR
+   at the time the packet traverses the network.
 
 
 
 
 
 
-
-
-
-Thubert                  Expires 20 January 2024                [Page 8]
+Thubert                  Expires 30 January 2024                [Page 9]
 
 Internet-Draft              RAW Architecture                   July 2023
 
 
-                      +---------+
-                      | IoT G/W |
-                      +---------+
-                          EGR  <=== Elimination at Egress
-                          | |
-                  /------/   \-------\    Wired backbone
-                  |                  |
-               +--|--+            +--|--+
-               |  |  | Backbone   |  |  | Backbone
-               |  |  | Router     |  |  | Router
-               +--|--+            +--|--+
-                  |                  |
-               o   \     o          / Track branch
-             o      o      o---o---o   o      o   o  o
-                     \  o /    o          o         o
-              o   o   \  /       o        low power lossy network
-                       \/ o           o        o
-                    o  IN <=== Replication at Track Ingress
-                        |
-                        o <- source device
+   Refining even further, the feasible DetNet Paths within the recovery
+   graph may or may not be computed in advance, but decided upon the
+   detection of a change from a clean slate.  Furthermore, the PLR
+   decision may be distributed, which yields a large combination of
+   possible and dependant decisions, with no node in the network capable
+   of reporting which is the current DetNet Path within the recovery
+   graph.
 
+   In DetNet [RFC8655] terms, a recovery graph has the following
+   properties:
 
-     Figure 1: Example IoT Track to an IoT gateway with 1+1 redundancy
+   *  A recovery graph is a Layer-3 abstraction built upon P2P IP links
+      between routers.  A router may form multiple P2P IP links over a
+      single radio interface.
 
-   Refining further, a Track is defined as the coalescence of the
-   collection of all the feasible DetNet Paths that a packet which flow
-   is assigned to the Track may be forwarded along.  A packet that is
-   assigned to the Track will experience one of the feasible DetNet
-   Paths based on the current selection by the PSE at the time the
-   packet traverses the network.
+   *  A recovery graph has one Ingress and one Egress nodes, which
+      operate as DetNet Edge nodes.
 
-   Refining even further, the feasible DetNet Paths within the Track may
-   or may not be computed in advance, but decided upon the detection of
-   a change from a clean slate.  Furthermore, the PSE decision may be
-   distributed, which yields a large combination of possible and
-   dependant decisions, with no node in the network capable of reporting
-   which is the current DetNet Path within the Track.
-
-   In DetNet [RFC8655] terms, a Track has the following properties:
-
-   *  A Track is a Layer-3 abstraction built upon P2P IP links between
-      routers.  A router may form multiple P2P IP links over a single
-      radio interface.
-
-   *  A Track has one Ingress and one Egress nodes, which operate as
-      DetNet Edge nodes.
-
-
-
-
-
-Thubert                  Expires 20 January 2024                [Page 9]
-
-Internet-Draft              RAW Architecture                   July 2023
-
-
-   *  The graph of a Track is reversible, meaning that packets can be
-      routed against the flow of data packets, e.g., to carry OAM
+   *  The graph of a recovery graph is reversible, meaning that packets
+      can be routed against the flow of data packets, e.g., to carry OAM
       measurements or control messages back to the Ingress.
 
    *  The vertices of that graph are DetNet Relay nodes that operate at
@@ -516,78 +534,101 @@ Internet-Draft              RAW Architecture                   July 2023
    *  The topological edges of the graph are strict sequences of DetNet
       Transit nodes that operate at the DetNet Forwarding sub-layer.
 
-   Figure 2 illustrates the generic concept of a Track, between an
-   Ingress Node that represents East and an Egress Node that represents
-   West.  The Track is composed of East-West Lanes and East-West or
-   North-South Segments, see the definition for those terms in the next
-   sections.  A Protection Path contains at least 2 Lanes.
-
-    North East                                   North West
-
-           a ==> b ==> C -=- F ==> G ==> H     T1       I: Ingress
-         /              \   /      |       \ /          E: Egress
-       I                  o        n        E -=- T2    T1, T2, T3:
-         \              /   \      |       / \            External
-           p ==> q ==> R -=- T ==> U ==> v     T3         Targets
-
-    South East                                   South West
-
-          Uppercase: DetNet Relay nodes
-          Lowercase: DetNet Transit nodes
-
-          I ==> a ==> b ==> C : an East-West Segment to targets F and o
-          C ==> o ==> T: an East-West Segment to target T (and/or U)
-          G | n | U : a North-South Segment to targets G or U
-          I --> F --> E : an East-West Lane to targets T1, T2, and T3
-
-          I, a, b, C, F, G, H, E : a path to T1, T2, and/or T3
-          I, p, q, R, o, F, G, H, E : lane-crossing alternate path
-
-                    Figure 2: A Track and its Components
-
-2.3.3.  East, West, North, and South
-
-   East-West refers to progress towards the Track Egress.  East-West
-   links are directional, and packets that are forwarded along the Track
-   can only be transmitted along the link direction.  North-South links
-   are bidirectional, meaning that they can be used in both directions,
-   though a given packet may use the link in one direction only.  A
-   Segment can be East-West, in which case it is composed of East-West
-   links only, or North-South, in which case it is composed of North-
+   Figure 2 illustrates the generic concept of a recovery graph, between
+   an Ingress Node and an Egress Node The recovery graph is composed of
+   forward Lanes and forward or crossing Segments, see the definition
+   for those terms in the next sections.  A Protection Path contains at
+   least 2 Lanes as a main path and a backup path.
 
 
 
-Thubert                  Expires 20 January 2024               [Page 10]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Thubert                  Expires 30 January 2024               [Page 10]
 
 Internet-Draft              RAW Architecture                   July 2023
 
 
-   South links only.  A lane is always East-West, meaning that is is
-   composed of East-West links and Segments.
+      ------------------- forward direction ---------------------->
+
+            a ==> b ==> C -=- F ==> G ==> H     T1       I: Ingress
+          /              \   /      |       \ /          E: Egress
+        I                  o        n        E -=- T2    T1, T2, T3:
+          \              /   \      |       / \            External
+            p ==> q ==> R -=- T ==> U ==> v     T3         Targets
+
+           Uppercase: DetNet Relay nodes
+           Lowercase: DetNet Transit nodes
+
+           I ==> a ==> b ==> C : an forward Segment to targets F and o
+           C ==> o ==> T: an forward Segment to target T (and/or U)
+           G | n | U : a crossing Segment to targets G or U
+           I --> F --> E : an forward Lane to targets T1, T2, and T3
+
+           I, a, b, C, F, G, H, E : a path to T1, T2, and/or T3
+           I, p, q, R, o, F, G, H, E : lane-crossing alternate path
+
+               Figure 2: A recovery graph and its Components
+
+2.3.3.  forward and Crossing
+
+   forward refers to progress towards the recovery graph Egress. forward
+   links are directional, and packets that are forwarded along the
+   recovery graph can only be transmitted along the link direction.
+   crossing links are bidirectional, meaning that they can be used in
+   both directions, though a given packet may use the link in one
+   direction only.  A Segment can be forward, in which case it is
+   composed of forward links only, or crossing, in which case it is
+   composed of crossing links only.  A lane is always forward, meaning
+   that is is composed of forward links and Segments.
 
 2.3.4.  Lane
 
-   An end-to-end East-West serial path between the Ingress and Egress
-   Nodes of a Track.  A Track Lane is expressed as a strict sequence of
-   DetNet Relay nodes or as a loose sequence of DetNet Relay nodes that
-   are joined by Track Segments.
+   An end-to-end forward serial path between the Ingress and Egress
+   Nodes of a recovery graph.  A recovery graph Lane is expressed as a
+   strict sequence of DetNet Relay nodes or as a loose sequence of
+   DetNet Relay nodes that are joined by recovery graph Segments.
 
 2.3.5.  Segment
 
    A strict sequence of DetNet Transit nodes between 2 DetNet Relay
-   nodes; a Segment of a Track is composed topologically of two vertices
-   of the Track and one edge of the Track between those vertices.
+   nodes; a Segment of a recovery graph is composed topologically of two
+   vertices of the recovery graph and one edge of the recovery graph
+   between those vertices.
 
-2.3.6.  Serial Track
 
-   A Track that has only one Lane.  A Serial Track can provide latency
-   guarantees but offers no Protection.
 
-2.3.7.  Complex Track
 
-   A Track that can be traversed via more than one paths and can be used
-   for Protection.  RAW leverages Complex Tracks and implicitly, a Track
-   in this document is always a Complex Track.
+
+Thubert                  Expires 30 January 2024               [Page 11]
+
+Internet-Draft              RAW Architecture                   July 2023
+
+
+2.3.6.  Serial recovery graph
+
+   A recovery graph that has only one Lane.  A Serial recovery graph can
+   provide latency guarantees but offers no Protection.
+
+2.3.7.  Complex recovery graph
+
+   A recovery graph that can be traversed via more than one paths and
+   can be used for Protection.  RAW leverages Complex recovery graphs
+   and implicitly, a recovery graph in this document is always a Complex
+   recovery graph.
 
 2.4.  Deterministic Networking
 
@@ -599,24 +640,11 @@ Internet-Draft              RAW Architecture                   July 2023
 
    A collection of consecutive IP packets defined by the upper layers
    and signaled by the same 5 or 6-tuple, see section 5.1 of [RFC8939].
-   Packets of the same flow must be placed on the same Track to receive
-   an equivalent treatment from Ingress to Egress within the Track.
-   Multiple flows may be transported along the same Track.  The DetNet
-   Path that is selected for the flow may change over time under the
-   control of the PSE.
-
-
-
-
-
-
-
-
-
-Thubert                  Expires 20 January 2024               [Page 11]
-
-Internet-Draft              RAW Architecture                   July 2023
-
+   Packets of the same flow must be placed on the same recovery graph to
+   receive an equivalent treatment from Ingress to Egress within the
+   recovery graph.  Multiple flows may be transported along the same
+   recovery graph.  The DetNet Path that is selected for the flow may
+   change over time under the control of the PLR.
 
 2.4.2.  Deterministic Flow Identifier (L2)
 
@@ -633,6 +661,18 @@ Internet-Draft              RAW Architecture                   July 2023
    port, destination port, and the upper layer protocol (ULP).  DetNet
    uses a 6-tuple where the extra field is the DSCP field in the packet.
    The IPv6 flow label is not used for that purpose.
+
+
+
+
+
+
+
+
+Thubert                  Expires 30 January 2024               [Page 12]
+
+Internet-Draft              RAW Architecture                   July 2023
+
 
 2.4.4.  TSN
 
@@ -667,13 +707,6 @@ Internet-Draft              RAW Architecture                   July 2023
    the terms of the contract.  It can be for instance the statistics of
    individual losses and losses in a row as time series.).
 
-
-
-Thubert                  Expires 20 January 2024               [Page 12]
-
-Internet-Draft              RAW Architecture                   July 2023
-
-
 2.5.4.  Reliability
 
    Reliability is a measure of the probability that an item will perform
@@ -687,6 +720,15 @@ Internet-Draft              RAW Architecture                   July 2023
    That is exempt of unscheduled outage or derivation from the terms of
    the SLA.  A basic expectation for a RAW network is that the flow is
    maintained in the face of any single breakage or flapping.
+
+
+
+
+
+Thubert                  Expires 30 January 2024               [Page 13]
+
+Internet-Draft              RAW Architecture                   July 2023
+
 
 2.5.6.  Availability
 
@@ -703,49 +745,55 @@ Internet-Draft              RAW Architecture                   July 2023
 2.6.1.  Active OAM
 
    See [RFC7799].  In the context of RAW, Active OAM is used to observe
-   a particular Track, DetNet Path, or Segment of a Track regardless of
-   whether it is used for traffic at that time.
+   a particular recovery graph, DetNet Path, or Segment of a recovery
+   graph regardless of whether it is used for traffic at that time.
 
 2.6.2.  In-Band OAM
 
-   An active OAM packet is considered in-band for the monitored Track
-   when it traverses the same set of links and interfaces and if the OAM
-   packet receives the same QoS and PAREO treatment as the packets of
-   the data flows that are injected in the Track.
+   An active OAM packet is considered in-band for the monitored recovery
+   graph when it traverses the same set of links and interfaces and if
+   the OAM packet receives the same QoS and PAREO treatment as the
+   packets of the data flows that are injected in the recovery graph.
 
 2.6.3.  Out-of-Band OAM
 
    Out-of-band OAM is an active OAM whose path is not topologically
-   congruent to the Track, or its test packets receive a QoS and/or
-   PAREO treatment that is different from that of the packets of the
-   data flows that are injected in the Track, or both.
-
-
-
-
-
-
-Thubert                  Expires 20 January 2024               [Page 13]
-
-Internet-Draft              RAW Architecture                   July 2023
-
+   congruent to the recovery graph, or its test packets receive a QoS
+   and/or PAREO treatment that is different from that of the packets of
+   the data flows that are injected in the recovery graph, or both.
 
 2.6.4.  Limited OAM
 
    An active OAM packet is a Limited OAM packet when it observes the RAW
-   operation over a node, a segment, or a DetNet Path of the Track,
-   though not from Ingress to Egress.  It is injected in the datapath
-   and extracted from the datapath around the particular function or
-   subnetwork (e.g., around a relay providing a Service sublayer
-   replication point) that is being tested.
+   operation over a node, a segment, or a DetNet Path of the recovery
+   graph, though not from Ingress to Egress.  It is injected in the
+   datapath and extracted from the datapath around the particular
+   function or subnetwork (e.g., around a relay providing a Service
+   sublayer replication point) that is being tested.
+
+
+
+
+
+
+
+
+
+
+
+Thubert                  Expires 30 January 2024               [Page 14]
+
+Internet-Draft              RAW Architecture                   July 2023
+
 
 2.6.5.  Upstream OAM
 
    An upstream OAM packet is an Out-of-Band OAM packet that traverses
-   the Track from egress to ingress on the reverse direction, to capture
-   and report OAM measurements upstream.  The collection may capture all
-   information along the whole Track, or it may only learn select data
-   across all, or only a particular DetNet Path, or Segment of a Track.
+   the recovery graph from egress to ingress on the reverse direction,
+   to capture and report OAM measurements upstream.  The collection may
+   capture all information along the whole recovery graph, or it may
+   only learn select data across all, or only a particular DetNet Path,
+   or Segment of a recovery graph.
 
 2.6.6.  Residence Time
 
@@ -756,7 +804,7 @@ Internet-Draft              RAW Architecture                   July 2023
 
 2.6.7.  Lower Layer information
 
-   The RAW Controller plane elements (PSE and OAM Supervisor) may gather
+   The RAW Controller plane elements (PLR and OAM Supervisor) may gather
    aggregated information from lower layers about e.g., link quality.
    This information may be obtained from inside the device using
    specialized API (e.g., L2 triggers) or via control protocols such as
@@ -773,19 +821,6 @@ Internet-Draft              RAW Architecture                   July 2023
 
 3.1.  Reliability and Availability
 
-
-
-
-
-
-
-
-
-Thubert                  Expires 20 January 2024               [Page 14]
-
-Internet-Draft              RAW Architecture                   July 2023
-
-
 3.1.1.  High Availability Engineering Principles
 
    The reliability criteria of a critical system pervades through its
@@ -799,6 +834,14 @@ Internet-Draft              RAW Architecture                   July 2023
    engineering:
 
    1.  elimination of single points of failure
+
+
+
+Thubert                  Expires 30 January 2024               [Page 15]
+
+Internet-Draft              RAW Architecture                   July 2023
+
+
    2.  reliable crossover
    3.  prompt detection of failures as they occur.
 
@@ -833,21 +876,27 @@ Internet-Draft              RAW Architecture                   July 2023
    (time, space, code, frequency, channel width) in the transmissions
    over the air to combat the additional causes of transmission loss.
 
-
-
-
-
-Thubert                  Expires 20 January 2024               [Page 15]
-
-Internet-Draft              RAW Architecture                   July 2023
-
-
    From an economics standpoint, executing this principle properly
    generally increases capitalization expense because of the redundant
    equipment.  In a constrained network where the waste of energy and
    bandwidth should be minimized, an excessive use of redundant links
    must be avoided; for RAW this means that the extra bandwidth must be
    used wisely and with parsimony.
+
+
+
+
+
+
+
+
+
+
+
+Thubert                  Expires 30 January 2024               [Page 16]
+
+Internet-Draft              RAW Architecture                   July 2023
+
 
 3.1.1.2.  Reliable Crossover
 
@@ -890,17 +939,20 @@ Internet-Draft              RAW Architecture                   July 2023
    configuration, accounting, performance, security is a handy mental
    checklist) but fault monitoring is sufficient reason.
 
-
-
-
-Thubert                  Expires 20 January 2024               [Page 16]
-
-Internet-Draft              RAW Architecture                   July 2023
-
-
    "An Architecture for Describing Simple Network Management Protocol
    (SNMP) Management Frameworks" [STD 62] describes how to use SNMP to
    observe and correct long-term faults.
+
+
+
+
+
+
+
+Thubert                  Expires 30 January 2024               [Page 17]
+
+Internet-Draft              RAW Architecture                   July 2023
+
 
    "Overview and Principles of Internet Traffic Engineering" [TE]
    discusses the importance of measurement for network protection, and
@@ -949,7 +1001,11 @@ Internet-Draft              RAW Architecture                   July 2023
 
 
 
-Thubert                  Expires 20 January 2024               [Page 17]
+
+
+
+
+Thubert                  Expires 30 January 2024               [Page 18]
 
 Internet-Draft              RAW Architecture                   July 2023
 
@@ -1005,7 +1061,7 @@ Internet-Draft              RAW Architecture                   July 2023
 
 
 
-Thubert                  Expires 20 January 2024               [Page 18]
+Thubert                  Expires 30 January 2024               [Page 19]
 
 Internet-Draft              RAW Architecture                   July 2023
 
@@ -1061,7 +1117,7 @@ Internet-Draft              RAW Architecture                   July 2023
 
 
 
-Thubert                  Expires 20 January 2024               [Page 19]
+Thubert                  Expires 30 January 2024               [Page 20]
 
 Internet-Draft              RAW Architecture                   July 2023
 
@@ -1117,7 +1173,7 @@ Internet-Draft              RAW Architecture                   July 2023
 
 
 
-Thubert                  Expires 20 January 2024               [Page 20]
+Thubert                  Expires 30 January 2024               [Page 21]
 
 Internet-Draft              RAW Architecture                   July 2023
 
@@ -1173,7 +1229,7 @@ Internet-Draft              RAW Architecture                   July 2023
 
 
 
-Thubert                  Expires 20 January 2024               [Page 21]
+Thubert                  Expires 30 January 2024               [Page 22]
 
 Internet-Draft              RAW Architecture                   July 2023
 
@@ -1199,37 +1255,37 @@ Internet-Draft              RAW Architecture                   July 2023
    for a limited time RAW Network Plane operations happen at a time
    scale that sits between the routing and the forwarding time scales,
    on one DetNet flow, to select a DetNet path within the resources
-   delineated by a Track (see Section 2.3.2).  The Track is
-   preestablished and installed by means outside of the scope of RAW; it
-   may be strict or loose depending on whether each or just a subset of
-   the hops are observed and controlled by RAW.
+   delineated by a recovery graph (see Section 2.3.2).  The recovery
+   graph is preestablished and installed by means outside of the scope
+   of RAW; it may be strict or loose depending on whether each or just a
+   subset of the hops are observed and controlled by RAW.
 
    The RAW Architecture is based on an abstract OODA Loop (Observe,
    Orient, Decide, Act).  The generic concept involves:
 
    1.  Network Plane measurement protocols for Operations,
        Administration and Maintenance (OAM) to Observe some or all hops
-       along a Track as well as the end-to-end packet delivery
+       along a recovery graph as well as the end-to-end packet delivery
 
    2.  The DetNet Controller Plane Function (CPF) is split with an
        optional asynchronous CPF (aCPF) that reports data and
        information such as link statistics to be used asynchronously by
        the routing CPF (rCPF) to compute, install, and maintain the
-       Tracks, e.g., by generating knowledge and wisdom such as a
-       trained model for link quality prediction, which in turn can be
-       used by the aCPF to Orient the Path selection by the PSE within
+       recovery graphs, e.g., by generating knowledge and wisdom such as
+       a trained model for link quality prediction, which in turn can be
+       used by the aCPF to Orient the Path selection by the PLR within
        the RAW OODA loop.
 
-   3.  A Runtime distributed Path Selection Engine (PSE) that Decides
-       which DetNet Path to use for the future packet that will be
-       routed along the Track
+   3.  A PLR that Decides which DetNet Paths to use for the future
+       packets that will be routed within the recovery graph
 
 
 
 
 
 
-Thubert                  Expires 20 January 2024               [Page 22]
+
+Thubert                  Expires 30 January 2024               [Page 23]
 
 Internet-Draft              RAW Architecture                   July 2023
 
@@ -1238,7 +1294,7 @@ Internet-Draft              RAW Architecture                   July 2023
        Dataplane actions that operate at the DetNet Service sublayer to
        increase the reliability of the end-to-end transmissions.  The
        RAW architecture also covers in-situ signaling when the decision
-       is Acted by a node that down the Track from the PSE.
+       is Acted by a node that down the recovery graph from the PLR.
 
    The overall OODA Loop optimizes the use of redundancy to achieve the
    required reliability and availability Service Level Agreement (SLA)
@@ -1275,7 +1331,7 @@ Internet-Draft              RAW Architecture                   July 2023
    An RAW-enhanced rCPF interacts with RAW Nodes over a Southbound API.
    It consumes data and information from the network and generates
    knowledge and wisdom to help steer the traffic optimally inside a
-   Track.
+   recovery graph.
 
 
 
@@ -1285,14 +1341,14 @@ Internet-Draft              RAW Architecture                   July 2023
 
 
 
-Thubert                  Expires 20 January 2024               [Page 23]
+Thubert                  Expires 30 January 2024               [Page 24]
 
 Internet-Draft              RAW Architecture                   July 2023
 
 
                             DetNet Routing
 
-           CPF               CPF          CPF                 CPF
+           rCPF               rCPF          rCPF                 rCPF
 
 
                           Southbound API
@@ -1314,21 +1370,37 @@ Internet-Draft              RAW Architecture                   July 2023
                             Figure 3: RAW Nodes
 
    When a new flow is defined, the DetNet rCPF uses it current knowledge
-   of the network to build a new Track between an Ingress End System and
-   an Egress End System for that flow; it indicates to the RAW Nodes
-   where the PAREO operations may be actioned in the Network Plane.
+   of the network to build a new recovery graph between an Ingress End
+   System and an Egress End System for that flow; it indicates to the
+   RAW Nodes where the PAREO operations may be actioned in the Network
+   Plane.
 
-   *  The Track may be strict, meaning that the DetNet forwarding
-      sublayer operations are enforced end-to-end
+   *  The recovery graph may be strict, meaning that the DetNet
+      forwarding sublayer operations are enforced end-to-end
 
-   *  The Track may be expressed loosely to enable traversing a non-RAW
-      subnetwork as in Figure 6.  In that case, RAW can not leverage
-      end-to-end DetNet and cannot provide latency guarantees.  The non-
-      RAW subnetwork is neglected in the RAW computation, that is,
-      considered jitterless, and infinitely reliable and/or available in
-      comparison with the links between RAW nodes, so loss and jitter
-      that is measured end-to-end is attributed to the RAW hops
-      (typically an access link).
+   *  The recovery graph may be expressed loosely to enable traversing a
+      non-RAW subnetwork as in Figure 6.  In that case, RAW can not
+      leverage end-to-end DetNet and cannot provide latency guarantees.
+      The non-RAW subnetwork is neglected in the RAW computation, that
+      is, considered jitterless, and infinitely reliable and/or
+      available in comparison with the links between RAW nodes, so loss
+      and jitter that is measured end-to-end is attributed to the RAW
+      hops (typically an access link).
+
+
+
+
+
+
+
+
+
+
+
+Thubert                  Expires 30 January 2024               [Page 25]
+
+Internet-Draft              RAW Architecture                   July 2023
+
 
    A local asynchronous CPF in the RAW node reports the Link-Layer
    metrics to the rCPF in a time-aggregated, e.g., statistical fashion.
@@ -1339,31 +1411,26 @@ Internet-Draft              RAW Architecture                   July 2023
    deviation of availability and reliability figures such as Packet
    Delivery Ratio (PDR) over long periods of time.
 
-
-
-Thubert                  Expires 20 January 2024               [Page 24]
-
-Internet-Draft              RAW Architecture                   July 2023
-
-
-   Based on those metrics, the DetNet r CPF installs the Track with
-   enough redundant forwarding solutions to ensure that the Network
+   Based on those metrics, the DetNet r CPF installs the recovery graph
+   with enough redundant forwarding solutions to ensure that the Network
    Plane can reliably deliver the packets within a System Level
    Agreement (SLA) associated to the flows that it transports.  The SLA
    defines end-to-end reliability and availability requirements, where
    reliability may be expressed as a successful delivery in order and
    within a bounded delay of at least one copy of a packet.
 
-   Depending on the use case and the SLA, the Track may comprise non-RAW
-   segments, either interleaved inside the Track, or all the way to the
-   Egress End Node (e.g., a server in the Internet).  RAW observes the
-   Lower-Layer Links between RAW nodes (typically, radio links) and the
-   end-to-end Network Layer operation to decide at all times which of
-   the PAREO diversity schemes is actioned by which RAW Nodes.
+   Depending on the use case and the SLA, the recovery graph may
+   comprise non-RAW segments, either interleaved inside the recovery
+   graph, or all the way to the Egress End Node (e.g., a server in the
+   Internet).  RAW observes the Lower-Layer Links between RAW nodes
+   (typically, radio links) and the end-to-end Network Layer operation
+   to decide at all times which of the PAREO diversity schemes is
+   actioned by which RAW Nodes.
 
-   Once a Track is established, per-segment and end-to-end reliability
-   and availability statistics are periodically reported to the rCPF to
-   assure that the SLA can be met or have it recompute the Track if not.
+   Once a recovery graph is established, per-segment and end-to-end
+   reliability and availability statistics are periodically reported to
+   the rCPF to assure that the SLA can be met or have it recompute the
+   recovery graph if not.
 
 4.2.  RAW vs. Upper and Lower Layers
 
@@ -1376,6 +1443,20 @@ Internet-Draft              RAW Architecture                   July 2023
    capabilities (see Section 5.6) is operated by the lower layers and
    RAW will only abstract the concept and hint the lower layers on the
    desired outcome, as opposed to performing the retries at Layer-3.
+
+
+
+
+
+
+
+
+
+
+Thubert                  Expires 30 January 2024               [Page 26]
+
+Internet-Draft              RAW Architecture                   July 2023
+
 
    Guarantees such as bounded latency depend on the upper layers
    (Transport or Application) to provide the payload in volumes and at
@@ -1392,16 +1473,6 @@ Internet-Draft              RAW Architecture                   July 2023
    RAW will act on the distribution of the traffic to leverage
    alternates within a finite set of potential resources.
 
-
-
-
-
-
-Thubert                  Expires 20 January 2024               [Page 25]
-
-Internet-Draft              RAW Architecture                   July 2023
-
-
 4.3.  RAW and DetNet
 
    RAW leverages the DetNet Forwarding sub-layer and requires the
@@ -1416,7 +1487,7 @@ Internet-Draft              RAW Architecture                   July 2023
    redundancy.
 
    RAW extends the DetNet Stack (see fig 4 of [RFC8655]) with additional
-   functionality at the DetNet Service sub-layer for the PSE operation.
+   functionality at the DetNet Service sub-layer for the PLR operation.
    Layer-3 in general and DetNet in particular operates on abstractions
    of the lower layers and through APIs to control those abstractions.
    For instance, DetNet already leverages lower layers for time-
@@ -1433,7 +1504,15 @@ Internet-Draft              RAW Architecture                   July 2023
    overhearing).  The other way around RAW needs hints about the radio
    conditions like L2 triggers (RSSI, LQI, ETX...) over all the wireless
    hops.  This information is useful in the controller plane to both the
-   asynchronous CPF and the PSE.
+   asynchronous CPF and the PLR.
+
+
+
+
+Thubert                  Expires 30 January 2024               [Page 27]
+
+Internet-Draft              RAW Architecture                   July 2023
+
 
    The RAW Service sub-layer also adds the OAM Propagator that
    (re)generates the OAM information as it is formed and propagated In-
@@ -1445,15 +1524,48 @@ Internet-Draft              RAW Architecture                   July 2023
    Controller Plane.  The RAW Control sub-layer typically runs only in
    the DetNet Ingress Edge Node or End System, though it may also run in
    DetNet Relay Nodes when the RAW Control sub-layer is distributed
-   along the Track.  The RAW Control sub-layer functionality includes
-   the PSE that decides the DetNet Path for the future packets of a
-   flows and controls the PAREO Actuators along the DetNet Path through
-   specific signaling, and the OAM Supervisor that triggers, and learns
-   from, OAM observations, and feeds the PSE for its next decision.
+   along the recovery graph.  The RAW Control sub-layer functionality
+   includes the PLR that decides the DetNet Path for the future packets
+   of a flows and controls the PAREO Actuators along the DetNet Path
+   through specific signaling, and the OAM Supervisor that triggers, and
+   learns from, OAM observations, and feeds the PLR for its next
+   decision.
 
 
 
-Thubert                  Expires 20 January 2024               [Page 26]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Thubert                  Expires 30 January 2024               [Page 28]
 
 Internet-Draft              RAW Architecture                   July 2023
 
@@ -1462,12 +1574,15 @@ Internet-Draft              RAW Architecture                   July 2023
     |                              | |                                |
    .....................................................................
     |                              | |                                |
+    | +--------------------------+ | | +----------------------------+ |
+    | |     aCPF                 | | | |         aCPF               | |
+    | +--------------------------+ | | +----------------------------+ |
     | +----------+  +------------+ | | .-.-.-.-.-.--.  .-.-.-.-.-.--. |
-    | | PSE      |  | OAM        | | | | Distr. PSE |  | Distr. OAM | |
-    | |  /  aCPF |  | Supervisor | | | |            |  | Supervisor | |
+    | | PLR      |  | OAM        | | | | Distr. PLR |  | Distr. OAM | |
+    | |          |  | Supervisor | | | |            |  | Supervisor | |
     | +----------+  +------------+ | | .-.-.-.-.-.--.  .-.-.-.-.-.--. |
     |                              | |    optional         optional   |
-       RAW Control sub-layer
+       RAW Control and Management sub-layers
    .....................................................................
        DetNet Service sub-layer
     |                              | |                                |
@@ -1506,10 +1621,7 @@ Internet-Draft              RAW Architecture                   July 2023
 
 
 
-
-
-
-Thubert                  Expires 20 January 2024               [Page 27]
+Thubert                  Expires 30 January 2024               [Page 29]
 
 Internet-Draft              RAW Architecture                   July 2023
 
@@ -1565,7 +1677,7 @@ Internet-Draft              RAW Architecture                   July 2023
 
 
 
-Thubert                  Expires 20 January 2024               [Page 28]
+Thubert                  Expires 30 January 2024               [Page 30]
 
 Internet-Draft              RAW Architecture                   July 2023
 
@@ -1621,7 +1733,7 @@ Internet-Draft              RAW Architecture                   July 2023
 
 
 
-Thubert                  Expires 20 January 2024               [Page 29]
+Thubert                  Expires 30 January 2024               [Page 31]
 
 Internet-Draft              RAW Architecture                   July 2023
 
@@ -1677,7 +1789,7 @@ Internet-Draft              RAW Architecture                   July 2023
 
 
 
-Thubert                  Expires 20 January 2024               [Page 30]
+Thubert                  Expires 30 January 2024               [Page 32]
 
 Internet-Draft              RAW Architecture                   July 2023
 
@@ -1688,10 +1800,10 @@ Internet-Draft              RAW Architecture                   July 2023
 
    There is thus a desire to separate the long term computation of the
    route and the short term forwarding decision.  In that model, the
-   routing operation computes a complex Track that enables multiple Non-
-   Equal Cost Multi-Path (N-ECMP) forwarding solutions, and leaves it to
-   the Data Plane to make the per-packet decision of which of these
-   possibilities should be used.
+   routing operation computes a complex recovery graph that enables
+   multiple Non-Equal Cost Multi-Path (N-ECMP) forwarding solutions, and
+   leaves it to the Data Plane to make the per-packet decision of which
+   of these possibilities should be used.
 
    In the wired world, and more specifically in the context of Traffic
    Engineering (TE), an alternate path can be used upon the detection of
@@ -1711,45 +1823,44 @@ Internet-Draft              RAW Architecture                   July 2023
    OODA (Observe, Orient, Decide, Act) is a generic formalism to
    represent the operational steps in a Control Loop.  The RAW
    Architecture applies that generic model to continuously optimize the
-   spectrum and energy used to forward packets within a Track,
+   spectrum and energy used to forward packets within a recovery graph,
    instantiating the OODA steps as follows:
 
    Observe:  Network Plane measurements, including protocols for
       Operations, Administration and Maintenance (OAM), to Observe the
-      local state of the links and some or all hops along a Track as
-      well as the end-to-end packet delivery, more in Section 5.3;
+      local state of the links and some or all hops along a recovery
+      graph as well as the end-to-end packet delivery, more in
+      Section 5.3;
 
    Orient:  An asynchronous CPF that reports data and information such
       as the link statistics, and leverages offline-computed wisdom and
-      knowledge to Orient the PSE for its forwarding decision, more in
+      knowledge to Orient the PLR for its forwarding decision, more in
       Section 5.4;
 
-   Decide:  A local synchronous CPF Path Selection Engine (PSE) thar
-      Decides which DetNet Path to use for the future packet(s) that are
-      routed along the Track, more in Section 5.5;
+   Decide:  A local PLR that decides which DetNet Path to use for the
+      future packet(s) that are routed along the recovery graph, more in
+      Section 5.5;
 
-   Act:  Packet (hybrid) ARQ, Replication, Elimination and Ordering
-
-
+   Act:  PAREO Dataplane actions are controlled from the DetNet Service
 
 
-Thubert                  Expires 20 January 2024               [Page 31]
+
+Thubert                  Expires 30 January 2024               [Page 33]
 
 Internet-Draft              RAW Architecture                   July 2023
 
 
-      Dataplane actions are controlled from the DetNet Service sublayer
-      to increase the reliability of the end-to-end transmission.  The
-      RAW architecture also covers in-situ signaling when the decision
-      is Acted by a node that down the Track from the PSE, more in
-      Section 5.6.
+      sublayer to increase the reliability of the end-to-end
+      transmission.  The RAW architecture also covers in-situ signaling
+      when the decision is Acted by a node that down the recovery graph
+      from the PLR, more in Section 5.6.
 
                      +-------> Orient (aCPF) -------+
                      |        reflex actions        |
                      |       pre-trained model      |
                      |             ...              |
                      |                              v
-                 Observe (OAM)                Decide (PSE)
+                 Observe (OAM)                Decide (PLR)
                      ^                              |
                      |                              |
                      |                              |
@@ -1767,9 +1878,9 @@ Internet-Draft              RAW Architecture                   July 2023
 5.3.  Observe: The RAW OAM
 
    RAW In-situ OAM operation in the Network Plane may observe either a
-   full Track or the DetNet Path that is being used at this time.  As
-   packets may be load balanced, replicated, eliminated, and / or
-   fragmented for Network Coding (NC) forward error correction (FEC),
+   full recovery graph or the DetNet Path that is being used at this
+   time.  As packets may be load balanced, replicated, eliminated, and /
+   or fragmented for Network Coding (NC) forward error correction (FEC),
    the RAW In-situ operation needs to be able to signal which operation
    occured to an individual packet.
 
@@ -1779,17 +1890,18 @@ Internet-Draft              RAW Architecture                   July 2023
    Finally, the RAW Service sublayer Assurance may observe the
    individual PAREO operation of a relay node to ensure that it is
    conforming; this might require injecting an OAM packet at an upstream
-   point inside the Track and extracting that packet at another point
-   downstream before it reaches the egress.
+   point inside the recovery graph and extracting that packet at another
+   point downstream before it reaches the egress.
 
-   This observation feeds the RAW PSE that makes the decision on which
+   This observation feeds the RAW PLR that makes the decision on which
    PAREO function is actioned at which RAW Node, for one a small
    continuous series of packets.
 
 
 
 
-Thubert                  Expires 20 January 2024               [Page 32]
+
+Thubert                  Expires 30 January 2024               [Page 34]
 
 Internet-Draft              RAW Architecture                   July 2023
 
@@ -1810,16 +1922,18 @@ Internet-Draft              RAW Architecture                   July 2023
 
             Figure 9: Observed Links in Radio Access Protection
 
-   In the case of a End-to-End Protection in a Wireless Mesh, the Track
-   is strict and congruent with the path so all links are observed.
+   In the case of a End-to-End Protection in a Wireless Mesh, the
+   recovery graph is strict and congruent with the path so all links are
+   observed.
 
    Conversely, in the case of Radio Access Protection illustrated in
-   Figure 9, the Track is Loose and only the first hop is observed; the
-   rest of the path is abstracted and considered infinitely reliable.
-   The loss if a packet is attributed to the first hop Radio Access
-   Network (RAN), even if a particular loss effectively happens farther
-   down the path.  In that case, RAW enables technology diversity (e.g.
-   Wi-Fi and 5G) which in turn improves the diversity in spectrum usage.
+   Figure 9, the recovery graph is Loose and only the first hop is
+   observed; the rest of the path is abstracted and considered
+   infinitely reliable.  The loss if a packet is attributed to the first
+   hop Radio Access Network (RAN), even if a particular loss effectively
+   happens farther down the path.  In that case, RAW enables technology
+   diversity (e.g.  Wi-Fi and 5G) which in turn improves the diversity
+   in spectrum usage.
 
    The Links that are not observed by OAM are opaque to it, meaning that
    the OAM information is carried across and possibly echoed as data,
@@ -1832,30 +1946,29 @@ Internet-Draft              RAW Architecture                   July 2023
 
 5.4.  Orient: The RAW-enhanced DetNet Controller Plane
 
-   RAW separates the long time scale at which a Track is elaborated and
-   installed, from the short time scale at which the forwarding decision
-   is taken for one or a few packets (see in Section 5.1) that will
-   experience the same path until the network conditions evolve and
-   another path is selected within the same Track.
+   RAW separates the long time scale at which a recovery graph is
+   elaborated and installed, from the short time scale at which the
+   forwarding decision is taken for one or a few packets (see in
+   Section 5.1) that will experience the same path until the network
+   conditions evolve and another path is selected within the same
+   recovery graph.
 
 
 
 
 
-
-
-
-Thubert                  Expires 20 January 2024               [Page 33]
+Thubert                  Expires 30 January 2024               [Page 35]
 
 Internet-Draft              RAW Architecture                   July 2023
 
 
-   The Track computation is out of scope, but RAW expects that the
-   Controller plane function that installs the Track also provides
-   related knowledge in the form of meta data about the links, segments
-   and possible DetNet Paths.  That meta data can be a pre-digested
-   statistical model, and may include prediction of future flaps and
-   packet loss, as well as recommended actions when that happens.
+   The recovery graph computation is out of scope, but RAW expects that
+   the Controller plane function that installs the recovery graph also
+   provides related knowledge in the form of meta data about the links,
+   segments and possible DetNet Paths.  That meta data can be a pre-
+   digested statistical model, and may include prediction of future
+   flaps and packet loss, as well as recommended actions when that
+   happens.
 
    The meta data may include:
 
@@ -1866,83 +1979,80 @@ Internet-Draft              RAW Architecture                   July 2023
 
    *  Link Quality Statistics history and pre-trained models, e.g., to
       predict the short-term variation of quality of the links in a
-      Track
+      recovery graph
 
-   The Track is installed with measurable objectives that are computed
-   by the DetNet rCPF to achieve the RAW SLA.  The objectives can be
-   expressed as any of maximum number of packet lost in a row, bounded
-   latency, maximal jitter, maximum number of interleaved out of order
-   packets, average number of copies received at the elimination point,
-   and maximal delay between the first and the last received copy of the
-   same packet.
+   The recovery graph is installed with measurable objectives that are
+   computed by the DetNet rCPF to achieve the RAW SLA.  The objectives
+   can be expressed as any of maximum number of packet lost in a row,
+   bounded latency, maximal jitter, maximum number of interleaved out of
+   order packets, average number of copies received at the elimination
+   point, and maximal delay between the first and the last received copy
+   of the same packet.
 
 5.5.  Decide: The Path Selection Engine
 
    The RAW OODA Loop operates at the path selection time scale to
    provide agility vs. the brute force approach of flooding the whole
-   Track.  The OODA Loop controls, within the redundant solutions that
-   are proposed by the acynchronous CPF, which will be used for each
-   packet to provide a Reliable and Available service while minimizing
-   the waste of constrained resources.
+   recovery graph.  The OODA Loop controls, within the redundant
+   solutions that are proposed by the acynchronous CPF, which will be
+   used for each packet to provide a Reliable and Available service
+   while minimizing the waste of constrained resources.
 
-   To that effect, RAW defines the Path Selection Engine (PSE) as a
+   To that effect, RAW defines the Path Selection Engine (PLR) as a
    synchronous CPF that performs rapid local adjustments of the
    forwarding tables within the diversity that the asynchronous CPF has
-   in store for the Track.  The PSE enables to exploit the richer
-   forwarding capabilities with PAREO and scheduled transmissions at a
-   faster time scale over the smaller domain that is the Track, in
-   either a loose or a strict fashion.
+   in store for the recovery graph.  The PLR enables to exploit the
+   richer forwarding capabilities with PAREO and scheduled transmissions
+   at a faster time scale over the smaller domain that is the recovery
+   graph, in either a loose or a strict fashion.
 
-   The PSE operates on metrics that evolve faster, but that need to be
-   advertised at a fast rate but only locally, within the Track, and
-   reacts on the metrics updates by changing the DetNet path in use for
-   the affected flows.
-
-
+   The PLR operates on metrics that evolve faster, but that need to be
+   advertised at a fast rate but only locally, within the recovery
+   graph, and reacts on the metrics updates by changing the DetNet path
+   in use for the affected flows.
 
 
-Thubert                  Expires 20 January 2024               [Page 34]
+
+Thubert                  Expires 30 January 2024               [Page 36]
 
 Internet-Draft              RAW Architecture                   July 2023
 
 
    The rapid changes in the forwarding decisions are made and contained
-   within the scope of a Track and the actions of the PSE are not
-   signaled outside the Track.  This is as opposed to the rCPF that must
-   observe the whole network and optimize all the Tracks globally, which
-   can only be done at a slow pace and using long-term statistical
-   metrics, as presented in Table 1.
+   within the scope of a recovery graph and the actions of the PLR are
+   not signaled outside the recovery graph.  This is as opposed to the
+   rCPF that must observe the whole network and optimize all the
+   recovery graphs globally, which can only be done at a slow pace and
+   using long-term statistical metrics, as presented in Table 1.
 
-      +===============+========================+===================+
-      |               |          rCPF          |   PSE (In Scope)  |
-      +===============+========================+===================+
-      | Operation     | Typically Centralized  |  Source-Routed or |
-      |               |                        |    Distributed    |
-      +---------------+------------------------+-------------------+
-      | Communication |    Slow, expensive     |    Fast, local    |
-      +---------------+------------------------+-------------------+
-      | Time Scale    |    hours and above     | seconds and below |
-      +---------------+------------------------+-------------------+
-      | Network Size  | Large, many Tracks to  | Small, within one |
-      |               |   optimize globally    |       Track       |
-      +---------------+------------------------+-------------------+
-      | Considered    | Averaged, Statistical, |  Instant values / |
-      | Metrics       |     Shade of grey      | boolean condition |
-      +---------------+------------------------+-------------------+
+    +===============+=============================+===================+
+    |               |             rCPF            |   PLR (In Scope)  |
+    +===============+=============================+===================+
+    | Operation     |    Typically Centralized    |  Source-Routed or |
+    |               |                             |    Distributed    |
+    +---------------+-----------------------------+-------------------+
+    | Communication |       Slow, expensive       |    Fast, local    |
+    +---------------+-----------------------------+-------------------+
+    | Time Scale    |       hours and above       | seconds and below |
+    +---------------+-----------------------------+-------------------+
+    | Network Size  | Large, many recovery graphs | Small, within one |
+    |               |     to optimize globally    |   recovery graph  |
+    +---------------+-----------------------------+-------------------+
+    | Considered    |    Averaged, Statistical,   |  Instant values / |
+    | Metrics       |        Shade of grey        | boolean condition |
+    +---------------+-----------------------------+-------------------+
 
-                           Table 1: CPF vs. PSE
+                            Table 1: CPF vs. PLR
 
-   The PSE sits in the DetNet Service sub-Layer of Edge and Relay Nodes.
-   On the one hand, it operates on the packet flow, learning the Track
-   and path selection information from the packet, possibly making local
-   decision and retagging the packet to indicate so.  On the other hand,
-   the PSE interacts with the lower layers (through triggers and DLEP)
-   and with its peers (through iOAM and oOAM) to obtain up-to-date
-   information about its links and the quality of the overall Track,
-   respectively, as illustrated in Figure 10.
-
-
-
+   The PLR sits in the DetNet Service sub-Layer of Edge and Relay Nodes.
+   On the one hand, it operates on the packet flow, learning the
+   recovery graph and path selection information from the packet,
+   possibly making local decision and retagging the packet to indicate
+   so.  On the other hand, the PLR interacts with the lower layers
+   (through triggers and DLEP) and with its peers (through iOAM and
+   oOAM) to obtain up-to-date information about its links and the
+   quality of the overall recovery graph, respectively, as illustrated
+   in Figure 10.
 
 
 
@@ -1957,7 +2067,9 @@ Internet-Draft              RAW Architecture                   July 2023
 
 
 
-Thubert                  Expires 20 January 2024               [Page 35]
+
+
+Thubert                  Expires 30 January 2024               [Page 37]
 
 Internet-Draft              RAW Architecture                   July 2023
 
@@ -1982,13 +2094,13 @@ Internet-Draft              RAW Architecture                   July 2023
           over | wireless        In  |                 In | | and out
                v                     |                    | v
 
-                         Figure 10: PSE Interfaces
+                         Figure 10: PLR Interfaces
 
 5.6.  Act: DetNet Path Selection and PAREO functions
 
-   The main action by the PSE is the swapping of the DetNet Path within
-   the Track for the future packets.  The candidate DetNet Paths
-   represent different energy and spectrum profiles, and provide
+   The main action by the PLR is the swapping of the DetNet Path within
+   the recovery graph for the future packets.  The candidate DetNet
+   Paths represent different energy and spectrum profiles, and provide
    protection against different failures.
 
    RAW also extends the DetNet protection services (typically, PREOF) to
@@ -2013,18 +2125,18 @@ Internet-Draft              RAW Architecture                   July 2023
 
 
 
-Thubert                  Expires 20 January 2024               [Page 36]
+Thubert                  Expires 30 January 2024               [Page 38]
 
 Internet-Draft              RAW Architecture                   July 2023
 
 
    The RAW Path Selection can be implemented in both centralized and
    distributed scheduling approaches.  In the centralized approach, the
-   PSE may obtain a set of pre-computed DetNet paths matching a set of
+   PLR may obtain a set of pre-computed DetNet paths matching a set of
    expected failures, and apply the appropriate DetNet paths for the
    current state of the wireless links.  In the distributed approach,
    the signaling in the packet may be more abstract than an explicit
-   Path, and the PSE decision might be revised along the select DetNet
+   Path, and the PLR decision might be revised along the select DetNet
    Path based on a better knowledge of the rest of the way.
 
    The dynamic DetNet Path selection in RAW avoids the waste of critical
@@ -2069,7 +2181,7 @@ Internet-Draft              RAW Architecture                   July 2023
 
 
 
-Thubert                  Expires 20 January 2024               [Page 37]
+Thubert                  Expires 30 January 2024               [Page 39]
 
 Internet-Draft              RAW Architecture                   July 2023
 
@@ -2112,23 +2224,27 @@ Internet-Draft              RAW Architecture                   July 2023
               DOI 10.17487/RFC1122, October 1989,
               <https://www.rfc-editor.org/info/rfc1122>.
 
+   [RFC4427]  Mannie, E., Ed. and D. Papadimitriou, Ed., "Recovery
+              (Protection and Restoration) Terminology for Generalized
+              Multi-Protocol Label Switching (GMPLS)", RFC 4427,
+              DOI 10.17487/RFC4427, March 2006,
+              <https://www.rfc-editor.org/info/rfc4427>.
+
    [RAW-TECHNOS]
               Thubert, P., Cavalcanti, D., Vilajosana, X., Schmitt, C.,
               and J. Farkas, "Reliable and Available Wireless
               Technologies", Work in Progress, Internet-Draft, draft-
-              ietf-raw-technologies-08, 10 July 2023,
-              <https://datatracker.ietf.org/doc/html/draft-ietf-raw-
-              technologies-08>.
 
 
 
-
-
-
-Thubert                  Expires 20 January 2024               [Page 38]
+Thubert                  Expires 30 January 2024               [Page 40]
 
 Internet-Draft              RAW Architecture                   July 2023
 
+
+              ietf-raw-technologies-08, 10 July 2023,
+              <https://datatracker.ietf.org/doc/html/draft-ietf-raw-
+              technologies-08>.
 
    [RAW-USE-CASES]
               Bernardos, C. J., Papadopoulos, G. Z., Thubert, P., and F.
@@ -2177,11 +2293,7 @@ Internet-Draft              RAW Architecture                   July 2023
 
 
 
-
-
-
-
-Thubert                  Expires 20 January 2024               [Page 39]
+Thubert                  Expires 30 January 2024               [Page 41]
 
 Internet-Draft              RAW Architecture                   July 2023
 
@@ -2237,7 +2349,7 @@ Internet-Draft              RAW Architecture                   July 2023
 
 
 
-Thubert                  Expires 20 January 2024               [Page 40]
+Thubert                  Expires 30 January 2024               [Page 42]
 
 Internet-Draft              RAW Architecture                   July 2023
 
@@ -2293,7 +2405,7 @@ Author's Address
 
 
 
-Thubert                  Expires 20 January 2024               [Page 41]
+Thubert                  Expires 30 January 2024               [Page 43]
 
 Internet-Draft              RAW Architecture                   July 2023
 
@@ -2349,4 +2461,4 @@ Internet-Draft              RAW Architecture                   July 2023
 
 
 
-Thubert                  Expires 20 January 2024               [Page 42]
+Thubert                  Expires 30 January 2024               [Page 44]

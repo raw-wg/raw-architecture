@@ -59,8 +59,8 @@
       constrained spectrum and energy while maintaining the expected
       connectivity properties, typically reliability and latency.
 
-      The loop involves OAM, DetNet Controller Plane, and PREOF extensions, and
-      specifically a new recovery Function called PAREO and a new Point of Local Repair
+      The loop involves OAM, DetNet Controller Plane, a new recovery Function
+      called PAREO, and a new Point of Local Repair
       operation, that dynamically selects the DetNet path(s) for the future packets
       to route around local degradations and failures.
 

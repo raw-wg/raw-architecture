@@ -43,9 +43,6 @@
     <keyword>Draft</keyword>
     <abstract>
       <t>
-      <!--
-      Due to uncontrolled interferences, including the self-induced multipath fading, deterministic networking can only be approached on wireless links. The radio conditions may change -way- faster than routing can adapt and reprogram, in particular when the controller is distant and connectivity is slow and limited. RAW separates the routing time scale at which a complex path is recomputed from the forwarding time scale at which the forwarding decision is taken for an individual packet. RAW operates at the forwarding time scale. The RAW problem is to decide, within the redundant solutions that are proposed by the routing, which will be used for each individual packet to provide a DetNet service while minimizing the waste of resources.
-       !-->
 
       Reliable and Available Wireless (RAW) provides for high reliability and
       availability for IP connectivity across any combination of wired and
@@ -60,8 +57,8 @@
       connectivity properties, typically reliability and latency.
 
       The loop involves DetNet Operational Plane functions, with a new recovery
-      Function  called PAREO and a new Point of Local Repair
-      operation, that dynamically selects the DetNet path(s) for the future packets
+      Function and a new Point of Local Repair operation, that dynamically
+      selects the DetNet path(s) for the future packets
       to route around local degradations and failures.
 
       </t>
@@ -157,7 +154,7 @@
     "RFC4427" format="default"/> such as the term recovery as covering
     both Protection and Restoration, a number of recovery types,
     That document defines a number of concepts like recovery domain that are
-    used in thie RAW works, and creates thenew term recovery graph.
+    used in thie RAW works, and creates the new term recovery graph.
     A recovery graph associates a topological graph with usage metadata that
     represent how the paths within the recovery graph are built.
     </t>
@@ -175,14 +172,6 @@
     <t>In an quantic analogy, a recovery graph is to a path what an atomic orbital is to
     a planetary orbit, in that the electron has a probability of presence within
     a known shape as opposed to a deterministic trajectory.
-    </t>
-    <t>
-    In a herding gnous analogy, a gnou follows its own path that it marks with
-    its hooves as it goes; before the herd starts, any point within the recovery graph
-    has a statistical chance to be marked by one or more hooves, meaning on path
-    for those gnous; once the herd has passed, the recovery graph can be observed from
-    above, but it was there in advance as a potential that the gnous were to
-    follow.
     </t>
     <t>
     The concept of recovery graph is agnostic to
@@ -301,7 +290,7 @@
     </section><!-- Link and Direction -->
 
 
-    <section anchor="pt"><name>Path and recovery graphs</name>
+    <section anchor="pt"><name>Path and Recovery Graphs</name>
     <section><name>Path</name>
 
     <t>
@@ -352,12 +341,13 @@
     may experience, each with its own statistical probability to be used.
     </t>
     </section>
-    <section anchor="trk"><name>recovery graph</name>
+    <section anchor="trk"><name>Recovery Graph</name>
 
     <t>A networking graph that can be followed to transport packets with
     equivalent treatment, associated with usage metadata; as opposed to the
-    definition of a path above, a recovery graph represents not an actual but a potential,
-    it is not necessarily a linear sequence like a simple path, and is not
+    definition of a path above, a recovery graph represents not an actual but a
+    potential, it is not necessarily a linear sequence like a simple path, and
+    is not
     necessarily fully traversed (flooded) by all packets of a flow like a Detnet
     Path. Still, and as a simplification, the casual reader may consider that a
     recovery graph is very much like a DetNet path, aggregating multiple paths that may
@@ -365,7 +355,7 @@
     PREOF operations.
     </t>
    <figure anchor="Figtrk">
-          <name>Example IoT recovery graph to an IoT gateway with 1+1 redundancy</name>
+          <name>Example IoT Recovery Graph to an IoT Gateway with 1+1 Redundancy</name>
        <artwork align="center" name="" type="" alt="">
        <![CDATA[
              +---------+
@@ -380,7 +370,7 @@
       |  |  | Router     |  |  | Router
       +--|--+            +--|--+
          |                  |
-      o   \     o          / recovery graph branch
+      o   \     o          /  lane
     o      o      o---o---o   o      o   o  o
             \  o /    o          o         o
      o   o   \  /       o        low power lossy network
@@ -443,7 +433,7 @@
     Segments, see the definition for those terms in the next sections.
     A Protection Path contains at least 2 Lanes as a main path and a backup path.
 </t>
-<figure anchor='TRK'><name>A recovery graph and its Components</name>
+<figure anchor='TRK'><name>A Recovery Graph and its Components</name>
               <artwork align="center"><![CDATA[
 
  ------------------- forward direction ---------------------->
@@ -470,11 +460,11 @@
 
 
     </section>
-  <section><name>forward and Crossing</name>
+  <section><name>Forward and Crossing</name>
     <t>
-    forward refers to progress towards the recovery graph Egress. forward links are
+    Forward refers to progress towards the recovery graph Egress. Forward links are
     directional, and packets that are forwarded along the recovery graph can only be
-    transmitted along the link direction. crossing links are bidirectional,
+    transmitted along the link direction. Crossing links are bidirectional,
     meaning that they can be used in both directions, though a given packet may
     use the link in one direction only. A Segment can be forward, in which
     case it is composed of forward links only, or crossing, in which
@@ -484,17 +474,17 @@
     </section>
   <section><name>Lane</name>
     <t>
-    An end-to-end forward lane between the Ingress and Egress Nodes
-    of a recovery graph. A recovery graph Lane is expressed as a strict sequence of DetNet Relay
-    nodes or as a loose sequence of DetNet Relay nodes that are joined by recovery graph
-    Segments.
+    An end-to-end forward lane between the Ingress and Egress Nodes of a
+    recovery graph. A lane in a recovery graph is expressed as a strict sequence
+    of DetNet Relay nodes or as a loose sequence of DetNet Relay nodes that are
+    joined by recovery graph Segments.
     </t>
   </section>
     <section><name>Segment</name>
     <t>
     A strict sequence of DetNet Transit nodes between 2 DetNet Relay nodes; a
-    Segment of a recovery graph is composed topologically of two vertices of the recovery graph
-    and one edge of the recovery graph between those vertices.
+    Segment of a recovery graph is composed topologically of two vertices of the
+    recovery graph and one edge of the recovery graph between those vertices.
     </t>
     </section>
 
@@ -604,7 +594,7 @@
     Because a wireless lane may not be good enough to provide the
     required reliability, and even 2 parallel lanes may not be over a longer
     period of time, the RAW availability implies a journey that is a lot more
-    complex than following a f.
+    complex than following a serial path.
     </t>
     </section>
 
@@ -671,7 +661,7 @@
     aggregated information from lower layers about e.g., link quality.
     This information may be obtained from inside the device using
     specialized API (e.g., L2 triggers) or via control protocols such as BFD
-    <xref target="RFC5580"/> or DLEP <xref target="RFC8175"/>. It may then be
+    <xref target="RFC5880"/> or DLEP <xref target="RFC8175"/>. It may then be
     massaged and exported through oOAM messaging, and passed to the Controller
     Plane using the aCPF.h
     </t>
@@ -1257,7 +1247,7 @@
 </artwork>
 </figure>
 <t>
-   When a new flow is defined, the DetNet rCPF uses it current knowledge of
+   When a new flow is defined, the rCPF uses it current knowledge of
    the network to build a new recovery graph between an Ingress End System and an Egress
    End System for that flow; it indicates to the RAW Nodes where the PAREO
    operations may be actioned in the Network Plane.
@@ -1533,32 +1523,33 @@
       <name>Routing Time Scale vs. Forwarding Time Scale</name>
       <t>
    With DetNet, the Controller Plane Function handles the routing
-   computation and maintenance. With RAW, the rCPF remains
+   computation and maintenance. With RAW, the routing part of the CPF (rCPF) is
    segregated from the RAW Control Loop, so it may reside outside of the RAW
    network. To achieve RAW capabilities, the rCPF is enhanced to generate the
-   information required by the aCPF, which acts as the orientation component in
+   information required by the local aCPF, which acts as the orientation component in
    the loop. The rCPF may, e.g., propose DetNet Paths to be used as a reflex
    action in response to network events, or by provide aggregated history that
    the aCPF can use to make an oriented decision.
    </t>
 <t>
-   In a wireless mesh, the path to the DetNet rCPF can be expensive and
+   In a wireless mesh, the path to the DetNet CPF can be expensive and
    slow, possibly going across the whole mesh and back.
-   Reaching to the rCPF can also be slow in regards to the speed
+   Reaching to the CPF can also be slow in regards to the speed
    of events that affect the forwarding operation at the radio layer.
    Note that a distributed routing protocol may also take time and
    consume excessive wireless resources to reconverge to a new optimized state.
 
       </t><t>
-   As a result, the DetNet rCPF is not expected to be sensitive/reactive
-   to transient changes. The abstraction of a link at the routing level is
+   As a result, the DetNet CPF is not expected to be aware of and to react to
+   very transient changes. The abstraction of a link at the routing level is
    expected to use statistical metrics that aggregate the behavior of a link
    over long periods of time, and  represent its properties as shades of gray as
    opposed to numerical values such as a link quality indicator, or a boolean
    value for either up or down.
       </t><t>
-   The interaction with the (remote) DetNet rCPF is handled by a (local)
-   asynchronous CPF that builds reports to the rCPF and digests
+
+   The interaction with the (remote) RAW rCPF is handled by a (local)
+   aCPF that builds reports to the rCPF and digests
    the control information back, to be used inside a forwarding control loop
    for traffic steering.
       </t>
@@ -1791,9 +1782,10 @@
    short-term variation of quality of the links in a recovery graph
    </li>
    </ul>
-   <t>The recovery graph is installed with measurable objectives that are computed by the
-   DetNet rCPF to achieve the RAW SLA. The objectives can be expressed as
-   any of maximum number of packet lost in a row, bounded latency, maximal jitter,
+   <t>
+   The recovery graph is installed with measurable objectives that are computed
+   by the rCPF to achieve the RAW SLA. The objectives can be expressed as any of
+   maximum number of packet lost in a row, bounded latency, maximal jitter,
    maximum number of interleaved out of order packets,
    average number of copies received at the elimination point, and maximal
    delay between the first and the last received copy of the same packet.
@@ -2149,7 +2141,7 @@
 
 
 
-<xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.5580.xml"/>
+<xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.5880.xml"/>
 <!-- BFD -->
 
 <xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.5714.xml"/>

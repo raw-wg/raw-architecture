@@ -1164,8 +1164,7 @@
       for link quality prediction, which in turn can be used by the aCPF to
       Orient the Path selection by the PLR within the RAW OODA loop.
       </li>
-      <li> An Operational Plane PLR that Decides which DetNet Paths to use for the future packets
-      that will be routed within the recovery graph
+      <li> An Operational Plane PLR that hosts the Decision function of which DetNet Paths to use for the future packets that will be routed within the recovery graph
       </li>
       <li> Packet (hybrid) ARQ, Replication, Elimination and Ordering Dataplane
       actions that operate at the DetNet Service sub-layer to increase the

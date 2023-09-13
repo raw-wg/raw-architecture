@@ -19,20 +19,17 @@
      ipr="trust200902" obsoletes="" updates="" submissionType="IETF" xml:lang="en" version="3">
   <front>
     <title abbrev="RAW Architecture/Framework">Reliable and Available Wireless Framework</title>
-    <author initials="P" surname="Thubert" fullname="Pascal Thubert" role="editor">
-      <organization abbrev="Cisco Systems">Cisco Systems, Inc</organization>
+   <author initials='P' surname='Thubert' fullname='Pascal Thubert' role='editor'>
+      <!-- <organization abbrev='Cisco Systems'>Cisco Systems, Inc</organization> -->
       <address>
-    <postal>
-      <street>Building D</street>
-      <street>45 Allee des Ormes - BP1200 </street>
-      <city>MOUGINS - Sophia Antipolis</city>
-      <code>06254</code>
-      <country>France</country>
-    </postal>
-    <phone>+33 497 23 26 34</phone>
-    <email>pthubert@cisco.com</email>
+         <postal>
+            <city>Roquefort-les-Pins</city>
+            <code>06330</code>
+          <country>France</country>
+         </postal>
+         <email>pascal.thubert@gmail.com</email>
       </address>
-    </author>
+   </author>
 
 
     <author initials="L." surname="Berger" fullname="Lou Berger">

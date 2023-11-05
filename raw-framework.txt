@@ -3,10 +3,10 @@
 
 
 RAW                                                      P. Thubert, Ed.
-Internet-Draft                                             Cisco Systems
+Internet-Draft                                                          
 Intended status: Informational                                 L. Berger
-Expires: 10 December 2022                        LabN Consulting, L.L.C.
-                                                             8 June 2022
+Expires: 16 March 2024                           LabN Consulting, L.L.C.
+                                                       13 September 2023
 
 
                Reliable and Available Wireless Framework
@@ -41,11 +41,11 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 10 December 2022.
+   This Internet-Draft will expire on 16 March 2024.
 
 Copyright Notice
 
-   Copyright (c) 2022 IETF Trust and the persons identified as the
+   Copyright (c) 2023 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
 
@@ -53,9 +53,9 @@ Copyright Notice
 
 
 
-Thubert & Berger        Expires 10 December 2022                [Page 1]
+Thubert & Berger          Expires 16 March 2024                 [Page 1]
 
-Internet-Draft         RAW Architecture/Framework              June 2022
+Internet-Draft         RAW Architecture/Framework         September 2023
 
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Thubert & Berger        Expires 10 December 2022                [Page 2]
+Thubert & Berger          Expires 16 March 2024                 [Page 2]
 
-Internet-Draft         RAW Architecture/Framework              June 2022
+Internet-Draft         RAW Architecture/Framework         September 2023
 
 
    The "RAW Architecture" [RAW-ARCHI] document presents the RAW problem
@@ -165,9 +165,9 @@ Internet-Draft         RAW Architecture/Framework              June 2022
 
 
 
-Thubert & Berger        Expires 10 December 2022                [Page 3]
+Thubert & Berger          Expires 16 March 2024                 [Page 3]
 
-Internet-Draft         RAW Architecture/Framework              June 2022
+Internet-Draft         RAW Architecture/Framework         September 2023
 
 
 3.  Use Cases and Requirements Served
@@ -221,9 +221,9 @@ Internet-Draft         RAW Architecture/Framework              June 2022
 
 
 
-Thubert & Berger        Expires 10 December 2022                [Page 4]
+Thubert & Berger          Expires 16 March 2024                 [Page 4]
 
-Internet-Draft         RAW Architecture/Framework              June 2022
+Internet-Draft         RAW Architecture/Framework         September 2023
 
 
    The idea is that the rest of the path to the destination(s) is
@@ -277,9 +277,9 @@ Internet-Draft         RAW Architecture/Framework              June 2022
 
 
 
-Thubert & Berger        Expires 10 December 2022                [Page 5]
+Thubert & Berger          Expires 16 March 2024                 [Page 5]
 
-Internet-Draft         RAW Architecture/Framework              June 2022
+Internet-Draft         RAW Architecture/Framework         September 2023
 
 
    *  Bidirectional Forwarding Detection [BFD] and its variants
@@ -333,9 +333,9 @@ Internet-Draft         RAW Architecture/Framework              June 2022
 
 
 
-Thubert & Berger        Expires 10 December 2022                [Page 6]
+Thubert & Berger          Expires 16 March 2024                 [Page 6]
 
-Internet-Draft         RAW Architecture/Framework              June 2022
+Internet-Draft         RAW Architecture/Framework         September 2023
 
 
    optimize the use of the Track at the forwarding timescale to maintain
@@ -389,9 +389,9 @@ Internet-Draft         RAW Architecture/Framework              June 2022
 
 
 
-Thubert & Berger        Expires 10 December 2022                [Page 7]
+Thubert & Berger          Expires 16 March 2024                 [Page 7]
 
-Internet-Draft         RAW Architecture/Framework              June 2022
+Internet-Draft         RAW Architecture/Framework         September 2023
 
 
    With RAW, this exporting operation is injective but not bijective.
@@ -445,9 +445,9 @@ Internet-Draft         RAW Architecture/Framework              June 2022
 
 
 
-Thubert & Berger        Expires 10 December 2022                [Page 8]
+Thubert & Berger          Expires 16 March 2024                 [Page 8]
 
-Internet-Draft         RAW Architecture/Framework              June 2022
+Internet-Draft         RAW Architecture/Framework         September 2023
 
 
                          Flow 1 (6-tuple) ----+
@@ -501,9 +501,9 @@ Internet-Draft         RAW Architecture/Framework              June 2022
 
 
 
-Thubert & Berger        Expires 10 December 2022                [Page 9]
+Thubert & Berger          Expires 16 March 2024                 [Page 9]
 
-Internet-Draft         RAW Architecture/Framework              June 2022
+Internet-Draft         RAW Architecture/Framework         September 2023
 
 
 8.  Source-Routed vs. Distributed Forwarding Decision
@@ -557,9 +557,9 @@ Internet-Draft         RAW Architecture/Framework              June 2022
 
 
 
-Thubert & Berger        Expires 10 December 2022               [Page 10]
+Thubert & Berger          Expires 16 March 2024                [Page 10]
 
-Internet-Draft         RAW Architecture/Framework              June 2022
+Internet-Draft         RAW Architecture/Framework         September 2023
 
 
 9.  Encapsulation and Decapsulation
@@ -613,9 +613,9 @@ Internet-Draft         RAW Architecture/Framework              June 2022
 
 
 
-Thubert & Berger        Expires 10 December 2022               [Page 11]
+Thubert & Berger          Expires 16 March 2024                [Page 11]
 
-Internet-Draft         RAW Architecture/Framework              June 2022
+Internet-Draft         RAW Architecture/Framework         September 2023
 
 
    This effect can be alleviated by measuring on the fly but reporting
@@ -669,9 +669,9 @@ Internet-Draft         RAW Architecture/Framework              June 2022
 
 
 
-Thubert & Berger        Expires 10 December 2022               [Page 12]
+Thubert & Berger          Expires 16 March 2024                [Page 12]
 
-Internet-Draft         RAW Architecture/Framework              June 2022
+Internet-Draft         RAW Architecture/Framework         September 2023
 
 
    In other words, the best suited OAM method to enable the PSE make
@@ -725,9 +725,9 @@ Internet-Draft         RAW Architecture/Framework              June 2022
 
 
 
-Thubert & Berger        Expires 10 December 2022               [Page 13]
+Thubert & Berger          Expires 16 March 2024                [Page 13]
 
-Internet-Draft         RAW Architecture/Framework              June 2022
+Internet-Draft         RAW Architecture/Framework         September 2023
 
 
    Rex Buddenberg:  Individual contributor
@@ -748,11 +748,11 @@ Internet-Draft         RAW Architecture/Framework              June 2022
               <https://www.rfc-editor.org/info/rfc9030>.
 
    [RAW-ARCHI]
-              Thubert, P. and G. Z. Papadopoulos, "Reliable and
-              Available Wireless Architecture", Work in Progress,
-              Internet-Draft, draft-ietf-raw-architecture-04, 4 March
-              2022, <https://tools.ietf.org/html/draft-ietf-raw-
-              architecture-04>.
+              Thubert, P., "Reliable and Available Wireless
+              Architecture", Work in Progress, Internet-Draft, draft-
+              ietf-raw-architecture-15, 14 August 2023,
+              <https://datatracker.ietf.org/doc/html/draft-ietf-raw-
+              architecture-15>.
 
    [BFD]      Katz, D. and D. Ward, "Bidirectional Forwarding Detection
               (BFD)", RFC 5880, DOI 10.17487/RFC5880, June 2010,
@@ -781,9 +781,9 @@ Internet-Draft         RAW Architecture/Framework              June 2022
 
 
 
-Thubert & Berger        Expires 10 December 2022               [Page 14]
+Thubert & Berger          Expires 16 March 2024                [Page 14]
 
-Internet-Draft         RAW Architecture/Framework              June 2022
+Internet-Draft         RAW Architecture/Framework         September 2023
 
 
    [DLEP]     Ratliff, S., Jury, S., Satterwhite, D., Taylor, R., and B.
@@ -802,15 +802,16 @@ Internet-Draft         RAW Architecture/Framework              June 2022
               Thubert, P., Cavalcanti, D., Vilajosana, X., Schmitt, C.,
               and J. Farkas, "Reliable and Available Wireless
               Technologies", Work in Progress, Internet-Draft, draft-
-              ietf-raw-technologies-05, 2 February 2022,
-              <https://tools.ietf.org/html/draft-ietf-raw-technologies-
-              05>.
+              ietf-raw-technologies-08, 10 July 2023,
+              <https://datatracker.ietf.org/doc/html/draft-ietf-raw-
+              technologies-08>.
 
    [RAW-USE-CASES]
               Bernardos, C. J., Papadopoulos, G. Z., Thubert, P., and F.
-              Theoleyre, "RAW use-cases", Work in Progress, Internet-
-              Draft, draft-ietf-raw-use-cases-05, 23 February 2022,
-              <https://tools.ietf.org/html/draft-ietf-raw-use-cases-05>.
+              Theoleyre, "RAW Use-Cases", Work in Progress, Internet-
+              Draft, draft-ietf-raw-use-cases-11, 17 April 2023,
+              <https://datatracker.ietf.org/doc/html/draft-ietf-raw-use-
+              cases-11>.
 
    [DetNet-DP]
               Varga, B., Ed., Farkas, J., Berger, L., Malis, A., and S.
@@ -819,71 +820,71 @@ Internet-Draft         RAW Architecture/Framework              June 2022
               <https://www.rfc-editor.org/info/rfc8938>.
 
    [BIER-PREF]
-              Thubert, P., Eckert, T., Brodard, Z., and H. Jiang, "BIER-
-              TE extensions for Packet Replication and Elimination
+              Thubert, P., Eckert, T. T., Brodard, Z., and H. Jiang,
+              "BIER-TE extensions for Packet Replication and Elimination
               Function (PREF) and OAM", Work in Progress, Internet-
               Draft, draft-thubert-bier-replication-elimination-03, 3
-              March 2018, <https://tools.ietf.org/html/draft-thubert-
-              bier-replication-elimination-03>.
+              March 2018, <https://datatracker.ietf.org/doc/html/draft-
+              thubert-bier-replication-elimination-03>.
 
    [DetNet-IP-OAM]
-              Mirsky, G., Chen, M., and D. Black, "Operations,
+              Mirsky, G., Chen, M., and D. L. Black, "Operations,
               Administration and Maintenance (OAM) for Deterministic
               Networks (DetNet) with IP Data Plane", Work in Progress,
-              Internet-Draft, draft-ietf-detnet-ip-oam-04, 7 February
-              2022,
-              <https://tools.ietf.org/html/draft-ietf-detnet-ip-oam-04>.
+              Internet-Draft, draft-ietf-detnet-ip-oam-09, 1 August
+              2023, <https://datatracker.ietf.org/doc/html/draft-ietf-
+              detnet-ip-oam-09>.
 
 
 
-
-Thubert & Berger        Expires 10 December 2022               [Page 15]
+Thubert & Berger          Expires 16 March 2024                [Page 15]
 
-Internet-Draft         RAW Architecture/Framework              June 2022
+Internet-Draft         RAW Architecture/Framework         September 2023
 
 
    [RAW-5G]   Farkas, J., Dudda, T., Shapin, A., and S. Sandberg, "5G -
               Ultra-Reliable Wireless Technology with Low Latency", Work
               in Progress, Internet-Draft, draft-farkas-raw-5g-00, 1
-              April 2020,
-              <https://tools.ietf.org/html/draft-farkas-raw-5g-00>.
+              April 2020, <https://datatracker.ietf.org/doc/html/draft-
+              farkas-raw-5g-00>.
 
-   [BIER-TE]  Eckert, T., Menth, M., and G. Cauchie, "Tree Engineering
-              for Bit Index Explicit Replication (BIER-TE)", Work in
-              Progress, Internet-Draft, draft-ietf-bier-te-arch-13, 25
-              April 2022,
-              <https://tools.ietf.org/html/draft-ietf-bier-te-arch-13>.
+   [BIER-TE]  Eckert, T. T., Menth, M., and G. Cauchie, "Tree
+              Engineering for Bit Index Explicit Replication (BIER-TE)",
+              Work in Progress, Internet-Draft, draft-ietf-bier-te-arch-
+              13, 25 April 2022, <https://datatracker.ietf.org/doc/html/
+              draft-ietf-bier-te-arch-13>.
 
    [RAW-OAM]  Theoleyre, F., Papadopoulos, G. Z., Mirsky, G., and C. J.
               Bernardos, "Operations, Administration and Maintenance
               (OAM) features for RAW", Work in Progress, Internet-Draft,
-              draft-ietf-raw-oam-support-04, 5 March 2022,
-              <https://tools.ietf.org/html/draft-ietf-raw-oam-support-
-              04>.
+              draft-ietf-raw-oam-support-06, 5 March 2023,
+              <https://datatracker.ietf.org/doc/html/draft-ietf-raw-oam-
+              support-06>.
 
    [I-D.ietf-ippm-ioam-direct-export]
               Song, H., Gafni, B., Brockners, F., Bhandari, S., and T.
-              Mizrahi, "In-situ OAM Direct Exporting", Work in Progress,
-              Internet-Draft, draft-ietf-ippm-ioam-direct-export-08, 29
-              May 2022, <https://tools.ietf.org/html/draft-ietf-ippm-
-              ioam-direct-export-08>.
+              Mizrahi, "In Situ Operations, Administration, and
+              Maintenance (IOAM) Direct Exporting", Work in Progress,
+              Internet-Draft, draft-ietf-ippm-ioam-direct-export-11, 23
+              September 2022, <https://datatracker.ietf.org/doc/html/
+              draft-ietf-ippm-ioam-direct-export-11>.
 
    [DetNet-OAM]
               Mirsky, G., Theoleyre, F., Papadopoulos, G. Z., Bernardos,
               C. J., Varga, B., and J. Farkas, "Framework of Operations,
               Administration and Maintenance (OAM) for Deterministic
               Networking (DetNet)", Work in Progress, Internet-Draft,
-              draft-ietf-detnet-oam-framework-05, 14 October 2021,
-              <https://tools.ietf.org/html/draft-ietf-detnet-oam-
-              framework-05>.
+              draft-ietf-detnet-oam-framework-08, 1 February 2023,
+              <https://datatracker.ietf.org/doc/html/draft-ietf-detnet-
+              oam-framework-08>.
 
    [I-D.mirsky-ippm-hybrid-two-step]
               Mirsky, G., Lingqiang, W., Zhui, G., Song, H., and P.
               Thubert, "Hybrid Two-Step Performance Measurement Method",
               Work in Progress, Internet-Draft, draft-mirsky-ippm-
-              hybrid-two-step-13, 25 April 2022,
-              <https://tools.ietf.org/html/draft-mirsky-ippm-hybrid-two-
-              step-13>.
+              hybrid-two-step-15, 15 June 2023,
+              <https://datatracker.ietf.org/doc/html/draft-mirsky-ippm-
+              hybrid-two-step-15>.
 
 
 
@@ -892,33 +893,32 @@ Internet-Draft         RAW Architecture/Framework              June 2022
 
 
 
-
-Thubert & Berger        Expires 10 December 2022               [Page 16]
+Thubert & Berger          Expires 16 March 2024                [Page 16]
 
-Internet-Draft         RAW Architecture/Framework              June 2022
+Internet-Draft         RAW Architecture/Framework         September 2023
 
 
    [I-D.mirsky-ippm-epm]
-              Mirsky, G., Halpern, J., Min, X., and L. Han, "Error
+              Mirsky, G., Halpern, J. M., Min, X., and L. Han, "Error
               Performance Measurement in Packet-switched Networks", Work
               in Progress, Internet-Draft, draft-mirsky-ippm-epm-04, 24
-              October 2021,
-              <https://tools.ietf.org/html/draft-mirsky-ippm-epm-04>.
+              October 2021, <https://datatracker.ietf.org/doc/html/
+              draft-mirsky-ippm-epm-04>.
 
    [I-D.mirsky-bfd-mpls-demand]
-              Mirsky, G., "BFD in Demand Mode over Point-to-Point MPLS
+              Mirsky, G., "BFD in Demand Mode over a Point-to-Point MPLS
               LSP", Work in Progress, Internet-Draft, draft-mirsky-bfd-
-              mpls-demand-11, 7 March 2022,
-              <https://tools.ietf.org/html/draft-mirsky-bfd-mpls-demand-
-              11>.
+              mpls-demand-14, 9 May 2023,
+              <https://datatracker.ietf.org/doc/html/draft-mirsky-bfd-
+              mpls-demand-14>.
 
    [I-D.ietf-ippm-ioam-data]
               Brockners, F., Bhandari, S., and T. Mizrahi, "Data Fields
               for In Situ Operations, Administration, and Maintenance
               (IOAM)", Work in Progress, Internet-Draft, draft-ietf-
               ippm-ioam-data-17, 13 December 2021,
-              <https://tools.ietf.org/html/draft-ietf-ippm-ioam-data-
-              17>.
+              <https://datatracker.ietf.org/doc/html/draft-ietf-ippm-
+              ioam-data-17>.
 
    [MANET]    IETF, "Mobile Ad hoc Networking",
               <https://dataTracker.ietf.org/doc/charter-ietf-manet/>.
@@ -943,23 +943,22 @@ Internet-Draft         RAW Architecture/Framework              June 2022
 
 Authors' Addresses
 
-   Pascal Thubert (editor)
-   Cisco Systems, Inc
-   Building D
 
 
 
-Thubert & Berger        Expires 10 December 2022               [Page 17]
+
+
+
+Thubert & Berger          Expires 16 March 2024                [Page 17]
 
-Internet-Draft         RAW Architecture/Framework              June 2022
+Internet-Draft         RAW Architecture/Framework         September 2023
 
 
-   45 Allee des Ormes - BP1200
-   06254 MOUGINS - Sophia Antipolis
+   Pascal Thubert (editor)
+   06330 Roquefort-les-Pins
    France
 
-   Phone: +33 497 23 26 34
-   Email: pthubert@cisco.com
+   Email: pascal.thubert@gmail.com
 
 
    Lou Berger
@@ -1005,4 +1004,5 @@ Internet-Draft         RAW Architecture/Framework              June 2022
 
 
 
-Thubert & Berger        Expires 10 December 2022               [Page 18]
+
+Thubert & Berger          Expires 16 March 2024                [Page 18]

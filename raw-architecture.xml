@@ -662,7 +662,7 @@
     specialized API (e.g., L2 triggers) or via control protocols such as BFD
     <xref target="RFC5880"/> or DLEP <xref target="RFC8175"/>. It may then be
     massaged and exported through oOAM messaging, and passed to the Controller
-    Plane using the aCPF.h
+    Plane using the aCPF.
     </t>
     </section>
 

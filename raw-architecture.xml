@@ -1343,11 +1343,11 @@
   the available path diversity exceeds 1+1 linear redundancy.
 </t>
 <t>
-  RAW adds a Management sub-layer that operates in the DetNet Operational Plane.
-  The RAW Management sub-layer typically runs only in the DetNet Ingress Edge Node
+  RAW adds sub-layer functions that operate in the DetNet Operational Plane.
+  The RAW Operational sub-layer typically runs only in the DetNet Ingress Edge Node
   or End System, though it may also run in DetNet Relay Nodes when the RAW
   Control sub-layer is distributed along the recovery graph.
-  The RAW Management sub-layer functionality includes the PLR that decides the
+  The RAW Operational sub-layer functionality includes the PLR that decides the
   DetNet Path for the future packets of a flows and controls
   the PAREO Actuators along the DetNet Path through specific signaling,
   and the OAM Supervisor that triggers, and learns from, OAM observations, and
@@ -1398,7 +1398,7 @@
  | |          |  | Supervisor | | | |            |  | Supervisor | |
  | +----------+  +------------+ | | .-.-.-.-.-.--.  .-.-.-.-.-.--. |
  |                              | |    optional         optional   |
-    RAW Management sub-layer
+    RAW Operational sub-layer
 .....................................................................
     DetNet Service sub-layer
  |                              | |                                |

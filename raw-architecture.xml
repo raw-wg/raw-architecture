@@ -14,7 +14,7 @@
 <?rfc subcompact="no"?>
 <?rfc authorship="yes"?>
 <?rfc tocappendix="yes"?>
-<rfc xmlns:xi="http://www.w3.org/2001/XInclude" category="info" docName="draft-ietf-raw-architecture-16"
+<rfc xmlns:xi="http://www.w3.org/2001/XInclude" category="info" docName="draft-ietf-raw-architecture-17"
      ipr="trust200902" obsoletes="" updates="" submissionType="IETF"
      xml:lang="en" version="3">
   <front>
@@ -199,12 +199,14 @@
     <section><name>Acronyms</name>
     <section><name>ARQ</name>
     <t>
-    Automatic Repeat Request, enabling an acknowledged
-    transmission and retries. ARQ is a typical model at Layer-2 on a wireless
-    medium. ARQ is typically implemented hop-by-hop and not end-to-end in
-    wireless networks. Else, it introduces excessive indetermination in latency,
-    but a limited number  of retries within a bounded time may be used within
-    end-to-end constraints.
+	Automatic Repeat Request, a well-known mechanism, enabling an acknowledged
+	transmission with retries to mitigate errors and loss. ARQ may be 
+	implemented at various layers in a network. ARQ is typically implemented at
+	Layer-2, per hop and not end-to-end in wireless networks. ARQ improves 
+	delivery on lossy wireless. Additionally, ARQ retransmission may be further
+	limited by a bounded time to meet end-to-end packet latency constraints. 
+	Additional details and considerations for ARQ are detailed in 
+	<xref target="RFC3366"/>.	
     </t>
     </section>
     <section><name>FEC</name>
@@ -2162,6 +2164,9 @@
 
 <xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.3272.xml"/>
 <!-- TE -->
+
+<xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.3366.xml"/>
+<!-- Advice to link designers on link Automatic Repeat reQuest (ARQ) -->
 
 <xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.3411.xml"/>
 <!-- An Architecture for Describing Simple Network Management Protocol (SNMP) Management Frameworks -->

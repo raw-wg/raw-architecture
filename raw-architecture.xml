@@ -1,5 +1,4 @@
 <?xml version='1.0' encoding='utf-8'?>
-<!DOCTYPE rfc SYSTEM "rfc2629-xhtml.ent">
 
 <!-- Compiles with XML2RFC v3 https://xml2rfc.tools.ietf.org/cgi-bin/xml2rfc-dev.cgi -->
 
@@ -128,7 +127,21 @@
     control loop that dynamically controls the activation and deactivation of
     the feasible Protection Paths.
     </t>
-
+    <t>
+	In addition, RAW introduces the RAW API, which is an interface between the
+	lower layer wireless technology and the DetNet layers. The RAW API is RAW 
+	technology <xref target="I-D.ietf-raw-technologies"/> dependent as it can
+	vary what the different RAW technologies expose towards the DetNet layers. 
+	Furthermore, the different RAW technologies are equipped with different 
+	reliability features, e.g., short range broadcast, MUMIMO, PHY rate and 
+	other Modulation Coding Scheme (MCS) adaptation, (H)ARQ, constructive 
+	interference and overhearing. The RAW API enables interactions between the
+	reliability functions provided by the wireless technology and the 
+	reliability functions provided by DetNet. That is, the RAW API makes 
+	cross-layer optimization possible for the reliability functions of 
+	different layers depending on the actual exposure provided via the RAW API
+	by the given RAW technology.
+    </t>
    <t>This document presents the RAW problem and associated terminology in
    <xref target="problem"/>, presents a conceptual model for RAW in
    <xref target="model"/>, and, based on that model, elaborates on an
@@ -230,20 +243,6 @@
     conceptual cyclic model developed by USAF Colonel John Boyd, and that is
     applicable in multiple domains where agility can provide benefits against
     brute force.
-    </t>
-    </section>
-
-    <section><name>PAREO</name>
-    <t>
-    Packet (hybrid) ARQ, Replication, Elimination and
-    Ordering. PAREO is a superset Of DetNet's PREOF that includes leveraging
-    lower-layer (typically wireless) techniques such as short range broadcast,
-    MUMIMO, PHY rate and other Modulation Coding Scheme (MCS) adaptation,
-    constructive interference and overhearing, separately or in combination,
-    to increase the end-to-end reliability.
-    PAREO functions that are actuated at the lower layers may be controlled
-    through abstract interfaces by the RAW extensions within the DetNet Service
-    sub-layer.
     </t>
     </section>
     </section><!--Acronyms-->
@@ -414,7 +413,7 @@
     messages back to the Ingress.
     </li><li>
     The vertices of that graph are DetNet Relay nodes that operate at the
-    DetNet Service sub-layer and provide the PAREO functions.
+    DetNet Service sub-layer and provide the PREOF functions.
     </li><li>
     The topological edges of the graph are strict sequences of DetNet Transit
     nodes that operate at the DetNet Forwarding sub-layer.
@@ -611,7 +610,7 @@
     <t>
      An active OAM packet is considered in-band for the
       monitored recovery graph when it traverses the same set of links and interfaces
-      and if the OAM packet receives the same QoS and PAREO treatment as the
+      and if the OAM packet receives the same QoS and service protection treatment as the
       packets of the data flows that are injected in the recovery graph.
      </t>
     </section>
@@ -619,7 +618,7 @@
     <t>
      Out-of-band OAM is an active OAM whose path is not topologically congruent
      to the recovery graph, or its test packets receive a
-      QoS and/or PAREO treatment that is different from that of the packets of
+      QoS and/or service protection treatment that is different from that of the packets of
       the data flows that are injected in the recovery graph, or both.
      </t>
     </section>
@@ -758,7 +757,7 @@
     </t>
 
     </section>
-      <!--Elimination of Single recovery graphs of Failure-->
+      <!--Elimination of Single Points of Failure-->
 
 
 
@@ -1208,7 +1207,7 @@
     </t><t>
    The RAW Nodes are DetNet relays that operate in the RAW Network Plane and
    are capable of additional diversity mechanisms and measurement functions
-   related to the radio interface, in particular the PAREO diversity mechanisms.
+   related to the radio interface.
    RAW leverages a CPF that operates inside the RAW Nodes (typically the Ingress
    Edge Nodes) to dynamically adapt the path of the packets and optimizes the
    resource usage.
@@ -1247,8 +1246,8 @@
 <t>
    When a new flow is defined, the rCPF uses it current knowledge of
    the network to build a new recovery graph between an Ingress End System and an Egress
-   End System for that flow; it indicates to the RAW Nodes where the PAREO
-   operations may be actioned in the Network Plane.
+   End System for that flow; it indicates to the RAW Nodes where the PREOF and/or radio 
+   diversity and reliability operations may be actioned in the Network Plane.
   </t>
   <ul>
   <li>
@@ -1287,7 +1286,7 @@
     segments, either interleaved inside the recovery graph, or all the way to
     the Egress End Node (e.g., a server in the Internet). RAW observes the
     Lower-Layer Links between RAW nodes (typically, radio links) and the
-    end-to-end Network Layer operation to decide at all times which of the PAREO
+    end-to-end Network Layer operation to decide at all times which of the 
     diversity schemes is actioned by which RAW Nodes.
     </t><t>
     Once a recovery graph is established, per-segment and end-to-end reliability and
@@ -1304,8 +1303,7 @@
     communication resources, but does not provide scheduling and shaping, so RAW
     itself does not provide guarantees such as latency for the application
     payload. Rather, it should be seen as a dynamic optimization of the use of
-    redundancy to maintain it within certain boundaries. For instance, ARQ,
-    which is part of the PAREO capabilities (see <xref target="PAREO"/>) is
+    redundancy to maintain it within certain boundaries. For instance, ARQ is
     operated by the lower layers and RAW will only abstract the concept and hint
     the lower layers on the desired outcome, as opposed to performing the
     retries at Layer-3.
@@ -1348,37 +1346,34 @@
   or End System, though it may also run in DetNet Relay Nodes when the RAW
   Control sub-layer is distributed along the recovery graph.
   The RAW Operational sub-layer functionality includes the PLR that decides the
-  DetNet Path for the future packets of a flows and controls
-  the PAREO Actuators along the DetNet Path through specific signaling,
-  and the OAM Supervisor that triggers, and learns from, OAM observations, and
-  feeds the PLR for its next decision.
+  DetNet Path for the future packets of a flows along the DetNet Path through
+  specific signaling, and the OAM Supervisor that triggers, and learns from, 
+  OAM observations, and feeds the PLR for its next decision.
 </t>
 <t>
   RAW extends the DetNet Stack (see fig 4 of <xref target="RFC8655"/>) with
   additional functionality at the DetNet Service sub-layer for the actuation of
-  the PLR decision by the PAREO Actuator.
+  the PLR decision.
   Layer-3 in general and DetNet in particular operates on abstractions of the
   lower layers and through APIs to control those abstractions. For instance,
   DetNet already leverages lower layers for time-sensitive operations such as
   time synchronization and traffic shapers. Because the performances of the
   radio layers are subject to rapid changes, so RAW needs more dynamic gauges
-  and knobs. To that effect, the DetNet PREOF is extended with
-  the PAREO capabilities (see <xref target="PAREO"/>) and the RAW PAREO Actuator
-  manages dynamically the PAREO operations, which may be performed either within
-  the DetNet sub-layers or at a lower layer, using a common radio abstraction and
-  APIs in the latter case.
-  In particular, PAREO needs the capability to push reliability and timing hints
-  like suggest X retries (min, max) within a time window, or send unicast (one
-  next hop) or multicast (for overhearing). The other way around RAW needs hints
-  about the radio conditions like L2 triggers (RSSI, LQI, ETX…) over all the
-  wireless hops. This information is useful to both the aCPF and the PLR.
-
+  and knobs. To that effect, the RAW API enables interactions between the 
+  reliability functions provided by the wireless technology and the reliability 
+  functions provided by DetNet. That is, the RAW API provides a radio 
+  abstraction to the DetNet layer. The RAW API can be used  to push reliability
+  and timing hints like suggest X retries (min, max) within a time window, or 
+  send unicast (one next hop) or multicast (for overhearing). The other way 
+  around RAW needs hints about the radio conditions like L2 triggers (RSSI, 
+  LQI, ETX…) over all the wireless hops. This information is useful to both the
+  aCPF and the PLR.
   </t>
   <t>
   The RAW Service sub-layer also adds the OAM Propagator that (re)generates the
   OAM information as it is formed and propagated In-Band or Out-of-Band.
   The RAW Service sub-layer may be present in DetNet Edge and Relay Nodes, though
-  the PAREO Actuator has no operation in the Egress Edge Node.
+  the PREOF Actuator has no operation in the Egress Edge Node.
 </t>
 
 
@@ -1403,7 +1398,7 @@
     DetNet Service sub-layer
  |                              | |                                |
  | +----------+  +------------+ | | +------------+  +------------+ |
- | | PAREO    |  |  OAM       | | | |  PAREO     |  |  OAM       | |
+ | | PREOF    |  |  OAM       | | | |  PREOF     |  |  OAM       | |
  | | Actuator |  |  Observer  | | | |  Actuator  |  |  Observer  | |
  | +----------+  +------------+ | | +------------+  +------------+ |
  |                              | |                                |
@@ -1642,11 +1637,12 @@
       for the future packet(s) that are routed along the recovery graph,
       more in <xref target = "PLRpce" />;
       </dd>
-      <dt>Act:</dt><dd> PAREO Dataplane
+      <dt>Act:</dt><dd> PREOF Dataplane
       actions are controlled from the DetNet Service sub-layer to increase the
       reliability of the end-to-end transmission. The RAW architecture also
       covers in-situ signaling when the decision is Acted by a node that
-      down the recovery graph from the PLR, more in <xref target = "PAREO" />.
+      down the recovery graph from the PLR, more in 
+	  <xref target = "reliability" />.
       </dd>
       </dl>
       <figure anchor="oodaloop">
@@ -1663,7 +1659,7 @@
      ^                              |
      |                              |
      |                              |
-     +-------- Act (PAREO) <--------+
+     +-------- Act (PREOF) <--------+
                 At DetNet
              Service sub-layer
 
@@ -1690,14 +1686,14 @@
     a rerouting decision.
     </t>
     <t>
-    Finally, the RAW Service sub-layer Assurance may observe the individual PAREO
+    Finally, the RAW Service sub-layer Assurance may observe the individual PREOF
     operation of a relay node to ensure that it is conforming; this might
     require injecting an OAM packet at an upstream point inside the recovery graph and
     extracting that packet at another point downstream before it reaches the
     egress.
     </t><t>
     This observation feeds the RAW
-    PLR that makes the decision on which PAREO function is actioned at which RAW
+    PLR that makes the decision on which path is used at which RAW
     Node, for one a small continuous series of packets.
      </t>
 <figure anchor="Figranp2">
@@ -1804,9 +1800,9 @@
     To that effect, RAW defines the Point of Local Repair (PLR) as a synchronous
     CPF that performs rapid local adjustments of the forwarding tables within
     the diversity that the asynchronous CPF has in store for the recovery graph.
-    The PLR enables to exploit the richer forwarding capabilities with PAREO and
-    scheduled transmissions at a faster time scale over the smaller domain that
-    is the recovery graph, in either a loose or a strict fashion.
+    The PLR enables to exploit the richer forwarding capabilities at a faster 
+	time scale over the smaller domain that is the recovery graph, in either a
+	loose or a strict fashion.
     </t>
    <t>
     The PLR operates on metrics that evolve faster, but that need to be
@@ -1908,16 +1904,16 @@
 
 
     <!--  11111111111111111    -->
-    <section anchor="PAREO" numbered="true" toc="default">
-      <name>Act: DetNet Path Selection and PAREO functions</name>
+    <section anchor="reliability" numbered="true" toc="default">
+      <name>Act: DetNet Path Selection and reliability functions</name>
       <t>
     The main action by the PLR is the swapping of the DetNet Path within the
     recovery graph for the future packets.
     The candidate DetNet Paths represent different energy and spectrum profiles,
     and provide protection against different failures.
     </t>
-    <t>RAW also extends the DetNet protection services (typically, PREOF)
-    to possibly control lower layer one-hop reliability functions that are more
+    <t>The RAW API enriches the DetNet protection services (PREOF)
+    with potential possiblity to control lower layer one-hop reliability functions that are more
     typical to wireless than wires, including Automatic Repeat reQuest (ARQ),
     Forward Error Correction (FEC), Hybrid ARQ (HARQ) that includes both, and
     other techniques such as overhearing and constructive interferences.
@@ -1929,10 +1925,10 @@
     desired outcome, and the lower layer acts on those hints to provide
     the best approximation of that outcome, e.g., a level of reliability
     for one-hop transmission within a bounded budget of time and/or energy.
-    The term PAREO is coined to represent both that the set of PREOF reliability
-    functions is extended and the fact that some extensions are only controlled
-    from Layer-3 using an abstract interface, while they are really operated at
-    the lower layers.
+    Thus, the RAW API makes possible cross-layer optimization for 
+	reliability depending on the actual abstraction provided. That is, some 
+    reliability functions are controlled from Layer-3 using an abstract 
+	interface, while they are really operated at the lower layers.
     </t>
     <t>
     The RAW Path Selection can be implemented in both centralized and distributed
@@ -1954,7 +1950,7 @@
 
 
 
-</section>      <!-- Act: The PAREO Functions-->
+</section>      <!-- Act: The reliability Functions-->
 
 </section>
    <!-- The RAW Control Loop -->

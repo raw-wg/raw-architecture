@@ -113,7 +113,7 @@
    use of the shared spectrum.
    </t>
    <t>
-    Distance veector protocols can enable more than one feasible successors 
+    Distance Vector (DV) protocols can enable more than one feasible successors 
 	along non-equal-cost multipath forwarding graphs. This provides redundancy
 	and allows to dynamically adapt the forwarding operation to the state of 
 	the links. But this protection is limited since only a subset of the nodes
@@ -177,7 +177,8 @@
     </t>
     <t>
     RAW also reuses terminology defined for 6TiSCH in <xref target=
-    "RFC9030" format="default"/>.
+    "RFC9030" format="default"/> and equates the 6TiSCH concept of a Track with 
+	that of a recovery graph.
     </t>
     <t>In an quantic analogy, a recovery graph is to a path what an atomic orbital is to
     a planetary orbit, in that the electron has a probability of presence within
@@ -1953,7 +1954,7 @@
     expected that all lower layers support all those capabilities.
     </t>
     <t>
-    RAW povides hints to the lower layer services on the desired outcome, and
+    RAW provides hints to the lower layer services on the desired outcome, and
 	the lower layer acts on those hints to provide the best approximation of 
 	that outcome, e.g., a level of reliability for one-hop transmission within
 	a bounded budget of time and/or energy. Thus, the RAW API makes possible 

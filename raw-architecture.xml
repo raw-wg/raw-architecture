@@ -1185,10 +1185,46 @@
     <name>The RAW Conceptual Model</name>
     <t>
     RAW inherits the conceptual model described in section 4 of the DetNet
-    Architecture <xref target="RFC8655"/>. RAW extends the DetNet service
-    layer to provide additional agility against transmission loss.
+    Architecture <xref target="RFC8655"/> as illustrated in 
+	<xref target='FigLayers'/>, which also shows example reliability Functions
+	in the different layers. RAW extends DetNet with Point of Local Repair 
+	(PLR, see <xref target='PLRpce'/>) to provide additional agility against 
+	transmission loss. The PLR can act, e.g., based on indications from the
+    wireless layer or based on OAM.	
     </t>
 
+<figure anchor="FigLayers">
+          <name>Wireless layer and DetNet sub-layers</name>
+       <artwork align="left" name="" type="" alt="">
+                   .
+                   .
+     +-----------------------------+
+     |                             |
+     |  DetNet Service sub-layer   | (e.g., (PREOF)
+     |                             | 	 
+     +-----------------------------+
+     |                             |
+     | DetNet Forwarding sub-layer |
+     |                             |
+     |           _____    _____    |
+     |          | PLR +--+ OAM |   |
+     |           -+---    -----    |
+     |            | ^              |
+     |            | |              |
+     |         ___v_+___           | 	 
+     +--------+ RAW API +----------+
+     |         ---------           |
+     |    Wireless/Radio Layer     | (e.g., (H)ARQ)
+     |                             | 	 
+     +-----------------------------+
+                   .
+</artwork>
+</figure>
+    <t>
+	The RAW API enables interactions between the reliability functions provided
+	by the wireless technology and the reliability functions provided by DetNet.
+	Thus, the RAW aPI enables cross-layer optimizations to improve reliability. 
+	</t>
 
 <section anchor="plane" numbered="true" toc="default">
     <name>The RAW Planes</name>

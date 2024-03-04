@@ -302,7 +302,7 @@
     directions between a given host pair.
     </blockquote>
     <t>
-    Section 2 of <xref target="I-D.irtf-panrg-path-properties"/> recovery graphs to a
+    Section 2 of <xref target="I-D.irtf-panrg-path-properties"/> points to a
     longer, more modern definition of path, which begins as follows:
     </t>
     <blockquote>
@@ -630,7 +630,7 @@
       of the recovery graph, though not from Ingress to Egress.  It is injected
       in the datapath and extracted from the datapath around the
       particular function or subnetwork (e.g., around a relay providing
-      a Service sub-layer replication recovery graph) that is being tested.
+      a Service sub-layer replication point) that is being tested.
      </t>
     </section>
     <section><name>Upstream OAM</name>
@@ -705,7 +705,7 @@
     There are three principles [pillars] of high availability engineering:
     </t>
      <ol spacing="compact">
-     <li>elimination of single recovery graphs of failure</li>
+     <li>elimination of single points of failure</li>
      <li>reliable crossover</li>
      <li>prompt detection of failures as they occur.</li>
      </ol>
@@ -719,7 +719,7 @@
     <!--  333333333333333333333   -->
 
     <section numbered="true" toc="default">
-      <name>Elimination of Single recovery graphs of Failure</name>
+      <name>Elimination of Single Points of Failure</name>
 
     <t>
     Physical and logical components in a system happen to fail, either as the
@@ -742,7 +742,7 @@
     </t>
     <t>
     Intermediate network Nodes such as routers, switches and APs, wire bundles
-    and the air medium itself can become single recovery graphs of failure. For High
+    and the air medium itself can become single points of failure. For High
     Availability, it is thus required to use physically link- and Node-disjoint
     paths; in the wireless space, it is also required to use the highest
     possible degree of diversity (time, space, code, frequency, channel width)
@@ -750,7 +750,7 @@
     transmission loss.
     </t>
     <t>
-    From an economics standrecovery graph, executing this principle properly generally
+    From an economics standpoint, executing this principle properly generally
     increases capitalization expense because of the redundant equipment. In a
     constrained network where the waste of energy and bandwidth should be
     minimized, an excessive use of redundant links must be avoided; for RAW this
@@ -1075,7 +1075,7 @@
     </t>
     <dl>
     <dt>Promiscuous Overhearing:</dt><dd> Because the medium is broadcast as
-    opposed to physically recovery graph to recovery graph like a wire, more than one
+    opposed to physically point to point like a wire, more than one
     node in the forward direction of the packet may hear or overhear a
     transmission, and the reception by one may compensate the loss by another.
     The concept of path can be revisited in favor multipoint to multipoint

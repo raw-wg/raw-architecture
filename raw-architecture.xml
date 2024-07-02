@@ -45,9 +45,10 @@
       availability for IP connectivity across any combination of wired and
       wireless network segments.
 
-      The RAW Architecture extends the DetNet Architecture and other
-      standard IETF concepts and mechanisms to adapt to the specific challenges
-      of the wireless medium, in particular intermittently lossy connectivity.
+      The RAW Architecture extends the  Deterministic Networking (DetNet) 
+	  Architecture and other standard IETF concepts and mechanisms to adapt to
+	  the specific challenges of the wireless medium, in particular 
+	  intermittently lossy connectivity.
 
       This document defines a network control loop that optimizes the use of
       constrained spectrum and energy while maintaining the expected
@@ -85,7 +86,7 @@
    </t>
    <t>
    This innovation was initially introduced on wired networks, with IEEE 802.1
-   Time Sensitive networking (TSN) - for Ethernet LANs - and IETF DetNet.
+   Time-Sensitive networking (TSN) - for Ethernet LANs - and IETF DetNet.
    But the wired and the wireless media are fundamentally different at the
    physical level and in the possible abstractions that can be built for IPv6
    <xref target="RFC8200"/>, more in
@@ -117,13 +118,13 @@
 	along non-equal-cost multipath forwarding graphs. This provides redundancy
 	and allows to dynamically adapt the forwarding operation to the state of 
 	the links. But this protection is limited since only a subset of the nodes
-	along the path will have a feasible alternate successor.
+	along the path have a feasible alternate successor.
     </t>
     <t>
     RAW solves that problem by defining Protection Paths that can be fully
     non-congruent and can be activated dynamically upon failures. This requires
     additional control to take the routing decision early enough along the
-    possible paths to route around the failure. RAW defines a end-to-end
+    possible paths to route around the failure. RAW defines an end-to-end
     control loop that dynamically controls the activation and deactivation of
     the feasible Protection Paths.
     </t>
@@ -297,7 +298,7 @@
     </t>
     <blockquote>
     At a given moment, all the IP datagrams from a particular source host to a
-    particular destination host will typically traverse the same sequence of
+    particular destination host typically traverse the same sequence of
     gateways.  We use the term "path" for this sequence.  Note that a path is
     unidirectional; it is not unusual to have different paths in the two
     directions between a given host pair.
@@ -386,7 +387,7 @@
     Refining further, a recovery graph is defined as the coalescence of the collection
     of all the feasible DetNet Paths that a packet which flow is assigned to the
     recovery graph may be forwarded along.
-    A packet that is assigned to the recovery graph will experience one of the feasible
+    A packet that is assigned to the recovery graph experiences one of the feasible
     DetNet Paths based on the current selection by the PLR at the time the
     packet traverses the network.
     </t>
@@ -469,7 +470,7 @@
     use the link in one direction only. A Segment can be forward, in which
     case it is composed of forward links only, or crossing, in which
     case it is composed of crossing links only. A lane is always forward,
-    meaning that is is composed of forward links and Segments.
+    meaning that it is composed of forward links and Segments.
     </t>
     </section>
   <section><name>Lane</name>
@@ -530,7 +531,7 @@
      </section>
      <section><name>TSN</name>
     <t>
-    TSN stands for Time Sensitive Networking and denotes the efforts at IEEE
+    TSN stands for Time-Sensitive Networking and denotes the efforts at IEEE
     802 for deterministic networking, originally for use on Ethernet. Wireless
     TSN (WTSN) denotes extensions of the TSN work on wireless media such as
     the selected RAW technologies <xref target="I-D.ietf-raw-technologies"/>.
@@ -557,7 +558,7 @@
     <t>
     A service level objective (SLO) is one term in the SLA, for which specific
     network setting and operations are implemented. For instance, a dynamic
-    tuning of the packet redundancy will address an SLO of consecutive losses in
+    tuning of the packet redundancy addresses an SLO of consecutive losses in
     a row by augmenting the chances of delivery of a packet that follows a loss.
     </t>
     </section>
@@ -572,7 +573,7 @@
 
     <section><name>Reliability</name>
     <t>
-    Reliability is a measure of the probability that an item will perform its
+    Reliability is a measure of the probability that an item performs its
     intended function for a specified interval under stated conditions (SLA).
     RAW expresses reliability in terms of Mean Time Between Failure (MTBF)
     and Maximum Consecutive Failures (MCF). More in <xref target="NASA"/>.).
@@ -643,31 +644,30 @@
 
     <section><name>Residence Time</name>
     <t>
-    A residence time (RT) is defined as the
-    time period between the reception of a packet starts and the
-    transmission of the packet begins. In the context of RAW, RT is useful
-    for a transit node, not ingress or egress.
+    A residence time (RT) is defined as the time interval between the reception
+	of a packet starts and the transmission of the packet begins. In the 
+	context of RAW, RT is useful for a transit node, not ingress or egress.
     </t>
     </section>
 
 
     <section><name>Lower Layer information</name>
     <t>
-    The RAW Operational Plane elements (PLR and OAM Supervisor) may gather
+    The RAW Operational Plane elements (OAM Supervisor and local CPF (lCPF)) may gather
     aggregated information from lower layers about e.g., link quality.
     This information may be obtained from inside the device using
     specialized API (e.g., L2 triggers) or via control protocols such as BFD
     <xref target="RFC5880"/> or DLEP <xref target="RFC8175"/>. It may then be
     massaged and exported through oOAM messaging, and passed to the Controller
-    Plane using the aCPF.
+    Plane using the lCPF.
     </t>
     </section>
 
     <section><name>Additional References</name>
-    <t>  <xref target="I-D.ietf-detnet-oam-framework" format="default"/>
-    provides additional terminology related to OAM in the context of DetNet and
-    by extension of RAW, whereas <xref target="RFC7799"/> defines the Active,
-    Passive, and Hybrid OAM methods.
+    <t>  
+	<xref target="RFC9551"/> provides additional terminology related to OAM in
+	the context of DetNet and by extension of RAW, whereas 
+	<xref target="RFC7799"/> defines the Active, Passive, and Hybrid OAM methods.
     </t>
 </section> <!-- Additional References -->
 
@@ -731,7 +731,7 @@
     IP Routers leverage routing protocols to reroute to alternate routes in case
     of a failure. There is a rather open-ended issue over alternate routes --
     for example, when links are cabled through the same conduit, they form a
-    shared risk link group (SRLG), and will share the same fate if the bundle is
+    shared risk link group (SRLG), and share the same fate if the bundle is
     cut. The same effect can happen with virtual links that end up in a same
     physical transport through the games of encapsulation. In a same fashion,
     an interferer or an obstacle may affect multiple wireless transmissions at
@@ -769,7 +769,7 @@
     Having a backup equipment has a limited value unless it can be reliably
     switched into use within the down-time parameters.
     IP Routers execute reliable crossover continuously because
-    the routers will use any alternate routes that are available <xref target=
+    the routers use any alternate routes that are available <xref target=
     "RFC0791"/>. This is due to the stateless nature of IP datagrams and the
     dissociation of the datagrams from the forwarding routes they take.
     The <xref target="RFC5714">"IP Fast Reroute Framework"</xref> analyzes
@@ -791,7 +791,7 @@
     <t>
     In the case of RAW, the expectation is that multiple transient faults may
     happen in overlapping time windows, in which case the 1+1 redundancy with
-    delayed reestablishment of the second path will not provide the required
+    delayed reestablishment of the second path does not provide the required
     guarantees.
     The Data Plane must be configured with a sufficient degree of
     redundancy to select an alternate redundant path immediately upon a fault,
@@ -811,7 +811,7 @@
       <name>Prompt Notification of Failures</name>
     <t>
     The execution of the two above principles is likely to render a system where
-    the user will rarely see a failure. But someone needs to in order to direct
+    the user rarely sees a failure. But someone needs to in order to direct
     maintenance.
     </t>
     <t>
@@ -835,7 +835,7 @@
 
     <t>
     Those measurements are needed in the context of RAW to inform the controller
-    and make the long term reactive decision to rebuild a recovery graph based on
+    and make the long-term reactive decision to rebuild a recovery graph based on
     statistical and aggregated information. RAW itself operates in the DetNet
     Network
     Plane at a faster time scale with live information on speed, state, etc...
@@ -897,7 +897,7 @@
     </t>
    <t>
     But the linear interpolation method cannot resist multiple consecutive
-    losses, and a high MTBF is desired as a guarantee that this will not happen,
+    losses, and a high MTBF is desired as a guarantee that this does not happen,
     IOW that the number of losses-in-a-row can be bounded. In that case, what is
     really desired is a Maximum Consecutive Failures (MCF).
     If the number of losses in a row passes the MCF, the control loop has to
@@ -939,7 +939,7 @@
     <t>
     The affected frequencies depend on the relative position of the sender, the
     receiver, and all the reflecting objects in the environment.
-    A given hop will suffer from multipath fading for multiple packets in a
+    A given hop suffers from multipath fading for multiple packets in a
     row till a physical movement changes the reflection patterns.
     </t>
     </dd>
@@ -970,14 +970,15 @@
     </dl>
     <t>
     In an environment that is rich of metallic structures and mobile objects, a
-    single radio link will provide a fuzzy service, meaning that it cannot be trusted to transport the traffic reliably over a long period of time.
+    single radio link provides a fuzzy service, meaning that it cannot be 
+	trusted to transport the traffic reliably over a long period of time.
     </t>
     <t>
     Transmission losses are typically not independent, and their nature and
     duration are unpredictable; as long as a physical object (e.g., a metallic
     trolley between peers) that affects the transmission is not removed, or as
     long as the interferer (e.g., a radar) keeps transmitting, a continuous
-    stream of packets will be affected.
+    stream of packets are affected.
     </t>
     <t>
     The key technique to combat those unpredictable losses is diversity.
@@ -989,7 +990,7 @@
     paths (spatial diversity) that rely on diverse radio channels (frequency
     diversity) and diverse PHY technologies, e.g., narrowband vs. spread
     spectrum, or diverse codes.
-    Using time diversity will defeat short-term interferences;
+    Using time diversity defeats short-term interferences;
     spatial diversity combats very local causes such as multipath fading;
     narrowband and spread spectrum are relatively innocuous to one another and
     can be used for diversity in the presence of the other.
@@ -1043,15 +1044,15 @@
    Operational Plane where OAM operations take place.
    In the Network Plane, the DetNet service sub-layer
    focuses on flow protection (e.g., using redundancy) and can be fully operated
-   at Layer-3, while the DetNet forwarding sub-layer estapblishes the patsh, 
-   associates the flows to the paths, qnd ensures the availability of the 
+   at Layer-3, while the DetNet forwarding sub-layer establishes the paths, 
+   associates the flows to the paths, and ensures the availability of the 
    necessary resources, leverages Layer-2 functionalities for timely delivery 
    to the next DetNet system.
       </t>
       <t>
    The RAW Architecture extends the DetNet Network Plane, to accommodate one or
    multiple hops of homogeneous or heterogeneous wired and wireless technologies.
-   RAW adds reactivity to the DetNet service sub-layer to compensate the dynamics
+   RAW adds reactivity to the DetNet Forwarding sub-layer to compensate the dynamics
    for the radio links in terms of lossiness and bandwidth. This may apply for
    instance to mesh networks as illustrated in <xref target ="FigCPF"/>, or
    diverse radio access networks as illustrated in <xref target ="Figranp2"/>.
@@ -1097,7 +1098,7 @@
     compensated along the path. In the case of coded fragments and retries, it
     makes sense to variate all the possible physical properties of the
     transmission to reduce the chances that the same effect causes the loss of
-    both original and redundant transimissions.
+    both original and redundant transmissions.
     </dd>
     <dt>Relay Coordination and constructive interference:</dt><dd>Though it can be difficult to achieve at high speed, a fine time synchronization and a
     precise sense of phase allows the energy from multiple coordinated senders
@@ -1133,7 +1134,7 @@
       </t>
       <t>
    RAW distinguishes the longer time scale at which routes are computed from the
-   the shorter time scale where forwarding decisions are made for a limited time
+   shorter time scale where forwarding decisions are made. For a limited time,
    RAW Network Plane operations happen at a time scale that sits between the
    routing and the forwarding time scales, on one DetNet flow, to select a DetNet
    path within the resources delineated by a recovery graph (see <xref target="trk"/>).
@@ -1153,19 +1154,20 @@
       </li>
       <li>
       The DetNet Controller Plane Function (CPF) is split with an
-      optional asynchronous CPF (aCPF) that reports
-      data and information such as link statistics to be used asynchronously
+      optional local CPF (lCPF), which reports
+      data and information such as link statistics to be used 
       by the routing CPF (rCPF) to compute, install, and maintain the
       recovery graphs, e.g., by generating knowledge and wisdom such as a trained model
-      for link quality prediction, which in turn can be used by the aCPF to
+      for link quality prediction, which in turn can be used by the lCPF to
       Orient the Path selection by the PLR within the RAW OODA loop.
       </li>
-      <li> An Operational Plane PLR that hosts the Decision function of which DetNet Paths to use for the future packets that will be routed within the recovery graph
+      <li> A PLR that hosts the Decision function of which DetNet Paths to use
+	  for the future packets that are routed within the recovery graph.
       </li>
       <li> Service protection actions that operate at the DetNet Service 
 	  sub-layer to increase the reliability of the end-to-end transmissions.
 	  The RAW architecture also covers in-situ signaling when the decision is
-	  Acted by a node that down the recovery graph from the PLR.
+	  Acted by a node that is downstream in the recovery graph from the PLR.
       </li>
       </ol>
    <t> The overall OODA Loop optimizes the use of redundancy to achieve the
@@ -1186,9 +1188,9 @@
     Architecture <xref target="RFC8655"/> as illustrated in 
 	<xref target='FigLayers'/>, which also shows example reliability Functions
 	in the different layers. RAW extends DetNet with Point of Local Repair 
-	(PLR, see <xref target='PLRpce'/>) to provide additional agility against 
-	transmission loss. The PLR can act, e.g., based on indications from the
-    wireless layer or based on OAM.	
+	(PLR, see <xref target='PLRpce'/>), which is a point of local reaction  to
+	provide additional agility against transmission loss. The PLR can act, e.g.,
+	based on indications from the wireless layer or based on OAM.	
     </t>
 
 <figure anchor="FigLayers">
@@ -1221,7 +1223,8 @@
     <t>
 	The RAW API enables interactions between the reliability functions provided
 	by the wireless technology and the reliability functions provided by DetNet.
-	Thus, the RAW aPI enables cross-layer optimizations to improve reliability. 
+	Thus, the RAW API enables cross-layer optimizations to improve reliability
+	and availability. 
 	</t>
 
 <section anchor="plane" numbered="true" toc="default">
@@ -1278,7 +1281,7 @@
 </artwork>
 </figure>
 <t>
-   When a new flow is defined, the rCPF uses it current knowledge of
+   When a new flow is defined, the rCPF uses its current knowledge of
    the network to build a new recovery graph between an Ingress End System and an Egress
    End System for that flow; it indicates to the RAW Nodes where the PREOF and/or radio 
    diversity and reliability operations may be actioned in the Network Plane.
@@ -1299,7 +1302,7 @@
     </li>
     </ul>
     <t>
-    A local asynchronous CPF in the RAW node reports the Link-Layer metrics
+    A local CPF (lCPF) in the RAW node reports the Link-Layer metrics
     to the rCPF in a time-aggregated, e.g., statistical fashion.
     Example Link-Layer metrics include typical Link
     bandwidth (the medium speed depends dynamically on the PHY mode), number of
@@ -1323,9 +1326,9 @@
     end-to-end Network Layer operation to decide at all times which of the 
     diversity schemes is actioned by which RAW Nodes.
     </t><t>
-    Once a recovery graph is established, per-segment and end-to-end reliability and
-    availability statistics are periodically reported to the rCPF
-    to assure that the SLA can be met or have it recompute the recovery graph if not.
+    Once a recovery graph is established, per-segment and end-to-end reliability
+	and availability statistics are periodically reported to the rCPF to assure
+	that the SLA can be met or if not, then have the recovery graph recomputed.
     </t>
 
     </section> <!--The RAW Network Plane -->
@@ -1338,7 +1341,7 @@
     itself does not provide guarantees such as latency for the application
     payload. Rather, it should be seen as a dynamic optimization of the use of
     redundancy to maintain it within certain boundaries. For instance, ARQ is
-    operated by the lower layers and RAW will only abstract the concept and hint
+    operated by the lower layers and RAW only abstracts the concept and hints
     the lower layers on the desired outcome, as opposed to performing the
     retries at Layer-3.
     </t>
@@ -1346,7 +1349,7 @@
     Guarantees such as bounded latency depend on the upper layers (Transport or
     Application) to provide the payload in volumes and at times that match the
     contract with the DetNet sub-layers and the layers below. Excess of
-    incoming traffic at the DetNet Ingress will cause either dropping, queueing,
+    incoming traffic at the DetNet Ingress causes either dropping, queueing,
     or reclassification of the packets, and entail loss, latency, or jitter, and
     moot the guarantees that are provided inside the DetNet Network.
     </t>
@@ -1354,7 +1357,7 @@
     When the traffic from upper layers matches the expectation of the lower
     layers, RAW still depends on the lower layers to provide the timing and
     physical resources guarantees that are needed to match the traffic SLA.
-    When the availability of the physical resource varies, RAW will act on the
+    When the availability of the physical resource varies, RAW acts on the
     distribution of the traffic to leverage alternates within a finite set of
     potential resources.
     </t>
@@ -1366,8 +1369,8 @@
     <name>RAW and DetNet</name>
 <t>
   RAW leverages the DetNet Forwarding sub-layer and requires the support of
-  in-situ OAM in DetNet Transit Nodes (see fig 3 of <xref target="RFC8655"/>
-  for the dynamic acquisition of link capacity and state to maintain a strict RAW
+  OAM in DetNet Transit Nodes (see fig 3 of <xref target="RFC8655"/> for the 
+  dynamic acquisition of link capacity and state to maintain a strict RAW
   service, end-to-end, over a DetNet Network. RAW extends DetNet to improve the
   protection against link errors such as transient flapping that are far more
   common in wireless links. Nevertheless, the RAW methods are for the most part
@@ -1376,78 +1379,78 @@
 </t>
 <t>
   RAW adds sub-layer functions that operate in the DetNet Operational Plane.
-  The RAW Operational sub-layer typically runs only in the DetNet Ingress Edge Node
-  or End System, though it may also run in DetNet Relay Nodes when the RAW
-  Control sub-layer is distributed along the recovery graph.
-  The RAW Operational sub-layer functionality includes the PLR that decides the
-  DetNet Path for the future packets of a flows along the DetNet Path through
-  specific signaling, and the OAM Supervisor that triggers, and learns from, 
-  OAM observations, and feeds the PLR for its next decision.
+  The RAW functions such as lCPF and OAM typically run only in the DetNet 
+  Ingress Edge Node or End System, though it may also run in DetNet Relay Nodes
+  when the RAW operations are distributed along the recovery graph.
+  The RAW functions include the PLR, which decides the DetNet Path for the 
+  future packets of a flows along the DetNet Path, and the OAM Supervisor, 
+  which triggers, and learns from, OAM observations, and feeds the PLR for its
+  next decision.
 </t>
 <t>
-  RAW extends the DetNet Stack (see fig 4 of <xref target="RFC8655"/>) with
-  additional functionality at the DetNet Service sub-layer for the actuation of
-  the PLR decision.
+  As illustrated in <xref target='FigDN'/>, RAW extends the DetNet Stack (see
+  fig 4 of <xref target="RFC8655"/> and <xref target='FigLayers'/>) with 
+  additional functionality at the DetNet Service sub-layer for the actuation of PREOF based on the PLR decision.
   Layer-3 in general and DetNet in particular operates on abstractions of the
   lower layers and through APIs to control those abstractions. For instance,
   DetNet already leverages lower layers for time-sensitive operations such as
-  time synchronization and traffic shapers. Because the performances of the
-  radio layers are subject to rapid changes, so RAW needs more dynamic gauges
+  time synchronization and traffic shapers. As the performances of the
+  radio layers are subject to rapid changes, RAW needs more dynamic gauges
   and knobs. To that effect, the RAW API enables interactions between the 
   reliability functions provided by the wireless technology and the reliability 
   functions provided by DetNet. That is, the RAW API provides a radio 
-  abstraction to the DetNet layer. The RAW API can be used  to push reliability
+  abstraction to the DetNet layer. The RAW API can be used to push reliability
   and timing hints like suggest X retries (min, max) within a time window, or 
-  send unicast (one next hop) or multicast (for overhearing). The other way 
+  send unicast (one next hop) or multicast (for overhearing). The other way +-+
   around RAW needs hints about the radio conditions like L2 triggers (RSSI, 
   LQI, ETX…) over all the wireless hops. This information is useful to both the
-  aCPF and the PLR.
+  lCPF and the PLR.
   </t>
   <t>
-  The RAW Service sub-layer also adds the OAM Propagator that (re)generates the
-  OAM information as it is formed and propagated In-Band or Out-of-Band.
-  The RAW Service sub-layer may be present in DetNet Edge and Relay Nodes, though
-  the PREOF Actuator has no operation in the Egress Edge Node.
+  RAW uses various OAM functionalities at the different layers. For instance,
+  the OAM function in the DetNet Service sub-layer (re)generates the OAM 
+  information as it is formed and propagated In-Band or Out-of-Band. The RAW
+  functions may be present in Service sub-layer in DetNet Edge and Relay Nodes.
 </t>
 
 
 <figure anchor="FigDN">
-          <name>RAW functional posture within DetNet sub-layers</name>
+          <name>RAW functions in the DetNet sub-layers</name>
        <artwork align="left" name="" type="" alt="">
 
- +------------------------------+ +--------------------------------+
- |                              | |                                |
-.....................................................................
- |                              | |                                |
- | +--------------------------+ | | +----------------------------+ |
- | |     aCPF                 | | | |         aCPF               | |
- | +--------------------------+ | | +----------------------------+ |
- | +----------+  +------------+ | | .-.-.-.-.-.--.  .-.-.-.-.-.--. |
- | | PLR      |  | OAM        | | | | Distr. PLR |  | Distr. OAM | |
- | |          |  | Supervisor | | | |            |  | Supervisor | |
- | +----------+  +------------+ | | .-.-.-.-.-.--.  .-.-.-.-.-.--. |
- |                              | |    optional         optional   |
-    RAW Operational sub-layer
-.....................................................................
-    DetNet Service sub-layer
- |                              | |                                |
- | +----------+  +------------+ | | +------------+  +------------+ |
- | | PREOF    |  |  OAM       | | | |  PREOF     |  |  OAM       | |
- | | Actuator |  |  Observer  | | | |  Actuator  |  |  Observer  | |
- | +----------+  +------------+ | | +------------+  +------------+ |
- |                              | |                                |
-    DetNet Service sub-layer
-.....................................................................
-    DetNet Forwarding sub-layer
- |                              | |                                |
- |               +------------+ | |                 +------------+ |
- |               |In-Situ OAM | | |                 |In-Situ OAM | |
- |               +------------+ | |                 +------------+ |
- |                              | |                                |
- +------------------------------+ +--------------------------------+
+ +-----------------------------+  +------------------------------+
+ |                             |  |                              |
+ | +-------------------------+ |  | +--------------------------+ |
+ | |     lCPF                | |  | |         lCPF             | |
+ | +-------------------------+ |  | +--------------------------+ |
+ | +-------------------------+ |  | .-.-.-.-.-.-.-.-.-.-.-.-.-.  |
+ | |     OAM                 | |  | |      Distributed OAM     | |
+ | |     Supervisor          | |  | |      Supervisor          | |
+ | +-------------------------+ |  | .-.-.-.-.-.-.-.-.-.-.-.-.-.  |
+ |                             |  |          optional            |
 
-         End System or                       Relay
-       Ingress Edge Node                     Node
+Operational Plane
++-+-+-+-+-+-+-+-+-+-+ Southbound Interface -+-+-+-+-+-+-+-+-+-+-+-+
+Data Plane
+
+    DetNet Service sub-layer
+ |                             |  |                              |
+ | +----------+  +-----------+ |  | +-----------+  +-----------+ |
+ | | PREOF    |  |  OAM      | |  | |  PREOF    |  |  OAM      | |
+ | | Actuator |  |  Observer | |  | |  Actuator |  |  Observer | |
+ | +----------+  +-----------+ |  | +-----------+  +-----------+ |
+ |                             |  |                              |
+    DetNet Service sub-layer
+...................................................................
+    DetNet Forwarding sub-layer
+ |                             |  |                              |
+ | +----------+   +----------+ |  | +-----------+  +-----------+ |
+ | | PLR      |   |   OAM    | |  | |  PLR      |  |   OAM     | |
+ | +----------+   +----------+ |  | +-----------+  +-----------+ |
+ |                             |  |                              |
+ |                             |  |                              |
+          End System or                       
+           Edge Node                         Relay Node
 
 </artwork>
 </figure>
@@ -1553,10 +1556,10 @@
    computation and maintenance. With RAW, the routing part of the CPF (rCPF) is
    segregated from the RAW Control Loop, so it may reside outside of the RAW
    network. To achieve RAW capabilities, the rCPF is extended to generate the
-   information required by the local aCPF, which acts as the orientation component in
+   information required by the lCPF, which acts as the orientation component in
    the loop. The rCPF may, e.g., propose DetNet Paths to be used as a reflex
    action in response to network events, or by provide aggregated history that
-   the aCPF can use to make an oriented decision.
+   the lCPF can use to make an oriented decision.
    </t>
 <t>
    In a wireless mesh, the path to the DetNet CPF can be expensive and
@@ -1575,10 +1578,9 @@
    value for either up or down.
       </t><t>
 
-   The interaction with the (remote) RAW rCPF is handled by a (local)
-   aCPF that builds reports to the rCPF and digests
-   the control information back, to be used inside a forwarding control loop
-   for traffic steering.
+   The interaction with the (remote) RAW rCPF is handled by the lCPF, which 
+   builds reports to the rCPF and digests the control information back, to be
+   used inside a forwarding control loop for traffic steering.
       </t>
 
          <figure anchor="Figcontrol">
@@ -1619,13 +1621,13 @@
       <t>
    In the case of wireless, the changes that affect the forwarding decision can
    happen frequently and often for short durations, e.g., a mobile object moves
-   between a transmitter and a receiver, and will cancel the line of sight
+   between a transmitter and a receiver, and cancels the line of sight
    transmission for a few seconds, or a radar measures the depth of a pool and
    interferes on a particular channel for a split second.
       </t>
       <t>
-   There is thus a desire to separate the long term computation of the route and
-   the short term forwarding decision. In that model, the routing operation
+   There is thus a desire to separate the long-term computation of the route and
+   the short-term forwarding decision. In that model, the routing operation
    computes a recovery graph that enables multiple Non-Equal Cost Multi-Path
    (N-ECMP) forwarding solutions along so-called protection paths, and leaves
    it to the Network Plane to make
@@ -1638,7 +1640,7 @@
    formalizes a forwarding time scale that is an order(s) of magnitude shorter
    than the controller plane routing time scale, and separates the protocols
    and metrics that are used at both scales.
-   Routing can operate on long term statistics such as delivery
+   Routing can operate on long-term statistics such as delivery
    ratio over minutes to hours, but as a first approximation can ignore flapping.
    On the other hand, the RAW forwarding decision is made at the scale of the packet rate, and uses information that must be pertinent at the present time for the current transmission(s).
       </t>
@@ -1662,7 +1664,7 @@
       the end-to-end packet delivery, more in <xref target = "aom" />;
       </dd>
       <dt>Orient:</dt><dd>
-      An asynchronous CPF that reports data and information such as the link
+      A local CPF (lCPF), which reports data and information such as the link
       statistics, and leverages offline-computed wisdom and knowledge to Orient
       the PLR for its forwarding decision, more in <xref target = "pce" />;
       </dd>
@@ -1683,7 +1685,7 @@
        <artwork align="center" name="" type="" alt="">
 <![CDATA[
 
-     +-------> Orient (aCPF) -------+
+     +-------> Orient (lCPF) -------+
      |        reflex actions        |
      |       pre-trained model      |
      |             ...              |
@@ -1711,7 +1713,7 @@
     recovery graph or the DetNet Path that is being used at this time. As packets may be load
     balanced, replicated, eliminated, and / or fragmented for Network Coding
     (NC) forward error correction (FEC), the RAW In-situ operation needs to be
-    able to signal which operation occured to an individual packet.
+    able to signal which operation occurred to an individual packet.
     </t>
     <t>
     Active RAW OAM may
@@ -1750,24 +1752,26 @@
 ]]></artwork>
 </figure>
    <t>
-    In the case of a End-to-End Protection in a Wireless Mesh, the recovery graph is strict and congruent
-    with the path so all links are observed.
+    In the case of an End-to-End Protection in a Wireless Mesh, the recovery
+	graph is strict and congruent with the path so all links are observed.
     </t>
     <t>
-    Conversely, in the case of Radio Access Protection illustrated in <xref target="Figranp2"/>, the recovery graph is Loose and only the first hop is observed; the rest of the path is abstracted and considered infinitely reliable.
-    The loss if a packet is attributed to the first hop Radio Access Network (RAN),
-    even if a particular loss effectively happens farther down the path.
-    In that case, RAW enables technology diversity (e.g. Wi-Fi and 5G) which in
-    turn improves the diversity in spectrum usage.
+    Conversely, in the case of Radio Access Protection illustrated in 
+	<xref target="Figranp2"/>, the recovery graph is Loose and only the first
+	hop is observed; the rest of the path is abstracted and considered 
+	infinitely reliable. The loss of a packet is attributed to the first hop 
+	Radio Access Network (RAN), even if a particular loss effectively happens 
+	farther down the path. In that case, RAW enables technology diversity 
+	(e.g., Wi-Fi and 5G) which in turn improves the diversity in spectrum usage.
     </t>
     <t>
     The Links that are not observed by OAM are opaque to it, meaning that the
     OAM information is carried across and possibly echoed as data, but there is
     no information capture in intermediate nodes. In the example above, the
     Internet is opaque and not controlled by RAW; still the RAW OAM measures the
-    end-to-end latency and delivery ratio for packets sent via each if RAN 1,
-    RAN 2 and RAN 3, and determines whether a packet should be sent over either
-    or a collection of those access links.
+    end-to-end latency and delivery ratio for packets sent via RAN 1, RAN 2 and 
+	RAN 3, and determines whether a packet should be sent over either or a 
+	collection of those access links.
     </t>
 
 
@@ -1783,7 +1787,7 @@
    <t>
    RAW separates the long time scale at which a recovery graph is elaborated and installed,
    from the short time scale at which the forwarding decision is taken for one
-   or a few packets (see in <xref target="timescale"/>) that will experience the
+   or a few packets (see in <xref target="timescale"/>) that experience the
    same path until the network conditions evolve and another path is selected
    within the same recovery graph.
    </t>
@@ -1826,16 +1830,14 @@
     The RAW OODA Loop operates at the path selection time scale to provide
     agility vs. the brute force approach of flooding the whole recovery graph.
     The OODA Loop controls, within the redundant solutions that are proposed
-    by the acynchronous CPF, which will be used for each packet to provide a
-    Reliable and Available service while minimizing the waste of constrained
-    resources.
+    by the local CPF, which is used for each packet to provide a Reliable and
+	Available service while minimizing the waste of constrained resources.
     </t><t>
-    To that effect, RAW defines the Point of Local Repair (PLR) as a synchronous
-    CPF that performs rapid local adjustments of the forwarding tables within
-    the diversity that the asynchronous CPF has in store for the recovery graph.
-    The PLR enables to exploit the richer forwarding capabilities at a faster 
-	time scale over the smaller domain that is the recovery graph, in either a
-	loose or a strict fashion.
+    To that effect, RAW defines the Point of Local Repair (PLR), which performs
+	rapid local adjustments of the forwarding tables within the diversity that 
+	the lCPF has in store for the recovery graph. The PLR enables to exploit 
+	the richer forwarding capabilities at a faster time scale over a portion of
+	the recovery graph, in either a loose or a strict fashion.
     </t>
    <t>
     The PLR operates on metrics that evolve faster, but that need to be
@@ -1898,8 +1900,8 @@
     </tbody>
     </table>
     <t>
-    The PLR sits in the DetNet Service sub-Layer of Edge and Relay Nodes. On the
-    one hand, it operates on the packet flow, learning the recovery graph and path
+    The PLR sits in the DetNet Forwarding sub-Layer of Edge and Relay Nodes. 
+	The PLR it operates on the packet flow, learning the recovery graph and path
     selection information from the packet, possibly making local decision and
     retagging the packet to indicate so. On the other hand, the PLR interacts
     with the lower layers (through triggers and DLEP) and with its peers
@@ -1946,12 +1948,13 @@
     and provide protection against different failures.
     </t>
     <t>The RAW API enriches the DetNet protection services (PREOF)
-    with potential possiblity to interact with lower layer one-hop reliability functions that are more
-    typical to wireless than wires, including Automatic Repeat reQuest (ARQ),
-    Forward Error Correction (FEC), Hybrid ARQ (HARQ) that includes both, and
-    other techniques such as overhearing and constructive interferences.
-    Because RAW may be leveraged on wired links, e.g., to save power, it is not
-    expected that all lower layers support all those capabilities.
+    with potential possibility to interact with lower layer one-hop reliability
+	functions that are more typical to wireless than wires, including Automatic 
+	Repeat reQuest (ARQ), Forward Error Correction (FEC), Hybrid ARQ (HARQ) 
+	that includes both, and other techniques such as overhearing and 
+	constructive interferences. Because RAW may be leveraged on wired links, 
+	e.g., to save power, it is not expected that all lower layers support all
+	those capabilities.
     </t>
     <t>
     RAW provides hints to the lower layer services on the desired outcome, and
@@ -1964,8 +1967,8 @@
 	the lower layers.
     </t>
     <t>
-    The RAW Path Selection can be implemented in both centralized and distributed
-    scheduling approaches.
+    The RAW Path Selection can be implemented in both centralized and 
+	distributed approaches.
     In the centralized approach, the PLR may obtain a set of pre-computed DetNet
     paths matching a set of expected failures, and apply the appropriate DetNet
     paths for the current state of the wireless links.
@@ -2082,9 +2085,6 @@
 <displayreference   target="I-D.ietf-raw-technologies"   to="RAW-TECHNOS"/>
 <displayreference   target="I-D.ietf-raw-use-cases"   to="RAW-USE-CASES"/>
 
-<displayreference   target="I-D.ietf-detnet-oam-framework"     to="DetNet-OAM"/>
-
-
 <displayreference   target="RFC1122"                  to="INT-ARCHI"/>
 <displayreference   target="RFC3272"                  to="TE"/>
 <displayreference   target="RFC8175"                  to="DLEP"/>
@@ -2094,6 +2094,7 @@
 <displayreference   target="RFC8200"                  to="IPv6"/>
 <displayreference   target="RFC8938"                  to="DetNet-DP"/>
 <displayreference   target="RFC9030"                  to="6TiSCH-ARCHI"/>
+<displayreference   target="RFC9551"                  to="DetNet-OAM"/>
 
     <references>
       <name>References</name>
@@ -2185,16 +2186,16 @@
 
 <xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.8175.xml"/>
  <!--    Dynamic Link Exchange Protocol  -->
+ 
+ <xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.9551.xml"/>
+ <!-- Framework of Operations, Administration, and Maintenance (OAM) for Deterministic Networking (DetNet) -->
 
 <xi:include href="http://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.irtf-panrg-path-properties.xml"/>
 
 <xi:include href="http://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.thubert-6man-ipv6-over-wireless.xml"/>
 <!-- IPv6 Neighbor Discovery on Wireless Networks -->
 
-<xi:include href="http://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-detnet-oam-framework.xml"/>
-
-
-    <reference anchor="NASA" target="https://kscddms.ksc.nasa.gov/Reliability/Documents/150814-3bWhatIsReliability.pdf">
+    <reference anchor="NASA" target="https://extapps.ksc.nasa.gov/Reliability/Documents/150814-3bWhatIsReliability.pdf">
       <front>
         <title>RELIABILITY: Definition &amp; Quantitative Illustration</title>
         <author  initials="T." surname="Adams" fullname="Tim Adams" >

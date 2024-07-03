@@ -3,9 +3,9 @@
 
 
 RAW                                                      P. Thubert, Ed.
-Internet-Draft                                               2 July 2024
+Internet-Draft                                               3 July 2024
 Intended status: Informational                                          
-Expires: 3 January 2025
+Expires: 4 January 2025
 
 
               Reliable and Available Wireless Architecture
@@ -42,7 +42,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 3 January 2025.
+   This Internet-Draft will expire on 4 January 2025.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Thubert                  Expires 3 January 2025                 [Page 1]
+Thubert                  Expires 4 January 2025                 [Page 1]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -100,21 +100,20 @@ Table of Contents
        2.5.2.  Service Level Objective . . . . . . . . . . . . . . .  13
        2.5.3.  Service Level Indicator . . . . . . . . . . . . . . .  13
        2.5.4.  Reliability . . . . . . . . . . . . . . . . . . . . .  13
-       2.5.5.  Available . . . . . . . . . . . . . . . . . . . . . .  13
-       2.5.6.  Availability  . . . . . . . . . . . . . . . . . . . .  13
+       2.5.5.  Availability  . . . . . . . . . . . . . . . . . . . .  13
      2.6.  OAM variations  . . . . . . . . . . . . . . . . . . . . .  13
        2.6.1.  Active OAM  . . . . . . . . . . . . . . . . . . . . .  13
        2.6.2.  In-Band OAM . . . . . . . . . . . . . . . . . . . . .  14
        2.6.3.  Out-of-Band OAM . . . . . . . . . . . . . . . . . . .  14
+       2.6.4.  Limited OAM . . . . . . . . . . . . . . . . . . . . .  14
 
 
 
-Thubert                  Expires 3 January 2025                 [Page 2]
+Thubert                  Expires 4 January 2025                 [Page 2]
 
 Internet-Draft              RAW Architecture                   July 2024
 
 
-       2.6.4.  Limited OAM . . . . . . . . . . . . . . . . . . . . .  14
        2.6.5.  Upstream OAM  . . . . . . . . . . . . . . . . . . . .  14
        2.6.6.  Residence Time  . . . . . . . . . . . . . . . . . . .  14
        2.6.7.  Lower Layer information . . . . . . . . . . . . . . .  15
@@ -145,7 +144,7 @@ Internet-Draft              RAW Architecture                   July 2024
    10. References  . . . . . . . . . . . . . . . . . . . . . . . . .  39
      10.1.  Normative References . . . . . . . . . . . . . . . . . .  39
      10.2.  Informative References . . . . . . . . . . . . . . . . .  41
-   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .  42
+   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .  43
 
 1.  Introduction
 
@@ -165,7 +164,8 @@ Internet-Draft              RAW Architecture                   July 2024
 
 
 
-Thubert                  Expires 3 January 2025                 [Page 3]
+
+Thubert                  Expires 4 January 2025                 [Page 3]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -221,7 +221,7 @@ Internet-Draft              RAW Architecture                   July 2024
 
 
 
-Thubert                  Expires 3 January 2025                 [Page 4]
+Thubert                  Expires 4 January 2025                 [Page 4]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -277,7 +277,7 @@ Internet-Draft              RAW Architecture                   July 2024
 
 
 
-Thubert                  Expires 3 January 2025                 [Page 5]
+Thubert                  Expires 4 January 2025                 [Page 5]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -333,7 +333,7 @@ Internet-Draft              RAW Architecture                   July 2024
 
 
 
-Thubert                  Expires 3 January 2025                 [Page 6]
+Thubert                  Expires 4 January 2025                 [Page 6]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -389,7 +389,7 @@ Internet-Draft              RAW Architecture                   July 2024
 
 
 
-Thubert                  Expires 3 January 2025                 [Page 7]
+Thubert                  Expires 4 January 2025                 [Page 7]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -445,7 +445,7 @@ Internet-Draft              RAW Architecture                   July 2024
 
 
 
-Thubert                  Expires 3 January 2025                 [Page 8]
+Thubert                  Expires 4 January 2025                 [Page 8]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -501,7 +501,7 @@ Internet-Draft              RAW Architecture                   July 2024
 
 
 
-Thubert                  Expires 3 January 2025                 [Page 9]
+Thubert                  Expires 4 January 2025                 [Page 9]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -557,7 +557,7 @@ Internet-Draft              RAW Architecture                   July 2024
 
 
 
-Thubert                  Expires 3 January 2025                [Page 10]
+Thubert                  Expires 4 January 2025                [Page 10]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -613,7 +613,7 @@ Internet-Draft              RAW Architecture                   July 2024
 
 
 
-Thubert                  Expires 3 January 2025                [Page 11]
+Thubert                  Expires 4 January 2025                [Page 11]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -669,7 +669,7 @@ Internet-Draft              RAW Architecture                   July 2024
 
 
 
-Thubert                  Expires 3 January 2025                [Page 12]
+Thubert                  Expires 4 January 2025                [Page 12]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -697,23 +697,23 @@ Internet-Draft              RAW Architecture                   July 2024
 
 2.5.4.  Reliability
 
-   Reliability is a measure of the probability that an item performs its
-   intended function for a specified interval under stated conditions
-   (SLA).  RAW expresses reliability in terms of Mean Time Between
-   Failure (MTBF) and Maximum Consecutive Failures (MCF).  More in
-   [NASA].).
+   Reliability is a measure of the probability that an item (e.g.,
+   system, network) will perform its intended function with no failure
+   for a stated period of time (or number of demands or load) under
+   stated environmental conditions.  In other words, reliability is the
+   probability that an item will be in an uptime state (i.e., fully
+   operational or ready to perform) for a stated mission, e.g., to
+   provide an SLA.  See more in [NASA1].
 
-2.5.5.  Available
+2.5.5.  Availability
 
-   That is exempt of unscheduled outage or derivation from the terms of
-   the SLA.  A basic expectation for a RAW network is that the flow is
-   maintained in the face of any single breakage or flapping.
-
-2.5.6.  Availability
-
-   Availability is a measure of the relative amount of time where a RAW
-   Network operates in stated condition (SLA), expressed as
-   (uptime)/(uptime+downtime).
+   Availability is the probability of an item’s (e.g., a network’s)
+   mission readiness (e.g., to provide an SLA), an uptime state with the
+   likelihood of a recoverable downtime state.  Availability is
+   expressed as (uptime)/(uptime+downtime).  Note that it is
+   availability that addresses downtime (incl. time for maintenance,
+   repair, and replacement activities) and not reliability.  See more in
+   [NASA2].
 
 2.6.  OAM variations
 
@@ -725,7 +725,7 @@ Internet-Draft              RAW Architecture                   July 2024
 
 
 
-Thubert                  Expires 3 January 2025                [Page 13]
+Thubert                  Expires 4 January 2025                [Page 13]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -781,7 +781,7 @@ Internet-Draft              RAW Architecture                   July 2024
 
 
 
-Thubert                  Expires 3 January 2025                [Page 14]
+Thubert                  Expires 4 January 2025                [Page 14]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -837,7 +837,7 @@ Internet-Draft              RAW Architecture                   July 2024
 
 
 
-Thubert                  Expires 3 January 2025                [Page 15]
+Thubert                  Expires 4 January 2025                [Page 15]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -893,7 +893,7 @@ Internet-Draft              RAW Architecture                   July 2024
 
 
 
-Thubert                  Expires 3 January 2025                [Page 16]
+Thubert                  Expires 4 January 2025                [Page 16]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -939,17 +939,17 @@ Internet-Draft              RAW Architecture                   July 2024
 3.1.2.  Applying Reliability Concepts to Networking
 
    The terms Reliability and Availability are defined for use in RAW in
-   Section 2 and the reader is invited to read [NASA] for more details
-   on the general definition of Reliability.  Practically speaking a
-   number of nines is often used to indicate the reliability of a data
-   link, e.g., 5 nines indicate a Packet Delivery Ratio (PDR) of
-   99.999%.
+   Section 2 and the reader is invited to read [NASA1] and [NASA2] for
+   more details on the general definition of Reliability.  Practically
+   speaking a number of nines is often used to indicate the reliability
+   of a data link, e.g., 5 nines indicate a Packet Delivery Ratio (PDR)
+   of 99.999%.
 
 
 
 
 
-Thubert                  Expires 3 January 2025                [Page 17]
+Thubert                  Expires 4 January 2025                [Page 17]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -976,13 +976,14 @@ Internet-Draft              RAW Architecture                   July 2024
    consecutive losses, and a high MTBF is desired as a guarantee that
    this does not happen, IOW that the number of losses-in-a-row can be
    bounded.  In that case, what is really desired is a Maximum
-   Consecutive Failures (MCF).  If the number of losses in a row passes
-   the MCF, the control loop has to abort and the system, e.g., the
-   production line, may need to enter an emergency stop condition.
+   Consecutive Loss (MCL).  (See also section 5.9.5 in [DLEP].)  If the
+   number of losses in a row passes the MCL, the control loop has to
+   abort and the system, e.g., the production line, may need to enter an
+   emergency stop condition.
 
    Engineers that build automated processes may use the network
    reliability expressed in nines or as an MTBF as a proxy to indicate
-   an MCF, e.g., as described in section 7.4 of the "Deterministic
+   an MCL, e.g., as described in section 7.4 of the "Deterministic
    Networking Use Cases" [RFC8578].
 
 3.1.3.  Wireless Effects Affecting Reliability
@@ -1004,8 +1005,7 @@ Internet-Draft              RAW Architecture                   July 2024
 
 
 
-
-Thubert                  Expires 3 January 2025                [Page 18]
+Thubert                  Expires 4 January 2025                [Page 18]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -1061,7 +1061,7 @@ Internet-Draft              RAW Architecture                   July 2024
 
 
 
-Thubert                  Expires 3 January 2025                [Page 19]
+Thubert                  Expires 4 January 2025                [Page 19]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -1117,7 +1117,7 @@ Internet-Draft              RAW Architecture                   July 2024
 
 
 
-Thubert                  Expires 3 January 2025                [Page 20]
+Thubert                  Expires 4 January 2025                [Page 20]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -1173,7 +1173,7 @@ Internet-Draft              RAW Architecture                   July 2024
 
 
 
-Thubert                  Expires 3 January 2025                [Page 21]
+Thubert                  Expires 4 January 2025                [Page 21]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -1229,7 +1229,7 @@ Internet-Draft              RAW Architecture                   July 2024
 
 
 
-Thubert                  Expires 3 January 2025                [Page 22]
+Thubert                  Expires 4 January 2025                [Page 22]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -1285,7 +1285,7 @@ Internet-Draft              RAW Architecture                   July 2024
 
 
 
-Thubert                  Expires 3 January 2025                [Page 23]
+Thubert                  Expires 4 January 2025                [Page 23]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -1341,7 +1341,7 @@ Internet-Draft              RAW Architecture                   July 2024
 
 
 
-Thubert                  Expires 3 January 2025                [Page 24]
+Thubert                  Expires 4 January 2025                [Page 24]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -1397,7 +1397,7 @@ Internet-Draft              RAW Architecture                   July 2024
 
 
 
-Thubert                  Expires 3 January 2025                [Page 25]
+Thubert                  Expires 4 January 2025                [Page 25]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -1453,7 +1453,7 @@ Internet-Draft              RAW Architecture                   July 2024
 
 
 
-Thubert                  Expires 3 January 2025                [Page 26]
+Thubert                  Expires 4 January 2025                [Page 26]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -1509,7 +1509,7 @@ Internet-Draft              RAW Architecture                   July 2024
 
 
 
-Thubert                  Expires 3 January 2025                [Page 27]
+Thubert                  Expires 4 January 2025                [Page 27]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -1565,7 +1565,7 @@ Internet-Draft              RAW Architecture                   July 2024
 
 
 
-Thubert                  Expires 3 January 2025                [Page 28]
+Thubert                  Expires 4 January 2025                [Page 28]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -1621,7 +1621,7 @@ Internet-Draft              RAW Architecture                   July 2024
 
 
 
-Thubert                  Expires 3 January 2025                [Page 29]
+Thubert                  Expires 4 January 2025                [Page 29]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -1677,7 +1677,7 @@ Internet-Draft              RAW Architecture                   July 2024
 
 
 
-Thubert                  Expires 3 January 2025                [Page 30]
+Thubert                  Expires 4 January 2025                [Page 30]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -1733,7 +1733,7 @@ Internet-Draft              RAW Architecture                   July 2024
 
 
 
-Thubert                  Expires 3 January 2025                [Page 31]
+Thubert                  Expires 4 January 2025                [Page 31]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -1789,7 +1789,7 @@ Internet-Draft              RAW Architecture                   July 2024
 
 
 
-Thubert                  Expires 3 January 2025                [Page 32]
+Thubert                  Expires 4 January 2025                [Page 32]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -1845,7 +1845,7 @@ Internet-Draft              RAW Architecture                   July 2024
 
 
 
-Thubert                  Expires 3 January 2025                [Page 33]
+Thubert                  Expires 4 January 2025                [Page 33]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -1901,7 +1901,7 @@ Internet-Draft              RAW Architecture                   July 2024
 
 
 
-Thubert                  Expires 3 January 2025                [Page 34]
+Thubert                  Expires 4 January 2025                [Page 34]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -1957,7 +1957,7 @@ Internet-Draft              RAW Architecture                   July 2024
 
 
 
-Thubert                  Expires 3 January 2025                [Page 35]
+Thubert                  Expires 4 January 2025                [Page 35]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -2013,7 +2013,7 @@ Internet-Draft              RAW Architecture                   July 2024
 
 
 
-Thubert                  Expires 3 January 2025                [Page 36]
+Thubert                  Expires 4 January 2025                [Page 36]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -2069,7 +2069,7 @@ Internet-Draft              RAW Architecture                   July 2024
 
 
 
-Thubert                  Expires 3 January 2025                [Page 37]
+Thubert                  Expires 4 January 2025                [Page 37]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -2125,7 +2125,7 @@ Internet-Draft              RAW Architecture                   July 2024
 
 
 
-Thubert                  Expires 3 January 2025                [Page 38]
+Thubert                  Expires 4 January 2025                [Page 38]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -2181,7 +2181,7 @@ Internet-Draft              RAW Architecture                   July 2024
 
 
 
-Thubert                  Expires 3 January 2025                [Page 39]
+Thubert                  Expires 4 January 2025                [Page 39]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -2237,7 +2237,7 @@ Internet-Draft              RAW Architecture                   July 2024
 
 
 
-Thubert                  Expires 3 January 2025                [Page 40]
+Thubert                  Expires 4 January 2025                [Page 40]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -2293,7 +2293,7 @@ Internet-Draft              RAW Architecture                   July 2024
 
 
 
-Thubert                  Expires 3 January 2025                [Page 41]
+Thubert                  Expires 4 January 2025                [Page 41]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -2313,6 +2313,13 @@ Internet-Draft              RAW Architecture                   July 2024
               Berry, "Dynamic Link Exchange Protocol (DLEP)", RFC 8175,
               DOI 10.17487/RFC8175, June 2017,
               <https://www.rfc-editor.org/info/rfc8175>.
+
+   [DetNet-Flow]
+              Varga, B., Farkas, J., Cummings, R., Jiang, Y., and D.
+              Fedyk, "Flow and Service Information Model for
+              Deterministic Networking (DetNet)", RFC 9016,
+              DOI 10.17487/RFC9016, March 2021,
+              <https://www.rfc-editor.org/info/rfc9016>.
 
    [DetNet-OAM]
               Mirsky, G., Theoleyre, F., Papadopoulos, G., Bernardos,
@@ -2335,9 +2342,21 @@ Internet-Draft              RAW Architecture                   July 2024
               8 March 2023, <https://datatracker.ietf.org/doc/html/
               draft-thubert-6man-ipv6-over-wireless-15>.
 
-   [NASA]     Adams, T., "RELIABILITY: Definition & Quantitative
+   [NASA1]    Adams, T., "RELIABILITY: Definition & Quantitative
               Illustration", <https://extapps.ksc.nasa.gov/Reliability/
               Documents/150814-3bWhatIsReliability.pdf>.
+
+
+
+
+Thubert                  Expires 4 January 2025                [Page 42]
+
+Internet-Draft              RAW Architecture                   July 2024
+
+
+   [NASA2]    Adams, T., "Availability",
+              <https://extapps.ksc.nasa.gov/Reliability/
+              Documents/160727.1_Availability_What_is_it.pdf>.
 
 Author's Address
 
@@ -2349,4 +2368,41 @@ Author's Address
 
 
 
-Thubert                  Expires 3 January 2025                [Page 42]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Thubert                  Expires 4 January 2025                [Page 43]

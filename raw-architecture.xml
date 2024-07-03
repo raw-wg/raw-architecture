@@ -573,25 +573,24 @@
 
     <section><name>Reliability</name>
     <t>
-    Reliability is a measure of the probability that an item performs its
-    intended function for a specified interval under stated conditions (SLA).
-    RAW expresses reliability in terms of Mean Time Between Failure (MTBF)
-    and Maximum Consecutive Failures (MCF). More in <xref target="NASA"/>.).
-    </t>
-    </section>
-
-    <section><name>Available</name>
-    <t>
-    That is exempt of unscheduled outage or derivation from the terms of the SLA.
-    A basic expectation for a RAW network is that the flow is maintained in the
-    face of any single breakage or flapping.
+    Reliability is a measure of the probability that an item (e.g., system, 
+	network) will perform its intended function with no failure for a stated 
+	period of time (or number of demands or load) under stated environmental 
+	conditions. In other words, reliability is the probability that an item 
+	will be in an uptime state (i.e., fully operational or ready to perform) 
+	for a stated mission, e.g., to provide an SLA. See more in 
+	<xref target="NASA1"/>.
     </t>
     </section>
 
     <section><name>Availability</name>
     <t>
-    Availability is a measure of the relative amount of time where a RAW Network
-    operates in stated condition (SLA), expressed as (uptime)/(uptime+downtime).
+    Availability is the probability of an item’s (e.g., a network’s) mission
+	readiness (e.g., to provide an SLA), an uptime state with the likelihood 
+	of a recoverable downtime state. Availability is expressed as 
+	(uptime)/(uptime+downtime). Note that it is availability that addresses 
+	downtime (incl. time for maintenance, repair, and replacement activities) 
+	and not reliability. See more in <xref target="NASA2"/>.
     </t>
     </section>
 
@@ -871,7 +870,7 @@
     <t>
     The terms Reliability and Availability are defined for use in RAW in
     <xref target="terms"/> and the reader is invited to read
-    <xref target="NASA"/>
+    <xref target="NASA1"/> and <xref target="NASA2"/>
     for more details on the general definition of Reliability.
     Practically speaking a number of nines is often used to indicate the
     reliability of a data link, e.g., 5 nines indicate a
@@ -899,14 +898,15 @@
     But the linear interpolation method cannot resist multiple consecutive
     losses, and a high MTBF is desired as a guarantee that this does not happen,
     IOW that the number of losses-in-a-row can be bounded. In that case, what is
-    really desired is a Maximum Consecutive Failures (MCF).
-    If the number of losses in a row passes the MCF, the control loop has to
+    really desired is a Maximum Consecutive Loss (MCL). (See also section 
+	5.9.5 in <xref target="RFC8175"/>.)
+    If the number of losses in a row passes the MCL, the control loop has to
     abort and the system, e.g., the production line, may need to enter an
     emergency stop condition.
     </t>
    <t>
     Engineers that build automated processes may use the network reliability
-    expressed in nines or as an MTBF as a proxy to indicate an MCF, e.g., as
+    expressed in nines or as an MTBF as a proxy to indicate an MCL, e.g., as
     described in section 7.4 of the <xref target="RFC8578">"Deterministic
     Networking Use Cases"</xref>.
     </t>
@@ -2093,6 +2093,7 @@ Data Plane
 <displayreference   target="RFC5714"                  to="FRR"/>
 <displayreference   target="RFC8200"                  to="IPv6"/>
 <displayreference   target="RFC8938"                  to="DetNet-DP"/>
+<displayreference   target="RFC9016"                  to="DetNet-Flow"/>
 <displayreference   target="RFC9030"                  to="6TiSCH-ARCHI"/>
 <displayreference   target="RFC9551"                  to="DetNet-OAM"/>
 
@@ -2118,7 +2119,6 @@ Data Plane
 
 <xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.4655.xml"/>
 <!-- PCE -->
-
 
 <xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.6291.xml"/>
 <!-- Guidelines for the Use of the "OAM" Acronym in the IETF  -->
@@ -2186,8 +2186,11 @@ Data Plane
 
 <xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.8175.xml"/>
  <!--    Dynamic Link Exchange Protocol  -->
- 
- <xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.9551.xml"/>
+
+<xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.9016.xml"/>
+ <!-- Flow and Service Information Model for Deterministic Networking (DetNet) -->
+
+<xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.9551.xml"/>
  <!-- Framework of Operations, Administration, and Maintenance (OAM) for Deterministic Networking (DetNet) -->
 
 <xi:include href="http://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.irtf-panrg-path-properties.xml"/>
@@ -2195,9 +2198,19 @@ Data Plane
 <xi:include href="http://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.thubert-6man-ipv6-over-wireless.xml"/>
 <!-- IPv6 Neighbor Discovery on Wireless Networks -->
 
-    <reference anchor="NASA" target="https://extapps.ksc.nasa.gov/Reliability/Documents/150814-3bWhatIsReliability.pdf">
+    <reference anchor="NASA1" target="https://extapps.ksc.nasa.gov/Reliability/Documents/150814-3bWhatIsReliability.pdf">
       <front>
         <title>RELIABILITY: Definition &amp; Quantitative Illustration</title>
+        <author  initials="T." surname="Adams" fullname="Tim Adams" >
+          <organization>NASA</organization>
+        </author>
+        <date/>
+      </front>
+    </reference>
+	
+	<reference anchor="NASA2" target="https://extapps.ksc.nasa.gov/Reliability/Documents/160727.1_Availability_What_is_it.pdf">
+      <front>
+        <title>Availability</title>
         <author  initials="T." surname="Adams" fullname="Tim Adams" >
           <organization>NASA</organization>
         </author>

@@ -1320,8 +1320,9 @@
     bounded delay of at least one copy of a packet.
     </t><t>
     Depending on the use case and the SLA, the recovery graph may comprise non-RAW
-    segments, either interleaved inside the recovery graph, or all the way to
-    the Egress End Node (e.g., a server in the Internet). RAW observes the
+    segments, either interleaved inside the recovery graph (e.g. over tunnels), 
+	or all the way to the Egress End Node (e.g., a server in the local wired 
+	domain). RAW observes the
     Lower-Layer Links between RAW nodes (typically, radio links) and the
     end-to-end Network Layer operation to decide at all times which of the 
     diversity schemes is actioned by which RAW Nodes.
@@ -1523,11 +1524,11 @@ Data Plane
 | DetNet  |            |  Only   |                       | DetNet  |
 | Service |            | Service |                       | Service |
 +---------+----------------------+---+               +---+---------+
-|          DetNet                    |               |   DetNet    |
-|         Forwarding                 |               | Forwarding  |
+|          DetNet                    |_______________|   DetNet    |
+|         Forwarding                  _______________  Forwarding  |
 +------------------------------------+               +-------------+
 
- Ingress    Transit       Relay           Internet           Egress
+ Ingress    Transit       Relay           Tunnel             Egress
  End  ...   Nodes   ...   Nodes    ...                ...       End
  System                                                      System
 
@@ -1735,20 +1736,23 @@ Data Plane
           <name>Observed Links in Radio Access Protection</name>
        <artwork align="center" name="" type="" alt="">
 <![CDATA[
+
+                               Opaque to OAM
+                       <---------------------------->
                                    ...   ..
                 RAN 1  -----  ...      ..  ...
              /              .    ..          ....
 +-------+  /              .            ..      ....    +------+
-|Ingress|-                .                     .....  |Egress|
-|  End  |------ RAN 2 -- .       Internet       ....---| End  |
+|Ingress|-              __________Tunnel_______________|Egress|
+|  End  |------ RAN 2 --_______________________________  End  |
 |System |-                ..                   .....   |System|
 +-------+  \               .               ......      +------+
              \               ...   ...     .....
                 RAN n  --------  ...   .....
 
-       <------------------> <-------------------->
-          Observed by OAM       Opaque to OAM
-
+        <-------L2------> 
+         Observed by OAM       
+        <----------------------L3----------------------->
 ]]></artwork>
 </figure>
    <t>
@@ -1768,7 +1772,7 @@ Data Plane
     The Links that are not observed by OAM are opaque to it, meaning that the
     OAM information is carried across and possibly echoed as data, but there is
     no information capture in intermediate nodes. In the example above, the
-    Internet is opaque and not controlled by RAW; still the RAW OAM measures the
+    Tunnel underlay is opaque and not controlled by RAW; still the RAW OAM measures the
     end-to-end latency and delivery ratio for packets sent via RAN 1, RAN 2 and 
 	RAN 3, and determines whether a packet should be sent over either or a 
 	collection of those access links.
@@ -1958,7 +1962,7 @@ Data Plane
     </t>
     <t>
     RAW provides hints to the lower layer services on the desired outcome, and
-	the lower layer acts on those hints to provide the best approximation of 
+	the lower layer acts on those hinHts to provide the best approximation of 
 	that outcome, e.g., a level of reliability for one-hop transmission within
 	a bounded budget of time and/or energy. Thus, the RAW API makes possible 
 	cross-layer optimization for reliability depending on the actual 
@@ -2093,7 +2097,7 @@ Data Plane
 <displayreference   target="RFC5714"                  to="FRR"/>
 <displayreference   target="RFC8200"                  to="IPv6"/>
 <displayreference   target="RFC8938"                  to="DetNet-DP"/>
-<displayreference   target="RFC9016"                  to="DetNet-Flow"/>
+<!--displayreference   target="RFC9016"                  to="DetNet-Flow"/-->
 <displayreference   target="RFC9030"                  to="6TiSCH-ARCHI"/>
 <displayreference   target="RFC9551"                  to="DetNet-OAM"/>
 
@@ -2187,7 +2191,7 @@ Data Plane
 <xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.8175.xml"/>
  <!--    Dynamic Link Exchange Protocol  -->
 
-<xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.9016.xml"/>
+<!--xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.9016.xml"/-->
  <!-- Flow and Service Information Model for Deterministic Networking (DetNet) -->
 
 <xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.9551.xml"/>

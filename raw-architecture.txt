@@ -3,9 +3,9 @@
 
 
 RAW                                                      P. Thubert, Ed.
-Internet-Draft                                               5 July 2024
+Internet-Draft                                               6 July 2024
 Intended status: Informational                                          
-Expires: 6 January 2025
+Expires: 7 January 2025
 
 
               Reliable and Available Wireless Architecture
@@ -42,7 +42,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 6 January 2025.
+   This Internet-Draft will expire on 7 January 2025.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Thubert                  Expires 6 January 2025                 [Page 1]
+Thubert                  Expires 7 January 2025                 [Page 1]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Thubert                  Expires 6 January 2025                 [Page 2]
+Thubert                  Expires 7 January 2025                 [Page 2]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -138,13 +138,13 @@ Internet-Draft              RAW Architecture                   July 2024
    6.  Security Considerations . . . . . . . . . . . . . . . . . . .  38
      6.1.  Layer-2 encryption  . . . . . . . . . . . . . . . . . . .  38
      6.2.  Forced Access . . . . . . . . . . . . . . . . . . . . . .  38
-   7.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  38
-   8.  Contributors  . . . . . . . . . . . . . . . . . . . . . . . .  38
+   7.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  39
+   8.  Contributors  . . . . . . . . . . . . . . . . . . . . . . . .  39
    9.  Acknowledgments . . . . . . . . . . . . . . . . . . . . . . .  39
    10. References  . . . . . . . . . . . . . . . . . . . . . . . . .  39
      10.1.  Normative References . . . . . . . . . . . . . . . . . .  39
      10.2.  Informative References . . . . . . . . . . . . . . . . .  41
-   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .  42
+   Author's Address  . . . . . . . . . . . . . . . . . . . . . . . .  43
 
 1.  Introduction
 
@@ -165,7 +165,7 @@ Internet-Draft              RAW Architecture                   July 2024
 
 
 
-Thubert                  Expires 6 January 2025                 [Page 3]
+Thubert                  Expires 7 January 2025                 [Page 3]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -221,7 +221,7 @@ Internet-Draft              RAW Architecture                   July 2024
 
 
 
-Thubert                  Expires 6 January 2025                 [Page 4]
+Thubert                  Expires 7 January 2025                 [Page 4]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -277,7 +277,7 @@ Internet-Draft              RAW Architecture                   July 2024
 
 
 
-Thubert                  Expires 6 January 2025                 [Page 5]
+Thubert                  Expires 7 January 2025                 [Page 5]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -333,7 +333,7 @@ Internet-Draft              RAW Architecture                   July 2024
 
 
 
-Thubert                  Expires 6 January 2025                 [Page 6]
+Thubert                  Expires 7 January 2025                 [Page 6]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -389,7 +389,7 @@ Internet-Draft              RAW Architecture                   July 2024
 
 
 
-Thubert                  Expires 6 January 2025                 [Page 7]
+Thubert                  Expires 7 January 2025                 [Page 7]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -445,7 +445,7 @@ Internet-Draft              RAW Architecture                   July 2024
 
 
 
-Thubert                  Expires 6 January 2025                 [Page 8]
+Thubert                  Expires 7 January 2025                 [Page 8]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -501,7 +501,7 @@ Internet-Draft              RAW Architecture                   July 2024
 
 
 
-Thubert                  Expires 6 January 2025                 [Page 9]
+Thubert                  Expires 7 January 2025                 [Page 9]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -557,7 +557,7 @@ Internet-Draft              RAW Architecture                   July 2024
 
 
 
-Thubert                  Expires 6 January 2025                [Page 10]
+Thubert                  Expires 7 January 2025                [Page 10]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -613,7 +613,7 @@ Internet-Draft              RAW Architecture                   July 2024
 
 
 
-Thubert                  Expires 6 January 2025                [Page 11]
+Thubert                  Expires 7 January 2025                [Page 11]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -669,7 +669,7 @@ Internet-Draft              RAW Architecture                   July 2024
 
 
 
-Thubert                  Expires 6 January 2025                [Page 12]
+Thubert                  Expires 7 January 2025                [Page 12]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -725,7 +725,7 @@ Internet-Draft              RAW Architecture                   July 2024
 
 
 
-Thubert                  Expires 6 January 2025                [Page 13]
+Thubert                  Expires 7 January 2025                [Page 13]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -781,7 +781,7 @@ Internet-Draft              RAW Architecture                   July 2024
 
 
 
-Thubert                  Expires 6 January 2025                [Page 14]
+Thubert                  Expires 7 January 2025                [Page 14]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -837,7 +837,7 @@ Internet-Draft              RAW Architecture                   July 2024
 
 
 
-Thubert                  Expires 6 January 2025                [Page 15]
+Thubert                  Expires 7 January 2025                [Page 15]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -893,7 +893,7 @@ Internet-Draft              RAW Architecture                   July 2024
 
 
 
-Thubert                  Expires 6 January 2025                [Page 16]
+Thubert                  Expires 7 January 2025                [Page 16]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -949,7 +949,7 @@ Internet-Draft              RAW Architecture                   July 2024
 
 
 
-Thubert                  Expires 6 January 2025                [Page 17]
+Thubert                  Expires 7 January 2025                [Page 17]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -1005,7 +1005,7 @@ Internet-Draft              RAW Architecture                   July 2024
 
 
 
-Thubert                  Expires 6 January 2025                [Page 18]
+Thubert                  Expires 7 January 2025                [Page 18]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -1061,7 +1061,7 @@ Internet-Draft              RAW Architecture                   July 2024
 
 
 
-Thubert                  Expires 6 January 2025                [Page 19]
+Thubert                  Expires 7 January 2025                [Page 19]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -1117,7 +1117,7 @@ Internet-Draft              RAW Architecture                   July 2024
 
 
 
-Thubert                  Expires 6 January 2025                [Page 20]
+Thubert                  Expires 7 January 2025                [Page 20]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -1173,7 +1173,7 @@ Internet-Draft              RAW Architecture                   July 2024
 
 
 
-Thubert                  Expires 6 January 2025                [Page 21]
+Thubert                  Expires 7 January 2025                [Page 21]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -1229,7 +1229,7 @@ Internet-Draft              RAW Architecture                   July 2024
 
 
 
-Thubert                  Expires 6 January 2025                [Page 22]
+Thubert                  Expires 7 January 2025                [Page 22]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -1285,7 +1285,7 @@ Internet-Draft              RAW Architecture                   July 2024
 
 
 
-Thubert                  Expires 6 January 2025                [Page 23]
+Thubert                  Expires 7 January 2025                [Page 23]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -1341,7 +1341,7 @@ Internet-Draft              RAW Architecture                   July 2024
 
 
 
-Thubert                  Expires 6 January 2025                [Page 24]
+Thubert                  Expires 7 January 2025                [Page 24]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -1393,19 +1393,14 @@ Internet-Draft              RAW Architecture                   July 2024
    *  The recovery graph may be expressed loosely to enable traversing a
       non-RAW subnetwork as in Figure 7.  In that case, RAW can not
       leverage end-to-end DetNet and cannot provide latency guarantees.
-      The non-RAW subnetwork is neglected in the RAW computation, that
 
 
 
-Thubert                  Expires 6 January 2025                [Page 25]
+
+Thubert                  Expires 7 January 2025                [Page 25]
 
 Internet-Draft              RAW Architecture                   July 2024
 
-
-      is, considered jitterless, and infinitely reliable and/or
-      available in comparison with the links between RAW nodes, so loss
-      and jitter that is measured end-to-end is attributed to the RAW
-      hops (typically an access link).
 
    A local CPF (lCPF) in the RAW node reports the Link-Layer metrics to
    the rCPF in a time-aggregated, e.g., statistical fashion.  Example
@@ -1448,16 +1443,6 @@ Internet-Draft              RAW Architecture                   July 2024
    RAW only abstracts the concept and hints the lower layers on the
    desired outcome, as opposed to performing the retries at Layer-3.
 
-
-
-
-
-
-Thubert                  Expires 6 January 2025                [Page 26]
-
-Internet-Draft              RAW Architecture                   July 2024
-
-
    Guarantees such as bounded latency depend on the upper layers
    (Transport or Application) to provide the payload in volumes and at
    times that match the contract with the DetNet sub-layers and the
@@ -1465,6 +1450,13 @@ Internet-Draft              RAW Architecture                   July 2024
    causes either dropping, queueing, or reclassification of the packets,
    and entail loss, latency, or jitter, and moot the guarantees that are
    provided inside the DetNet Network.
+
+
+
+Thubert                  Expires 7 January 2025                [Page 26]
+
+Internet-Draft              RAW Architecture                   July 2024
+
 
    When the traffic from upper layers matches the expectation of the
    lower layers, RAW still depends on the lower layers to provide the
@@ -1506,14 +1498,6 @@ Internet-Draft              RAW Architecture                   July 2024
    effect, the RAW API enables interactions between the reliability
    functions provided by the wireless technology and the reliability
    functions provided by DetNet.  That is, the RAW API provides a radio
-
-
-
-Thubert                  Expires 6 January 2025                [Page 27]
-
-Internet-Draft              RAW Architecture                   July 2024
-
-
    abstraction to the DetNet layer.  The RAW API can be used to push
    reliability and timing hints like suggest X retries (min, max) within
    a time window, or send unicast (one next hop) or multicast (for
@@ -1521,6 +1505,14 @@ Internet-Draft              RAW Architecture                   July 2024
    radio conditions like L2 triggers (RSSI, LQI, ETX…) over all the
    wireless hops.  This information is useful to both the lCPF and the
    PLR.
+
+
+
+
+Thubert                  Expires 7 January 2025                [Page 27]
+
+Internet-Draft              RAW Architecture                   July 2024
+
 
    RAW uses various OAM functionalities at the different layers.  For
    instance, the OAM function in the DetNet Service sub-layer
@@ -1562,20 +1554,21 @@ Internet-Draft              RAW Architecture                   July 2024
              End System or
               Edge Node                         Relay Node
 
-
-
-
-Thubert                  Expires 6 January 2025                [Page 28]
-
-Internet-Draft              RAW Architecture                   July 2024
-
-
               Figure 5: RAW functions in the DetNet sub-layers
 
    There are 2 main proposed models to deploy RAW and DetNet.  In the
    first model (strict) illustrated in Figure 6, RAW operates over a
    continuous DetNet Service end-to-end between the Ingress and the
    Egress Edge Nodes or End Systems.
+
+
+
+
+
+Thubert                  Expires 7 January 2025                [Page 28]
+
+Internet-Draft              RAW Architecture                   July 2024
+
 
    A minimal Forwarding sub-layer service is provided at all DetNet
    Nodes to ensure that the OAM information flows.  Relay Nodes may or
@@ -1621,7 +1614,14 @@ Internet-Draft              RAW Architecture                   July 2024
 
 
 
-Thubert                  Expires 6 January 2025                [Page 29]
+
+
+
+
+
+
+
+Thubert                  Expires 7 January 2025                [Page 29]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -1677,7 +1677,7 @@ Internet-Draft              RAW Architecture                   July 2024
 
 
 
-Thubert                  Expires 6 January 2025                [Page 30]
+Thubert                  Expires 7 January 2025                [Page 30]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -1733,7 +1733,7 @@ Internet-Draft              RAW Architecture                   July 2024
 
 
 
-Thubert                  Expires 6 January 2025                [Page 31]
+Thubert                  Expires 7 January 2025                [Page 31]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -1789,7 +1789,7 @@ Internet-Draft              RAW Architecture                   July 2024
 
 
 
-Thubert                  Expires 6 January 2025                [Page 32]
+Thubert                  Expires 7 January 2025                [Page 32]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -1845,7 +1845,7 @@ Internet-Draft              RAW Architecture                   July 2024
 
 
 
-Thubert                  Expires 6 January 2025                [Page 33]
+Thubert                  Expires 7 January 2025                [Page 33]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -1901,7 +1901,7 @@ Internet-Draft              RAW Architecture                   July 2024
 
 
 
-Thubert                  Expires 6 January 2025                [Page 34]
+Thubert                  Expires 7 January 2025                [Page 34]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -1957,7 +1957,7 @@ Internet-Draft              RAW Architecture                   July 2024
 
 
 
-Thubert                  Expires 6 January 2025                [Page 35]
+Thubert                  Expires 7 January 2025                [Page 35]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -1981,24 +1981,42 @@ Internet-Draft              RAW Architecture                   July 2024
    recovery graphs globally, which can only be done at a slow pace and
    using long-term statistical metrics, as presented in Table 1.
 
-    +===============+=============================+===================+
-    |               |             rCPF            |   PLR (In Scope)  |
-    +===============+=============================+===================+
-    | Operation     |    Typically Centralized    |  Source-Routed or |
-    |               |                             |    Distributed    |
-    +---------------+-----------------------------+-------------------+
-    | Communication |       Slow, expensive       |    Fast, local    |
-    +---------------+-----------------------------+-------------------+
-    | Time Scale    |       hours and above       | seconds and below |
-    +---------------+-----------------------------+-------------------+
-    | Network Size  | Large, many recovery graphs | Small, within one |
-    |               |     to optimize globally    |   recovery graph  |
-    +---------------+-----------------------------+-------------------+
-    | Considered    |    Averaged, Statistical,   |  Instant values / |
-    | Metrics       |        Shade of grey        | boolean condition |
-    +---------------+-----------------------------+-------------------+
+     +===============+=========================+=====================+
+     |               |           rCPF          |    PLR (In Scope)   |
+     +===============+=========================+=====================+
+     | Operation     |  Typically Centralized  |   Source-Routed or  |
+     |               |                         |     Distributed     |
+     +---------------+-------------------------+---------------------+
+     | Communication |     Slow, expensive     |     Fast, local     |
+     +---------------+-------------------------+---------------------+
+     | Time Scale    |  routing computation +  |     lookup + FIB    |
+     | (order)       |       round trip,       | installation, micro |
+     |               | millisceonds to seconds |   to milliseconds   |
+     +---------------+-------------------------+---------------------+
+     | Network Size  |   Large, many recovery  |  Small, within one  |
+     |               |    graphs to optimize   |    recovery graph   |
+     |               |         globally        |                     |
+     +---------------+-------------------------+---------------------+
+     | Considered    |  Averaged, Statistical, |   Instant values /  |
+     | Metrics       |      Shade of grey      |  boolean condition  |
+     +---------------+-------------------------+---------------------+
 
                             Table 1: CPF vs. PLR
+
+
+
+
+
+
+
+
+
+
+
+Thubert                  Expires 7 January 2025                [Page 36]
+
+Internet-Draft              RAW Architecture                   July 2024
+
 
    The PLR sits in the DetNet Forwarding sub-Layer of Edge and Relay
    Nodes.  The PLR it operates on the packet flow, learning the recovery
@@ -2008,15 +2026,6 @@ Internet-Draft              RAW Architecture                   July 2024
    DLEP) and with its peers (through iOAM and oOAM) to obtain up-to-date
    information about its links and the quality of the overall recovery
    graph, respectively, as illustrated in Figure 11.
-
-
-
-
-
-Thubert                  Expires 6 January 2025                [Page 36]
-
-Internet-Draft              RAW Architecture                   July 2024
-
 
                |
         packet | going
@@ -2056,6 +2065,15 @@ Internet-Draft              RAW Architecture                   July 2024
    be leveraged on wired links, e.g., to save power, it is not expected
    that all lower layers support all those capabilities.
 
+
+
+
+
+Thubert                  Expires 7 January 2025                [Page 37]
+
+Internet-Draft              RAW Architecture                   July 2024
+
+
    RAW provides hints to the lower layer services on the desired
    outcome, and the lower layer acts on those hinHts to provide the best
    approximation of that outcome, e.g., a level of reliability for one-
@@ -2065,14 +2083,6 @@ Internet-Draft              RAW Architecture                   July 2024
    some reliability functions are controlled from Layer-3 using an
    abstract interface, while they are really operated at the lower
    layers.
-
-
-
-
-Thubert                  Expires 6 January 2025                [Page 37]
-
-Internet-Draft              RAW Architecture                   July 2024
-
 
    The RAW Path Selection can be implemented in both centralized and
    distributed approaches.  In the centralized approach, the PLR may
@@ -2110,6 +2120,16 @@ Internet-Draft              RAW Architecture                   July 2024
    interference) the attacker can force an End System to use the paid
    access and increase the cost of the transmission for the user.
 
+
+
+
+
+
+Thubert                  Expires 7 January 2025                [Page 38]
+
+Internet-Draft              RAW Architecture                   July 2024
+
+
 7.  IANA Considerations
 
    This document has no IANA actions.
@@ -2122,13 +2142,6 @@ Internet-Draft              RAW Architecture                   July 2024
 
    Xavi Vilajosana:  Wireless Networks Research Lab, Universitat Oberta
       de Catalunya
-
-
-
-Thubert                  Expires 6 January 2025                [Page 38]
-
-Internet-Draft              RAW Architecture                   July 2024
-
 
    Geogios Papadopolous:  IMT Atlantique
 
@@ -2162,6 +2175,17 @@ Internet-Draft              RAW Architecture                   July 2024
               RFC 9030, DOI 10.17487/RFC9030, May 2021,
               <https://www.rfc-editor.org/info/rfc9030>.
 
+
+
+
+
+
+
+Thubert                  Expires 7 January 2025                [Page 39]
+
+Internet-Draft              RAW Architecture                   July 2024
+
+
    [INT-ARCHI]
               Braden, R., Ed., "Requirements for Internet Hosts -
               Communication Layers", STD 3, RFC 1122,
@@ -2178,14 +2202,6 @@ Internet-Draft              RAW Architecture                   July 2024
               Thubert, P., Cavalcanti, D., Vilajosana, X., Schmitt, C.,
               and J. Farkas, "Reliable and Available Wireless
               Technologies", Work in Progress, Internet-Draft, draft-
-
-
-
-Thubert                  Expires 6 January 2025                [Page 39]
-
-Internet-Draft              RAW Architecture                   July 2024
-
-
               ietf-raw-technologies-08, 10 July 2023,
               <https://datatracker.ietf.org/doc/html/draft-ietf-raw-
               technologies-08>.
@@ -2216,6 +2232,16 @@ Internet-Draft              RAW Architecture                   July 2024
               RFC 8578, DOI 10.17487/RFC8578, May 2019,
               <https://www.rfc-editor.org/info/rfc8578>.
 
+
+
+
+
+
+Thubert                  Expires 7 January 2025                [Page 40]
+
+Internet-Draft              RAW Architecture                   July 2024
+
+
    [IPv6]     Deering, S. and R. Hinden, "Internet Protocol, Version 6
               (IPv6) Specification", STD 86, RFC 8200,
               DOI 10.17487/RFC8200, July 2017,
@@ -2234,13 +2260,6 @@ Internet-Draft              RAW Architecture                   July 2024
               Bryant, "Deterministic Networking (DetNet) Data Plane:
               IP", RFC 8939, DOI 10.17487/RFC8939, November 2020,
               <https://www.rfc-editor.org/info/rfc8939>.
-
-
-
-Thubert                  Expires 6 January 2025                [Page 40]
-
-Internet-Draft              RAW Architecture                   July 2024
-
 
    [RFC9049]  Dawkins, S., Ed., "Path Aware Networking: Obstacles to
               Deployment (A Bestiary of Roads Not Taken)", RFC 9049,
@@ -2268,6 +2287,17 @@ Internet-Draft              RAW Architecture                   July 2024
               DOI 10.17487/RFC3366, August 2002,
               <https://www.rfc-editor.org/info/rfc3366>.
 
+
+
+
+
+
+
+Thubert                  Expires 7 January 2025                [Page 41]
+
+Internet-Draft              RAW Architecture                   July 2024
+
+
    [STD 62]   Harrington, D., Presuhn, R., and B. Wijnen, "An
               Architecture for Describing Simple Network Management
               Protocol (SNMP) Management Frameworks", STD 62, RFC 3411,
@@ -2286,17 +2316,6 @@ Internet-Draft              RAW Architecture                   July 2024
    [FRR]      Shand, M. and S. Bryant, "IP Fast Reroute Framework",
               RFC 5714, DOI 10.17487/RFC5714, January 2010,
               <https://www.rfc-editor.org/info/rfc5714>.
-
-
-
-
-
-
-
-Thubert                  Expires 6 January 2025                [Page 41]
-
-Internet-Draft              RAW Architecture                   July 2024
-
 
    [RLFA-FRR] Bryant, S., Filsfils, C., Previdi, S., Shand, M., and N.
               So, "Remote Loop-Free Alternate (LFA) Fast Reroute (FRR)",
@@ -2328,6 +2347,13 @@ Internet-Draft              RAW Architecture                   July 2024
               <https://datatracker.ietf.org/doc/html/draft-irtf-panrg-
               path-properties-08>.
 
+
+
+Thubert                  Expires 7 January 2025                [Page 42]
+
+Internet-Draft              RAW Architecture                   July 2024
+
+
    [IPoWIRELESS]
               Thubert, P. and M. Richardson, "Architecture and Framework
               for IPv6 over Non-Broadcast Access", Work in Progress,
@@ -2344,15 +2370,6 @@ Internet-Draft              RAW Architecture                   July 2024
               Documents/160727.1_Availability_What_is_it.pdf>.
 
 Author's Address
-
-
-
-
-
-Thubert                  Expires 6 January 2025                [Page 42]
-
-Internet-Draft              RAW Architecture                   July 2024
-
 
    Pascal Thubert (editor)
    06330 Roquefort-les-Pins
@@ -2388,21 +2405,4 @@ Internet-Draft              RAW Architecture                   July 2024
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Thubert                  Expires 6 January 2025                [Page 43]
+Thubert                  Expires 7 January 2025                [Page 43]

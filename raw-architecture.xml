@@ -1295,10 +1295,7 @@
     as in <xref target='FigDN3'/>.
     In that case, RAW can not leverage end-to-end DetNet and cannot provide
     latency guarantees.
-    The non-RAW subnetwork is neglected in the RAW computation, that is,
-    considered jitterless, and infinitely reliable and/or available in comparison
-    with the links between RAW nodes, so loss and jitter that is measured
-    end-to-end is attributed to the RAW hops (typically an access link).
+	
     </li>
     </ul>
     <t>
@@ -1882,9 +1879,9 @@ Data Plane
         </tr>
 
 
-			<tr><td>Time Scale</td>
-    			<td align='center'>hours and above</td>
-    			<td align='center'>seconds and below</td>
+			<tr><td>Time Scale (order)</td>
+    			<td align='center'>routing computation + round trip, millisceonds to seconds</td>
+    			<td align='center'>lookup + FIB installation, micro to milliseconds</td>
         </tr>
 
 

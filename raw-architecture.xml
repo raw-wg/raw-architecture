@@ -1880,7 +1880,7 @@ Data Plane
 
 
 			<tr><td>Time Scale (order)</td>
-    			<td align='center'>routing computation + round trip, millisceonds to seconds</td>
+    			<td align='center'>routing computation + round trip, milliseconds to seconds</td>
     			<td align='center'>lookup + FIB installation, micro to milliseconds</td>
         </tr>
 

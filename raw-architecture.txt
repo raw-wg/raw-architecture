@@ -1991,7 +1991,7 @@ Internet-Draft              RAW Architecture                   July 2024
      +---------------+-------------------------+---------------------+
      | Time Scale    |  routing computation +  |     lookup + FIB    |
      | (order)       |       round trip,       | installation, micro |
-     |               | millisceonds to seconds |   to milliseconds   |
+     |               | milliseconds to seconds |   to milliseconds   |
      +---------------+-------------------------+---------------------+
      | Network Size  |   Large, many recovery  |  Small, within one  |
      |               |    graphs to optimize   |    recovery graph   |

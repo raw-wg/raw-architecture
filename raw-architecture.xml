@@ -824,7 +824,7 @@
     describes how to use SNMP to observe and correct long-term faults.
     </t>
     <t>
-    <xref target="RFC3272">
+    <xref target="RFC9522">
     "Overview and Principles of Internet Traffic Engineering"</xref> discusses
     the importance of measurement for network protection, and provides an 
 	abstract method for network survivability with the analysis of a traffic 
@@ -2087,7 +2087,7 @@ Data Plane
 <displayreference   target="I-D.ietf-raw-use-cases"   to="RAW-USE-CASES"/>
 
 <displayreference   target="RFC1122"                  to="INT-ARCHI"/>
-<displayreference   target="RFC3272"                  to="TE"/>
+<displayreference   target="RFC9522"                  to="TE"/>
 <displayreference   target="RFC8175"                  to="DLEP"/>
 <displayreference   target="RFC3411"                  to="STD 62"/>
 <displayreference   target="RFC7490"                  to="RLFA-FRR"/>
@@ -2159,7 +2159,7 @@ Data Plane
 <!-- RSVP -->
 
 
-<xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.3272.xml"/>
+<xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.9522.xml"/>
 <!-- TE -->
 
 <xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.3366.xml"/>

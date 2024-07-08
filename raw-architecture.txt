@@ -3,13 +3,13 @@
 
 
 RAW                                                      P. Thubert, Ed.
-Internet-Draft                                               6 July 2024
+Internet-Draft                                               8 July 2024
 Intended status: Informational                                          
-Expires: 7 January 2025
+Expires: 9 January 2025
 
 
               Reliable and Available Wireless Architecture
-                     draft-ietf-raw-architecture-17
+                     draft-ietf-raw-architecture-19
 
 Abstract
 
@@ -42,7 +42,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 7 January 2025.
+   This Internet-Draft will expire on 9 January 2025.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Thubert                  Expires 7 January 2025                 [Page 1]
+Thubert                  Expires 9 January 2025                 [Page 1]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Thubert                  Expires 7 January 2025                 [Page 2]
+Thubert                  Expires 9 January 2025                 [Page 2]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -165,7 +165,7 @@ Internet-Draft              RAW Architecture                   July 2024
 
 
 
-Thubert                  Expires 7 January 2025                 [Page 3]
+Thubert                  Expires 9 January 2025                 [Page 3]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -221,7 +221,7 @@ Internet-Draft              RAW Architecture                   July 2024
 
 
 
-Thubert                  Expires 7 January 2025                 [Page 4]
+Thubert                  Expires 9 January 2025                 [Page 4]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -277,7 +277,7 @@ Internet-Draft              RAW Architecture                   July 2024
 
 
 
-Thubert                  Expires 7 January 2025                 [Page 5]
+Thubert                  Expires 9 January 2025                 [Page 5]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -333,7 +333,7 @@ Internet-Draft              RAW Architecture                   July 2024
 
 
 
-Thubert                  Expires 7 January 2025                 [Page 6]
+Thubert                  Expires 9 January 2025                 [Page 6]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -389,7 +389,7 @@ Internet-Draft              RAW Architecture                   July 2024
 
 
 
-Thubert                  Expires 7 January 2025                 [Page 7]
+Thubert                  Expires 9 January 2025                 [Page 7]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -445,7 +445,7 @@ Internet-Draft              RAW Architecture                   July 2024
 
 
 
-Thubert                  Expires 7 January 2025                 [Page 8]
+Thubert                  Expires 9 January 2025                 [Page 8]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -501,7 +501,7 @@ Internet-Draft              RAW Architecture                   July 2024
 
 
 
-Thubert                  Expires 7 January 2025                 [Page 9]
+Thubert                  Expires 9 January 2025                 [Page 9]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -557,7 +557,7 @@ Internet-Draft              RAW Architecture                   July 2024
 
 
 
-Thubert                  Expires 7 January 2025                [Page 10]
+Thubert                  Expires 9 January 2025                [Page 10]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -613,7 +613,7 @@ Internet-Draft              RAW Architecture                   July 2024
 
 
 
-Thubert                  Expires 7 January 2025                [Page 11]
+Thubert                  Expires 9 January 2025                [Page 11]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -669,7 +669,7 @@ Internet-Draft              RAW Architecture                   July 2024
 
 
 
-Thubert                  Expires 7 January 2025                [Page 12]
+Thubert                  Expires 9 January 2025                [Page 12]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -725,7 +725,7 @@ Internet-Draft              RAW Architecture                   July 2024
 
 
 
-Thubert                  Expires 7 January 2025                [Page 13]
+Thubert                  Expires 9 January 2025                [Page 13]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -781,7 +781,7 @@ Internet-Draft              RAW Architecture                   July 2024
 
 
 
-Thubert                  Expires 7 January 2025                [Page 14]
+Thubert                  Expires 9 January 2025                [Page 14]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -837,7 +837,7 @@ Internet-Draft              RAW Architecture                   July 2024
 
 
 
-Thubert                  Expires 7 January 2025                [Page 15]
+Thubert                  Expires 9 January 2025                [Page 15]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -893,7 +893,7 @@ Internet-Draft              RAW Architecture                   July 2024
 
 
 
-Thubert                  Expires 7 January 2025                [Page 16]
+Thubert                  Expires 9 January 2025                [Page 16]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -949,7 +949,7 @@ Internet-Draft              RAW Architecture                   July 2024
 
 
 
-Thubert                  Expires 7 January 2025                [Page 17]
+Thubert                  Expires 9 January 2025                [Page 17]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -1005,7 +1005,7 @@ Internet-Draft              RAW Architecture                   July 2024
 
 
 
-Thubert                  Expires 7 January 2025                [Page 18]
+Thubert                  Expires 9 January 2025                [Page 18]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -1061,7 +1061,7 @@ Internet-Draft              RAW Architecture                   July 2024
 
 
 
-Thubert                  Expires 7 January 2025                [Page 19]
+Thubert                  Expires 9 January 2025                [Page 19]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -1117,7 +1117,7 @@ Internet-Draft              RAW Architecture                   July 2024
 
 
 
-Thubert                  Expires 7 January 2025                [Page 20]
+Thubert                  Expires 9 January 2025                [Page 20]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -1173,7 +1173,7 @@ Internet-Draft              RAW Architecture                   July 2024
 
 
 
-Thubert                  Expires 7 January 2025                [Page 21]
+Thubert                  Expires 9 January 2025                [Page 21]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -1229,7 +1229,7 @@ Internet-Draft              RAW Architecture                   July 2024
 
 
 
-Thubert                  Expires 7 January 2025                [Page 22]
+Thubert                  Expires 9 January 2025                [Page 22]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -1285,7 +1285,7 @@ Internet-Draft              RAW Architecture                   July 2024
 
 
 
-Thubert                  Expires 7 January 2025                [Page 23]
+Thubert                  Expires 9 January 2025                [Page 23]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -1341,7 +1341,7 @@ Internet-Draft              RAW Architecture                   July 2024
 
 
 
-Thubert                  Expires 7 January 2025                [Page 24]
+Thubert                  Expires 9 January 2025                [Page 24]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -1397,7 +1397,7 @@ Internet-Draft              RAW Architecture                   July 2024
 
 
 
-Thubert                  Expires 7 January 2025                [Page 25]
+Thubert                  Expires 9 January 2025                [Page 25]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -1453,7 +1453,7 @@ Internet-Draft              RAW Architecture                   July 2024
 
 
 
-Thubert                  Expires 7 January 2025                [Page 26]
+Thubert                  Expires 9 January 2025                [Page 26]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -1509,7 +1509,7 @@ Internet-Draft              RAW Architecture                   July 2024
 
 
 
-Thubert                  Expires 7 January 2025                [Page 27]
+Thubert                  Expires 9 January 2025                [Page 27]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -1565,7 +1565,7 @@ Internet-Draft              RAW Architecture                   July 2024
 
 
 
-Thubert                  Expires 7 January 2025                [Page 28]
+Thubert                  Expires 9 January 2025                [Page 28]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -1621,7 +1621,7 @@ Internet-Draft              RAW Architecture                   July 2024
 
 
 
-Thubert                  Expires 7 January 2025                [Page 29]
+Thubert                  Expires 9 January 2025                [Page 29]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -1677,7 +1677,7 @@ Internet-Draft              RAW Architecture                   July 2024
 
 
 
-Thubert                  Expires 7 January 2025                [Page 30]
+Thubert                  Expires 9 January 2025                [Page 30]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -1733,7 +1733,7 @@ Internet-Draft              RAW Architecture                   July 2024
 
 
 
-Thubert                  Expires 7 January 2025                [Page 31]
+Thubert                  Expires 9 January 2025                [Page 31]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -1789,7 +1789,7 @@ Internet-Draft              RAW Architecture                   July 2024
 
 
 
-Thubert                  Expires 7 January 2025                [Page 32]
+Thubert                  Expires 9 January 2025                [Page 32]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -1845,7 +1845,7 @@ Internet-Draft              RAW Architecture                   July 2024
 
 
 
-Thubert                  Expires 7 January 2025                [Page 33]
+Thubert                  Expires 9 January 2025                [Page 33]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -1901,7 +1901,7 @@ Internet-Draft              RAW Architecture                   July 2024
 
 
 
-Thubert                  Expires 7 January 2025                [Page 34]
+Thubert                  Expires 9 January 2025                [Page 34]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -1957,7 +1957,7 @@ Internet-Draft              RAW Architecture                   July 2024
 
 
 
-Thubert                  Expires 7 January 2025                [Page 35]
+Thubert                  Expires 9 January 2025                [Page 35]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -2013,7 +2013,7 @@ Internet-Draft              RAW Architecture                   July 2024
 
 
 
-Thubert                  Expires 7 January 2025                [Page 36]
+Thubert                  Expires 9 January 2025                [Page 36]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -2069,7 +2069,7 @@ Internet-Draft              RAW Architecture                   July 2024
 
 
 
-Thubert                  Expires 7 January 2025                [Page 37]
+Thubert                  Expires 9 January 2025                [Page 37]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -2125,7 +2125,7 @@ Internet-Draft              RAW Architecture                   July 2024
 
 
 
-Thubert                  Expires 7 January 2025                [Page 38]
+Thubert                  Expires 9 January 2025                [Page 38]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -2181,7 +2181,7 @@ Internet-Draft              RAW Architecture                   July 2024
 
 
 
-Thubert                  Expires 7 January 2025                [Page 39]
+Thubert                  Expires 9 January 2025                [Page 39]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -2237,7 +2237,7 @@ Internet-Draft              RAW Architecture                   July 2024
 
 
 
-Thubert                  Expires 7 January 2025                [Page 40]
+Thubert                  Expires 9 January 2025                [Page 40]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -2293,7 +2293,7 @@ Internet-Draft              RAW Architecture                   July 2024
 
 
 
-Thubert                  Expires 7 January 2025                [Page 41]
+Thubert                  Expires 9 January 2025                [Page 41]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -2349,7 +2349,7 @@ Internet-Draft              RAW Architecture                   July 2024
 
 
 
-Thubert                  Expires 7 January 2025                [Page 42]
+Thubert                  Expires 9 January 2025                [Page 42]
 
 Internet-Draft              RAW Architecture                   July 2024
 
@@ -2405,4 +2405,4 @@ Author's Address
 
 
 
-Thubert                  Expires 7 January 2025                [Page 43]
+Thubert                  Expires 9 January 2025                [Page 43]

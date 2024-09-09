@@ -14,7 +14,7 @@
 <?rfc subcompact="no"?>
 <?rfc authorship="yes"?>
 <?rfc tocappendix="yes"?>
-<rfc xmlns:xi="http://www.w3.org/2001/XInclude" category="info" docName="draft-ietf-raw-architecture-19"
+<rfc xmlns:xi="http://www.w3.org/2001/XInclude" category="info" docName="draft-ietf-raw-architecture-20"
      ipr="trust200902" obsoletes="" updates="" submissionType="IETF"
      xml:lang="en" version="3">
   <front>
@@ -2051,6 +2051,7 @@ Data Plane
       </t>
       <dl>
     <dt>Lou Berger:</dt><dd>lberger@labn.net</dd>
+    <!--dt>Janos Farkas:</dt><dd>Janos.Farkas@ericsson.com</dd-->
     <dt>Xavi Vilajosana:</dt><dd>xvilajosana@gmail.com</dd>
     <dt>Geogios Papadopolous:</dt><dd>georgios.papadopoulos@imt-atlantique.fr</dd>
     <dt>Remous-Aris Koutsiamanis:</dt><dd>aris@ariskou.com</dd>

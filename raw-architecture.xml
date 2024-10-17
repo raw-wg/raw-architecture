@@ -14,7 +14,7 @@
 <?rfc subcompact="no"?>
 <?rfc authorship="yes"?>
 <?rfc tocappendix="yes"?>
-<rfc xmlns:xi="http://www.w3.org/2001/XInclude" category="info" docName="draft-ietf-raw-architecture-20"
+<rfc xmlns:xi="http://www.w3.org/2001/XInclude" category="info" docName="draft-ietf-raw-architecture-21"
      ipr="trust200902" obsoletes="" updates="" submissionType="IETF"
      xml:lang="en" version="3">
   <front>
@@ -22,7 +22,7 @@
     Architecture</title>
 
    <author initials='P' surname='Thubert' fullname='Pascal Thubert' role='editor'>
-      <!-- <organization abbrev='Cisco Systems'>Cisco Systems, Inc</organization> -->
+      <organization abbrev='none'>Without Affiliation</organization> 
       <address>
          <postal>
             <city>Roquefort-les-Pins</city>
@@ -2050,13 +2050,13 @@ Data Plane
       <t>The editor wishes to thank the document co-authors:
       </t>
       <dl>
-    <dt>Lou Berger:</dt><dd>lberger@labn.net</dd>
-    <!--dt>Janos Farkas:</dt><dd>Janos.Farkas@ericsson.com</dd-->
-    <dt>Xavi Vilajosana:</dt><dd>xvilajosana@gmail.com</dd>
-    <dt>Geogios Papadopolous:</dt><dd>georgios.papadopoulos@imt-atlantique.fr</dd>
-    <dt>Remous-Aris Koutsiamanis:</dt><dd>aris@ariskou.com</dd>
-    <dt>Rex Buddenberg:</dt><dd>buddenbergr@gmail.com</dd>
-    <dt>Greg Mirsky:</dt><dd>gregimirsky@gmail.com</dd>
+    <dt>Lou Berger:</dt><dd>LAB N, lberger@labn.net</dd>
+    <!--dt>Janos Farkas:</dt><dd>Erisson, 	Janos.Farkas@ericsson.com</dd-->
+    <dt>Xavi Vilajosana:</dt><dd>Wireless Networks Research Lab, Universitat Oberta de Catalunya, xvilajosana@gmail.com</dd>
+    <dt>Geogios Papadopolous:</dt><dd>IMT Atlantique	, georgios.papadopoulos@imt-atlantique.fr</dd>
+    <dt>Remous-Aris Koutsiamanis:</dt><dd>IMT Atlantique, remous-aris.koutsiamanis@imt-atlantique.fr </dd>
+    <dt>Rex Buddenberg:</dt><dd>retired, buddenbergr@gmail.com</dd>
+    <dt>Greg Mirsky:</dt><dd>Ericsson, gregimirsky@gmail.com</dd>
       </dl>
       <t>for their contributions to the text and ideas exposed in this document.
       </t>

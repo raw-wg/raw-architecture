@@ -14,15 +14,15 @@
 <?rfc subcompact="no"?>
 <?rfc authorship="yes"?>
 <?rfc tocappendix="yes"?>
-<rfc xmlns:xi="http://www.w3.org/2001/XInclude" category="info" docName="draft-ietf-raw-architecture-21"
-     ipr="trust200902" obsoletes="" updates="" submissionType="IETF"
+<rfc xmlns:xi="http://www.w3.org/2001/XInclude" category="info" docName="draft-ietf-raw-architecture-22"
+     ipr="trust200902" obsoletes="" updates="8655" submissionType="IETF"
      xml:lang="en" version="3">
   <front>
     <title abbrev="RAW Architecture">Reliable and Available Wireless
     Architecture</title>
 
    <author initials='P' surname='Thubert' fullname='Pascal Thubert' role='editor'>
-      <organization abbrev='none'>Without Affiliation</organization> 
+      <organization abbrev=''>Without Affiliation</organization> 
       <address>
          <postal>
             <city>Roquefort-les-Pins</city>
@@ -45,19 +45,17 @@
       availability for IP connectivity across any combination of wired and
       wireless network segments.
 
-      The RAW Architecture extends the  Deterministic Networking (DetNet) 
-	  Architecture and other standard IETF concepts and mechanisms to adapt to
-	  the specific challenges of the wireless medium, in particular 
-	  intermittently lossy connectivity.
+      The RAW Architecture extends RFC 8655, the Deterministic Networking Architecture, to adapt to
+	  challenges that affect prominently the wireless medium, in particular intermittently lossy connectivity.
 
       This document defines a network control loop that optimizes the use of
-      constrained spectrum and energy while maintaining the expected
-      connectivity properties, typically reliability and latency.
+      constrained bandwidth and energy while assuring the expected
+      connectivity services, typically reliability and latency.
 
-      The loop involves DetNet Operational Plane functions, with a new recovery
-      Function and a new Point of Local Repair operation, that dynamically
+      The loop involves DetNet Controller Plane Functions, and a recovery
+      Point of Local Repair operation, that dynamically
       selects the DetNet path(s) for the future packets
-      to route around local degradations and failures.
+      to route around local service degradations.
 
       </t>
     </abstract>
@@ -87,10 +85,10 @@
    <t>
    This innovation was initially introduced on wired networks, with IEEE 802.1
    Time-Sensitive networking (TSN) - for Ethernet LANs - and IETF DetNet.
-   But the wired and the wireless media are fundamentally different at the
+   But the wired and the wireless media are differ at the
    physical level and in the possible abstractions that can be built for IPv6
    <xref target="RFC8200"/>, more in
-   <xref target="I-D.thubert-6man-ipv6-over-wireless" format="default"/>.
+   <xref target="I-D.ietf-6man-ipv6-over-wireless" format="default"/>.
    Nevertheless, deterministic capabilities are required in a number of wireless
    use cases as well <xref target="I-D.ietf-raw-use-cases"/>. With scheduled
    radios such as Time Slotted Channel Hopping (TSCH) and Orthogonal Frequency
@@ -781,7 +779,7 @@
     <t>
     Deterministic flows, on the contrary, are attached to specific paths where
     dedicated resources are reserved for each flow. Therefore each DetNet path
-    must inherently provide sufficient redundancy to provide the guaranteed SLA
+    must inherently provide sufficient redundancy to provide the assured SLA
     at all times.
     The DetNet PREOF typically leverages 1+1 redundancy whereby a packet is sent
     twice, over non-congruent paths. This avoids the gap during the fast reroute
@@ -1184,46 +1182,44 @@
 <section anchor="model" numbered="true" toc="default">
     <name>The RAW Conceptual Model</name>
     <t>
-    RAW inherits the conceptual model described in section 4 of the DetNet
-    Architecture <xref target="RFC8655"/> as illustrated in 
-	<xref target='FigLayers'/>, which also shows example reliability Functions
-	in the different layers. RAW extends DetNet with Point of Local Repair 
-	(PLR, see <xref target='PLRpce'/>), which is a point of local reaction  to
+    RAW extendss the conceptual model described in section 4 of the DetNet
+    Architecture <xref target="RFC8655"/> with the PLR at the service layer,
+	as illustrated in <xref target='FigLayers'/>. The PLR 
+	(see <xref target='PLRpce'/>) is a point of local reaction  to
 	provide additional agility against transmission loss. The PLR can act, e.g.,
-	based on indications from the wireless layer or based on OAM.	
+	based on indications from the lower layer or based on OAM.	
     </t>
 
 <figure anchor="FigLayers">
-          <name>Wireless layer and DetNet sub-layers</name>
+          <name>Extended DetNet Data-Plane Protocol Stack</name>
        <artwork align="left" name="" type="" alt="">
-                   .
-                   .
-     +-----------------------------+
-     |                             |
-     |  DetNet Service sub-layer   | (e.g., (PREOF)
-     |                             | 	 
-     +-----------------------------+
-     |                             |
-     | DetNet Forwarding sub-layer |
-     |                             |
-     |           _____    _____    |
-     |          | PLR +--+ OAM |   |
-     |           -+---    -----    |
-     |            | ^              |
-     |            | |              |
-     |         ___v_+___           | 	 
-     +--------+ RAW API +----------+
-     |         ---------           |
-     |    Wireless/Radio Layer     | (e.g., (H)ARQ)
-     |                             | 	 
-     +-----------------------------+
-                   .
+	   
+           |  packets going  |        ^  packets coming   ^
+           v down the stack  v        |   up the stack    |
+        +-----------------------+   +-----------------------+
+        |        Source         |   |      Destination      |
+        +-----------------------+   +-----------------------+
+        |   Service sub-layer:  |   |   Service sub-layer:  |
+        |   Packet sequencing   |   | Duplicate elimination |
+        |    Flow replication   |   |      Flow merging     |
+        |    Packet encoding    |   |    Packet decoding    |
+	    | Point of Local Repair |   |                       |
+        +-----------------------+   +-----------------------+
+        | Forwarding sub-layer: |   | Forwarding sub-layer: |
+        |  Resource allocation  |   |  Resource allocation  |
+        |    Explicit routes    |   |    Explicit routes    |
+        +-----------------------+   +-----------------------+
+        |     Lower layers      |   |     Lower layers      |
+        +-----------------------+   +-----------------------+
+                    v                           ^
+                     \_________________________/
+						
 </artwork>
 </figure>
     <t>
 	The RAW API enables interactions between the reliability functions provided
-	by the wireless technology and the reliability functions provided by DetNet.
-	Thus, the RAW API enables cross-layer optimizations to improve reliability
+	by the lower layer and the reliability functions provided by DetNet.
+	As such, the RAW API enables cross-layer optimizations to improve reliability
 	and availability. 
 	</t>
 
@@ -1980,7 +1976,7 @@ Data Plane
     <t>
     The dynamic DetNet Path selection in RAW avoids the waste of critical
     resources such as spectrum and energy while providing for the
-    guaranteed SLA, e.g., by rerouting and/or adding redundancy only when a
+    assured SLA, e.g., by rerouting and/or adding redundancy only when a
     spike of loss is observed.
     </t>
 
@@ -2083,7 +2079,7 @@ Data Plane
   <back>
 
 
-<displayreference   target="I-D.thubert-6man-ipv6-over-wireless"     to="IPoWIRELESS"/>
+<displayreference   target="I-D.ietf-6man-ipv6-over-wireless"     to="IPoWIRELESS"/>
 <displayreference   target="I-D.ietf-raw-technologies"   to="RAW-TECHNOS"/>
 <displayreference   target="I-D.ietf-raw-use-cases"   to="RAW-USE-CASES"/>
 
@@ -2096,6 +2092,7 @@ Data Plane
 <displayreference   target="RFC8200"                  to="IPv6"/>
 <displayreference   target="RFC8938"                  to="DetNet-DP"/>
 <!--displayreference   target="RFC9016"                  to="DetNet-Flow"/-->
+<displayreference   target="RFC8655"                  to="DetNet-ARCHI"/>
 <displayreference   target="RFC9030"                  to="6TiSCH-ARCHI"/>
 <displayreference   target="RFC9551"                  to="DetNet-OAM"/>
 
@@ -2197,7 +2194,7 @@ Data Plane
 
 <xi:include href="http://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.irtf-panrg-path-properties.xml"/>
 
-<xi:include href="http://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.thubert-6man-ipv6-over-wireless.xml"/>
+<xi:include href="http://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-6man-ipv6-over-wireless.xml"/>
 <!-- IPv6 Neighbor Discovery on Wireless Networks -->
 
     <reference anchor="NASA1" target="https://extapps.ksc.nasa.gov/Reliability/Documents/150814-3bWhatIsReliability.pdf">

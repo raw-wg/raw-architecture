@@ -3,29 +3,29 @@
 
 
 RAW                                                      P. Thubert, Ed.
-Internet-Draft                                                      none
-Intended status: Informational                           17 October 2024
-Expires: 20 April 2025
+Internet-Draft                                       Without Affiliation
+Updates: 8655 (if approved)                              5 November 2024
+Intended status: Informational                                          
+Expires: 9 May 2025
 
 
               Reliable and Available Wireless Architecture
-                     draft-ietf-raw-architecture-21
+                     draft-ietf-raw-architecture-22
 
 Abstract
 
    Reliable and Available Wireless (RAW) provides for high reliability
    and availability for IP connectivity across any combination of wired
-   and wireless network segments.  The RAW Architecture extends the
-   Deterministic Networking (DetNet) Architecture and other standard
-   IETF concepts and mechanisms to adapt to the specific challenges of
-   the wireless medium, in particular intermittently lossy connectivity.
-   This document defines a network control loop that optimizes the use
-   of constrained spectrum and energy while maintaining the expected
-   connectivity properties, typically reliability and latency.  The loop
-   involves DetNet Operational Plane functions, with a new recovery
-   Function and a new Point of Local Repair operation, that dynamically
-   selects the DetNet path(s) for the future packets to route around
-   local degradations and failures.
+   and wireless network segments.  The RAW Architecture extends RFC
+   8655, the Deterministic Networking Architecture, to adapt to
+   challenges that affect prominently the wireless medium, in particular
+   intermittently lossy connectivity.  This document defines a network
+   control loop that optimizes the use of constrained bandwidth and
+   energy while assuring the expected connectivity services, typically
+   reliability and latency.  The loop involves DetNet Controller Plane
+   Functions, and a recovery Point of Local Repair operation, that
+   dynamically selects the DetNet path(s) for the future packets to
+   route around local service degradations.
 
 Status of This Memo
 
@@ -42,7 +42,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 20 April 2025.
+   This Internet-Draft will expire on 9 May 2025.
 
 Copyright Notice
 
@@ -53,9 +53,9 @@ Copyright Notice
 
 
 
-Thubert                   Expires 20 April 2025                 [Page 1]
+Thubert                    Expires 9 May 2025                   [Page 1]
 
-Internet-Draft              RAW Architecture                October 2024
+Internet-Draft              RAW Architecture               November 2024
 
 
    This document is subject to BCP 78 and the IETF Trust's Legal
@@ -109,9 +109,9 @@ Table of Contents
 
 
 
-Thubert                   Expires 20 April 2025                 [Page 2]
+Thubert                    Expires 9 May 2025                   [Page 2]
 
-Internet-Draft              RAW Architecture                October 2024
+Internet-Draft              RAW Architecture               November 2024
 
 
        2.6.5.  Upstream OAM  . . . . . . . . . . . . . . . . . . . .  14
@@ -165,9 +165,9 @@ Internet-Draft              RAW Architecture                October 2024
 
 
 
-Thubert                   Expires 20 April 2025                 [Page 3]
+Thubert                    Expires 9 May 2025                   [Page 3]
 
-Internet-Draft              RAW Architecture                October 2024
+Internet-Draft              RAW Architecture               November 2024
 
 
    Bringing determinism in a packet network means minimizing the
@@ -181,15 +181,15 @@ Internet-Draft              RAW Architecture                October 2024
 
    This innovation was initially introduced on wired networks, with IEEE
    802.1 Time-Sensitive networking (TSN) - for Ethernet LANs - and IETF
-   DetNet.  But the wired and the wireless media are fundamentally
-   different at the physical level and in the possible abstractions that
-   can be built for IPv6 [IPv6], more in [IPoWIRELESS].  Nevertheless,
-   deterministic capabilities are required in a number of wireless use
-   cases as well [RAW-USE-CASES].  With scheduled radios such as Time
-   Slotted Channel Hopping (TSCH) and Orthogonal Frequency Division
-   Multiple Access (OFDMA) [RAW-TECHNOS] being developed to provide
-   determinism over wireless links at the lower layers, providing DetNet
-   capabilities is now becoming possible.
+   DetNet.  But the wired and the wireless media are differ at the
+   physical level and in the possible abstractions that can be built for
+   IPv6 [IPv6], more in [IPoWIRELESS].  Nevertheless, deterministic
+   capabilities are required in a number of wireless use cases as well
+   [RAW-USE-CASES].  With scheduled radios such as Time Slotted Channel
+   Hopping (TSCH) and Orthogonal Frequency Division Multiple Access
+   (OFDMA) [RAW-TECHNOS] being developed to provide determinism over
+   wireless links at the lower layers, providing DetNet capabilities is
+   now becoming possible.
 
    Wireless networks operate on a shared medium where uncontrolled
    interference, including the self-induced multipath fading cause
@@ -221,9 +221,9 @@ Internet-Draft              RAW Architecture                October 2024
 
 
 
-Thubert                   Expires 20 April 2025                 [Page 4]
+Thubert                    Expires 9 May 2025                   [Page 4]
 
-Internet-Draft              RAW Architecture                October 2024
+Internet-Draft              RAW Architecture               November 2024
 
 
    RAW solves that problem by defining Protection Paths that can be
@@ -255,7 +255,7 @@ Internet-Draft              RAW Architecture                October 2024
 2.  Terminology
 
    RAW reuses terminology defined for DetNet in the "Deterministic
-   Networking Architecture" [RFC8655], e.g., PREOF for Packet
+   Networking Architecture" [DetNet-ARCHI], e.g., PREOF for Packet
    Replication, Elimination and Ordering Functions.  RAW inherits and
    augments the IETF art of Protection as seen in DetNet and Traffic
    Engineering.
@@ -277,9 +277,9 @@ Internet-Draft              RAW Architecture                October 2024
 
 
 
-Thubert                   Expires 20 April 2025                 [Page 5]
+Thubert                    Expires 9 May 2025                   [Page 5]
 
-Internet-Draft              RAW Architecture                October 2024
+Internet-Draft              RAW Architecture               November 2024
 
 
    RAW also reuses terminology defined for 6TiSCH in [6TiSCH-ARCHI] and
@@ -333,9 +333,9 @@ Internet-Draft              RAW Architecture                October 2024
 
 
 
-Thubert                   Expires 20 April 2025                 [Page 6]
+Thubert                    Expires 9 May 2025                   [Page 6]
 
-Internet-Draft              RAW Architecture                October 2024
+Internet-Draft              RAW Architecture               November 2024
 
 
 2.1.5.  OAM
@@ -389,9 +389,9 @@ Internet-Draft              RAW Architecture                October 2024
 
 
 
-Thubert                   Expires 20 April 2025                 [Page 7]
+Thubert                    Expires 9 May 2025                   [Page 7]
 
-Internet-Draft              RAW Architecture                October 2024
+Internet-Draft              RAW Architecture               November 2024
 
 
 2.3.1.  Path
@@ -445,9 +445,9 @@ Internet-Draft              RAW Architecture                October 2024
 
 
 
-Thubert                   Expires 20 April 2025                 [Page 8]
+Thubert                    Expires 9 May 2025                   [Page 8]
 
-Internet-Draft              RAW Architecture                October 2024
+Internet-Draft              RAW Architecture               November 2024
 
 
 2.3.2.  Recovery Graph
@@ -501,9 +501,9 @@ Internet-Draft              RAW Architecture                October 2024
 
 
 
-Thubert                   Expires 20 April 2025                 [Page 9]
+Thubert                    Expires 9 May 2025                   [Page 9]
 
-Internet-Draft              RAW Architecture                October 2024
+Internet-Draft              RAW Architecture               November 2024
 
 
    Refining even further, the feasible DetNet Paths within the recovery
@@ -514,7 +514,7 @@ Internet-Draft              RAW Architecture                October 2024
    of reporting which is the current DetNet Path within the recovery
    graph.
 
-   In DetNet [RFC8655] terms, a recovery graph has the following
+   In DetNet [DetNet-ARCHI] terms, a recovery graph has the following
    properties:
 
    *  A recovery graph is a Layer-3 abstraction built upon P2P IP links
@@ -557,9 +557,9 @@ Internet-Draft              RAW Architecture                October 2024
 
 
 
-Thubert                   Expires 20 April 2025                [Page 10]
+Thubert                    Expires 9 May 2025                  [Page 10]
 
-Internet-Draft              RAW Architecture                October 2024
+Internet-Draft              RAW Architecture               November 2024
 
 
       ------------------- forward direction ---------------------->
@@ -613,15 +613,15 @@ Internet-Draft              RAW Architecture                October 2024
 
 
 
-Thubert                   Expires 20 April 2025                [Page 11]
+Thubert                    Expires 9 May 2025                  [Page 11]
 
-Internet-Draft              RAW Architecture                October 2024
+Internet-Draft              RAW Architecture               November 2024
 
 
 2.4.  Deterministic Networking
 
    This document reuses the terminology in section 2 of [RFC8557] and
-   section 4.1.2 of [RFC8655] for deterministic networking and
+   section 4.1.2 of [DetNet-ARCHI] for deterministic networking and
    deterministic networks.
 
 2.4.1.  Flow
@@ -669,9 +669,9 @@ Internet-Draft              RAW Architecture                October 2024
 
 
 
-Thubert                   Expires 20 April 2025                [Page 12]
+Thubert                    Expires 9 May 2025                  [Page 12]
 
-Internet-Draft              RAW Architecture                October 2024
+Internet-Draft              RAW Architecture               November 2024
 
 
 2.5.1.  Service Level Agreement
@@ -725,9 +725,9 @@ Internet-Draft              RAW Architecture                October 2024
 
 
 
-Thubert                   Expires 20 April 2025                [Page 13]
+Thubert                    Expires 9 May 2025                  [Page 13]
 
-Internet-Draft              RAW Architecture                October 2024
+Internet-Draft              RAW Architecture               November 2024
 
 
 2.6.2.  In-Band OAM
@@ -781,9 +781,9 @@ Internet-Draft              RAW Architecture                October 2024
 
 
 
-Thubert                   Expires 20 April 2025                [Page 14]
+Thubert                    Expires 9 May 2025                  [Page 14]
 
-Internet-Draft              RAW Architecture                October 2024
+Internet-Draft              RAW Architecture               November 2024
 
 
 2.6.7.  Lower Layer information
@@ -837,9 +837,9 @@ Internet-Draft              RAW Architecture                October 2024
 
 
 
-Thubert                   Expires 20 April 2025                [Page 15]
+Thubert                    Expires 9 May 2025                  [Page 15]
 
-Internet-Draft              RAW Architecture                October 2024
+Internet-Draft              RAW Architecture               November 2024
 
 
    IP Routers leverage routing protocols to reroute to alternate routes
@@ -884,18 +884,18 @@ Internet-Draft              RAW Architecture                October 2024
    Deterministic flows, on the contrary, are attached to specific paths
    where dedicated resources are reserved for each flow.  Therefore each
    DetNet path must inherently provide sufficient redundancy to provide
-   the guaranteed SLA at all times.  The DetNet PREOF typically
-   leverages 1+1 redundancy whereby a packet is sent twice, over non-
-   congruent paths.  This avoids the gap during the fast reroute
-   operation, but doubles the traffic in the network.
+   the assured SLA at all times.  The DetNet PREOF typically leverages
+   1+1 redundancy whereby a packet is sent twice, over non-congruent
+   paths.  This avoids the gap during the fast reroute operation, but
+   doubles the traffic in the network.
 
 
 
 
 
-Thubert                   Expires 20 April 2025                [Page 16]
+Thubert                    Expires 9 May 2025                  [Page 16]
 
-Internet-Draft              RAW Architecture                October 2024
+Internet-Draft              RAW Architecture               November 2024
 
 
    In the case of RAW, the expectation is that multiple transient faults
@@ -949,9 +949,9 @@ Internet-Draft              RAW Architecture                October 2024
 
 
 
-Thubert                   Expires 20 April 2025                [Page 17]
+Thubert                    Expires 9 May 2025                  [Page 17]
 
-Internet-Draft              RAW Architecture                October 2024
+Internet-Draft              RAW Architecture               November 2024
 
 
    This number is typical in a wired environment where the loss is due
@@ -1005,9 +1005,9 @@ Internet-Draft              RAW Architecture                October 2024
 
 
 
-Thubert                   Expires 20 April 2025                [Page 18]
+Thubert                    Expires 9 May 2025                  [Page 18]
 
-Internet-Draft              RAW Architecture                October 2024
+Internet-Draft              RAW Architecture               November 2024
 
 
       A radio signal may be received directly (line-of-sight) and/or as
@@ -1061,9 +1061,9 @@ Internet-Draft              RAW Architecture                October 2024
 
 
 
-Thubert                   Expires 20 April 2025                [Page 19]
+Thubert                    Expires 9 May 2025                  [Page 19]
 
-Internet-Draft              RAW Architecture                October 2024
+Internet-Draft              RAW Architecture               November 2024
 
 
    A single packet may be sent at different times (time diversity) over
@@ -1103,23 +1103,23 @@ Internet-Draft              RAW Architecture                October 2024
    layer optimizations may take place to ensure proper link awareness
    (think, link quality) and packet handling (think, scheduling).
 
-   The "Deterministic Networking Architecture" [RFC8655] is composed of
-   three planes: the Application (User) Plane, the Controller Plane, and
-   the Network Plane.  The DetNet Network Plane is composed a Dataplane
-   (packet forwarding) and an Operational Plane where OAM operations
-   take place.  In the Network Plane, the DetNet service sub-layer
-   focuses on flow protection (e.g., using redundancy) and can be fully
-   operated at Layer-3, while the DetNet forwarding sub-layer
-   establishes the paths, associates the flows to the paths, and ensures
-   the availability of the necessary resources, leverages Layer-2
-   functionalities for timely delivery to the next DetNet system.
+   The "Deterministic Networking Architecture" [DetNet-ARCHI] is
+   composed of three planes: the Application (User) Plane, the
+   Controller Plane, and the Network Plane.  The DetNet Network Plane is
+   composed a Dataplane (packet forwarding) and an Operational Plane
+   where OAM operations take place.  In the Network Plane, the DetNet
+   service sub-layer focuses on flow protection (e.g., using redundancy)
+   and can be fully operated at Layer-3, while the DetNet forwarding
+   sub-layer establishes the paths, associates the flows to the paths,
+   and ensures the availability of the necessary resources, leverages
+   Layer-2 functionalities for timely delivery to the next DetNet
+   system.
 
 
 
-
-Thubert                   Expires 20 April 2025                [Page 20]
+Thubert                    Expires 9 May 2025                  [Page 20]
 
-Internet-Draft              RAW Architecture                October 2024
+Internet-Draft              RAW Architecture               November 2024
 
 
    The RAW Architecture extends the DetNet Network Plane, to accommodate
@@ -1173,9 +1173,9 @@ Internet-Draft              RAW Architecture                October 2024
 
 
 
-Thubert                   Expires 20 April 2025                [Page 21]
+Thubert                    Expires 9 May 2025                  [Page 21]
 
-Internet-Draft              RAW Architecture                October 2024
+Internet-Draft              RAW Architecture               November 2024
 
 
       (forward) and reactive (ARQ) error correction are typical to the
@@ -1229,9 +1229,9 @@ Internet-Draft              RAW Architecture                October 2024
 
 
 
-Thubert                   Expires 20 April 2025                [Page 22]
+Thubert                    Expires 9 May 2025                  [Page 22]
 
-Internet-Draft              RAW Architecture                October 2024
+Internet-Draft              RAW Architecture               November 2024
 
 
    The RAW Architecture is based on an abstract OODA Loop (Observe,
@@ -1266,13 +1266,12 @@ Internet-Draft              RAW Architecture                October 2024
 
 4.  The RAW Conceptual Model
 
-   RAW inherits the conceptual model described in section 4 of the
-   DetNet Architecture [RFC8655] as illustrated in Figure 3, which also
-   shows example reliability Functions in the different layers.  RAW
-   extends DetNet with Point of Local Repair (PLR, see Section 5.5),
-   which is a point of local reaction to provide additional agility
-   against transmission loss.  The PLR can act, e.g., based on
-   indications from the wireless layer or based on OAM.
+   RAW extendss the conceptual model described in section 4 of the
+   DetNet Architecture [DetNet-ARCHI] with the PLR at the service layer,
+   as illustrated in Figure 3.  The PLR (see Section 5.5) is a point of
+   local reaction to provide additional agility against transmission
+   loss.  The PLR can act, e.g., based on indications from the lower
+   layer or based on OAM.
 
 
 
@@ -1285,40 +1284,38 @@ Internet-Draft              RAW Architecture                October 2024
 
 
 
-Thubert                   Expires 20 April 2025                [Page 23]
+
+Thubert                    Expires 9 May 2025                  [Page 23]
 
-Internet-Draft              RAW Architecture                October 2024
+Internet-Draft              RAW Architecture               November 2024
 
 
-                      .
-                      .
-        +-----------------------------+
-        |                             |
-        |  DetNet Service sub-layer   | (e.g., (PREOF)
-        |                             |
-        +-----------------------------+
-        |                             |
-        | DetNet Forwarding sub-layer |
-        |                             |
-        |           _____    _____    |
-        |          | PLR +--+ OAM |   |
-        |           -+---    -----    |
-        |            | ^              |
-        |            | |              |
-        |         ___v_+___           |
-        +--------+ RAW API +----------+
-        |         ---------           |
-        |    Wireless/Radio Layer     | (e.g., (H)ARQ)
-        |                             |
-        +-----------------------------+
-                      .
+              |  packets going  |        ^  packets coming   ^
+              v down the stack  v        |   up the stack    |
+           +-----------------------+   +-----------------------+
+           |        Source         |   |      Destination      |
+           +-----------------------+   +-----------------------+
+           |   Service sub-layer:  |   |   Service sub-layer:  |
+           |   Packet sequencing   |   | Duplicate elimination |
+           |    Flow replication   |   |      Flow merging     |
+           |    Packet encoding    |   |    Packet decoding    |
+               | Point of Local Repair |   |                       |
+           +-----------------------+   +-----------------------+
+           | Forwarding sub-layer: |   | Forwarding sub-layer: |
+           |  Resource allocation  |   |  Resource allocation  |
+           |    Explicit routes    |   |    Explicit routes    |
+           +-----------------------+   +-----------------------+
+           |     Lower layers      |   |     Lower layers      |
+           +-----------------------+   +-----------------------+
+                       v                           ^
+                        \_________________________/
 
-               Figure 3: Wireless layer and DetNet sub-layers
+            Figure 3: Extended DetNet Data-Plane Protocol Stack
 
    The RAW API enables interactions between the reliability functions
-   provided by the wireless technology and the reliability functions
-   provided by DetNet.  Thus, the RAW API enables cross-layer
-   optimizations to improve reliability and availability.
+   provided by the lower layer and the reliability functions provided by
+   DetNet.  As such, the RAW API enables cross-layer optimizations to
+   improve reliability and availability.
 
 4.1.  The RAW Planes
 
@@ -1334,24 +1331,20 @@ Internet-Draft              RAW Architecture                October 2024
    means such as DetNet/TSN, or neglected in the face of the wireless
    hops.
 
-
-
-
-
-
-
-
-Thubert                   Expires 20 April 2025                [Page 24]
-
-Internet-Draft              RAW Architecture                October 2024
-
-
    The RAW Nodes are DetNet relays that operate in the RAW Network Plane
    and are capable of additional diversity mechanisms and measurement
    functions related to the radio interface.  RAW leverages a CPF that
    operates inside the RAW Nodes (typically the Ingress Edge Nodes) to
    dynamically adapt the path of the packets and optimizes the resource
    usage.
+
+
+
+
+Thubert                    Expires 9 May 2025                  [Page 24]
+
+Internet-Draft              RAW Architecture               November 2024
+
 
    An RAW-enabled rCPF interacts with RAW Nodes over a Southbound API.
    It consumes data and information from the network and generates
@@ -1397,9 +1390,16 @@ Internet-Draft              RAW Architecture                October 2024
 
 
 
-Thubert                   Expires 20 April 2025                [Page 25]
+
+
+
+
+
+
+
+Thubert                    Expires 9 May 2025                  [Page 25]
 
-Internet-Draft              RAW Architecture                October 2024
+Internet-Draft              RAW Architecture               November 2024
 
 
    A local CPF (lCPF) in the RAW node reports the Link-Layer metrics to
@@ -1453,9 +1453,9 @@ Internet-Draft              RAW Architecture                October 2024
 
 
 
-Thubert                   Expires 20 April 2025                [Page 26]
+Thubert                    Expires 9 May 2025                  [Page 26]
 
-Internet-Draft              RAW Architecture                October 2024
+Internet-Draft              RAW Architecture               November 2024
 
 
    When the traffic from upper layers matches the expectation of the
@@ -1468,8 +1468,8 @@ Internet-Draft              RAW Architecture                October 2024
 4.3.  RAW and DetNet
 
    RAW leverages the DetNet Forwarding sub-layer and requires the
-   support of OAM in DetNet Transit Nodes (see fig 3 of [RFC8655] for
-   the dynamic acquisition of link capacity and state to maintain a
+   support of OAM in DetNet Transit Nodes (see fig 3 of [DetNet-ARCHI]
+   for the dynamic acquisition of link capacity and state to maintain a
    strict RAW service, end-to-end, over a DetNet Network.  RAW extends
    DetNet to improve the protection against link errors such as
    transient flapping that are far more common in wireless links.
@@ -1487,7 +1487,7 @@ Internet-Draft              RAW Architecture                October 2024
    observations, and feeds the PLR for its next decision.
 
    As illustrated in Figure 5, RAW extends the DetNet Stack (see fig 4
-   of [RFC8655] and Figure 3) with additional functionality at the
+   of [DetNet-ARCHI] and Figure 3) with additional functionality at the
    DetNet Service sub-layer for the actuation of PREOF based on the PLR
    decision.  Layer-3 in general and DetNet in particular operates on
    abstractions of the lower layers and through APIs to control those
@@ -1509,9 +1509,9 @@ Internet-Draft              RAW Architecture                October 2024
 
 
 
-Thubert                   Expires 20 April 2025                [Page 27]
+Thubert                    Expires 9 May 2025                  [Page 27]
 
-Internet-Draft              RAW Architecture                October 2024
+Internet-Draft              RAW Architecture               November 2024
 
 
    RAW uses various OAM functionalities at the different layers.  For
@@ -1565,9 +1565,9 @@ Internet-Draft              RAW Architecture                October 2024
 
 
 
-Thubert                   Expires 20 April 2025                [Page 28]
+Thubert                    Expires 9 May 2025                  [Page 28]
 
-Internet-Draft              RAW Architecture                October 2024
+Internet-Draft              RAW Architecture               November 2024
 
 
    A minimal Forwarding sub-layer service is provided at all DetNet
@@ -1621,9 +1621,9 @@ Internet-Draft              RAW Architecture                October 2024
 
 
 
-Thubert                   Expires 20 April 2025                [Page 29]
+Thubert                    Expires 9 May 2025                  [Page 29]
 
-Internet-Draft              RAW Architecture                October 2024
+Internet-Draft              RAW Architecture               November 2024
 
 
    --------------------Flow Direction---------------------------------->
@@ -1677,9 +1677,9 @@ Internet-Draft              RAW Architecture                October 2024
 
 
 
-Thubert                   Expires 20 April 2025                [Page 30]
+Thubert                    Expires 9 May 2025                  [Page 30]
 
-Internet-Draft              RAW Architecture                October 2024
+Internet-Draft              RAW Architecture               November 2024
 
 
    As a result, the DetNet CPF is not expected to be aware of and to
@@ -1733,9 +1733,9 @@ Internet-Draft              RAW Architecture                October 2024
 
 
 
-Thubert                   Expires 20 April 2025                [Page 31]
+Thubert                    Expires 9 May 2025                  [Page 31]
 
-Internet-Draft              RAW Architecture                October 2024
+Internet-Draft              RAW Architecture               November 2024
 
 
    the line of sight transmission for a few seconds, or a radar measures
@@ -1789,9 +1789,9 @@ Internet-Draft              RAW Architecture                October 2024
 
 
 
-Thubert                   Expires 20 April 2025                [Page 32]
+Thubert                    Expires 9 May 2025                  [Page 32]
 
-Internet-Draft              RAW Architecture                October 2024
+Internet-Draft              RAW Architecture               November 2024
 
 
       sub-layer to increase the reliability of the end-to-end
@@ -1845,9 +1845,9 @@ Internet-Draft              RAW Architecture                October 2024
 
 
 
-Thubert                   Expires 20 April 2025                [Page 33]
+Thubert                    Expires 9 May 2025                  [Page 33]
 
-Internet-Draft              RAW Architecture                October 2024
+Internet-Draft              RAW Architecture               November 2024
 
 
                                      Opaque to OAM
@@ -1901,9 +1901,9 @@ Internet-Draft              RAW Architecture                October 2024
 
 
 
-Thubert                   Expires 20 April 2025                [Page 34]
+Thubert                    Expires 9 May 2025                  [Page 34]
 
-Internet-Draft              RAW Architecture                October 2024
+Internet-Draft              RAW Architecture               November 2024
 
 
 5.4.  Orient: The RAW-extended DetNet Operational Plane
@@ -1957,9 +1957,9 @@ Internet-Draft              RAW Architecture                October 2024
 
 
 
-Thubert                   Expires 20 April 2025                [Page 35]
+Thubert                    Expires 9 May 2025                  [Page 35]
 
-Internet-Draft              RAW Architecture                October 2024
+Internet-Draft              RAW Architecture               November 2024
 
 
    To that effect, RAW defines the Point of Local Repair (PLR), which
@@ -2013,9 +2013,9 @@ Internet-Draft              RAW Architecture                October 2024
 
 
 
-Thubert                   Expires 20 April 2025                [Page 36]
+Thubert                    Expires 9 May 2025                  [Page 36]
 
-Internet-Draft              RAW Architecture                October 2024
+Internet-Draft              RAW Architecture               November 2024
 
 
    The PLR sits in the DetNet Forwarding sub-Layer of Edge and Relay
@@ -2069,9 +2069,9 @@ Internet-Draft              RAW Architecture                October 2024
 
 
 
-Thubert                   Expires 20 April 2025                [Page 37]
+Thubert                    Expires 9 May 2025                  [Page 37]
 
-Internet-Draft              RAW Architecture                October 2024
+Internet-Draft              RAW Architecture               November 2024
 
 
    RAW provides hints to the lower layer services on the desired
@@ -2094,9 +2094,9 @@ Internet-Draft              RAW Architecture                October 2024
    based on a better knowledge of the rest of the way.
 
    The dynamic DetNet Path selection in RAW avoids the waste of critical
-   resources such as spectrum and energy while providing for the
-   guaranteed SLA, e.g., by rerouting and/or adding redundancy only when
-   a spike of loss is observed.
+   resources such as spectrum and energy while providing for the assured
+   SLA, e.g., by rerouting and/or adding redundancy only when a spike of
+   loss is observed.
 
 6.  Security Considerations
 
@@ -2125,9 +2125,9 @@ Internet-Draft              RAW Architecture                October 2024
 
 
 
-Thubert                   Expires 20 April 2025                [Page 38]
+Thubert                    Expires 9 May 2025                  [Page 38]
 
-Internet-Draft              RAW Architecture                October 2024
+Internet-Draft              RAW Architecture               November 2024
 
 
 7.  IANA Considerations
@@ -2181,9 +2181,9 @@ Internet-Draft              RAW Architecture                October 2024
 
 
 
-Thubert                   Expires 20 April 2025                [Page 39]
+Thubert                    Expires 9 May 2025                  [Page 39]
 
-Internet-Draft              RAW Architecture                October 2024
+Internet-Draft              RAW Architecture               November 2024
 
 
    [INT-ARCHI]
@@ -2202,9 +2202,9 @@ Internet-Draft              RAW Architecture                October 2024
               Thubert, P., Cavalcanti, D., Vilajosana, X., Schmitt, C.,
               and J. Farkas, "Reliable and Available Wireless
               Technologies", Work in Progress, Internet-Draft, draft-
-              ietf-raw-technologies-11, 13 October 2024,
+              ietf-raw-technologies-13, 19 October 2024,
               <https://datatracker.ietf.org/doc/html/draft-ietf-raw-
-              technologies-11>.
+              technologies-13>.
 
    [RAW-USE-CASES]
               Bernardos, C. J., Papadopoulos, G. Z., Thubert, P., and F.
@@ -2237,9 +2237,9 @@ Internet-Draft              RAW Architecture                October 2024
 
 
 
-Thubert                   Expires 20 April 2025                [Page 40]
+Thubert                    Expires 9 May 2025                  [Page 40]
 
-Internet-Draft              RAW Architecture                October 2024
+Internet-Draft              RAW Architecture               November 2024
 
 
    [IPv6]     Deering, S. and R. Hinden, "Internet Protocol, Version 6
@@ -2251,7 +2251,8 @@ Internet-Draft              RAW Architecture                October 2024
               Statement", RFC 8557, DOI 10.17487/RFC8557, May 2019,
               <https://www.rfc-editor.org/info/rfc8557>.
 
-   [RFC8655]  Finn, N., Thubert, P., Varga, B., and J. Farkas,
+   [DetNet-ARCHI]
+              Finn, N., Thubert, P., Varga, B., and J. Farkas,
               "Deterministic Networking Architecture", RFC 8655,
               DOI 10.17487/RFC8655, October 2019,
               <https://www.rfc-editor.org/info/rfc8655>.
@@ -2292,10 +2293,9 @@ Internet-Draft              RAW Architecture                October 2024
 
 
 
-
-Thubert                   Expires 20 April 2025                [Page 41]
+Thubert                    Expires 9 May 2025                  [Page 41]
 
-Internet-Draft              RAW Architecture                October 2024
+Internet-Draft              RAW Architecture               November 2024
 
 
    [STD 62]   Harrington, D., Presuhn, R., and B. Wijnen, "An
@@ -2349,17 +2349,17 @@ Internet-Draft              RAW Architecture                October 2024
 
 
 
-Thubert                   Expires 20 April 2025                [Page 42]
+Thubert                    Expires 9 May 2025                  [Page 42]
 
-Internet-Draft              RAW Architecture                October 2024
+Internet-Draft              RAW Architecture               November 2024
 
 
    [IPoWIRELESS]
               Thubert, P. and M. Richardson, "Architecture and Framework
               for IPv6 over Non-Broadcast Access", Work in Progress,
-              Internet-Draft, draft-thubert-6man-ipv6-over-wireless-15,
-              8 March 2023, <https://datatracker.ietf.org/doc/html/
-              draft-thubert-6man-ipv6-over-wireless-15>.
+              Internet-Draft, draft-ietf-6man-ipv6-over-wireless-06, 23
+              May 2024, <https://datatracker.ietf.org/doc/html/draft-
+              ietf-6man-ipv6-over-wireless-06>.
 
    [NASA1]    Adams, T., "RELIABILITY: Definition & Quantitative
               Illustration", <https://extapps.ksc.nasa.gov/Reliability/
@@ -2405,4 +2405,4 @@ Author's Address
 
 
 
-Thubert                   Expires 20 April 2025                [Page 43]
+Thubert                    Expires 9 May 2025                  [Page 43]

@@ -127,18 +127,18 @@
     the feasible Protection Paths.
     </t>
     <t>
-	In addition, RAW introduces the RAW API, which is an interface between the
-	lower layer (e.g.,  wireless) technology and the DetNet layers. The RAW API is
+	In addition, RAW introduces a lower layer API (LL API), which is an interface between the
+	lower layer (e.g.,  wireless) technology and the DetNet layers. The LL API is
 	technology <xref target="I-D.ietf-raw-technologies"/> dependent as it can
-	vary what the lower layer technologies expose towards the DetNet layers. 
+	vary what the lower layers expose towards the DetNet layers. 
 	Furthermore, the different RAW technologies are equipped with different 
 	reliability features, e.g., short range broadcast, MUMIMO, PHY rate and 
 	other Modulation Coding Scheme (MCS) adaptation, (H)ARQ, constructive 
-	interference and overhearing. The RAW API enables interactions between the
-	reliability functions provided by the wireless technology and the 
-	reliability functions provided by DetNet. That is, the RAW API makes 
+	interference and overhearing. The LL API enables interactions between the
+	reliability functions provided by the lower layer and the 
+	reliability functions provided by DetNet. That is, the LL API makes 
 	cross-layer optimization possible for the reliability functions of 
-	different layers depending on the actual exposure provided via the RAW API
+	different layers depending on the actual exposure provided via the LL API
 	by the given RAW technology.
     </t>
    <t>This document presents the RAW problem and associated terminology in
@@ -1195,12 +1195,6 @@
 						
 </artwork>
 </figure>
-    <t>
-	The RAW API enables interactions between the reliability functions provided
-	by the lower layer and the reliability functions provided by DetNet.
-	As such, the RAW API enables cross-layer optimizations to improve reliability
-	and availability. 
-	</t>
 
 <section anchor="plane" numbered="true" toc="default">
     <name>The RAW Planes</name>
@@ -1369,10 +1363,8 @@
   DetNet already leverages lower layers for time-sensitive operations such as
   time synchronization and traffic shapers. As the performances of the
   radio layers are subject to rapid changes, RAW needs more dynamic gauges
-  and knobs. To that effect, the RAW API enables interactions between the 
-  reliability functions provided by the wireless technology and the reliability 
-  functions provided by DetNet. That is, the RAW API provides a radio 
-  abstraction to the DetNet layer. The RAW API can be used to push reliability
+  and knobs. To that effect, the LL API provides an  
+  abstraction to the DetNet layer that can be used to push reliability
   and timing hints like suggest X retries (min, max) within a time window, or 
   send unicast (one next hop) or multicast (for overhearing). The other way +-+
   around RAW needs hints about the radio conditions like L2 triggers (RSSI, 
@@ -1388,43 +1380,27 @@
 
 
 <figure anchor="FigDN">
-          <name>RAW functions in the DetNet sub-layers</name>
+          <name>RAW functions placement</name>
        <artwork align="left" name="" type="" alt="">
 
- +-----------------------------+  +------------------------------+
- |                             |  |                              |
- | +-------------------------+ |  | +--------------------------+ |
- | |     lCPF                | |  | |         lCPF             | |
- | +-------------------------+ |  | +--------------------------+ |
- | +-------------------------+ |  | .-.-.-.-.-.-.-.-.-.-.-.-.-.  |
- | |     OAM                 | |  | |      Distributed OAM     | |
- | |     Supervisor          | |  | |      Supervisor          | |
- | +-------------------------+ |  | .-.-.-.-.-.-.-.-.-.-.-.-.-.  |
- |                             |  |          optional            |
 
+      Controller Plane Functions         
+  
+  +-----------------+     +-------------------+ 
+  |     Routing     |     |  OAM  Control     |   
+  +-----------------+     +-------------------+   
+ 
+  
 Operational Plane
 +-+-+-+-+-+-+-+-+-+-+ Southbound Interface -+-+-+-+-+-+-+-+-+-+-+-+
 Data Plane
 
     DetNet Service sub-layer
- |                             |  |                              |
- | +----------+  +-----------+ |  | +-----------+  +-----------+ |
- | | PREOF    |  |  OAM      | |  | |  PREOF    |  |  OAM      | |
- | | Actuator |  |  Observer | |  | |  Actuator |  |  Observer | |
- | +----------+  +-----------+ |  | +-----------+  +-----------+ |
- |                             |  |                              |
-    DetNet Service sub-layer
-...................................................................
-    DetNet Forwarding sub-layer
- |                             |  |                              |
- | +----------+   +----------+ |  | +-----------+  +-----------+ |
- | | PLR      |   |   OAM    | |  | |  PLR      |  |   OAM     | |
- | +----------+   +----------+ |  | +-----------+  +-----------+ |
- |                             |  |                              |
- |                             |  |                              |
-          End System or                       
-           Edge Node                         Relay Node
-
+          
+  +-----------------+     +-------------------+ 
+  |    Point of     |     |  OAM  Maintenance |
+  |   local Repair  |     |  End Point  (MEP) |
+  +-----------------+     +-------------------+ 
 </artwork>
 </figure>
 
@@ -1658,16 +1634,16 @@ Data Plane
        <artwork align="center" name="" type="" alt="">
 <![CDATA[
 
-     +-------> Orient (lCPF) -------+
+     +-------> Orient (CPF) -------+
      |        reflex actions        |
      |       pre-trained model      |
      |             ...              |
      |                              v
- Observe (OAM)                Decide (PLR)
+ Observe (OAM)                 Decide (CPF)
      ^                              |
      |                              |
      |                              |
-     +-------- Act (PREOF) <--------+
+     +--------- Act (PLR) <---------+
                 At DetNet
              Service sub-layer
 
@@ -1831,20 +1807,15 @@ Data Plane
     </t>
 
 
-    <table anchor="PCEPLRtable"><name>CPF vs. PLR</name>
+    <table anchor="PCEPLRtable"><name>Centralized Decision vs. PLR</name>
    <thead>
       <tr>
        <th> </th>
-		   <th align='center'> rCPF </th>
+		   <th align='center'> Centralized	   </th>
 		   <th align='center'> PLR (In Scope) </th>
       </tr>
 
    </thead><tbody>
-
-			<tr><td>Operation</td>
-    			<td align='center'>Typically Centralized</td>
-    			<td align='center'>Source-Routed or Distributed</td>
-        </tr>
 
 
 			<tr><td>Communication
@@ -1923,7 +1894,7 @@ Data Plane
     The candidate DetNet Paths represent different energy and spectrum profiles,
     and provide protection against different failures.
     </t>
-    <t>The RAW API enriches the DetNet protection services (PREOF)
+    <t>The LL API enriches the DetNet protection services (PREOF)
     with potential possibility to interact with lower layer one-hop reliability
 	functions that are more typical to wireless than wires, including Automatic 
 	Repeat reQuest (ARQ), Forward Error Correction (FEC), Hybrid ARQ (HARQ) 
@@ -1936,7 +1907,7 @@ Data Plane
     RAW provides hints to the lower layer services on the desired outcome, and
 	the lower layer acts on those hinHts to provide the best approximation of 
 	that outcome, e.g., a level of reliability for one-hop transmission within
-	a bounded budget of time and/or energy. Thus, the RAW API makes possible 
+	a bounded budget of time and/or energy. Thus, the LL API makes possible 
 	cross-layer optimization for reliability depending on the actual 
 	abstraction provided. That is, some reliability functions are controlled
 	from Layer-3 using an abstract interface, while they are really operated at
@@ -2065,7 +2036,6 @@ Data Plane
 <displayreference   target="RFC1122"                  to="INT-ARCHI"/>
 <displayreference   target="RFC9522"                  to="TE"/>
 <displayreference   target="RFC8175"                  to="DLEP"/>
-<displayreference   target="RFC3411"                  to="STD 62"/>
 <displayreference   target="RFC7490"                  to="RLFA-FRR"/>
 <displayreference   target="RFC5714"                  to="FRR"/>
 <displayreference   target="RFC8200"                  to="IPv6"/>
@@ -2142,8 +2112,6 @@ Data Plane
 <xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.3366.xml"/>
 <!-- Advice to link designers on link Automatic Repeat reQuest (ARQ) -->
 
-<xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.3411.xml"/>
-<!-- An Architecture for Describing Simple Network Management Protocol (SNMP) Management Frameworks -->
 
 <xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.4090.xml"/>
 <!-- Fast Reroute Extensions to RSVP-TE -->

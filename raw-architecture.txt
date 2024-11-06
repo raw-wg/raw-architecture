@@ -4,9 +4,9 @@
 
 RAW                                                      P. Thubert, Ed.
 Internet-Draft                                       Without Affiliation
-Updates: 8655 (if approved)                              5 November 2024
+Updates: 8655 (if approved)                              6 November 2024
 Intended status: Informational                                          
-Expires: 9 May 2025
+Expires: 10 May 2025
 
 
               Reliable and Available Wireless Architecture
@@ -42,7 +42,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 9 May 2025.
+   This Internet-Draft will expire on 10 May 2025.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Thubert                    Expires 9 May 2025                   [Page 1]
+Thubert                    Expires 10 May 2025                  [Page 1]
 
 Internet-Draft              RAW Architecture               November 2024
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Thubert                    Expires 9 May 2025                   [Page 2]
+Thubert                    Expires 10 May 2025                  [Page 2]
 
 Internet-Draft              RAW Architecture               November 2024
 
@@ -165,7 +165,7 @@ Internet-Draft              RAW Architecture               November 2024
 
 
 
-Thubert                    Expires 9 May 2025                   [Page 3]
+Thubert                    Expires 10 May 2025                  [Page 3]
 
 Internet-Draft              RAW Architecture               November 2024
 
@@ -221,7 +221,7 @@ Internet-Draft              RAW Architecture               November 2024
 
 
 
-Thubert                    Expires 9 May 2025                   [Page 4]
+Thubert                    Expires 10 May 2025                  [Page 4]
 
 Internet-Draft              RAW Architecture               November 2024
 
@@ -277,7 +277,7 @@ Internet-Draft              RAW Architecture               November 2024
 
 
 
-Thubert                    Expires 9 May 2025                   [Page 5]
+Thubert                    Expires 10 May 2025                  [Page 5]
 
 Internet-Draft              RAW Architecture               November 2024
 
@@ -333,7 +333,7 @@ Internet-Draft              RAW Architecture               November 2024
 
 
 
-Thubert                    Expires 9 May 2025                   [Page 6]
+Thubert                    Expires 10 May 2025                  [Page 6]
 
 Internet-Draft              RAW Architecture               November 2024
 
@@ -389,7 +389,7 @@ Internet-Draft              RAW Architecture               November 2024
 
 
 
-Thubert                    Expires 9 May 2025                   [Page 7]
+Thubert                    Expires 10 May 2025                  [Page 7]
 
 Internet-Draft              RAW Architecture               November 2024
 
@@ -445,7 +445,7 @@ Internet-Draft              RAW Architecture               November 2024
 
 
 
-Thubert                    Expires 9 May 2025                   [Page 8]
+Thubert                    Expires 10 May 2025                  [Page 8]
 
 Internet-Draft              RAW Architecture               November 2024
 
@@ -501,7 +501,7 @@ Internet-Draft              RAW Architecture               November 2024
 
 
 
-Thubert                    Expires 9 May 2025                   [Page 9]
+Thubert                    Expires 10 May 2025                  [Page 9]
 
 Internet-Draft              RAW Architecture               November 2024
 
@@ -557,7 +557,7 @@ Internet-Draft              RAW Architecture               November 2024
 
 
 
-Thubert                    Expires 9 May 2025                  [Page 10]
+Thubert                    Expires 10 May 2025                 [Page 10]
 
 Internet-Draft              RAW Architecture               November 2024
 
@@ -613,7 +613,7 @@ Internet-Draft              RAW Architecture               November 2024
 
 
 
-Thubert                    Expires 9 May 2025                  [Page 11]
+Thubert                    Expires 10 May 2025                 [Page 11]
 
 Internet-Draft              RAW Architecture               November 2024
 
@@ -669,7 +669,7 @@ Internet-Draft              RAW Architecture               November 2024
 
 
 
-Thubert                    Expires 9 May 2025                  [Page 12]
+Thubert                    Expires 10 May 2025                 [Page 12]
 
 Internet-Draft              RAW Architecture               November 2024
 
@@ -725,20 +725,19 @@ Internet-Draft              RAW Architecture               November 2024
 
 
 
-Thubert                    Expires 9 May 2025                  [Page 13]
+Thubert                    Expires 10 May 2025                 [Page 13]
 
 Internet-Draft              RAW Architecture               November 2024
 
 
 2.6.7.  Lower Layer information
 
-   The RAW Operational Plane elements (OAM Supervisor and local CPF
-   (lCPF)) may gather aggregated information from lower layers about
-   e.g., link quality.  This information may be obtained from inside the
-   device using specialized API (e.g., L2 triggers) or via control
-   protocols such as BFD [RFC5880] or DLEP [DLEP].  It may then be
-   massaged and exported through oOAM messaging, and passed to the
-   Controller Plane using the lCPF.
+   The Operational Plane elements (Routing and OAM control) may gather
+   aggregated information from lower layers about e.g., link quality.
+   This information may be obtained from inside the device using
+   specialized API (e.g., L2 triggers) or via control protocols such as
+   BFD [RFC5880] or DLEP [DLEP].  It may then be massaged and exported
+   through oOAM messaging, and passed to the Controller Plane.
 
 2.6.8.  Additional References
 
@@ -781,7 +780,8 @@ Internet-Draft              RAW Architecture               November 2024
 
 
 
-Thubert                    Expires 9 May 2025                  [Page 14]
+
+Thubert                    Expires 10 May 2025                 [Page 14]
 
 Internet-Draft              RAW Architecture               November 2024
 
@@ -837,7 +837,7 @@ Internet-Draft              RAW Architecture               November 2024
 
 
 
-Thubert                    Expires 9 May 2025                  [Page 15]
+Thubert                    Expires 10 May 2025                 [Page 15]
 
 Internet-Draft              RAW Architecture               November 2024
 
@@ -853,8 +853,8 @@ Internet-Draft              RAW Architecture               November 2024
 3.1.1.3.  Prompt Notification of Failures
 
    The execution of the two above principles is likely to render a
-   system where the user rarely sees a failure.  But someone needs to in
-   order to direct maintenance.
+   system where the user rarely sees a failure.  But someone needs to
+   see the failure in order to direct maintenance.
 
    There are many reasons for system monitoring (FCAPS for fault,
    configuration, accounting, performance, security is a handy mental
@@ -893,7 +893,7 @@ Internet-Draft              RAW Architecture               November 2024
 
 
 
-Thubert                    Expires 9 May 2025                  [Page 16]
+Thubert                    Expires 10 May 2025                 [Page 16]
 
 Internet-Draft              RAW Architecture               November 2024
 
@@ -949,7 +949,7 @@ Internet-Draft              RAW Architecture               November 2024
 
 
 
-Thubert                    Expires 9 May 2025                  [Page 17]
+Thubert                    Expires 10 May 2025                 [Page 17]
 
 Internet-Draft              RAW Architecture               November 2024
 
@@ -1005,7 +1005,7 @@ Internet-Draft              RAW Architecture               November 2024
 
 
 
-Thubert                    Expires 9 May 2025                  [Page 18]
+Thubert                    Expires 10 May 2025                 [Page 18]
 
 Internet-Draft              RAW Architecture               November 2024
 
@@ -1061,7 +1061,7 @@ Internet-Draft              RAW Architecture               November 2024
 
 
 
-Thubert                    Expires 9 May 2025                  [Page 19]
+Thubert                    Expires 10 May 2025                 [Page 19]
 
 Internet-Draft              RAW Architecture               November 2024
 
@@ -1117,7 +1117,7 @@ Internet-Draft              RAW Architecture               November 2024
 
 
 
-Thubert                    Expires 9 May 2025                  [Page 20]
+Thubert                    Expires 10 May 2025                 [Page 20]
 
 Internet-Draft              RAW Architecture               November 2024
 
@@ -1173,7 +1173,7 @@ Internet-Draft              RAW Architecture               November 2024
 
 
 
-Thubert                    Expires 9 May 2025                  [Page 21]
+Thubert                    Expires 10 May 2025                 [Page 21]
 
 Internet-Draft              RAW Architecture               November 2024
 
@@ -1185,13 +1185,15 @@ Internet-Draft              RAW Architecture               November 2024
        Administration and Maintenance (OAM) to Observe some or all hops
        along a recovery graph as well as the end-to-end packet delivery
 
-   2.  The DetNet Controller Plane Function (CPF) is split with an
-       optional local CPF (lCPF), which reports data and information
-       such as link statistics to be used by the routing CPF (rCPF) to
-       compute, install, and maintain the recovery graphs, e.g., by
-       generating knowledge and wisdom such as a trained model for link
-       quality prediction, which in turn can be used by the lCPF to
-       Orient the Path selection by the PLR within the RAW OODA loop.
+   2.  The DetNet CPF is split with an orientation function which is
+       typically local to the node and a routing function that resides
+       anywhere in the operational plane.  The orientation function
+       which reports data and information such as link statistics to be
+       used by the routing CPF to compute, install, and maintain the
+       recovery graphs.  The routing CPF may also generate knowledge and
+       wisdom such as a trained model for link quality prediction, which
+       in turn can be used by the orientation function to influence the
+       Path selection by the PLR within the RAW OODA loop.
 
    3.  A PLR that hosts the Decision function of which DetNet Paths to
        use for the future packets that are routed within the recovery
@@ -1227,9 +1229,7 @@ Internet-Draft              RAW Architecture               November 2024
 
 
 
-
-
-Thubert                    Expires 9 May 2025                  [Page 22]
+Thubert                    Expires 10 May 2025                 [Page 22]
 
 Internet-Draft              RAW Architecture               November 2024
 
@@ -1272,27 +1272,27 @@ Internet-Draft              RAW Architecture               November 2024
 
    The RAW Nodes are DetNet relays that operate in the RAW Network Plane
    and are capable of additional diversity mechanisms and measurement
-   functions related to the radio interface.  RAW leverages a CPF that
-   operates inside the RAW Nodes (typically the Ingress Edge Nodes) to
-   dynamically adapt the path of the packets and optimizes the resource
-   usage.
+   functions related to the radio interface.  RAW leverages a CPF
+   orientation function (that typically operates inside the Ingress Edge
+   Nodes) to dynamically adapt the path of the packets and optimizes the
+   resource usage.
 
-   An RAW-enabled rCPF interacts with RAW Nodes over a Southbound API.
-   It consumes data and information from the network and generates
+   A RAW-enabled routing CPF interacts with RAW Nodes over a Southbound
+   API.  It consumes data and information from the network and generates
    knowledge and wisdom to help steer the traffic optimally inside a
    recovery graph.
 
 
 
 
-Thubert                    Expires 9 May 2025                  [Page 23]
+Thubert                    Expires 10 May 2025                 [Page 23]
 
 Internet-Draft              RAW Architecture               November 2024
 
 
                             DetNet Routing
 
-           rCPF               rCPF          rCPF                 rCPF
+           CPF               CPF          CPF                 CPF
 
 
                           Southbound API
@@ -1313,11 +1313,11 @@ Internet-Draft              RAW Architecture               November 2024
 
                             Figure 4: RAW Nodes
 
-   When a new flow is defined, the rCPF uses its current knowledge of
-   the network to build a new recovery graph between an Ingress End
-   System and an Egress End System for that flow; it indicates to the
-   RAW Nodes where the PREOF and/or radio diversity and reliability
-   operations may be actioned in the Network Plane.
+   When a new flow is defined, the routing CPF uses its current
+   knowledge of the network to build a new recovery graph between an
+   Ingress End System and an Egress End System for that flow; it
+   indicates to the RAW Nodes where the PREOF and/or radio diversity and
+   reliability operations may be actioned in the Network Plane.
 
    *  The recovery graph may be strict, meaning that the DetNet
       forwarding sub-layer operations are enforced end-to-end
@@ -1326,26 +1326,29 @@ Internet-Draft              RAW Architecture               November 2024
       non-RAW subnetwork as in Figure 7.  In that case, RAW can not
       leverage end-to-end DetNet and cannot provide latency guarantees.
 
-   A local CPF (lCPF) in the RAW node reports the Link-Layer metrics to
-   the rCPF in a time-aggregated, e.g., statistical fashion.  Example
-   Link-Layer metrics include typical Link bandwidth (the medium speed
-   depends dynamically on the PHY mode), number of flows (bandwidth that
-   can be reserved for a flow depends on the number and size of flows
-   sharing the spectrum) and average and mean squared deviation of
-   availability and reliability figures such as Packet Delivery Ratio
-   (PDR) over long periods of time.
-
-   Based on those metrics, the DetNet rCPF installs the recovery graph
-   with enough redundant forwarding solutions to ensure that the Network
-   Plane can reliably deliver the packets within a System Level
-
+   The information that the orientation CPF reports to the routing CPF
+   includes may be a time-aggregated, e.g., statistical fashion, to
+   match the longer term operation of the routing CPF.  Example
+   information includes Link-Layer metrics such as Link bandwidth (the
+   medium speed depends dynamically on the PHY mode), number of flows
+   (bandwidth that can be reserved for a flow depends on the number and
+   size of flows sharing the spectrum) and average and mean squared
+   deviation of availability and reliability figures such as Packet
+   Delivery Ratio (PDR) over long periods of time.  It may also report
+   an aggregated expected transmission count (ETX), or a variation of
+   it.
 
 
-Thubert                    Expires 9 May 2025                  [Page 24]
+
+
+Thubert                    Expires 10 May 2025                 [Page 24]
 
 Internet-Draft              RAW Architecture               November 2024
 
 
+   Based on those metrics, the routing CPF installs the recovery graph
+   with enough redundant forwarding solutions to ensure that the Network
+   Plane can reliably deliver the packets within a System Level
    Agreement (SLA) associated to the flows that it transports.  The SLA
    defines end-to-end reliability and availability requirements, where
    reliability may be expressed as a successful delivery in order and
@@ -1361,8 +1364,8 @@ Internet-Draft              RAW Architecture               November 2024
 
    Once a recovery graph is established, per-segment and end-to-end
    reliability and availability statistics are periodically reported to
-   the rCPF to assure that the SLA can be met or if not, then have the
-   recovery graph recomputed.
+   the routing CPF to assure that the SLA can be met or if not, then
+   have the recovery graph recomputed.
 
 4.2.  RAW vs. Upper and Lower Layers
 
@@ -1394,10 +1397,7 @@ Internet-Draft              RAW Architecture               November 2024
 
 
 
-
-
-
-Thubert                    Expires 9 May 2025                  [Page 25]
+Thubert                    Expires 10 May 2025                 [Page 25]
 
 Internet-Draft              RAW Architecture               November 2024
 
@@ -1415,13 +1415,15 @@ Internet-Draft              RAW Architecture               November 2024
    available path diversity exceeds 1+1 linear redundancy.
 
    RAW adds sub-layer functions that operate in the DetNet Operational
-   Plane.  The RAW functions such as lCPF and OAM typically run only in
-   the DetNet Ingress Edge Node or End System, though it may also run in
-   DetNet Relay Nodes when the RAW operations are distributed along the
-   recovery graph.  The RAW functions include the PLR, which decides the
-   DetNet Path for the future packets of a flows along the DetNet Path,
-   and the OAM Supervisor, which triggers, and learns from, OAM
-   observations, and feeds the PLR for its next decision.
+   Plane.  The RAW orientation function may run only in the DetNet edge
+   nodes ( Ingress Edge Node or End System), or it also run in DetNet
+   Relay Nodes when the RAW operations are distributed along the
+   recovery graph.  The RAW service layer includes the PLR, which
+   decides the DetNet Path for the future packets of a flows along the
+   DetNet Path, Maintenance End Points (MEPs) on edge noes, and
+   aintenance Intermediate Points (MIPs) within.  The MEPs trigger, and
+   learn from, OAM observations, and feeds the PLR for its next
+   decision.
 
    As illustrated in Figure 5, RAW extends the DetNet Stack (see fig 4
    of [DetNet-ARCHI] and Figure 3) with additional functionality at the
@@ -1435,10 +1437,9 @@ Internet-Draft              RAW Architecture               November 2024
    effect, the LL API provides an abstraction to the DetNet layer that
    can be used to push reliability and timing hints like suggest X
    retries (min, max) within a time window, or send unicast (one next
-   hop) or multicast (for overhearing).  The other way +-+ around RAW
-   needs hints about the radio conditions like L2 triggers (RSSI, LQI,
-   ETX…) over all the wireless hops.  This information is useful to both
-   the lCPF and the PLR.
+   hop) or multicast (for overhearing).  In the other direction up the
+   stack, the RAW PLR needs hints about the radio conditions like L2
+   triggers (RSSI, LQI, ETX…) over all the wireless hops.
 
    RAW uses various OAM functionalities at the different layers.  For
    instance, the OAM function in the DetNet Service sub-layer
@@ -1452,8 +1453,7 @@ Internet-Draft              RAW Architecture               November 2024
 
 
 
-
-Thubert                    Expires 9 May 2025                  [Page 26]
+Thubert                    Expires 10 May 2025                 [Page 26]
 
 Internet-Draft              RAW Architecture               November 2024
 
@@ -1509,7 +1509,7 @@ Internet-Draft              RAW Architecture               November 2024
 
 
 
-Thubert                    Expires 9 May 2025                  [Page 27]
+Thubert                    Expires 10 May 2025                 [Page 27]
 
 Internet-Draft              RAW Architecture               November 2024
 
@@ -1565,7 +1565,7 @@ Internet-Draft              RAW Architecture               November 2024
 
 
 
-Thubert                    Expires 9 May 2025                  [Page 28]
+Thubert                    Expires 10 May 2025                 [Page 28]
 
 Internet-Draft              RAW Architecture               November 2024
 
@@ -1597,14 +1597,14 @@ Internet-Draft              RAW Architecture               November 2024
 5.1.  Routing Time Scale vs. Forwarding Time Scale
 
    With DetNet, the Controller Plane Function handles the routing
-   computation and maintenance.  With RAW, the routing part of the CPF
-   (rCPF) is segregated from the RAW Control Loop, so it may reside
-   outside of the RAW network.  To achieve RAW capabilities, the rCPF is
-   extended to generate the information required by the lCPF, which acts
-   as the orientation component in the loop.  The rCPF may, e.g.,
-   propose DetNet Paths to be used as a reflex action in response to
-   network events, or by provide aggregated history that the lCPF can
-   use to make an oriented decision.
+   computation and maintenance.  With RAW, the routing operation in the
+   CPF is segregated from the RAW Control Loop, so it may reside outside
+   of the RAW network.  To achieve RAW capabilities, the routing
+   operation in the CPF is extended to generate the information required
+   by the orientation function in the loop.  The CPF may, e.g., propose
+   DetNet Paths to be used as a reflex action in response to network
+   events, or by provide aggregated history that the orientation
+   function can use to make a decision.
 
    In a wireless mesh, the path to the DetNet CPF can be expensive and
    slow, possibly going across the whole mesh and back.  Reaching to the
@@ -1621,7 +1621,7 @@ Internet-Draft              RAW Architecture               November 2024
 
 
 
-Thubert                    Expires 9 May 2025                  [Page 29]
+Thubert                    Expires 10 May 2025                 [Page 29]
 
 Internet-Draft              RAW Architecture               November 2024
 
@@ -1633,8 +1633,8 @@ Internet-Draft              RAW Architecture               November 2024
    properties as shades of gray as opposed to numerical values such as a
    link quality indicator, or a boolean value for either up or down.
 
-   The interaction with the (remote) RAW rCPF is handled by the lCPF,
-   which builds reports to the rCPF and digests the control information
+   The interaction with the CPF is handled by the orientation function,
+   which builds reports to the CPF and digests the control information
    back, to be used inside a forwarding control loop for traffic
    steering.
 
@@ -1677,7 +1677,7 @@ Internet-Draft              RAW Architecture               November 2024
 
 
 
-Thubert                    Expires 9 May 2025                  [Page 30]
+Thubert                    Expires 10 May 2025                 [Page 30]
 
 Internet-Draft              RAW Architecture               November 2024
 
@@ -1720,10 +1720,10 @@ Internet-Draft              RAW Architecture               November 2024
       graph as well as the end-to-end packet delivery, more in
       Section 5.3;
 
-   Orient:  A local CPF (lCPF), which reports data and information such
-      as the link statistics, and leverages offline-computed wisdom and
-      knowledge to Orient the PLR for its forwarding decision, more in
-      Section 5.4;
+   Orient:  The orientation function, which reports data and information
+      such as the link statistics, and leverages offline-computed wisdom
+      and knowledge to Orient the PLR for its forwarding decision, more
+      in Section 5.4;
 
    Decide:  A local PLR that decides which DetNet Path to use for the
       future packet(s) that are routed along the recovery graph, more in
@@ -1733,7 +1733,7 @@ Internet-Draft              RAW Architecture               November 2024
 
 
 
-Thubert                    Expires 9 May 2025                  [Page 31]
+Thubert                    Expires 10 May 2025                 [Page 31]
 
 Internet-Draft              RAW Architecture               November 2024
 
@@ -1789,7 +1789,7 @@ Internet-Draft              RAW Architecture               November 2024
 
 
 
-Thubert                    Expires 9 May 2025                  [Page 32]
+Thubert                    Expires 10 May 2025                 [Page 32]
 
 Internet-Draft              RAW Architecture               November 2024
 
@@ -1845,7 +1845,7 @@ Internet-Draft              RAW Architecture               November 2024
 
 
 
-Thubert                    Expires 9 May 2025                  [Page 33]
+Thubert                    Expires 10 May 2025                 [Page 33]
 
 Internet-Draft              RAW Architecture               November 2024
 
@@ -1878,7 +1878,7 @@ Internet-Draft              RAW Architecture               November 2024
       recovery graph
 
    The recovery graph is installed with measurable objectives that are
-   computed by the rCPF to achieve the RAW SLA.  The objectives can be
+   computed by the CPF to achieve the RAW SLA.  The objectives can be
    expressed as any of maximum number of packet lost in a row, bounded
    latency, maximal jitter, maximum number of interleaved out of order
    packets, average number of copies received at the elimination point,
@@ -1901,15 +1901,15 @@ Internet-Draft              RAW Architecture               November 2024
 
 
 
-Thubert                    Expires 9 May 2025                  [Page 34]
+Thubert                    Expires 10 May 2025                 [Page 34]
 
 Internet-Draft              RAW Architecture               November 2024
 
 
    To that effect, RAW defines the Point of Local Repair (PLR), which
    performs rapid local adjustments of the forwarding tables within the
-   diversity that the lCPF has in store for the recovery graph.  The PLR
-   enables to exploit the richer forwarding capabilities at a faster
+   path diversity that is available in that in the recovery graph.  The
+   PLR enables to exploit the richer forwarding capabilities at a faster
    time scale over a portion of the recovery graph, in either a loose or
    a strict fashion.
 
@@ -1921,9 +1921,9 @@ Internet-Draft              RAW Architecture               November 2024
    The rapid changes in the forwarding decisions are made and contained
    within the scope of a recovery graph and the actions of the PLR are
    not signaled outside the recovery graph.  This is as opposed to the
-   rCPF that must observe the whole network and optimize all the
-   recovery graphs globally, which can only be done at a slow pace and
-   using long-term statistical metrics, as presented in Table 1.
+   CPF that must observe the whole network and optimize all the recovery
+   graphs globally, which can only be done at a slow pace and using
+   long-term statistical metrics, as presented in Table 1.
 
      +===============+=========================+=====================+
      |               |       Centralized       |    PLR (In Scope)   |
@@ -1957,7 +1957,7 @@ Internet-Draft              RAW Architecture               November 2024
 
 
 
-Thubert                    Expires 9 May 2025                  [Page 35]
+Thubert                    Expires 10 May 2025                 [Page 35]
 
 Internet-Draft              RAW Architecture               November 2024
 
@@ -2013,7 +2013,7 @@ Internet-Draft              RAW Architecture               November 2024
 
 
 
-Thubert                    Expires 9 May 2025                  [Page 36]
+Thubert                    Expires 10 May 2025                 [Page 36]
 
 Internet-Draft              RAW Architecture               November 2024
 
@@ -2069,7 +2069,7 @@ Internet-Draft              RAW Architecture               November 2024
 
 
 
-Thubert                    Expires 9 May 2025                  [Page 37]
+Thubert                    Expires 10 May 2025                 [Page 37]
 
 Internet-Draft              RAW Architecture               November 2024
 
@@ -2125,7 +2125,7 @@ Internet-Draft              RAW Architecture               November 2024
 
 
 
-Thubert                    Expires 9 May 2025                  [Page 38]
+Thubert                    Expires 10 May 2025                 [Page 38]
 
 Internet-Draft              RAW Architecture               November 2024
 
@@ -2181,7 +2181,7 @@ Internet-Draft              RAW Architecture               November 2024
 
 
 
-Thubert                    Expires 9 May 2025                  [Page 39]
+Thubert                    Expires 10 May 2025                 [Page 39]
 
 Internet-Draft              RAW Architecture               November 2024
 
@@ -2237,7 +2237,7 @@ Internet-Draft              RAW Architecture               November 2024
 
 
 
-Thubert                    Expires 9 May 2025                  [Page 40]
+Thubert                    Expires 10 May 2025                 [Page 40]
 
 Internet-Draft              RAW Architecture               November 2024
 
@@ -2293,4 +2293,4 @@ Author's Address
 
 
 
-Thubert                    Expires 9 May 2025                  [Page 41]
+Thubert                    Expires 10 May 2025                 [Page 41]

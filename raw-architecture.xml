@@ -634,13 +634,13 @@
 
     <section><name>Lower Layer information</name>
     <t>
-    The RAW Operational Plane elements (OAM Supervisor and local CPF (lCPF)) may gather
+    The Operational Plane elements (Routing and OAM control) may gather
     aggregated information from lower layers about e.g., link quality.
     This information may be obtained from inside the device using
     specialized API (e.g., L2 triggers) or via control protocols such as BFD
     <xref target="RFC5880"/> or DLEP <xref target="RFC8175"/>. It may then be
     massaged and exported through oOAM messaging, and passed to the Controller
-    Plane using the lCPF.
+    Plane.
     </t>
     </section>
 
@@ -792,7 +792,7 @@
       <name>Prompt Notification of Failures</name>
     <t>
     The execution of the two above principles is likely to render a system where
-    the user rarely sees a failure. But someone needs to in order to direct
+    the user rarely sees a failure. But someone needs to see the failure in order to direct
     maintenance.
     </t>
     <t>
@@ -1130,13 +1130,12 @@
       the end-to-end packet delivery
       </li>
       <li>
-      The DetNet Controller Plane Function (CPF) is split with an
-      optional local CPF (lCPF), which reports
+      The DetNet CPF is split with an
+      orientation function which is typically local to the node and a routing function that resides anywhere in the operational plane. The orientation function which reports
       data and information such as link statistics to be used 
-      by the routing CPF (rCPF) to compute, install, and maintain the
-      recovery graphs, e.g., by generating knowledge and wisdom such as a trained model
-      for link quality prediction, which in turn can be used by the lCPF to
-      Orient the Path selection by the PLR within the RAW OODA loop.
+      by the routing CPF to compute, install, and maintain the
+      recovery graphs. The routing CPF may also generate knowledge and wisdom such as a trained model
+      for link quality prediction, which in turn can be used by the orientation function to influence the Path selection by the PLR within the RAW OODA loop.
       </li>
       <li> A PLR that hosts the Decision function of which DetNet Paths to use
 	  for the future packets that are routed within the recovery graph.
@@ -1214,11 +1213,11 @@
    The RAW Nodes are DetNet relays that operate in the RAW Network Plane and
    are capable of additional diversity mechanisms and measurement functions
    related to the radio interface.
-   RAW leverages a CPF that operates inside the RAW Nodes (typically the Ingress
+   RAW leverages a CPF orientation function (that typically operates inside the Ingress
    Edge Nodes) to dynamically adapt the path of the packets and optimizes the
    resource usage.
     </t><t>
-   An RAW-enabled rCPF interacts
+   A RAW-enabled routing CPF interacts
    with RAW Nodes over a Southbound API. It consumes data and information from
    the network and generates knowledge and wisdom to help steer the traffic optimally
    inside a recovery graph.
@@ -1229,7 +1228,7 @@
 
                          DetNet Routing
 
-        rCPF               rCPF          rCPF                 rCPF
+        CPF               CPF          CPF                 CPF
 
 
                        Southbound API
@@ -1250,7 +1249,7 @@
 </artwork>
 </figure>
 <t>
-   When a new flow is defined, the rCPF uses its current knowledge of
+   When a new flow is defined, the routing CPF uses its current knowledge of
    the network to build a new recovery graph between an Ingress End System and an Egress
    End System for that flow; it indicates to the RAW Nodes where the PREOF and/or radio 
    diversity and reliability operations may be actioned in the Network Plane.
@@ -1268,16 +1267,18 @@
     </li>
     </ul>
     <t>
-    A local CPF (lCPF) in the RAW node reports the Link-Layer metrics
-    to the rCPF in a time-aggregated, e.g., statistical fashion.
-    Example Link-Layer metrics include typical Link
+    The information that the orientation CPF reports to the routing CPF
+	includes may be a time-aggregated, e.g., statistical fashion, to match the longer term
+	operation of the routing CPF.
+    Example information includes Link-Layer metrics such as Link
     bandwidth (the medium speed depends dynamically on the PHY mode), number of
     flows (bandwidth that can be reserved for a flow depends on the number and
     size of flows sharing the spectrum) and average and mean squared deviation
     of availability and reliability figures such as Packet Delivery Ratio (PDR)
-    over long periods of time.
+    over long periods of time. It may also report an aggregated expected
+    transmission count (ETX), or a variation of it.
     </t><t>
-    Based on those metrics, the DetNet rCPF installs the recovery graph with enough
+    Based on those metrics, the routing CPF installs the recovery graph with enough
     redundant forwarding solutions to ensure that the Network Plane can reliably
     deliver the packets within a System Level Agreement (SLA) associated to the
     flows that it transports.
@@ -1294,7 +1295,7 @@
     diversity schemes is actioned by which RAW Nodes.
     </t><t>
     Once a recovery graph is established, per-segment and end-to-end reliability
-	and availability statistics are periodically reported to the rCPF to assure
+	and availability statistics are periodically reported to the routing CPF to assure
 	that the SLA can be met or if not, then have the recovery graph recomputed.
     </t>
 
@@ -1346,12 +1347,13 @@
 </t>
 <t>
   RAW adds sub-layer functions that operate in the DetNet Operational Plane.
-  The RAW functions such as lCPF and OAM typically run only in the DetNet 
-  Ingress Edge Node or End System, though it may also run in DetNet Relay Nodes
+  The RAW orientation function may run only in the DetNet edge nodes (
+  Ingress Edge Node or End System), or it also run in DetNet Relay Nodes
   when the RAW operations are distributed along the recovery graph.
-  The RAW functions include the PLR, which decides the DetNet Path for the 
-  future packets of a flows along the DetNet Path, and the OAM Supervisor, 
-  which triggers, and learns from, OAM observations, and feeds the PLR for its
+  The RAW service layer includes the PLR, which decides the DetNet Path for the 
+  future packets of a flows along the DetNet Path, Maintenance End Points (MEPs) 
+  on edge noes, and aintenance Intermediate Points (MIPs) within. The MEPs
+  trigger, and learn from, OAM observations, and feeds the PLR for its
   next decision.
 </t>
 <t>
@@ -1366,10 +1368,8 @@
   and knobs. To that effect, the LL API provides an  
   abstraction to the DetNet layer that can be used to push reliability
   and timing hints like suggest X retries (min, max) within a time window, or 
-  send unicast (one next hop) or multicast (for overhearing). The other way +-+
-  around RAW needs hints about the radio conditions like L2 triggers (RSSI, 
-  LQI, ETX…) over all the wireless hops. This information is useful to both the
-  lCPF and the PLR.
+  send unicast (one next hop) or multicast (for overhearing). In the other direction up the stack, the RAW PLR needs hints about the radio conditions like L2 triggers (RSSI, 
+  LQI, ETX…) over all the wireless hops. 
   </t>
   <t>
   RAW uses various OAM functionalities at the different layers. For instance,
@@ -1502,13 +1502,12 @@ Data Plane
       <name>Routing Time Scale vs. Forwarding Time Scale</name>
       <t>
    With DetNet, the Controller Plane Function handles the routing
-   computation and maintenance. With RAW, the routing part of the CPF (rCPF) is
+   computation and maintenance. With RAW, the routing operation in the CPF is
    segregated from the RAW Control Loop, so it may reside outside of the RAW
-   network. To achieve RAW capabilities, the rCPF is extended to generate the
-   information required by the lCPF, which acts as the orientation component in
-   the loop. The rCPF may, e.g., propose DetNet Paths to be used as a reflex
+   network. To achieve RAW capabilities, the routing operation in the CPF is extended to generate the information required by the orientation function in
+   the loop. The CPF may, e.g., propose DetNet Paths to be used as a reflex
    action in response to network events, or by provide aggregated history that
-   the lCPF can use to make an oriented decision.
+   the orientation function can use to make a decision.
    </t>
 <t>
    In a wireless mesh, the path to the DetNet CPF can be expensive and
@@ -1527,8 +1526,8 @@ Data Plane
    value for either up or down.
       </t><t>
 
-   The interaction with the (remote) RAW rCPF is handled by the lCPF, which 
-   builds reports to the rCPF and digests the control information back, to be
+   The interaction with the CPF is handled by the orientation function, which 
+   builds reports to the CPF and digests the control information back, to be
    used inside a forwarding control loop for traffic steering.
       </t>
 
@@ -1613,7 +1612,7 @@ Data Plane
       the end-to-end packet delivery, more in <xref target = "aom" />;
       </dd>
       <dt>Orient:</dt><dd>
-      A local CPF (lCPF), which reports data and information such as the link
+      The orientation function, which reports data and information such as the link
       statistics, and leverages offline-computed wisdom and knowledge to Orient
       the PLR for its forwarding decision, more in <xref target = "pce" />;
       </dd>
@@ -1767,7 +1766,7 @@ Data Plane
    </ul>
    <t>
    The recovery graph is installed with measurable objectives that are computed
-   by the rCPF to achieve the RAW SLA. The objectives can be expressed as any of
+   by the CPF to achieve the RAW SLA. The objectives can be expressed as any of
    maximum number of packet lost in a row, bounded latency, maximal jitter,
    maximum number of interleaved out of order packets,
    average number of copies received at the elimination point, and maximal
@@ -1786,8 +1785,8 @@ Data Plane
 	Available service while minimizing the waste of constrained resources.
     </t><t>
     To that effect, RAW defines the Point of Local Repair (PLR), which performs
-	rapid local adjustments of the forwarding tables within the diversity that 
-	the lCPF has in store for the recovery graph. The PLR enables to exploit 
+	rapid local adjustments of the forwarding tables within the path diversity that is
+	available in that in the recovery graph. The PLR enables to exploit 
 	the richer forwarding capabilities at a faster time scale over a portion of
 	the recovery graph, in either a loose or a strict fashion.
     </t>
@@ -1800,7 +1799,7 @@ Data Plane
    <t>
     The rapid changes in the forwarding decisions are made and contained within
     the scope of a recovery graph and the actions of the PLR are not signaled outside
-    the recovery graph. This is as opposed to the rCPF that must observe
+    the recovery graph. This is as opposed to the CPF that must observe
     the whole network and optimize all the recovery graphs globally, which can only be
     done at a slow pace and using long-term statistical metrics, as presented in
     <xref target="PCEPLRtable"/>.

@@ -1181,7 +1181,7 @@
         |   Packet sequencing   |   | Duplicate elimination |
         |    Flow replication   |   |      Flow merging     |
         |    Packet encoding    |   |    Packet decoding    |
-	    | Point of Local Repair |   |                       |
+        | Point of Local Repair |   |                       |
         +-----------------------+   +-----------------------+
         | Forwarding sub-layer: |   | Forwarding sub-layer: |
         |  Resource allocation  |   |  Resource allocation  |
@@ -1621,7 +1621,7 @@ Data Plane
       more in <xref target = "PLRpce" />;
       </dd>
       <dt>Act:</dt><dd> PREOF Dataplane
-      actions are controlled from the DetNet Service sub-layer to increase the
+      actions are controlled by the PLR over the LL API to increase the
       reliability of the end-to-end transmission. The RAW architecture also
       covers in-situ signaling when the decision is Acted by a node that
       down the recovery graph from the PLR, more in 
@@ -1636,16 +1636,17 @@ Data Plane
      +-------> Orient (CPF) -------+
      |        reflex actions        |
      |       pre-trained model      |
-     |             ...              |
+     |                              |
+   ......................................
+     |                              |
+     |        Service sub-layer     |
      |                              v
- Observe (OAM)                 Decide (CPF)
+ Observe (OAM)                 Decide (FPLR)
      ^                              |
      |                              |
      |                              |
-     +--------- Act (PLR) <---------+
-                At DetNet
-             Service sub-layer
-
+     +------- Act (LL API) <--------+
+	 
 ]]></artwork>
 </figure>
    <t> The overall OODA Loop optimizes the use of redundancy to achieve the

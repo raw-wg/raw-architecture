@@ -1243,7 +1243,7 @@ Internet-Draft              RAW Architecture               November 2024
            |   Packet sequencing   |   | Duplicate elimination |
            |    Flow replication   |   |      Flow merging     |
            |    Packet encoding    |   |    Packet decoding    |
-               | Point of Local Repair |   |                       |
+           | Point of Local Repair |   |                       |
            +-----------------------+   +-----------------------+
            | Forwarding sub-layer: |   | Forwarding sub-layer: |
            |  Resource allocation  |   |  Resource allocation  |
@@ -1729,7 +1729,7 @@ Internet-Draft              RAW Architecture               November 2024
       future packet(s) that are routed along the recovery graph, more in
       Section 5.5;
 
-   Act:  PREOF Dataplane actions are controlled from the DetNet Service
+   Act:  PREOF Dataplane actions are controlled by the PLR over the LL
 
 
 
@@ -1738,23 +1738,24 @@ Thubert                    Expires 10 May 2025                 [Page 31]
 Internet-Draft              RAW Architecture               November 2024
 
 
-      sub-layer to increase the reliability of the end-to-end
-      transmission.  The RAW architecture also covers in-situ signaling
-      when the decision is Acted by a node that down the recovery graph
-      from the PLR, more in Section 5.6.
+      API to increase the reliability of the end-to-end transmission.
+      The RAW architecture also covers in-situ signaling when the
+      decision is Acted by a node that down the recovery graph from the
+      PLR, more in Section 5.6.
 
-                     +-------> Orient (CPF) -------+
-                     |        reflex actions        |
-                     |       pre-trained model      |
-                     |             ...              |
-                     |                              v
-                 Observe (OAM)                 Decide (CPF)
-                     ^                              |
-                     |                              |
-                     |                              |
-                     +--------- Act (PLR) <---------+
-                                At DetNet
-                             Service sub-layer
+                    +-------> Orient (CPF) -------+
+                    |        reflex actions        |
+                    |       pre-trained model      |
+                    |                              |
+                  ......................................
+                    |                              |
+                    |        Service sub-layer     |
+                    |                              v
+                Observe (OAM)                 Decide (FPLR)
+                    ^                              |
+                    |                              |
+                    |                              |
+                    +------- Act (LL API) <--------+
 
                         Figure 9: The RAW OODA Loop
 
@@ -1784,7 +1785,6 @@ Internet-Draft              RAW Architecture               November 2024
    This observation feeds the RAW PLR that makes the decision on which
    path is used at which RAW Node, for one a small continuous series of
    packets.
-
 
 
 

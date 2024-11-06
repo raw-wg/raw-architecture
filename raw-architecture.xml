@@ -1641,7 +1641,7 @@ Data Plane
      |                              |
      |        Service sub-layer     |
      |                              v
- Observe (OAM)                 Decide (FPLR)
+ Observe (OAM)                 Decide (PLR)
      ^                              |
      |                              |
      |                              |

@@ -1743,19 +1743,19 @@ Internet-Draft              RAW Architecture               November 2024
       decision is Acted by a node that down the recovery graph from the
       PLR, more in Section 5.6.
 
-                    +-------> Orient (CPF) -------+
-                    |        reflex actions        |
-                    |       pre-trained model      |
-                    |                              |
-                  ......................................
-                    |                              |
-                    |        Service sub-layer     |
-                    |                              v
-                Observe (OAM)                 Decide (FPLR)
-                    ^                              |
-                    |                              |
-                    |                              |
-                    +------- Act (LL API) <--------+
+                     +-------> Orient (CPF) -------+
+                     |        reflex actions        |
+                     |       pre-trained model      |
+                     |                              |
+                   ......................................
+                     |                              |
+                     |        Service sub-layer     |
+                     |                              v
+                 Observe (OAM)                 Decide (PLR)
+                     ^                              |
+                     |                              |
+                     |                              |
+                     +------- Act (LL API) <--------+
 
                         Figure 9: The RAW OODA Loop
 

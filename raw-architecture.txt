@@ -186,8 +186,7 @@ Internet-Draft              RAW Architecture               November 2024
    such as Time Slotted Channel Hopping (TSCH) and Orthogonal Frequency
    Division Multiple Access (OFDMA) [RAW-TECHNOS] being developed to
    provide determinism over wireless links at the lower layers,
-   providing DetNet capabilities is now becoming possible.
-
+   providing DetNet capabilities has become possible.
 
    Reliable and Available Wireless (RAW) takes up the challenge of
    providing highly available and reliable end-to-end performances in a
@@ -218,6 +217,7 @@ Internet-Draft              RAW Architecture               November 2024
    Section 3.2, presents a conceptual model for RAW in Section 4, and,
    based on that model, elaborates on an in-network optimization control
    loop in Section 5.2.
+
 
 
 

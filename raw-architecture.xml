@@ -95,10 +95,9 @@
    radios such as Time Slotted Channel Hopping (TSCH) and Orthogonal Frequency
    Division Multiple Access (OFDMA) <xref target="I-D.ietf-raw-technologies"/>
    being developed to provide determinism over wireless links at the lower
-   layers, providing DetNet capabilities is now becoming possible.
+   layers, providing DetNet capabilities has become possible.
    </t>
    <t>
-   </t><t>
    Reliable and Available Wireless (RAW) takes up the challenge of providing
    highly available and reliable end-to-end performances in a DetNet network that may include
    wireless segments. To achieve this, RAW leverages all the possible transmission 

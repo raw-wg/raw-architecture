@@ -1023,10 +1023,9 @@ Internet-Draft              RAW Architecture               November 2024
 
    While the generic "Deterministic Networking Problem Statement"
    [RFC8557] applies to both the wired and the wireless media, the
-   methods to achieve RAW must extend those used to support time-
-   sensitive networking over wires, as a RAW solution has to address
-   less consistent transmissions, energy conservation and shared
-   spectrum efficiency.
+   "Deterministic Networking Architecture" [DetNet-ARCHI] must be
+   extended to address less consistent transmissions, energy
+   conservation, and shared spectrum efficiency.
 
    Operating at the Layer-3, RAW does not change the wireless technology
    at the lower layers.  OTOH, it can further increase diversity in the
@@ -1058,6 +1057,7 @@ Internet-Draft              RAW Architecture               November 2024
    and ensures the availability of the necessary resources, leverages
    Layer-2 functionalities for timely delivery to the next DetNet
    system.
+
 
 
 

@@ -966,9 +966,9 @@
    <t>
    While the generic <xref target="RFC8557">"Deterministic Networking
    Problem Statement"</xref> applies to both the wired and the wireless media,
-   the methods to achieve RAW must extend those used to support time-sensitive
-   networking over wires, as a RAW solution has to address less consistent
-   transmissions, energy conservation and shared spectrum efficiency.
+   the <xref target="RFC8655">"Deterministic Networking Architecture"
+   </xref> must be extended to address less consistent
+   transmissions, energy conservation, and shared spectrum efficiency.
    </t>
    <t>
 

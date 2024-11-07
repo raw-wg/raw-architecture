@@ -771,8 +771,7 @@
       <name>Prompt Notification of Failures</name>
     <t>
     The execution of the two above principles is likely to render a system where
-    the user rarely sees a failure. But someone needs to see the failure in order to direct
-    maintenance.
+    the end user rarely sees a failure. But a failure that occurs must still be detected in order to direct maintenance.
     </t>
     <t>
     There are many reasons for system monitoring (FCAPS for fault, configuration,

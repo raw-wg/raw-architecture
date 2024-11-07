@@ -853,8 +853,8 @@ Internet-Draft              RAW Architecture               November 2024
 3.1.1.3.  Prompt Notification of Failures
 
    The execution of the two above principles is likely to render a
-   system where the user rarely sees a failure.  But someone needs to
-   see the failure in order to direct maintenance.
+   system where the end user rarely sees a failure.  But a failure that
+   occurs must still be detected in order to direct maintenance.
 
    There are many reasons for system monitoring (FCAPS for fault,
    configuration, accounting, performance, security is a handy mental

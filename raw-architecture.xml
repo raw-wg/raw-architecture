@@ -102,14 +102,14 @@
    highly available and reliable end-to-end performances in a DetNet network that may include
    wireless segments. To achieve this, RAW leverages all the possible transmission 
    diversity and redundancy to assure packet delivery, while optimizing the use of the shared spectrum to preserve bandwidth and save energy.
+    To that effect, RAW defines Protection Paths can be activated dynamically upon failures and a control loop that dynamically controls the activation and deactivation of the feasible Protection Paths to react quickly to intermittent losses.
+	
    </t>
 
     <t>
-    To that effect, RAW defines Protection Paths can be activated dynamically upon failures and a control loop that dynamically controls the activation and deactivation of the feasible Protection Paths to react quickly to intermittent losses.
 	In addition, RAW introduces a lower layer API (LL API), which is an interface between the
 	lower layer (e.g.,  wireless) technology and the DetNet layers. The LL API is
-	technology <xref target="I-D.ietf-raw-technologies"/> dependent as it can
-	vary what the lower layers expose towards the DetNet layers. 
+	technology <xref target="I-D.ietf-raw-technologies"/> dependent as what the lower layers expose towards the DetNet layers may vary. 
 	Furthermore, the different RAW technologies are equipped with different 
 	reliability features, e.g., short range broadcast, MUMIMO, PHY rate and 
 	other Modulation Coding Scheme (MCS) adaptation, (H)ARQ, constructive 

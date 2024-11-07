@@ -193,25 +193,25 @@ Internet-Draft              RAW Architecture               November 2024
    DetNet network that may include wireless segments.  To achieve this,
    RAW leverages all the possible transmission diversity and redundancy
    to assure packet delivery, while optimizing the use of the shared
-   spectrum to preserve bandwidth and save energy.
+   spectrum to preserve bandwidth and save energy.  To that effect, RAW
+   defines Protection Paths can be activated dynamically upon failures
+   and a control loop that dynamically controls the activation and
+   deactivation of the feasible Protection Paths to react quickly to
+   intermittent losses.
 
-   To that effect, RAW defines Protection Paths can be activated
-   dynamically upon failures and a control loop that dynamically
-   controls the activation and deactivation of the feasible Protection
-   Paths to react quickly to intermittent losses.  In addition, RAW
-   introduces a lower layer API (LL API), which is an interface between
-   the lower layer (e.g., wireless) technology and the DetNet layers.
-   The LL API is technology [RAW-TECHNOS] dependent as it can vary what
-   the lower layers expose towards the DetNet layers.  Furthermore, the
-   different RAW technologies are equipped with different reliability
-   features, e.g., short range broadcast, MUMIMO, PHY rate and other
-   Modulation Coding Scheme (MCS) adaptation, (H)ARQ, constructive
-   interference and overhearing.  The LL API enables interactions
-   between the reliability functions provided by the lower layer and the
-   reliability functions provided by DetNet.  That is, the LL API makes
-   cross-layer optimization possible for the reliability functions of
-   different layers depending on the actual exposure provided via the LL
-   API by the given RAW technology.
+   In addition, RAW introduces a lower layer API (LL API), which is an
+   interface between the lower layer (e.g., wireless) technology and the
+   DetNet layers.  The LL API is technology [RAW-TECHNOS] dependent as
+   what the lower layers expose towards the DetNet layers may vary.
+   Furthermore, the different RAW technologies are equipped with
+   different reliability features, e.g., short range broadcast, MUMIMO,
+   PHY rate and other Modulation Coding Scheme (MCS) adaptation, (H)ARQ,
+   constructive interference and overhearing.  The LL API enables
+   interactions between the reliability functions provided by the lower
+   layer and the reliability functions provided by DetNet.  That is, the
+   LL API makes cross-layer optimization possible for the reliability
+   functions of different layers depending on the actual exposure
+   provided via the LL API by the given RAW technology.
 
    This document presents the RAW problem and associated terminology in
    Section 3.2, presents a conceptual model for RAW in Section 4, and,

@@ -1039,24 +1039,24 @@ Internet-Draft              RAW Architecture               November 2024
    RAW extends the DetNet services by providing elements that are
    specialized for transporting IP flows over deterministic radio
    technologies such as listed in [RAW-TECHNOS].  Conceptually, RAW is
-   agnostic to the radio layer underneath though the capability to
-   schedule transmissions is assumed.  How the PHY is programmed to do
-   so, and whether the radio is single-hop or meshed, are unknown at the
-   IP layer and not part of the RAW abstraction.  Nevertheless, cross-
-   layer optimizations may take place to ensure proper link awareness
-   (think, link quality) and packet handling (think, scheduling).
+   agnostic to the lower layer, though the capability to control latency
+   is assumed to assure the DetNet services that RAW extends.  How the
+   lower layers are operated to do so, and, e.g., whether a radio
+   network is single-hop or meshed, are opaque to the IP layer and not
+   part of the RAW abstraction.  Nevertheless, cross-layer optimizations
+   may take place to ensure proper link awareness (think, link quality)
+   and packet handling (think, scheduling).
 
-   The "Deterministic Networking Architecture" [DetNet-ARCHI] is
-   composed of three planes: the Application (User) Plane, the
-   Controller Plane, and the Network Plane.  The DetNet Network Plane is
-   composed a Dataplane (packet forwarding) and an Operational Plane
-   where OAM operations take place.  In the Network Plane, the DetNet
-   service sub-layer focuses on flow protection (e.g., using redundancy)
-   and can be fully operated at Layer-3, while the DetNet forwarding
-   sub-layer establishes the paths, associates the flows to the paths,
-   and ensures the availability of the necessary resources, leverages
-   Layer-2 functionalities for timely delivery to the next DetNet
-   system.
+   [DetNet-ARCHI] defines three planes: the Application (User) Plane,
+   the Controller Plane, and the Network Plane.  The DetNet Network
+   Plane is composed a Dataplane (packet forwarding) and an Operational
+   Plane where OAM operations take place.  In the Network Plane, the
+   DetNet service sub-layer focuses on flow protection (e.g., using
+   redundancy) and can be fully operated at Layer-3, while the DetNet
+   forwarding sub-layer establishes the paths, associates the flows to
+   the paths, and ensures the availability of the necessary resources,
+   leverages Layer-2 functionalities for timely delivery to the next
+   DetNet system.
 
 
 
@@ -1185,23 +1185,24 @@ Internet-Draft              RAW Architecture               November 2024
        Administration and Maintenance (OAM) to Observe some or all hops
        along a recovery graph as well as the end-to-end packet delivery
 
-   2.  The DetNet CPF is split with an orientation function which is
-       typically local to the node and a routing function that resides
-       anywhere in the operational plane.  The orientation function
-       which reports data and information such as link statistics to be
-       used by the routing CPF to compute, install, and maintain the
-       recovery graphs.  The routing CPF may also generate knowledge and
-       wisdom such as a trained model for link quality prediction, which
-       in turn can be used by the orientation function to influence the
-       Path selection by the PLR within the RAW OODA loop.
+   2.  The DetNet CPF is split with a routing function that resides
+       anywhere in the operational plane and an orientation function
+       that is typically local to the node that uses it.  The
+       orientation function reports data and information such as link
+       statistics to be used by the routing function to compute,
+       install, and maintain the recovery graphs.  The routing function
+       may also generate knowledge and wisdom such as a trained model
+       for link quality prediction, which in turn can be used by the
+       orientation function to influence the Path selection by the PLR
+       within the RAW OODA loop.
 
-   3.  A PLR that hosts the Decision function of which DetNet Paths to
-       use for the future packets that are routed within the recovery
-       graph.
+   3.  A PLR that that operates at the DetNet Service sub-layer and that
+       hosts the Decision function of which DetNet Paths to use for the
+       future packets that are routed within the recovery graph.
 
-   4.  Service protection actions that operate at the DetNet Service
-       sub-layer to increase the reliability of the end-to-end
-       transmissions.  The RAW architecture also covers in-situ
+   4.  Service protection actions that are actuated or triggered over
+       the LL API by the PLR to increase the reliability of the end-to-
+       end transmissions.  The RAW architecture also covers in-situ
        signaling when the decision is Acted by a node that is downstream
        in the recovery graph from the PLR.
 
@@ -1218,7 +1219,6 @@ Internet-Draft              RAW Architecture               November 2024
    local reaction to provide additional agility against transmission
    loss.  The PLR can act, e.g., based on indications from the lower
    layer or based on OAM.
-
 
 
 
@@ -1458,25 +1458,25 @@ Thubert                    Expires 11 May 2025                 [Page 26]
 Internet-Draft              RAW Architecture               November 2024
 
 
-         Controller Plane Functions
-
      +-----------------+     +-------------------+
      |     Routing     |     |  OAM  Control     |
      +-----------------+     +-------------------+
 
+     +-----------------+
+     |  Orientation    |
+     +-----------------+
 
-   Operational Plane
+
+         Controller Plane Functions
    +-+-+-+-+-+-+-+-+-+-+ Southbound Interface -+-+-+-+-+-+-+-+-+-+-+-+
-   Data Plane
-
-       DetNet Service sub-layer
+         Network Plane Functions
 
      +-----------------+     +-------------------+
      |    Point of     |     |  OAM  Maintenance |
      |   local Repair  |     |  End Point  (MEP) |
      +-----------------+     +-------------------+
 
-                     Figure 5: RAW functions placement
+                      Figure 5: RAW function placement
 
    There are 2 main proposed models to deploy RAW and DetNet.  In the
    first model (strict) illustrated in Figure 6, RAW operates over a

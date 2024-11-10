@@ -913,8 +913,9 @@ Internet-Draft              RAW Architecture               November 2024
    networks, this is rarely the case.  Packet loss cannot be fully
    avoided and the systems are built to resist to some loss, e.g., using
    redundancy with Retries (HARQ), Packet Replication and Elimination
-   (PRE), Network Coding, or, in a typical control loop, by linear
-   interpolation from the previous measurements.
+   (PRE), Network Coding (e.g., using FEC with SCHC [RFC8724]
+   fragments), or, in a typical control loop, by linear interpolation
+   from the previous measurements.
 
    But the linear interpolation method cannot resist multiple
    consecutive losses, and a high MTBF is desired as a guarantee that
@@ -941,11 +942,10 @@ Internet-Draft              RAW Architecture               November 2024
    Multipath Fading:  A destructive interference by a reflection of the
       original signal.
 
-
-
-
-
-
+      A radio signal may be received directly (line-of-sight) and/or as
+      a reflection on a physical structure (echo).  The reflections take
+      a longer path and are delayed by the extra distance divided by the
+      speed of light in the medium.  Depending on the frequency, the
 
 
 
@@ -954,10 +954,6 @@ Thubert                    Expires 14 May 2025                 [Page 17]
 Internet-Draft              RAW Architecture               November 2024
 
 
-      A radio signal may be received directly (line-of-sight) and/or as
-      a reflection on a physical structure (echo).  The reflections take
-      a longer path and are delayed by the extra distance divided by the
-      speed of light in the medium.  Depending on the frequency, the
       echo lands with a different phase which may add up to
       (constructive interference) or cancel the direct signal
       (destructive interference).
@@ -1001,7 +997,11 @@ Internet-Draft              RAW Architecture               November 2024
    of loss and the use of diversity must be maximized to optimize the
    PDR.
 
-
+   A single packet may be sent at different times (time diversity) over
+   diverse paths (spatial diversity) that rely on diverse radio channels
+   (frequency diversity) and diverse PHY technologies, e.g., narrowband
+   vs. spread spectrum, or diverse codes.  Using time diversity defeats
+   short-term interferences; spatial diversity combats very local causes
 
 
 
@@ -1010,11 +1010,6 @@ Thubert                    Expires 14 May 2025                 [Page 18]
 Internet-Draft              RAW Architecture               November 2024
 
 
-   A single packet may be sent at different times (time diversity) over
-   diverse paths (spatial diversity) that rely on diverse radio channels
-   (frequency diversity) and diverse PHY technologies, e.g., narrowband
-   vs. spread spectrum, or diverse codes.  Using time diversity defeats
-   short-term interferences; spatial diversity combats very local causes
    such as multipath fading; narrowband and spread spectrum are
    relatively innocuous to one another and can be used for diversity in
    the presence of the other.
@@ -1057,6 +1052,11 @@ Internet-Draft              RAW Architecture               November 2024
    the paths, and ensures the availability of the necessary resources,
    leverages Layer-2 functionalities for timely delivery to the next
    DetNet system.
+
+
+
+
+
 
 
 
@@ -2229,11 +2229,11 @@ Internet-Draft              RAW Architecture               November 2024
               RFC 7490, DOI 10.17487/RFC7490, April 2015,
               <https://www.rfc-editor.org/info/rfc7490>.
 
-   [DetNet-DP]
-              Varga, B., Ed., Farkas, J., Berger, L., Malis, A., and S.
-              Bryant, "Deterministic Networking (DetNet) Data Plane
-              Framework", RFC 8938, DOI 10.17487/RFC8938, November 2020,
-              <https://www.rfc-editor.org/info/rfc8938>.
+   [RFC8724]  Minaburo, A., Toutain, L., Gomez, C., Barthel, D., and JC.
+              Zuniga, "SCHC: Generic Framework for Static Context Header
+              Compression and Fragmentation", RFC 8724,
+              DOI 10.17487/RFC8724, April 2020,
+              <https://www.rfc-editor.org/info/rfc8724>.
 
 
 
@@ -2241,6 +2241,12 @@ Thubert                    Expires 14 May 2025                 [Page 40]
 
 Internet-Draft              RAW Architecture               November 2024
 
+
+   [DetNet-DP]
+              Varga, B., Ed., Farkas, J., Berger, L., Malis, A., and S.
+              Bryant, "Deterministic Networking (DetNet) Data Plane
+              Framework", RFC 8938, DOI 10.17487/RFC8938, November 2020,
+              <https://www.rfc-editor.org/info/rfc8938>.
 
    [DLEP]     Ratliff, S., Jury, S., Satterwhite, D., Taylor, R., and B.
               Berry, "Dynamic Link Exchange Protocol (DLEP)", RFC 8175,
@@ -2276,12 +2282,6 @@ Author's Address
    06330 Roquefort-les-Pins
    France
    Email: pascal.thubert@gmail.com
-
-
-
-
-
-
 
 
 

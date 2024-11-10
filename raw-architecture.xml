@@ -846,7 +846,8 @@
     chances that the unwanted fault event occurs. In data networks,
     this is rarely the case. Packet loss cannot be fully avoided and the
     systems are built to resist to some loss, e.g., using redundancy with Retries
-    (HARQ), Packet Replication and Elimination (PRE), Network Coding, or, in a typical control
+    (HARQ), Packet Replication and Elimination (PRE), Network Coding (e.g., using 
+    FEC with SCHC <xref target="RFC8724"/> fragments), or, in a typical control
     loop, by linear interpolation from the previous measurements.
     </t>
    <t>
@@ -2104,6 +2105,8 @@
 
 <xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.7490.xml"/>
 <!--   Remote Loop-Free Alternate (LFA) Fast Reroute (FRR) -->
+
+<xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.8724.xml"/>
 
 <xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.8938.xml"/>
 <!--   Deterministic Networking (DetNet) Data Plane Framework -->

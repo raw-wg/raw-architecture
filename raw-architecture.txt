@@ -4,9 +4,9 @@
 
 RAW                                                      P. Thubert, Ed.
 Internet-Draft                                       Without Affiliation
-Updates: 8655 (if approved)                              7 November 2024
+Updates: 8655 (if approved)                             10 November 2024
 Intended status: Informational                                          
-Expires: 11 May 2025
+Expires: 14 May 2025
 
 
               Reliable and Available Wireless Architecture
@@ -41,7 +41,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 11 May 2025.
+   This Internet-Draft will expire on 14 May 2025.
 
 Copyright Notice
 
@@ -53,7 +53,7 @@ Copyright Notice
 
 
 
-Thubert                    Expires 11 May 2025                  [Page 1]
+Thubert                    Expires 14 May 2025                  [Page 1]
 
 Internet-Draft              RAW Architecture               November 2024
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Thubert                    Expires 11 May 2025                  [Page 2]
+Thubert                    Expires 14 May 2025                  [Page 2]
 
 Internet-Draft              RAW Architecture               November 2024
 
@@ -122,7 +122,7 @@ Internet-Draft              RAW Architecture               November 2024
        3.1.2.  Applying Reliability Concepts to Networking . . . . .  16
        3.1.3.  Wireless Effects Affecting Reliability  . . . . . . .  17
      3.2.  The RAW problem . . . . . . . . . . . . . . . . . . . . .  19
-   4.  The RAW Conceptual Model  . . . . . . . . . . . . . . . . . .  22
+   4.  The RAW Conceptual Model  . . . . . . . . . . . . . . . . . .  23
      4.1.  The RAW Planes  . . . . . . . . . . . . . . . . . . . . .  23
      4.2.  RAW vs. Upper and Lower Layers  . . . . . . . . . . . . .  25
      4.3.  RAW and DetNet  . . . . . . . . . . . . . . . . . . . . .  26
@@ -165,7 +165,7 @@ Internet-Draft              RAW Architecture               November 2024
 
 
 
-Thubert                    Expires 11 May 2025                  [Page 3]
+Thubert                    Expires 14 May 2025                  [Page 3]
 
 Internet-Draft              RAW Architecture               November 2024
 
@@ -221,7 +221,7 @@ Internet-Draft              RAW Architecture               November 2024
 
 
 
-Thubert                    Expires 11 May 2025                  [Page 4]
+Thubert                    Expires 14 May 2025                  [Page 4]
 
 Internet-Draft              RAW Architecture               November 2024
 
@@ -277,7 +277,7 @@ Internet-Draft              RAW Architecture               November 2024
 
 
 
-Thubert                    Expires 11 May 2025                  [Page 5]
+Thubert                    Expires 14 May 2025                  [Page 5]
 
 Internet-Draft              RAW Architecture               November 2024
 
@@ -333,7 +333,7 @@ Internet-Draft              RAW Architecture               November 2024
 
 
 
-Thubert                    Expires 11 May 2025                  [Page 6]
+Thubert                    Expires 14 May 2025                  [Page 6]
 
 Internet-Draft              RAW Architecture               November 2024
 
@@ -389,7 +389,7 @@ Internet-Draft              RAW Architecture               November 2024
 
 
 
-Thubert                    Expires 11 May 2025                  [Page 7]
+Thubert                    Expires 14 May 2025                  [Page 7]
 
 Internet-Draft              RAW Architecture               November 2024
 
@@ -445,7 +445,7 @@ Internet-Draft              RAW Architecture               November 2024
 
 
 
-Thubert                    Expires 11 May 2025                  [Page 8]
+Thubert                    Expires 14 May 2025                  [Page 8]
 
 Internet-Draft              RAW Architecture               November 2024
 
@@ -501,7 +501,7 @@ Internet-Draft              RAW Architecture               November 2024
 
 
 
-Thubert                    Expires 11 May 2025                  [Page 9]
+Thubert                    Expires 14 May 2025                  [Page 9]
 
 Internet-Draft              RAW Architecture               November 2024
 
@@ -557,7 +557,7 @@ Internet-Draft              RAW Architecture               November 2024
 
 
 
-Thubert                    Expires 11 May 2025                 [Page 10]
+Thubert                    Expires 14 May 2025                 [Page 10]
 
 Internet-Draft              RAW Architecture               November 2024
 
@@ -613,7 +613,7 @@ Internet-Draft              RAW Architecture               November 2024
 
 
 
-Thubert                    Expires 11 May 2025                 [Page 11]
+Thubert                    Expires 14 May 2025                 [Page 11]
 
 Internet-Draft              RAW Architecture               November 2024
 
@@ -669,7 +669,7 @@ Internet-Draft              RAW Architecture               November 2024
 
 
 
-Thubert                    Expires 11 May 2025                 [Page 12]
+Thubert                    Expires 14 May 2025                 [Page 12]
 
 Internet-Draft              RAW Architecture               November 2024
 
@@ -725,7 +725,7 @@ Internet-Draft              RAW Architecture               November 2024
 
 
 
-Thubert                    Expires 11 May 2025                 [Page 13]
+Thubert                    Expires 14 May 2025                 [Page 13]
 
 Internet-Draft              RAW Architecture               November 2024
 
@@ -781,7 +781,7 @@ Internet-Draft              RAW Architecture               November 2024
 
 
 
-Thubert                    Expires 11 May 2025                 [Page 14]
+Thubert                    Expires 14 May 2025                 [Page 14]
 
 Internet-Draft              RAW Architecture               November 2024
 
@@ -837,7 +837,7 @@ Internet-Draft              RAW Architecture               November 2024
 
 
 
-Thubert                    Expires 11 May 2025                 [Page 15]
+Thubert                    Expires 14 May 2025                 [Page 15]
 
 Internet-Draft              RAW Architecture               November 2024
 
@@ -893,7 +893,7 @@ Internet-Draft              RAW Architecture               November 2024
 
 
 
-Thubert                    Expires 11 May 2025                 [Page 16]
+Thubert                    Expires 14 May 2025                 [Page 16]
 
 Internet-Draft              RAW Architecture               November 2024
 
@@ -949,7 +949,7 @@ Internet-Draft              RAW Architecture               November 2024
 
 
 
-Thubert                    Expires 11 May 2025                 [Page 17]
+Thubert                    Expires 14 May 2025                 [Page 17]
 
 Internet-Draft              RAW Architecture               November 2024
 
@@ -1005,7 +1005,7 @@ Internet-Draft              RAW Architecture               November 2024
 
 
 
-Thubert                    Expires 11 May 2025                 [Page 18]
+Thubert                    Expires 14 May 2025                 [Page 18]
 
 Internet-Draft              RAW Architecture               November 2024
 
@@ -1061,7 +1061,7 @@ Internet-Draft              RAW Architecture               November 2024
 
 
 
-Thubert                    Expires 11 May 2025                 [Page 19]
+Thubert                    Expires 14 May 2025                 [Page 19]
 
 Internet-Draft              RAW Architecture               November 2024
 
@@ -1117,7 +1117,7 @@ Internet-Draft              RAW Architecture               November 2024
 
 
 
-Thubert                    Expires 11 May 2025                 [Page 20]
+Thubert                    Expires 14 May 2025                 [Page 20]
 
 Internet-Draft              RAW Architecture               November 2024
 
@@ -1145,12 +1145,15 @@ Internet-Draft              RAW Architecture               November 2024
    impediments documented in [RFC9049].
 
    The establishment of a path is not in-scope for RAW.  It may be,
-   e.g., the product of a centralized Controller Plane Function (CPF)
-   like a Path computation Element (PCE) [RFC4655], or may be computed
-   in a distributed fashion ala Resource ReSerVation Protocol (RSVP)
-   [RFC2205].  On the other hand, RAW leverages DetNet Network Plane
-   enhancements to optimize the use of the paths and match the quality
-   of the transmissions over time.
+   e.g., the product of a centralized routing Controller Plane Function
+   (CPF) like a Path computation Element (PCE) [RFC4655], or may be
+   computed in a distributed fashion ala Resource ReSerVation Protocol
+   (RSVP) [RFC2205].  Either way, the assumption us that it is slow and
+   expensive with regards to local forwarding operations in the recovery
+   graph.  To react fast enough to transient changes in the radio
+   transmissions, RAW leverages DetNet Network Plane enhancements to
+   optimize the use of the paths and match the quality of the
+   transmissions over time.
 
    As opposed to wired networks, the action of installing a path over a
    set of wireless links may be very slow relative to the speed at which
@@ -1159,6 +1162,21 @@ Internet-Draft              RAW Architecture               November 2024
    to leave it to the Network Plane to select which of those forwarding
    solutions are to be used for a given packet based on the current
    conditions.
+
+
+
+
+
+
+
+
+
+
+
+Thubert                    Expires 14 May 2025                 [Page 21]
+
+Internet-Draft              RAW Architecture               November 2024
+
 
    RAW distinguishes the longer time scale at which routes are computed
    from the shorter time scale where forwarding decisions are made.  For
@@ -1170,14 +1188,6 @@ Internet-Draft              RAW Architecture               November 2024
    may be strict or loose depending on whether each or just a subset of
    the hops are observed and controlled by RAW.
 
-
-
-
-Thubert                    Expires 11 May 2025                 [Page 21]
-
-Internet-Draft              RAW Architecture               November 2024
-
-
    The RAW Architecture is based on an abstract OODA Loop (Observe,
    Orient, Decide, Act).  The generic concept involves:
 
@@ -1185,9 +1195,10 @@ Internet-Draft              RAW Architecture               November 2024
        Administration and Maintenance (OAM) to Observe some or all hops
        along a recovery graph as well as the end-to-end packet delivery
 
-   2.  The DetNet CPF is split with a routing function that resides
-       anywhere in the operational plane and an orientation function
-       that is typically local to the node that uses it.  The
+   2.  The DetNet is split with a routing function may be centralized in
+       the Controller Plane or distributed in the Network Plane, and an
+       orientation function that is typically local to the node that
+       uses it in the Operational plane within the Network Plane.  The
        orientation function reports data and information such as link
        statistics to be used by the routing function to compute,
        install, and maintain the recovery graphs.  The routing function
@@ -1211,6 +1222,18 @@ Internet-Draft              RAW Architecture               November 2024
    while minimizing the use of constrained resources such as spectrum
    and battery.
 
+
+
+
+
+
+
+
+Thubert                    Expires 14 May 2025                 [Page 22]
+
+Internet-Draft              RAW Architecture               November 2024
+
+
 4.  The RAW Conceptual Model
 
    RAW extendss the conceptual model described in section 4 of the
@@ -1219,19 +1242,6 @@ Internet-Draft              RAW Architecture               November 2024
    local reaction to provide additional agility against transmission
    loss.  The PLR can act, e.g., based on indications from the lower
    layer or based on OAM.
-
-
-
-
-
-
-
-
-
-
-Thubert                    Expires 11 May 2025                 [Page 22]
-
-Internet-Draft              RAW Architecture               November 2024
 
 
               |  packets going  |        ^  packets coming   ^
@@ -1270,25 +1280,27 @@ Internet-Draft              RAW Architecture               November 2024
    means such as DetNet/TSN, or neglected in the face of the wireless
    hops.
 
-   The RAW Nodes are DetNet relays that operate in the RAW Network Plane
-   and are capable of additional diversity mechanisms and measurement
-   functions related to the radio interface.  RAW leverages a CPF
-   orientation function (that typically operates inside the Ingress Edge
-   Nodes) to dynamically adapt the path of the packets and optimizes the
-   resource usage.
-
-   A RAW-enabled routing CPF interacts with RAW Nodes over a Southbound
-   API.  It consumes data and information from the network and generates
-   knowledge and wisdom to help steer the traffic optimally inside a
-   recovery graph.
 
 
 
 
-Thubert                    Expires 11 May 2025                 [Page 23]
+
+Thubert                    Expires 14 May 2025                 [Page 23]
 
 Internet-Draft              RAW Architecture               November 2024
 
+
+   The RAW Nodes are DetNet relays that operate in the RAW Network Plane
+   and are capable of additional diversity mechanisms and measurement
+   functions related to the radio interface.  RAW leverages an
+   Operational Plane orientation function (that typically operates
+   inside the Ingress Edge Nodes) to dynamically adapt the path of the
+   packets and optimizes the resource usage.
+
+   In the case of centralized routing operations, the RAW routing CPF
+   interacts with RAW Nodes over a Southbound API.  It consumes data and
+   information from the network and generates knowledge and wisdom to
+   help steer the traffic optimally inside a recovery graph.
 
                             DetNet Routing
 
@@ -1311,9 +1323,9 @@ Internet-Draft              RAW Architecture               November 2024
      --/   wireless           wired
       /--  link           --- link
 
-                            Figure 4: RAW Nodes
+               Figure 4: RAW Nodes (Centralized Routing Case)
 
-   When a new flow is defined, the routing CPF uses its current
+   When a new flow is defined, the routing function uses its current
    knowledge of the network to build a new recovery graph between an
    Ingress End System and an Egress End System for that flow; it
    indicates to the RAW Nodes where the PREOF and/or radio diversity and
@@ -1326,29 +1338,29 @@ Internet-Draft              RAW Architecture               November 2024
       non-RAW subnetwork as in Figure 7.  In that case, RAW can not
       leverage end-to-end DetNet and cannot provide latency guarantees.
 
-   The information that the orientation CPF reports to the routing CPF
-   includes may be a time-aggregated, e.g., statistical fashion, to
-   match the longer term operation of the routing CPF.  Example
-   information includes Link-Layer metrics such as Link bandwidth (the
-   medium speed depends dynamically on the PHY mode), number of flows
-   (bandwidth that can be reserved for a flow depends on the number and
-   size of flows sharing the spectrum) and average and mean squared
-   deviation of availability and reliability figures such as Packet
-   Delivery Ratio (PDR) over long periods of time.  It may also report
-   an aggregated expected transmission count (ETX), or a variation of
-   it.
 
 
 
-
-Thubert                    Expires 11 May 2025                 [Page 24]
+Thubert                    Expires 14 May 2025                 [Page 24]
 
 Internet-Draft              RAW Architecture               November 2024
 
 
-   Based on those metrics, the routing CPF installs the recovery graph
-   with enough redundant forwarding solutions to ensure that the Network
-   Plane can reliably deliver the packets within a System Level
+   The information that the orientation function reports to the routing
+   function includes may be a time-aggregated, e.g., statistical
+   fashion, to match the longer term operation of the routing function.
+   Example information includes Link-Layer metrics such as Link
+   bandwidth (the medium speed depends dynamically on the PHY mode),
+   number of flows (bandwidth that can be reserved for a flow depends on
+   the number and size of flows sharing the spectrum) and average and
+   mean squared deviation of availability and reliability figures such
+   as Packet Delivery Ratio (PDR) over long periods of time.  It may
+   also report an aggregated expected transmission count (ETX), or a
+   variation of it.
+
+   Based on those metrics, the routing function installs the recovery
+   graph with enough redundant forwarding solutions to ensure that the
+   Network Plane can reliably deliver the packets within a System Level
    Agreement (SLA) associated to the flows that it transports.  The SLA
    defines end-to-end reliability and availability requirements, where
    reliability may be expressed as a successful delivery in order and
@@ -1364,8 +1376,8 @@ Internet-Draft              RAW Architecture               November 2024
 
    Once a recovery graph is established, per-segment and end-to-end
    reliability and availability statistics are periodically reported to
-   the routing CPF to assure that the SLA can be met or if not, then
-   have the recovery graph recomputed.
+   the routing function to assure that the SLA can be met or if not,
+   then have the recovery graph recomputed.
 
 4.2.  RAW vs. Upper and Lower Layers
 
@@ -1382,6 +1394,14 @@ Internet-Draft              RAW Architecture               November 2024
    (Transport or Application) to provide the payload in volumes and at
    times that match the contract with the DetNet sub-layers and the
    layers below.  Excess of incoming traffic at the DetNet Ingress
+
+
+
+Thubert                    Expires 14 May 2025                 [Page 25]
+
+Internet-Draft              RAW Architecture               November 2024
+
+
    causes either dropping, queueing, or reclassification of the packets,
    and entail loss, latency, or jitter, and moot the guarantees that are
    provided inside the DetNet Network.
@@ -1392,15 +1412,6 @@ Internet-Draft              RAW Architecture               November 2024
    traffic SLA.  When the availability of the physical resource varies,
    RAW acts on the distribution of the traffic to leverage alternates
    within a finite set of potential resources.
-
-
-
-
-
-Thubert                    Expires 11 May 2025                 [Page 25]
-
-Internet-Draft              RAW Architecture               November 2024
-
 
 4.3.  RAW and DetNet
 
@@ -1415,15 +1426,37 @@ Internet-Draft              RAW Architecture               November 2024
    available path diversity exceeds 1+1 linear redundancy.
 
    RAW adds sub-layer functions that operate in the DetNet Operational
-   Plane.  The RAW orientation function may run only in the DetNet edge
-   nodes ( Ingress Edge Node or End System), or it also run in DetNet
-   Relay Nodes when the RAW operations are distributed along the
-   recovery graph.  The RAW service layer includes the PLR, which
-   decides the DetNet Path for the future packets of a flows along the
-   DetNet Path, Maintenance End Points (MEPs) on edge noes, and
-   aintenance Intermediate Points (MIPs) within.  The MEPs trigger, and
-   learn from, OAM observations, and feeds the PLR for its next
-   decision.
+   Plane, which is part of the Network Plane.  The RAW orientation
+   function may run only in the DetNet edge nodes (Ingress Edge Node or
+   End System), or it also run in DetNet Relay Nodes when the RAW
+   operations are distributed along the recovery graph.  The RAW service
+   layer includes the PLR, which decides the DetNet Path for the future
+   packets of a flows along the DetNet Path, Maintenance End Points
+   (MEPs) on edge noes, and aintenance Intermediate Points (MIPs)
+   within.  The MEPs trigger, and learn from, OAM observations, and
+   feeds the PLR for its next decision.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Thubert                    Expires 14 May 2025                 [Page 26]
+
+Internet-Draft              RAW Architecture               November 2024
+
 
    As illustrated in Figure 5, RAW extends the DetNet Stack (see fig 4
    of [DetNet-ARCHI] and Figure 3) with additional functionality at the
@@ -1448,37 +1481,40 @@ Internet-Draft              RAW Architecture               November 2024
    sub-layer in DetNet Edge and Relay Nodes.
 
 
-
-
-
-
-
-Thubert                    Expires 11 May 2025                 [Page 26]
-
-Internet-Draft              RAW Architecture               November 2024
-
-
      +-----------------+     +-------------------+
      |     Routing     |     |  OAM  Control     |
      +-----------------+     +-------------------+
 
-     +-----------------+
-     |  Orientation    |
-     +-----------------+
+
+                                             Controller Plane
+   +-+-+-+-+-+-+-+-+ Southbound Interface -+-+-+-+-+-+-+-+-+-+-+-+
+                                              Network Plane
+
+                                                   |
+                   Operational Plane               .   Data Plane
+                                                   |
+     +-----------------+                           .
+     |  Orientation    |                           |
+     +-----------------+                           .
+                                                   |
+     +-----------------+   +-------------------+   .
+     |    Point of     |   |  OAM  Maintenance |   |
+     |   local Repair  |   |  End Point  (MEP) |   .
+     +-----------------+   +-------------------+   |
+                                                   .
+                                                   |
 
 
-         Controller Plane Functions
-   +-+-+-+-+-+-+-+-+-+-+ Southbound Interface -+-+-+-+-+-+-+-+-+-+-+-+
-         Network Plane Functions
+        Figure 5: RAW function placement (Centralized Routing Case)
 
-     +-----------------+     +-------------------+
-     |    Point of     |     |  OAM  Maintenance |
-     |   local Repair  |     |  End Point  (MEP) |
-     +-----------------+     +-------------------+
 
-                      Figure 5: RAW function placement
 
-   There are 2 main proposed models to deploy RAW and DetNet.  In the
+Thubert                    Expires 14 May 2025                 [Page 27]
+
+Internet-Draft              RAW Architecture               November 2024
+
+
+   There are two main proposed models to deploy RAW and DetNet.  In the
    first model (strict) illustrated in Figure 6, RAW operates over a
    continuous DetNet Service end-to-end between the Ingress and the
    Egress Edge Nodes or End Systems.
@@ -1488,31 +1524,6 @@ Internet-Draft              RAW Architecture               November 2024
    may not support RAW services, and the Edge nodes do support RAW.
    DetNet guarantees such as latency are provided end-to-end, and RAW
    supports the DetNet Service to optimize the use of resources.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Thubert                    Expires 11 May 2025                 [Page 27]
-
-Internet-Draft              RAW Architecture               November 2024
-
 
    --------------------Flow Direction---------------------------------->
 
@@ -1554,18 +1565,7 @@ Internet-Draft              RAW Architecture               November 2024
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-Thubert                    Expires 11 May 2025                 [Page 28]
+Thubert                    Expires 14 May 2025                 [Page 28]
 
 Internet-Draft              RAW Architecture               November 2024
 
@@ -1597,60 +1597,57 @@ Internet-Draft              RAW Architecture               November 2024
 5.1.  Routing Time Scale vs. Forwarding Time Scale
 
    With DetNet, the Controller Plane Function handles the routing
-   computation and maintenance.  With RAW, the routing operation in the
-   CPF is segregated from the RAW Control Loop, so it may reside outside
-   of the RAW network.  To achieve RAW capabilities, the routing
-   operation in the CPF is extended to generate the information required
-   by the orientation function in the loop.  The CPF may, e.g., propose
-   DetNet Paths to be used as a reflex action in response to network
-   events, or by provide aggregated history that the orientation
-   function can use to make a decision.
+   computation and maintenance.  With RAW, the routing operation is
+   segregated from the RAW Control Loop, so it may reside in the
+   Controller Plane whereas the control loop itself happens in the
+   Network Plane.  To achieve RAW capabilities, the routing operation is
+   extended to generate the information required by the orientation
+   function in the loop.  The routing function may, e.g., propose DetNet
+   Paths to be used as a reflex action in response to network events, or
+   provide an aggregated history that the orientation function can use
+   to make a decision.
 
-   In a wireless mesh, the path to the DetNet CPF can be expensive and
-   slow, possibly going across the whole mesh and back.  Reaching to the
-   CPF can also be slow in regards to the speed of events that affect
-   the forwarding operation at the radio layer.  Note that a distributed
-   routing protocol may also take time and consume excessive wireless
-   resources to reconverge to a new optimized state.
+   In a wireless mesh, the path to a routing function located in the
+   controller plane can be expensive and slow, possibly going across the
+   whole mesh and back.  Reaching to the Controller Plane can also be
+   slow in regards to the speed of events that affect the forwarding
+   operation in the Network Plane at the radio layer.  Note that a
+   distributed routing protocol may also take time and consume excessive
+   wireless resources to reconverge to a new optimized state.
+
+   As a result, the DetNet routing fucntion is not expected to be aware
+   of and to react to very transient changes.  The abstraction of a link
+   at the routing level is expected to use statistical metrics that
 
 
 
-
-
-
-
-
-
-Thubert                    Expires 11 May 2025                 [Page 29]
+Thubert                    Expires 14 May 2025                 [Page 29]
 
 Internet-Draft              RAW Architecture               November 2024
 
 
-   As a result, the DetNet CPF is not expected to be aware of and to
-   react to very transient changes.  The abstraction of a link at the
-   routing level is expected to use statistical metrics that aggregate
-   the behavior of a link over long periods of time, and represent its
-   properties as shades of gray as opposed to numerical values such as a
-   link quality indicator, or a boolean value for either up or down.
+   aggregate the behavior of a link over long periods of time, and
+   represent its properties as shades of gray as opposed to numerical
+   values such as a link quality indicator, or a boolean value for
+   either up or down.
 
-   The interaction with the CPF is handled by the orientation function,
-   which builds reports to the CPF and digests the control information
-   back, to be used inside a forwarding control loop for traffic
-   steering.
+   The interaction between the network nodes and the routing function is
+   handled by the orientation function, which builds reports to the
+   routing function and digests the control information back, to be used
+   inside a forwarding control loop for traffic steering.
 
 
                      +----------------+
                      |     DetNet     |
                      |    Routing     |
-                     |      CPF       |
                      +----------------+
                              ^
                              |
                             Slow
-                             |
+                             |            Controller Plane
          _-._-._-._-._-._-.  |  ._-._-._-._-._-._-._-._-._-._-._-._-
        _-._-._-._-._-._-._-. | _-._-._-._-._-._-._-._-._-._-._-._-
-                             |
+                             |             Network Plane
                           Expensive
                              |
                       ....   |  .......
@@ -1674,17 +1671,16 @@ Internet-Draft              RAW Architecture               November 2024
    In the case of wireless, the changes that affect the forwarding
    decision can happen frequently and often for short durations, e.g., a
    mobile object moves between a transmitter and a receiver, and cancels
-
-
-
-Thubert                    Expires 11 May 2025                 [Page 30]
-
-Internet-Draft              RAW Architecture               November 2024
-
-
    the line of sight transmission for a few seconds, or a radar measures
    the depth of a pool and interferes on a particular channel for a
    split second.
+
+
+
+Thubert                    Expires 14 May 2025                 [Page 30]
+
+Internet-Draft              RAW Architecture               November 2024
+
 
    There is thus a desire to separate the long-term computation of the
    route and the short-term forwarding decision.  In that model, the
@@ -1698,7 +1694,7 @@ Internet-Draft              RAW Architecture               November 2024
    used upon the detection of a failure in the main path, e.g., using
    OAM in MPLS-TP or BFD over a collection of SD-WAN tunnels.  RAW
    formalizes a forwarding time scale that is an order(s) of magnitude
-   shorter than the controller plane routing time scale, and separates
+   shorter than the Controller Plane routing time scale, and separates
    the protocols and metrics that are used at both scales.  Routing can
    operate on long-term statistics such as delivery ratio over minutes
    to hours, but as a first approximation can ignore flapping.  On the
@@ -1730,20 +1726,19 @@ Internet-Draft              RAW Architecture               November 2024
       Section 5.5;
 
    Act:  PREOF Dataplane actions are controlled by the PLR over the LL
-
-
-
-Thubert                    Expires 11 May 2025                 [Page 31]
-
-Internet-Draft              RAW Architecture               November 2024
-
-
       API to increase the reliability of the end-to-end transmission.
       The RAW architecture also covers in-situ signaling when the
       decision is Acted by a node that down the recovery graph from the
       PLR, more in Section 5.6.
 
-                     +-------> Orient (CPF) -------+
+
+
+Thubert                    Expires 14 May 2025                 [Page 31]
+
+Internet-Draft              RAW Architecture               November 2024
+
+
+                     +-------> Orientation ---------+
                      |        reflex actions        |
                      |       pre-trained model      |
                      |                              |
@@ -1789,7 +1784,12 @@ Internet-Draft              RAW Architecture               November 2024
 
 
 
-Thubert                    Expires 11 May 2025                 [Page 32]
+
+
+
+
+
+Thubert                    Expires 14 May 2025                 [Page 32]
 
 Internet-Draft              RAW Architecture               November 2024
 
@@ -1845,7 +1845,7 @@ Internet-Draft              RAW Architecture               November 2024
 
 
 
-Thubert                    Expires 11 May 2025                 [Page 33]
+Thubert                    Expires 14 May 2025                 [Page 33]
 
 Internet-Draft              RAW Architecture               November 2024
 
@@ -1890,9 +1890,9 @@ Internet-Draft              RAW Architecture               November 2024
    The RAW OODA Loop operates at the path selection time scale to
    provide agility vs. the brute force approach of flooding the whole
    recovery graph.  The OODA Loop controls, within the redundant
-   solutions that are proposed by the local CPF, which is used for each
-   packet to provide a Reliable and Available service while minimizing
-   the waste of constrained resources.
+   solutions that are proposed by the routing function, which is used
+   for each packet to provide a Reliable and Available service while
+   minimizing the waste of constrained resources.
 
 
 
@@ -1901,7 +1901,7 @@ Internet-Draft              RAW Architecture               November 2024
 
 
 
-Thubert                    Expires 11 May 2025                 [Page 34]
+Thubert                    Expires 14 May 2025                 [Page 34]
 
 Internet-Draft              RAW Architecture               November 2024
 
@@ -1921,9 +1921,9 @@ Internet-Draft              RAW Architecture               November 2024
    The rapid changes in the forwarding decisions are made and contained
    within the scope of a recovery graph and the actions of the PLR are
    not signaled outside the recovery graph.  This is as opposed to the
-   CPF that must observe the whole network and optimize all the recovery
-   graphs globally, which can only be done at a slow pace and using
-   long-term statistical metrics, as presented in Table 1.
+   routing function that must observe the whole network and optimize all
+   the recovery graphs globally, which can only be done at a slow pace
+   and using long-term statistical metrics, as presented in Table 1.
 
      +===============+=========================+=====================+
      |               |       Centralized       |    PLR (In Scope)   |
@@ -1957,7 +1957,7 @@ Internet-Draft              RAW Architecture               November 2024
 
 
 
-Thubert                    Expires 11 May 2025                 [Page 35]
+Thubert                    Expires 14 May 2025                 [Page 35]
 
 Internet-Draft              RAW Architecture               November 2024
 
@@ -2013,7 +2013,7 @@ Internet-Draft              RAW Architecture               November 2024
 
 
 
-Thubert                    Expires 11 May 2025                 [Page 36]
+Thubert                    Expires 14 May 2025                 [Page 36]
 
 Internet-Draft              RAW Architecture               November 2024
 
@@ -2069,7 +2069,7 @@ Internet-Draft              RAW Architecture               November 2024
 
 
 
-Thubert                    Expires 11 May 2025                 [Page 37]
+Thubert                    Expires 14 May 2025                 [Page 37]
 
 Internet-Draft              RAW Architecture               November 2024
 
@@ -2125,7 +2125,7 @@ Internet-Draft              RAW Architecture               November 2024
 
 
 
-Thubert                    Expires 11 May 2025                 [Page 38]
+Thubert                    Expires 14 May 2025                 [Page 38]
 
 Internet-Draft              RAW Architecture               November 2024
 
@@ -2181,7 +2181,7 @@ Internet-Draft              RAW Architecture               November 2024
 
 
 
-Thubert                    Expires 11 May 2025                 [Page 39]
+Thubert                    Expires 14 May 2025                 [Page 39]
 
 Internet-Draft              RAW Architecture               November 2024
 
@@ -2237,7 +2237,7 @@ Internet-Draft              RAW Architecture               November 2024
 
 
 
-Thubert                    Expires 11 May 2025                 [Page 40]
+Thubert                    Expires 14 May 2025                 [Page 40]
 
 Internet-Draft              RAW Architecture               November 2024
 
@@ -2293,4 +2293,4 @@ Author's Address
 
 
 
-Thubert                    Expires 11 May 2025                 [Page 41]
+Thubert                    Expires 14 May 2025                 [Page 41]

@@ -291,7 +291,7 @@
     or one fragment of a packet that conserves its uniqueness and integrity.
     For instance, if C replicates to E and F and D eliminates on the way from A
     to B, a packet from A to B can experience 2 paths, A->C->E->D->B and
-    A->C->F->D->B. The term protection path is used to clarify when
+    A->C->F->D->B. The terms lane is used to clarify when
     dealing with such path.
     </t>
     <t> With DetNet and RAW,
@@ -340,7 +340,7 @@
       |  |  | Router     |  |  | Router
       +--|--+            +--|--+
          |                  |
-      o   \     o          /  protection path
+      o   \     o          /  lane
     o      o      o---o---o   o      o   o  o
             \  o /    o          o         o
      o   o   \  /       o        low power lossy network
@@ -399,9 +399,9 @@
     <xref target='TRK'/> illustrates the generic concept of a recovery graph,
    between an Ingress Node and an Egress Node
 
-    The recovery graph is composed of forward protection paths and forward or crossing
+    The recovery graph is composed of forward Lanes and forward or crossing
     Segments, see the definition for those terms in the next sections.
-    The recovery graph contains at least 2 protection paths as a main path and a backup path.
+    A Protection Path contains at least 2 Lanes as a main path and a backup path.
 </t>
 <figure anchor='TRK'><name>A Recovery Graph and its Components</name>
               <artwork align="center"><![CDATA[
@@ -420,10 +420,10 @@
       I ==> a ==> b ==> C : an forward Segment to targets F and o
       C ==> o ==> T: an forward Segment to target T (and/or U)
       G | n | U : a crossing Segment to targets G or U
-      I -> F -> E : forward Protection Path to targets T1, T2, and T3
+      I --> F --> E : an forward Lane to targets T1, T2, and T3
 
       I, a, b, C, F, G, H, E : a path to T1, T2, and/or T3
-      I, p, q, R, o, F, G, H, E : segment-crossing protection path
+      I, p, q, R, o, F, G, H, E : lane-crossing alternate path
 
 ]]></artwork>
 </figure>
@@ -438,18 +438,16 @@
     meaning that they can be used in both directions, though a given packet may
     use the link in one direction only. A Segment can be forward, in which
     case it is composed of forward links only, or crossing, in which
-    case it is composed of crossing links only. A Protection Path is always forward,
+    case it is composed of crossing links only. A lane is always forward,
     meaning that it is composed of forward links and Segments.
     </t>
     </section>
-  <section><name>Protection Path</name>
+  <section><name>Lane</name>
     <t>
-    An end-to-end forward path between the Ingress and Egress Nodes of a
-    recovery graph. A protection path in a recovery graph is expressed as a strict sequence
+    An end-to-end forward lane between the Ingress and Egress Nodes of a
+    recovery graph. A lane in a recovery graph is expressed as a strict sequence
     of DetNet Relay nodes or as a loose sequence of DetNet Relay nodes that are
-    joined by recovery graph Segments.  Background information on the
-    concepts related to protection paths can be found in <xref
-    target="RFC4427"/> and <xref target="RFC6378"/>
+    joined by recovery graph Segments.
     </t>
   </section>
     <section><name>Segment</name>
@@ -1831,7 +1829,7 @@
 
          <tr><td>Network Size</td>
              <td align='center'>Large, many recovery graphs to optimize globally</td>
-             <td align='center'>Small, limited set of protection paths</td>
+             <td align='center'>Small, within one recovery graph</td>
         </tr>
 
 
@@ -1856,7 +1854,7 @@
     </t>
 
 <figure anchor="Figlearn">
-          <name>PLR Conceptual Interfaces</name>
+          <name>Conceptual PLR Interfaces</name>
        <artwork align="center" name="" type="" alt=""><![CDATA[
             |
      packet | going
@@ -2116,7 +2114,6 @@
 
 <xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.5714.xml"/>
 <!--  IP Fast Reroute Framework -->
-<xi:include href="http://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.6378.xml"/>
 
 <xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.7490.xml"/>
 <!--   Remote Loop-Free Alternate (LFA) Fast Reroute (FRR) -->

@@ -10,7 +10,7 @@ Expires: 1 September 2025
 
 
               Reliable and Available Wireless Architecture
-                     draft-ietf-raw-architecture-23
+                     draft-ietf-raw-architecture-25
 
 Abstract
 
@@ -72,40 +72,40 @@ Table of Contents
    1.  Introduction  . . . . . . . . . . . . . . . . . . . . . . . .   3
    2.  Terminology . . . . . . . . . . . . . . . . . . . . . . . . .   5
      2.1.  Acronyms  . . . . . . . . . . . . . . . . . . . . . . . .   5
-       2.1.1.  ARQ . . . . . . . . . . . . . . . . . . . . . . . . .   6
-       2.1.2.  ISM . . . . . . . . . . . . . . . . . . . . . . . . .   6
-       2.1.3.  ETX . . . . . . . . . . . . . . . . . . . . . . . . .   6
-       2.1.4.  FEC . . . . . . . . . . . . . . . . . . . . . . . . .   6
-       2.1.5.  HARQ  . . . . . . . . . . . . . . . . . . . . . . . .   6
-       2.1.6.  ISM . . . . . . . . . . . . . . . . . . . . . . . . .   7
-       2.1.7.  LQI . . . . . . . . . . . . . . . . . . . . . . . . .   7
-       2.1.8.  OAM . . . . . . . . . . . . . . . . . . . . . . . . .   7
-       2.1.9.  OODA  . . . . . . . . . . . . . . . . . . . . . . . .   7
-       2.1.10. RSSI  . . . . . . . . . . . . . . . . . . . . . . . .   8
-       2.1.11. SNR . . . . . . . . . . . . . . . . . . . . . . . . .   8
-     2.2.  Link and Direction  . . . . . . . . . . . . . . . . . . .   8
-       2.2.1.  Flapping  . . . . . . . . . . . . . . . . . . . . . .   8
-       2.2.2.  Uplink  . . . . . . . . . . . . . . . . . . . . . . .   8
+       2.1.1.  ARQ . . . . . . . . . . . . . . . . . . . . . . . . .   5
+       2.1.2.  ETX . . . . . . . . . . . . . . . . . . . . . . . . .   6
+       2.1.3.  FEC . . . . . . . . . . . . . . . . . . . . . . . . .   6
+       2.1.4.  HARQ  . . . . . . . . . . . . . . . . . . . . . . . .   6
+       2.1.5.  ISM . . . . . . . . . . . . . . . . . . . . . . . . .   6
+       2.1.6.  LQI . . . . . . . . . . . . . . . . . . . . . . . . .   6
+       2.1.7.  OAM . . . . . . . . . . . . . . . . . . . . . . . . .   7
+       2.1.8.  OODA  . . . . . . . . . . . . . . . . . . . . . . . .   7
+       2.1.9.  RSSI  . . . . . . . . . . . . . . . . . . . . . . . .   7
+       2.1.10. SNR . . . . . . . . . . . . . . . . . . . . . . . . .   7
+     2.2.  Link and Direction  . . . . . . . . . . . . . . . . . . .   7
+       2.2.1.  Flapping  . . . . . . . . . . . . . . . . . . . . . .   7
+       2.2.2.  Uplink  . . . . . . . . . . . . . . . . . . . . . . .   7
        2.2.3.  Downlink  . . . . . . . . . . . . . . . . . . . . . .   8
        2.2.4.  Downstream  . . . . . . . . . . . . . . . . . . . . .   8
        2.2.5.  Upstream  . . . . . . . . . . . . . . . . . . . . . .   8
      2.3.  Path and Recovery Graphs  . . . . . . . . . . . . . . . .   8
        2.3.1.  Path  . . . . . . . . . . . . . . . . . . . . . . . .   8
-       2.3.2.  Recovery Graph  . . . . . . . . . . . . . . . . . . .  10
+       2.3.2.  Recovery Graph  . . . . . . . . . . . . . . . . . . .   9
        2.3.3.  Forward and Crossing  . . . . . . . . . . . . . . . .  12
        2.3.4.  Protection Path . . . . . . . . . . . . . . . . . . .  12
-       2.3.5.  Segment . . . . . . . . . . . . . . . . . . . . . . .  13
-     2.4.  Deterministic Networking  . . . . . . . . . . . . . . . .  13
-       2.4.1.  Flow  . . . . . . . . . . . . . . . . . . . . . . . .  13
+       2.3.5.  Segment . . . . . . . . . . . . . . . . . . . . . . .  12
+     2.4.  Deterministic Networking  . . . . . . . . . . . . . . . .  12
+       2.4.1.  Flow  . . . . . . . . . . . . . . . . . . . . . . . .  12
        2.4.2.  L3 Deterministic Flow Identifier  . . . . . . . . . .  13
        2.4.3.  TSN . . . . . . . . . . . . . . . . . . . . . . . . .  13
      2.5.  Reliability and Availability  . . . . . . . . . . . . . .  13
-       2.5.1.  Service Level Agreement . . . . . . . . . . . . . . .  14
-       2.5.2.  Service Level Objective . . . . . . . . . . . . . . .  14
-       2.5.3.  Service Level Indicator . . . . . . . . . . . . . . .  14
+       2.5.1.  Service Level Agreement . . . . . . . . . . . . . . .  13
+       2.5.2.  Service Level Objective . . . . . . . . . . . . . . .  13
+       2.5.3.  Service Level Indicator . . . . . . . . . . . . . . .  13
        2.5.4.  Reliability . . . . . . . . . . . . . . . . . . . . .  14
        2.5.5.  Availability  . . . . . . . . . . . . . . . . . . . .  14
      2.6.  OAM variations  . . . . . . . . . . . . . . . . . . . . .  14
+       2.6.1.  Active OAM  . . . . . . . . . . . . . . . . . . . . .  14
 
 
 
@@ -114,21 +114,20 @@ Thubert                 Expires 1 September 2025                [Page 2]
 Internet-Draft              RAW Architecture               February 2025
 
 
-       2.6.1.  Active OAM  . . . . . . . . . . . . . . . . . . . . .  14
-       2.6.2.  In-Band OAM . . . . . . . . . . . . . . . . . . . . .  15
-       2.6.3.  Out-of-Band OAM . . . . . . . . . . . . . . . . . . .  15
+       2.6.2.  In-Band OAM . . . . . . . . . . . . . . . . . . . . .  14
+       2.6.3.  Out-of-Band OAM . . . . . . . . . . . . . . . . . . .  14
        2.6.4.  Limited OAM . . . . . . . . . . . . . . . . . . . . .  15
        2.6.5.  Upstream OAM  . . . . . . . . . . . . . . . . . . . .  15
        2.6.6.  Residence Time  . . . . . . . . . . . . . . . . . . .  15
-       2.6.7.  Lower-Layer information . . . . . . . . . . . . . . .  16
-       2.6.8.  Additional References . . . . . . . . . . . . . . . .  16
+       2.6.7.  Lower-Layer information . . . . . . . . . . . . . . .  15
+       2.6.8.  Additional References . . . . . . . . . . . . . . . .  15
    3.  Reliable and Available Wireless . . . . . . . . . . . . . . .  16
      3.1.  Reliability and Availability  . . . . . . . . . . . . . .  16
        3.1.1.  High Availability Engineering Principles  . . . . . .  16
-       3.1.2.  Applying Reliability Concepts to Networking . . . . .  19
+       3.1.2.  Applying Reliability Concepts to Networking . . . . .  18
        3.1.3.  Wireless Effects Affecting Reliability  . . . . . . .  19
-     3.2.  The RAW problem . . . . . . . . . . . . . . . . . . . . .  21
-   4.  The RAW Conceptual Model  . . . . . . . . . . . . . . . . . .  25
+     3.2.  The RAW problem . . . . . . . . . . . . . . . . . . . . .  20
+   4.  The RAW Conceptual Model  . . . . . . . . . . . . . . . . . .  24
      4.1.  The RAW Planes  . . . . . . . . . . . . . . . . . . . . .  25
      4.2.  RAW vs. Upper and Lower Layers  . . . . . . . . . . . . .  27
      4.3.  RAW and DetNet  . . . . . . . . . . . . . . . . . . . . .  28
@@ -160,8 +159,9 @@ Internet-Draft              RAW Architecture               February 2025
    description of the general background and concepts of DetNet can be
    found in [RFC8655].
 
-
-
+   DetNet and the related IEEE 802.1 Time-Sensitive networking (TSN)
+   initially focused on wired infrastructure, which provides a more
+   stable communication channel than wireless networks.  Wireless
 
 
 
@@ -170,9 +170,6 @@ Thubert                 Expires 1 September 2025                [Page 3]
 Internet-Draft              RAW Architecture               February 2025
 
 
-   DetNet and the related IEEE 802.1 Time-Sensitive networking (TSN)
-   initially focused on wired infrastructure, which provides a more
-   stable communication channel than wireless networks.  Wireless
    networks operate on a shared medium where uncontrolled interference,
    including the self-induced multipath fading, may cause intermittent
    transmission losses.  Fixed and mobile obstacles and reflectors may
@@ -215,7 +212,10 @@ Internet-Draft              RAW Architecture               February 2025
    DLEP [DLEP] is an example protocol that can be used to implement the
    LL API.
 
-
+   This document presents the RAW problem and associated terminology in
+   Section 3.2, presents a conceptual model for RAW in Section 4, and,
+   based on that model, elaborates on an in-network optimization control
+   loop in Section 5.2.
 
 
 
@@ -225,11 +225,6 @@ Thubert                 Expires 1 September 2025                [Page 4]
 
 Internet-Draft              RAW Architecture               February 2025
 
-
-   This document presents the RAW problem and associated terminology in
-   Section 3.2, presents a conceptual model for RAW in Section 4, and,
-   based on that model, elaborates on an in-network optimization control
-   loop in Section 5.2.
 
 2.  Terminology
 
@@ -271,17 +266,6 @@ Internet-Draft              RAW Architecture               February 2025
 
 2.1.  Acronyms
 
-
-
-
-
-
-
-Thubert                 Expires 1 September 2025                [Page 5]
-
-Internet-Draft              RAW Architecture               February 2025
-
-
 2.1.1.  ARQ
 
    Automatic Repeat Request, a well-known mechanism, enabling an
@@ -290,10 +274,34 @@ Internet-Draft              RAW Architecture               February 2025
    typically implemented at Layer-2, per hop and not end-to-end in
    wireless networks.  ARQ improves delivery on lossy wireless.
    Additionally, ARQ retransmission may be further limited by a bounded
+
+
+
+Thubert                 Expires 1 September 2025                [Page 5]
+
+Internet-Draft              RAW Architecture               February 2025
+
+
    time to meet end-to-end packet latency constraints.  Additional
    details and considerations for ARQ are detailed in [RFC3366].
 
-2.1.2.  ISM
+2.1.2.  ETX
+
+   Expected Transmission Count: a statistical metric that represents the
+   expected total number of packet transmissions (including
+   retransmissions) required to successfully deliver a packet along a
+   path, used by 6TiSCH [RFC6551].
+
+2.1.3.  FEC
+
+   Forward Error Correction, adding redundant data to protect against a
+   partial loss without retries.
+
+2.1.4.  HARQ
+
+   Hybrid Automatic Repeat Request, combining FEC and ARQ.
+
+2.1.5.  ISM
 
    The industrial, scientific, and medical (ISM) radio band refers to a
    group of radio bands or parts of the radio spectrum (e.g., 2.4 GHz
@@ -309,24 +317,16 @@ Internet-Draft              RAW Architecture               February 2025
    users have no regulatory protection from ISM device operation in
    these bands.
 
-2.1.3.  ETX
+2.1.6.  LQI
 
-   Expected Transmission Count: a statistical metric that represents the
-   expected total number of packet transmissions (including
-   retransmissions) required to successfully deliver a packet along a
-   path, used by 6TiSCH [RFC6551].
-
-2.1.4.  FEC
-
-   Forward Error Correction, adding redundant data to protect against a
-   partial loss without retries.
-
-2.1.5.  HARQ
-
-   Hybrid Automatic Repeat Request, combining FEC and ARQ.
-
-
-
+   Link-Quality Indication: a cumulative value used in multi-hop
+   networks to assess the cost of a link.  LQI values can be modified at
+   each step as the massage propagates through the mesh matrix.
+   Messages taking different paths through a mesh may have different LQI
+   values, the path with the best LQI is chosen for subsequent messages.
+   Outgoing LQI values can be calculated from coherent (demodulated)
+   Packet Error Rates (PER), RSSI and incoming LQI values.  The exact
+   method depends on the network stack being used.
 
 
 
@@ -338,34 +338,7 @@ Thubert                 Expires 1 September 2025                [Page 6]
 Internet-Draft              RAW Architecture               February 2025
 
 
-2.1.6.  ISM
-
-   The industrial, scientific, and medical (ISM) radio band refers to a
-   group of radio bands or parts of the radio spectrum (e.g., 2.4 GHz
-   and 5 GHz) that are internationally reserved for the use of radio
-   frequency (RF) energy intended for scientific, medical, and
-   industrial requirements, e.g., by microwaves, depth radars, and
-   medical diathermy machines.  Cordless phones, Bluetooth and LoWPAN
-   devices, near-field communication (NFC) devices, garage door openers,
-   baby monitors, and Wi-Fi networks may all use the ISM frequencies,
-   although these low-power transmitters are not considered to be ISM
-   devices.  In general, communications equipment operating in ISM bands
-   must tolerate any interference generated by ISM applications, and
-   users have no regulatory protection from ISM device operation in
-   these bands.
-
-2.1.7.  LQI
-
-   Link-Quality Indication: a cumulative value used in multi-hop
-   networks to assess the cost of a link.  LQI values can be modified at
-   each step as the massage propagates through the mesh matrix.
-   Messages taking different paths through a mesh may have different LQI
-   values, the path with the best LQI is chosen for subsequent messages.
-   Outgoing LQI values can be calculated from coherent (demodulated)
-   Packet Error Rates (PER), RSSI and incoming LQI values.  The exact
-   method depends on the network stack being used.
-
-2.1.8.  OAM
+2.1.7.  OAM
 
    OAM stands for Operations, Administration, and Maintenance, and
    covers the processes, activities, tools, and standards involved with
@@ -375,7 +348,7 @@ Internet-Draft              RAW Architecture               February 2025
    in the IETF' [RFC6291] and the system observed by the RAW OAM is the
    recovery graph.
 
-2.1.9.  OODA
+2.1.8.  OODA
 
    Observe, Orient, Decide, Act. The OODA Loop is a conceptual cyclic
    model developed by USAF Colonel John Boyd, and that is applicable in
@@ -383,18 +356,7 @@ Internet-Draft              RAW Architecture               February 2025
    force.  In the context of RAW, OODA is applied to network control and
    convergence.
 
-
-
-
-
-
-
-Thubert                 Expires 1 September 2025                [Page 7]
-
-Internet-Draft              RAW Architecture               February 2025
-
-
-2.1.10.  RSSI
+2.1.9.  RSSI
 
    Received Signal Strength Indication (a.k.a.  Energy Detection Level):
    a measure of incoherent (raw) RF power in a channel.  The RF power
@@ -402,7 +364,7 @@ Internet-Draft              RAW Architecture               February 2025
    technology, other radio technology using the same band, or background
    radiation.  For a single-hop, RSSI may be used for LQI.
 
-2.1.11.  SNR
+2.1.10.  SNR
 
    Signal-Noise Ratio (a.k.a S/N): a measure used in science and
    engineering that compares the level of a desired signal to the level
@@ -424,6 +386,14 @@ Internet-Draft              RAW Architecture               February 2025
    station (STA) and a controller (AP) or a User Equipment (UE) to a
    Base Station (BS) such as a 3GPP 5G gNodeB (gNb).
 
+
+
+
+Thubert                 Expires 1 September 2025                [Page 7]
+
+Internet-Draft              RAW Architecture               February 2025
+
+
 2.2.3.  Downlink
 
    The reverse direction from uplink.
@@ -441,14 +411,6 @@ Internet-Draft              RAW Architecture               February 2025
 2.3.1.  Path
 
    Quoting section 1.1.3 of [INT-ARCHI]:
-
-
-
-
-Thubert                 Expires 1 September 2025                [Page 8]
-
-Internet-Draft              RAW Architecture               February 2025
-
 
    |  At a given moment, all the IP datagrams from a particular source
    |  host to a particular destination host typically traverse the same
@@ -476,6 +438,18 @@ Internet-Draft              RAW Architecture               February 2025
    paths.  Protection paths may be fully non-congruent, and
    alternatively may intersect at replication or elimination points.
 
+
+
+
+
+
+
+
+Thubert                 Expires 1 September 2025                [Page 8]
+
+Internet-Draft              RAW Architecture               February 2025
+
+
    With DetNet and RAW, a packet may be duplicated, fragmented, and
    network-coded, and the various byproducts may travel different paths
    that are not necessarily end-to-end between A and B; we refer to that
@@ -491,6 +465,32 @@ Internet-Draft              RAW Architecture               February 2025
    As such, the recovery graph coalesces all the possible paths a flow
    may experience, each with its own statistical probability to be used.
 
+2.3.2.  Recovery Graph
+
+   A networking graph that can be followed to transport packets with
+   equivalent treatment, associated with usage metadata; as opposed to
+   the definition of a path above, a recovery graph represents not an
+   actual but a potential, it is not necessarily a linear sequence like
+   a simple path, and is not necessarily fully traversed (flooded) by
+   all packets of a flow like a Detnet Path.  Still, and as a
+   simplification, the casual reader may consider that a recovery graph
+   is very much like a DetNet path, aggregating multiple paths that may
+   overlap, fork and rejoin, for instance to enable a protection service
+   by the PREOF operations.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -504,20 +504,6 @@ Internet-Draft              RAW Architecture               February 2025
 Thubert                 Expires 1 September 2025                [Page 9]
 
 Internet-Draft              RAW Architecture               February 2025
-
-
-2.3.2.  Recovery Graph
-
-   A networking graph that can be followed to transport packets with
-   equivalent treatment, associated with usage metadata; as opposed to
-   the definition of a path above, a recovery graph represents not an
-   actual but a potential, it is not necessarily a linear sequence like
-   a simple path, and is not necessarily fully traversed (flooded) by
-   all packets of a flow like a Detnet Path.  Still, and as a
-   simplification, the casual reader may consider that a recovery graph
-   is very much like a DetNet path, aggregating multiple paths that may
-   overlap, fork and rejoin, for instance to enable a protection service
-   by the PREOF operations.
 
 
                    +---------+
@@ -552,16 +538,6 @@ Internet-Draft              RAW Architecture               February 2025
    one of the feasible DetNet Paths based on the current selection by
    the PLR at the time the packet traverses the network.
 
-
-
-
-
-
-Thubert                 Expires 1 September 2025               [Page 10]
-
-Internet-Draft              RAW Architecture               February 2025
-
-
    Refining even further, the feasible DetNet Paths within the recovery
    graph may or may not be computed in advance, but decided upon the
    detection of a change from a clean slate.  Furthermore, the PLR
@@ -576,6 +552,15 @@ Internet-Draft              RAW Architecture               February 2025
    *  A recovery graph is a Layer-3 abstraction built upon IP links
       between routers.  A router may form multiple IP links over a
       single radio interface.
+
+
+
+
+
+Thubert                 Expires 1 September 2025               [Page 10]
+
+Internet-Draft              RAW Architecture               February 2025
+
 
    *  A recovery graph has one Ingress and one Egress nodes, which
       operate as DetNet Edge nodes.
@@ -596,27 +581,6 @@ Internet-Draft              RAW Architecture               February 2025
    definition for those terms in the next sections.  The recovery graph
    contains at least 2 protection paths as a main path and a backup
    path.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Thubert                 Expires 1 September 2025               [Page 11]
-
-Internet-Draft              RAW Architecture               February 2025
-
 
     ------------------- forward direction ---------------------->
 
@@ -641,6 +605,19 @@ Internet-Draft              RAW Architecture               February 2025
 
                Figure 2: A Recovery Graph and its Components
 
+
+
+
+
+
+
+
+
+Thubert                 Expires 1 September 2025               [Page 11]
+
+Internet-Draft              RAW Architecture               February 2025
+
+
 2.3.3.  Forward and Crossing
 
    Forward refers to progress towards the recovery graph Egress.
@@ -661,18 +638,6 @@ Internet-Draft              RAW Architecture               February 2025
    DetNet Relay nodes that are joined by recovery graph Segments.
    Background information on the concepts related to protection paths
    can be found in [RFC4427] and [RFC6378]
-
-
-
-
-
-
-
-
-Thubert                 Expires 1 September 2025               [Page 12]
-
-Internet-Draft              RAW Architecture               February 2025
-
 
 2.3.5.  Segment
 
@@ -697,6 +662,18 @@ Internet-Draft              RAW Architecture               February 2025
    recovery graph.  The DetNet Path that is selected for the flow may
    change over time under the control of the PLR.
 
+
+
+
+
+
+
+
+Thubert                 Expires 1 September 2025               [Page 12]
+
+Internet-Draft              RAW Architecture               February 2025
+
+
 2.4.2.  L3 Deterministic Flow Identifier
 
    See section 3.3 of [DetNet-DP].  The classical IP 5-tuple that
@@ -716,19 +693,6 @@ Internet-Draft              RAW Architecture               February 2025
 
    In the context of the RAW work, Reliability and Availability are
    defined as follows:
-
-
-
-
-
-
-
-
-
-Thubert                 Expires 1 September 2025               [Page 13]
-
-Internet-Draft              RAW Architecture               February 2025
-
 
 2.5.1.  Service Level Agreement
 
@@ -750,6 +714,21 @@ Internet-Draft              RAW Architecture               February 2025
    A service level indicator (SLI) measures the compliance of an SLO to
    the terms of the contract.  It can be for instance, the statistics of
    individual losses and losses in a row as time series.
+
+
+
+
+
+
+
+
+
+
+
+Thubert                 Expires 1 September 2025               [Page 13]
+
+Internet-Draft              RAW Architecture               February 2025
+
 
 2.5.4.  Reliability
 
@@ -779,13 +758,6 @@ Internet-Draft              RAW Architecture               February 2025
    a particular recovery graph, DetNet Path, or Segment of a recovery
    graph regardless of whether it is used for traffic at that time.
 
-
-
-Thubert                 Expires 1 September 2025               [Page 14]
-
-Internet-Draft              RAW Architecture               February 2025
-
-
 2.6.2.  In-Band OAM
 
    An active OAM packet is considered in-band for the monitored recovery
@@ -801,6 +773,18 @@ Internet-Draft              RAW Architecture               February 2025
    and/or service protection treatment that is different from that of
    the packets of the data flows that are injected in the recovery
    graph, or both.
+
+
+
+
+
+
+
+
+Thubert                 Expires 1 September 2025               [Page 14]
+
+Internet-Draft              RAW Architecture               February 2025
+
 
 2.6.4.  Limited OAM
 
@@ -827,21 +811,6 @@ Internet-Draft              RAW Architecture               February 2025
    begins.  In the context of RAW, RT is useful for a transit node, not
    ingress or egress.
 
-
-
-
-
-
-
-
-
-
-
-Thubert                 Expires 1 September 2025               [Page 15]
-
-Internet-Draft              RAW Architecture               February 2025
-
-
 2.6.7.  Lower-Layer information
 
    The Operational Plane elements (Routing and OAM control) may gather
@@ -859,6 +828,19 @@ Internet-Draft              RAW Architecture               February 2025
    [DetNet-OAM] provides additional terminology related to OAM in the
    context of DetNet and by extension of RAW, whereas [RFC7799] defines
    the Active, Passive, and Hybrid OAM methods.
+
+
+
+
+
+
+
+
+
+Thubert                 Expires 1 September 2025               [Page 15]
+
+Internet-Draft              RAW Architecture               February 2025
+
 
 3.  Reliable and Available Wireless
 
@@ -884,20 +866,6 @@ Internet-Draft              RAW Architecture               February 2025
    just ones with Internet technology at the center.  Examples of both
    non-Internet and Internet are included.
 
-
-
-
-
-
-
-
-
-
-Thubert                 Expires 1 September 2025               [Page 16]
-
-Internet-Draft              RAW Architecture               February 2025
-
-
 3.1.1.1.  Elimination of Single Points of Failure
 
    Physical and logical components in a system happen to fail, either as
@@ -922,6 +890,14 @@ Internet-Draft              RAW Architecture               February 2025
    failure.  For High Availability, it is thus required to use
    physically link-disjoint and Node-disjoint paths; in the wireless
    space, it is also required to use the highest possible degree of
+
+
+
+Thubert                 Expires 1 September 2025               [Page 16]
+
+Internet-Draft              RAW Architecture               February 2025
+
+
    diversity (time, space, code, frequency, channel width) in the
    transmissions over the air to combat the additional causes of
    transmission loss.
@@ -947,13 +923,6 @@ Internet-Draft              RAW Architecture               February 2025
    Free Alternate [RLFA-FRR] and backup label-switched path (LSP)
    tunnels for the local repair of LSP tunnels using RSVP-TE [RFC4090].
 
-
-
-Thubert                 Expires 1 September 2025               [Page 17]
-
-Internet-Draft              RAW Architecture               February 2025
-
-
    Deterministic flows, on the contrary, are attached to specific paths
    where dedicated resources are reserved for each flow.  Therefore each
    DetNet path must inherently provide sufficient redundancy to provide
@@ -976,6 +945,15 @@ Internet-Draft              RAW Architecture               February 2025
    system where the end user rarely sees a failure.  But a failure that
    occurs must still be detected in order to direct maintenance.
 
+
+
+
+
+Thubert                 Expires 1 September 2025               [Page 17]
+
+Internet-Draft              RAW Architecture               February 2025
+
+
    There are many reasons for system monitoring (FCAPS for fault,
    configuration, accounting, performance, security is a handy mental
    checklist) but fault monitoring is sufficient reason.
@@ -996,19 +974,6 @@ Internet-Draft              RAW Architecture               February 2025
    triggers, read from a protocol such as the Dynamic Link Exchange
    Protocol (DLEP) [DLEP], or transported over multiple hops using OAM
    and reverse OAM, as illustrated in Figure 11.
-
-
-
-
-
-
-
-
-
-Thubert                 Expires 1 September 2025               [Page 18]
-
-Internet-Draft              RAW Architecture               February 2025
-
 
 3.1.2.  Applying Reliability Concepts to Networking
 
@@ -1038,6 +1003,13 @@ Internet-Draft              RAW Architecture               February 2025
    fragments), or, in a typical control loop, by linear interpolation
    from the previous measurements.
 
+
+
+Thubert                 Expires 1 September 2025               [Page 18]
+
+Internet-Draft              RAW Architecture               February 2025
+
+
    But the linear interpolation method cannot resist multiple
    consecutive losses, and a high MTBF is desired as a guarantee that
    this does not happen, IOW that the number of losses-in-a-row can be
@@ -1056,15 +1028,6 @@ Internet-Draft              RAW Architecture               February 2025
 
    In contrast with wired networks, errors in transmission are the
    predominant source of packet loss in wireless networks.
-
-
-
-
-
-Thubert                 Expires 1 September 2025               [Page 19]
-
-Internet-Draft              RAW Architecture               February 2025
-
 
    The root cause for the loss may be of multiple origins, calling for
    the use of different forms of diversity:
@@ -1095,6 +1058,14 @@ Internet-Draft              RAW Architecture               February 2025
       the interference domain of the interferer, possibly even when they
       use different technologies.
 
+
+
+
+Thubert                 Expires 1 September 2025               [Page 19]
+
+Internet-Draft              RAW Architecture               February 2025
+
+
    Obstacle in Fresnel Zone:  The optimal transmission happens when the
       Fresnel Zone between the sender and the receiver is free of
       obstacles.
@@ -1111,16 +1082,8 @@ Internet-Draft              RAW Architecture               February 2025
    Transmission losses are typically not independent, and their nature
    and duration are unpredictable; as long as a physical object (e.g., a
    metallic trolley between peers) that affects the transmission is not
-   removed, or as long as the interferer (e.g., a radar) keeps
-   transmitting, a continuous stream of packets are affected.
-
-
-
-
-Thubert                 Expires 1 September 2025               [Page 20]
-
-Internet-Draft              RAW Architecture               February 2025
-
+   removed, or as long as the interferer (e.g., a radar in the ISM band)
+   keeps transmitting, a continuous stream of packets are affected.
 
    The key technique to combat those unpredictable losses is diversity.
    Different forms of diversity are necessary to combat different causes
@@ -1143,6 +1106,21 @@ Internet-Draft              RAW Architecture               February 2025
    "Deterministic Networking Architecture" [DetNet-ARCHI] must be
    extended to address less consistent transmissions, energy
    conservation, and shared spectrum efficiency.
+
+
+
+
+
+
+
+
+
+
+
+Thubert                 Expires 1 September 2025               [Page 20]
+
+Internet-Draft              RAW Architecture               February 2025
+
 
    Operating at the Layer-3, RAW does not change the wireless technology
    at the lower layers.  OTOH, it can further increase diversity in the
@@ -1170,14 +1148,6 @@ Internet-Draft              RAW Architecture               February 2025
    Operational Plane where OAM operations take place.  In the Network
    Plane, the DetNet service sub-layer focuses on flow protection (e.g.,
    using redundancy) and can be fully operated at Layer-3, while the
-
-
-
-Thubert                 Expires 1 September 2025               [Page 21]
-
-Internet-Draft              RAW Architecture               February 2025
-
-
    DetNet forwarding sub-layer establishes the paths, associates the
    flows to the paths, and ensures the availability of the necessary
    resources, leverages Layer-2 functionalities for timely delivery to
@@ -1199,6 +1169,14 @@ Internet-Draft              RAW Architecture               February 2025
    provides capabilities that are atypical on modern wired links and
    that the RAW Architecture can leverage opportunistically to improve
    the end-to-end reliability over a collection of paths.
+
+
+
+
+Thubert                 Expires 1 September 2025               [Page 21]
+
+Internet-Draft              RAW Architecture               February 2025
+
 
    Those capabilities include:
 
@@ -1225,15 +1203,6 @@ Internet-Draft              RAW Architecture               February 2025
       instability of the metrics.
 
    ARQ, FEC, and codes:  Though feasible on any technology, proactive
-
-
-
-
-Thubert                 Expires 1 September 2025               [Page 22]
-
-Internet-Draft              RAW Architecture               February 2025
-
-
       (forward) and reactive (ARQ) error correction are typical to the
       wireless media.  Bounded latency can still be obtained on a
       wireless link while operating those technologies, provided that
@@ -1253,6 +1222,17 @@ Internet-Draft              RAW Architecture               February 2025
       From a DetNet perspective, this may translate taking into accoun
       how transmission from on node may intefer with the transmission of
       another node attached to the same wireless sub-layer network.
+
+
+
+
+
+
+
+Thubert                 Expires 1 September 2025               [Page 22]
+
+Internet-Draft              RAW Architecture               February 2025
+
 
    RAW and DetNet serve application flows that require a special
    treatment along the paths that provide that treatment.  This may be
@@ -1280,16 +1260,6 @@ Internet-Draft              RAW Architecture               February 2025
    solutions are to be used for a given packet based on the current
    conditions.
 
-
-
-
-
-
-Thubert                 Expires 1 September 2025               [Page 23]
-
-Internet-Draft              RAW Architecture               February 2025
-
-
    RAW distinguishes the longer time-scale at which routes are computed
    from the shorter time-scale where forwarding decisions are made.  For
    a limited time, RAW Network Plane operations happen at a time-scale
@@ -1312,6 +1282,14 @@ Internet-Draft              RAW Architecture               February 2025
        for use by the RAW Network Plane.  The orientation function
        reports data and information such as link statistics to be used
        by the routing function to compute, install, and maintain the
+
+
+
+Thubert                 Expires 1 September 2025               [Page 23]
+
+Internet-Draft              RAW Architecture               February 2025
+
+
        recovery graphs.  The routing function may also generate
        knowledge and wisdom such as a trained model for link quality
        prediction, which in turn can be used by the orientation function
@@ -1335,6 +1313,28 @@ Internet-Draft              RAW Architecture               February 2025
    while minimizing the use of constrained resources such as spectrum
    and battery.
 
+4.  The RAW Conceptual Model
+
+   RAW extendss the conceptual model described in section 4 of the
+   DetNet Architecture [DetNet-ARCHI] with the PLR at the service layer,
+   as illustrated in Figure 3.  The PLR (see Section 5.5) is a point of
+   local reaction to provide additional agility against transmission
+   loss.  The PLR can act, e.g., based on indications from the lower
+   layer or based on OAM.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1344,16 +1344,6 @@ Internet-Draft              RAW Architecture               February 2025
 Thubert                 Expires 1 September 2025               [Page 24]
 
 Internet-Draft              RAW Architecture               February 2025
-
-
-4.  The RAW Conceptual Model
-
-   RAW extendss the conceptual model described in section 4 of the
-   DetNet Architecture [DetNet-ARCHI] with the PLR at the service layer,
-   as illustrated in Figure 3.  The PLR (see Section 5.5) is a point of
-   local reaction to provide additional agility against transmission
-   loss.  The PLR can act, e.g., based on indications from the lower
-   layer or based on OAM.
 
 
               |  packets going  |        ^  packets coming   ^
@@ -1392,16 +1382,6 @@ Internet-Draft              RAW Architecture               February 2025
    means such as DetNet/TSN, or neglected in the face of the wireless
    hops.
 
-
-
-
-
-
-Thubert                 Expires 1 September 2025               [Page 25]
-
-Internet-Draft              RAW Architecture               February 2025
-
-
    The RAW Nodes are DetNet relays that operate in the RAW Network Plane
    and are capable of additional diversity mechanisms and measurement
    functions related to the radio interface.  RAW leverages an
@@ -1413,6 +1393,14 @@ Internet-Draft              RAW Architecture               February 2025
    interacts with RAW Nodes over a Southbound API.  It consumes data and
    information from the network and generates knowledge and wisdom to
    help steer the traffic optimally inside a recovery graph.
+
+
+
+
+Thubert                 Expires 1 September 2025               [Page 25]
+
+Internet-Draft              RAW Architecture               February 2025
+
 
                             DetNet Routing
 
@@ -1450,14 +1438,6 @@ Internet-Draft              RAW Architecture               February 2025
       non-RAW subnetwork as in Figure 7.  In that case, RAW cannot
       leverage end-to-end DetNet and cannot provide latency guarantees.
 
-
-
-
-Thubert                 Expires 1 September 2025               [Page 26]
-
-Internet-Draft              RAW Architecture               February 2025
-
-
    The information that the orientation function reports to the routing
    function includes may be a time-aggregated, e.g., statistical
    fashion, to match the longer term operation of the routing function.
@@ -1469,6 +1449,14 @@ Internet-Draft              RAW Architecture               February 2025
    as, Packet Delivery Ratio (PDR) over long periods of time.  It may
    also report an aggregated expected transmission count (ETX), or a
    variation of it.
+
+
+
+
+Thubert                 Expires 1 September 2025               [Page 26]
+
+Internet-Draft              RAW Architecture               February 2025
+
 
    Based on those metrics, the routing function installs the recovery
    graph with enough redundant forwarding solutions to ensure that the
@@ -1501,19 +1489,6 @@ Internet-Draft              RAW Architecture               February 2025
    abstracts the concept and hints the lower layers on the desired
    outcome, as opposed to performing the retries at Layer-3.
 
-
-
-
-
-
-
-
-
-Thubert                 Expires 1 September 2025               [Page 27]
-
-Internet-Draft              RAW Architecture               February 2025
-
-
    Guarantees such as bounded latency depend on the upper layers
    (Transport or Application) to provide the payload in volumes and at
    times that match the contract with the DetNet sub-layers and the
@@ -1528,6 +1503,16 @@ Internet-Draft              RAW Architecture               February 2025
    are needed to match the traffic SLA.  When the availability of the
    physical resource varies, RAW acts on the distribution of the traffic
    to leverage alternates within a finite set of potential resources.
+
+
+
+
+
+
+Thubert                 Expires 1 September 2025               [Page 27]
+
+Internet-Draft              RAW Architecture               February 2025
+
 
 4.3.  RAW and DetNet
 
@@ -1562,14 +1547,6 @@ Internet-Draft              RAW Architecture               February 2025
    performances of the radio layers are subject to rapid changes, RAW
    needs more dynamic gauges and knobs.  To that effect, the LL API
    provides an abstraction to the DetNet layer that can be used to push
-
-
-
-Thubert                 Expires 1 September 2025               [Page 28]
-
-Internet-Draft              RAW Architecture               February 2025
-
-
    reliability and timing hints like suggest X retries (min, max) within
    a time window, or send unicast (one next hop) or multicast (for
    overhearing).  In the other direction up the stack, the RAW PLR needs
@@ -1581,6 +1558,16 @@ Internet-Draft              RAW Architecture               February 2025
    (re)generates the OAM information as it is formed and propagated In-
    Band or Out-of-Band.  The RAW functions may be present in Service
    sub-layer in DetNet Edge and Relay Nodes.
+
+
+
+
+
+
+
+Thubert                 Expires 1 September 2025               [Page 28]
+
+Internet-Draft              RAW Architecture               February 2025
 
 
      +-----------------+     +-------------------+
@@ -1614,6 +1601,19 @@ Internet-Draft              RAW Architecture               February 2025
    continuous DetNet Service end-to-end between the Ingress and the
    Egress Edge Nodes or End Systems.
 
+   A minimal Forwarding sub-layer service is provided at all DetNet
+   Nodes to ensure that the OAM information flows.  Relay Nodes may or
+   may not support RAW services, and the Edge nodes do support RAW.
+   DetNet guarantees, such as, latency are provided end-to-end, and RAW
+   supports the DetNet Service to optimize the use of resources.
+
+
+
+
+
+
+
+
 
 
 
@@ -1625,12 +1625,6 @@ Thubert                 Expires 1 September 2025               [Page 29]
 
 Internet-Draft              RAW Architecture               February 2025
 
-
-   A minimal Forwarding sub-layer service is provided at all DetNet
-   Nodes to ensure that the OAM information flows.  Relay Nodes may or
-   may not support RAW services, and the Edge nodes do support RAW.
-   DetNet guarantees, such as, latency are provided end-to-end, and RAW
-   supports the DetNet Service to optimize the use of resources.
 
    --------------------Flow Direction---------------------------------->
 
@@ -1664,6 +1658,12 @@ Internet-Draft              RAW Architecture               February 2025
    path beyond the first hop is opaque; RAW can still observe the end-
    to-end behavior and use Layer-3 measurements to decide whether to
    replicate a packet and select the first-hop interface(s).
+
+
+
+
+
+
 
 
 

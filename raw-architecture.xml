@@ -14,7 +14,7 @@
 <?rfc subcompact="no"?>
 <?rfc authorship="yes"?>
 <?rfc tocappendix="yes"?>
-<rfc xmlns:xi="http://www.w3.org/2001/XInclude" category="info" docName="draft-ietf-raw-architecture-24"
+<rfc xmlns:xi="http://www.w3.org/2001/XInclude" category="info" docName="draft-ietf-raw-architecture-25"
      ipr="trust200902" obsoletes="" updates="8655" submissionType="IETF"
      xml:lang="en" version="3">
   <front>
@@ -185,9 +185,7 @@
    <xref target="RFC3366"/>.   
     </t>
     </section>
-    
-    </section>
-    
+        
     <section><name>ETX</name>
     <t>
     Expected Transmission Count: a statistical metric that represents the expected total number of packet transmissions (including retransmissions) required to successfully deliver a packet along a path, used by 6TiSCH <xref target="RFC6551"/>.

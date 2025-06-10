@@ -2,11 +2,10 @@
 
 
 
-RAW                                                      P. Thubert, Ed.
+DetNet                                                   P. Thubert, Ed.
 Internet-Draft                                       Without Affiliation
-Updates: 8655 (if approved)                             28 February 2025
-Intended status: Informational                                          
-Expires: 1 September 2025
+Intended status: Informational                              10 June 2025
+Expires: 12 December 2025
 
 
               Reliable and Available Wireless Architecture
@@ -41,26 +40,24 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 1 September 2025.
+   This Internet-Draft will expire on 12 December 2025.
 
 Copyright Notice
 
    Copyright (c) 2025 IETF Trust and the persons identified as the
    document authors.  All rights reserved.
 
-
-
-
-
-
-Thubert                 Expires 1 September 2025                [Page 1]
-
-Internet-Draft              RAW Architecture               February 2025
-
-
    This document is subject to BCP 78 and the IETF Trust's Legal
    Provisions Relating to IETF Documents (https://trustee.ietf.org/
    license-info) in effect on the date of publication of this document.
+
+
+
+Thubert                 Expires 12 December 2025                [Page 1]
+
+Internet-Draft              RAW Architecture                   June 2025
+
+
    Please review these documents carefully, as they describe your rights
    and restrictions with respect to this document.  Code Components
    extracted from this document must include Revised BSD License text as
@@ -106,23 +103,23 @@ Table of Contents
        2.5.5.  Availability  . . . . . . . . . . . . . . . . . . . .  14
      2.6.  OAM variations  . . . . . . . . . . . . . . . . . . . . .  14
        2.6.1.  Active OAM  . . . . . . . . . . . . . . . . . . . . .  14
-
-
-
-Thubert                 Expires 1 September 2025                [Page 2]
-
-Internet-Draft              RAW Architecture               February 2025
-
-
        2.6.2.  In-Band OAM . . . . . . . . . . . . . . . . . . . . .  14
        2.6.3.  Out-of-Band OAM . . . . . . . . . . . . . . . . . . .  14
        2.6.4.  Limited OAM . . . . . . . . . . . . . . . . . . . . .  15
+
+
+
+Thubert                 Expires 12 December 2025                [Page 2]
+
+Internet-Draft              RAW Architecture                   June 2025
+
+
        2.6.5.  Upstream OAM  . . . . . . . . . . . . . . . . . . . .  15
        2.6.6.  Residence Time  . . . . . . . . . . . . . . . . . . .  15
        2.6.7.  Lower-Layer information . . . . . . . . . . . . . . .  15
        2.6.8.  Additional References . . . . . . . . . . . . . . . .  15
-   3.  Reliable and Available Wireless . . . . . . . . . . . . . . .  16
-     3.1.  Reliability and Availability  . . . . . . . . . . . . . .  16
+   3.  Reliable and Available Wireless . . . . . . . . . . . . . . .  15
+     3.1.  Reliability and Availability  . . . . . . . . . . . . . .  15
        3.1.1.  High Availability Engineering Principles  . . . . . .  16
        3.1.2.  Applying Reliability Concepts to Networking . . . . .  18
        3.1.3.  Wireless Effects Affecting Reliability  . . . . . . .  19
@@ -162,17 +159,17 @@ Internet-Draft              RAW Architecture               February 2025
    DetNet and the related IEEE 802.1 Time-Sensitive networking (TSN)
    initially focused on wired infrastructure, which provides a more
    stable communication channel than wireless networks.  Wireless
-
-
-
-Thubert                 Expires 1 September 2025                [Page 3]
-
-Internet-Draft              RAW Architecture               February 2025
-
-
    networks operate on a shared medium where uncontrolled interference,
    including the self-induced multipath fading, may cause intermittent
    transmission losses.  Fixed and mobile obstacles and reflectors may
+
+
+
+Thubert                 Expires 12 December 2025                [Page 3]
+
+Internet-Draft              RAW Architecture                   June 2025
+
+
    block or alter the signal, causing transient and unpredictable
    variations of the throughput and packet delivery ratio (PDR) of a
    wireless link.  This adds new dimensions to the statistical effects
@@ -198,19 +195,20 @@ Internet-Draft              RAW Architecture               February 2025
 
    In addition, RAW includes the concept of a lower-layer API (LL API),
    that provides an interface between the lower layer (e.g., wireless)
-   technology and the DetNet layers.  The LL API is technology
-   [RAW-TECHNOS] dependent as what the lower layers expose towards the
-   DetNet layers may vary.  Furthermore, the different RAW technologies
-   are equipped with different reliability features, e.g., short range
-   broadcast, MUMIMO, PHY rate and other Modulation Coding Scheme
-   adaptation, (H)ARQ, constructive interference and overhearing.  The
-   LL API enables interactions between the reliability functions
-   provided by the lower layer and the reliability functions provided by
-   DetNet.  That is, the LL API makes cross-layer optimization possible
-   for the reliability functions of different layers depending on the
-   actual exposure provided via the LL API by the given RAW technology.
-   DLEP [DLEP] is an example protocol that can be used to implement the
-   LL API.
+   technology and the DetNet layers.  The LL API is technology dependent
+   as what the lower layers expose towards the DetNet layers may vary.
+   Furthermore, the different RAW technologies are equipped with
+   different reliability features, e.g., short range broadcast,
+   Multiple-User, Multiple-Input, and Multiple-Output (MUMIMO), PHY rate
+   and other Modulation Coding Scheme (MCS) adaptation, coding and
+   retransmissions methods, constructive interference and overhearing,
+   see [RAW-TECHNOS] for details.  reliability functions provided by the
+   lower layer and the reliability functions provided by DetNet.  That
+   is, the LL API makes cross-layer optimization possible for the
+   reliability functions of different layers depending on the actual
+   exposure provided via the LL API by the given RAW technology.  The
+   Dynamic Link Exchange Protocol (DLEP) [DLEP] is an example protocol
+   that can be used to implement the LL API.
 
    This document presents the RAW problem and associated terminology in
    Section 3.2, presents a conceptual model for RAW in Section 4, and,
@@ -221,9 +219,11 @@ Internet-Draft              RAW Architecture               February 2025
 
 
 
-Thubert                 Expires 1 September 2025                [Page 4]
+
+
+Thubert                 Expires 12 December 2025                [Page 4]
 
-Internet-Draft              RAW Architecture               February 2025
+Internet-Draft              RAW Architecture                   June 2025
 
 
 2.  Terminology
@@ -255,7 +255,7 @@ Internet-Draft              RAW Architecture               February 2025
    probability of presence within a known shape as opposed to a
    deterministic trajectory.
 
-   The concept of recovery graph is agnostic to the underlaying
+   The concept of recovery graph is agnostic to the underlying
    technology and applies but is not limited to any full or partial
    wireless mesh.  RAW specifies strict and loose recovery graphs
    depending on whether the path is fully controled by RAW or traverses
@@ -277,9 +277,9 @@ Internet-Draft              RAW Architecture               February 2025
 
 
 
-Thubert                 Expires 1 September 2025                [Page 5]
+Thubert                 Expires 12 December 2025                [Page 5]
 
-Internet-Draft              RAW Architecture               February 2025
+Internet-Draft              RAW Architecture                   June 2025
 
 
    time to meet end-to-end packet latency constraints.  Additional
@@ -333,9 +333,9 @@ Internet-Draft              RAW Architecture               February 2025
 
 
 
-Thubert                 Expires 1 September 2025                [Page 6]
+Thubert                 Expires 12 December 2025                [Page 6]
 
-Internet-Draft              RAW Architecture               February 2025
+Internet-Draft              RAW Architecture                   June 2025
 
 
 2.1.7.  OAM
@@ -389,9 +389,9 @@ Internet-Draft              RAW Architecture               February 2025
 
 
 
-Thubert                 Expires 1 September 2025                [Page 7]
+Thubert                 Expires 12 December 2025                [Page 7]
 
-Internet-Draft              RAW Architecture               February 2025
+Internet-Draft              RAW Architecture                   June 2025
 
 
 2.2.3.  Downlink
@@ -445,9 +445,9 @@ Internet-Draft              RAW Architecture               February 2025
 
 
 
-Thubert                 Expires 1 September 2025                [Page 8]
+Thubert                 Expires 12 December 2025                [Page 8]
 
-Internet-Draft              RAW Architecture               February 2025
+Internet-Draft              RAW Architecture                   June 2025
 
 
    With DetNet and RAW, a packet may be duplicated, fragmented, and
@@ -501,9 +501,9 @@ Internet-Draft              RAW Architecture               February 2025
 
 
 
-Thubert                 Expires 1 September 2025                [Page 9]
+Thubert                 Expires 12 December 2025                [Page 9]
 
-Internet-Draft              RAW Architecture               February 2025
+Internet-Draft              RAW Architecture                   June 2025
 
 
                    +---------+
@@ -557,9 +557,9 @@ Internet-Draft              RAW Architecture               February 2025
 
 
 
-Thubert                 Expires 1 September 2025               [Page 10]
+Thubert                 Expires 12 December 2025               [Page 10]
 
-Internet-Draft              RAW Architecture               February 2025
+Internet-Draft              RAW Architecture                   June 2025
 
 
    *  A recovery graph has one Ingress and one Egress nodes, which
@@ -613,9 +613,9 @@ Internet-Draft              RAW Architecture               February 2025
 
 
 
-Thubert                 Expires 1 September 2025               [Page 11]
+Thubert                 Expires 12 December 2025               [Page 11]
 
-Internet-Draft              RAW Architecture               February 2025
+Internet-Draft              RAW Architecture                   June 2025
 
 
 2.3.3.  Forward and Crossing
@@ -669,9 +669,9 @@ Internet-Draft              RAW Architecture               February 2025
 
 
 
-Thubert                 Expires 1 September 2025               [Page 12]
+Thubert                 Expires 12 December 2025               [Page 12]
 
-Internet-Draft              RAW Architecture               February 2025
+Internet-Draft              RAW Architecture                   June 2025
 
 
 2.4.2.  L3 Deterministic Flow Identifier
@@ -725,9 +725,9 @@ Internet-Draft              RAW Architecture               February 2025
 
 
 
-Thubert                 Expires 1 September 2025               [Page 13]
+Thubert                 Expires 12 December 2025               [Page 13]
 
-Internet-Draft              RAW Architecture               February 2025
+Internet-Draft              RAW Architecture                   June 2025
 
 
 2.5.4.  Reliability
@@ -781,19 +781,20 @@ Internet-Draft              RAW Architecture               February 2025
 
 
 
-Thubert                 Expires 1 September 2025               [Page 14]
+Thubert                 Expires 12 December 2025               [Page 14]
 
-Internet-Draft              RAW Architecture               February 2025
+Internet-Draft              RAW Architecture                   June 2025
 
 
 2.6.4.  Limited OAM
 
    An active OAM packet is a Limited OAM packet when it observes the RAW
    operation over a node, a segment, or a DetNet Path of the recovery
-   graph, though not from Ingress to Egress.  It is injected in the data
-   path and extracted from the data path around the particular function
-   or subnetwork (e.g., around a relay providing a Service sub-layer
-   replication point) that is being tested.
+   graph, as opposed to the whole recovery graph from Ingress to Egress.
+   The active OAM packet is injected in the data path and extracted from
+   the data path around the particular function or subnetwork (e.g.,
+   around a relay providing a Service sub-layer replication point) that
+   is being tested.
 
 2.6.5.  Upstream OAM
 
@@ -817,11 +818,11 @@ Internet-Draft              RAW Architecture               February 2025
    aggregated information from lower layers about e.g., link quality,
    either via measurement or communication with the lower layer.  This
    information may be obtained from inside the device using specialized
-   API (e.g., L2 triggers), via measurement protocols such as BFD
-   [RFC5880] or via a control protocol exchange with the lower layer
-   via, e.g., DLEP [DLEP].  It may then be massaged and exported through
-   OAM messaging or via an YANG model, and exposed to the Controller
-   Plane.
+   API (e.g., L2 triggers), via monitoring and measurement protocols
+   such as BFD [RFC5880] and STAMP [RFC8762], respectively, or via a
+   control protocol exchange with the lower layer via, e.g., DLEP
+   [DLEP].  It may then be massaged and exported through OAM messaging
+   or via an YANG model, and exposed to the Controller Plane.
 
 2.6.8.  Additional References
 
@@ -829,22 +830,17 @@ Internet-Draft              RAW Architecture               February 2025
    context of DetNet and by extension of RAW, whereas [RFC7799] defines
    the Active, Passive, and Hybrid OAM methods.
 
-
-
-
-
-
-
-
-
-Thubert                 Expires 1 September 2025               [Page 15]
-
-Internet-Draft              RAW Architecture               February 2025
-
-
 3.  Reliable and Available Wireless
 
 3.1.  Reliability and Availability
+
+
+
+
+Thubert                 Expires 12 December 2025               [Page 15]
+
+Internet-Draft              RAW Architecture                   June 2025
+
 
 3.1.1.  High Availability Engineering Principles
 
@@ -890,17 +886,17 @@ Internet-Draft              RAW Architecture               February 2025
    failure.  For High Availability, it is thus required to use
    physically link-disjoint and Node-disjoint paths; in the wireless
    space, it is also required to use the highest possible degree of
-
-
-
-Thubert                 Expires 1 September 2025               [Page 16]
-
-Internet-Draft              RAW Architecture               February 2025
-
-
    diversity (time, space, code, frequency, channel width) in the
    transmissions over the air to combat the additional causes of
    transmission loss.
+
+
+
+
+Thubert                 Expires 12 December 2025               [Page 16]
+
+Internet-Draft              RAW Architecture                   June 2025
+
 
    From an economics standpoint, executing this principle properly
    generally increases capitalization expense because of the redundant
@@ -945,25 +941,25 @@ Internet-Draft              RAW Architecture               February 2025
    system where the end user rarely sees a failure.  But a failure that
    occurs must still be detected in order to direct maintenance.
 
-
-
-
-
-Thubert                 Expires 1 September 2025               [Page 17]
-
-Internet-Draft              RAW Architecture               February 2025
-
-
    There are many reasons for system monitoring (FCAPS for fault,
    configuration, accounting, performance, security is a handy mental
    checklist) but fault monitoring is sufficient reason.
+
+
+
+
+
+Thubert                 Expires 12 December 2025               [Page 17]
+
+Internet-Draft              RAW Architecture                   June 2025
+
 
    "Overview and Principles of Internet Traffic Engineering" [TE]
    discusses the importance of measurement for network protection, and
    provides an abstract method for network survivability with the
    analysis of a traffic matrix as observed via a network management
-   YANG model, probing techniques, FTP, IGP link state advertisements,
-   and more.
+   YANG model, probing techniques, file transfers, IGP link state
+   advertisements, and more.
 
    Those measurements are needed in the context of RAW to inform the
    controller and make the long-term reactive decision to rebuild a
@@ -1003,16 +999,17 @@ Internet-Draft              RAW Architecture               February 2025
    fragments), or, in a typical control loop, by linear interpolation
    from the previous measurements.
 
-
-
-Thubert                 Expires 1 September 2025               [Page 18]
-
-Internet-Draft              RAW Architecture               February 2025
-
-
    But the linear interpolation method cannot resist multiple
    consecutive losses, and a high MTBF is desired as a guarantee that
    this does not happen, IOW that the number of losses-in-a-row can be
+
+
+
+Thubert                 Expires 12 December 2025               [Page 18]
+
+Internet-Draft              RAW Architecture                   June 2025
+
+
    bounded.  In that case, what is really desired is a Maximum
    Consecutive Loss (MCL).  (See also section 5.9.5 in [DLEP].)  If the
    number of losses in a row passes the MCL, the control loop has to
@@ -1058,17 +1055,20 @@ Internet-Draft              RAW Architecture               February 2025
       the interference domain of the interferer, possibly even when they
       use different technologies.
 
+   Obstacle in Fresnel Zone:  The Fresnel zone is an elliptical region
 
 
 
-Thubert                 Expires 1 September 2025               [Page 19]
+
+
+Thubert                 Expires 12 December 2025               [Page 19]
 
-Internet-Draft              RAW Architecture               February 2025
+Internet-Draft              RAW Architecture                   June 2025
 
 
-   Obstacle in Fresnel Zone:  The optimal transmission happens when the
-      Fresnel Zone between the sender and the receiver is free of
-      obstacles.
+      of space between and around the transmit and receive antennas in a
+      point to point wireless communication.  The optimal transmission
+      happens when it is free of obstacles.
 
       As long as a physical object (e.g., a metallic trolley between
       peers) that affects the transmission is not removed, the quality
@@ -1117,9 +1117,9 @@ Internet-Draft              RAW Architecture               February 2025
 
 
 
-Thubert                 Expires 1 September 2025               [Page 20]
+Thubert                 Expires 12 December 2025               [Page 20]
 
-Internet-Draft              RAW Architecture               February 2025
+Internet-Draft              RAW Architecture                   June 2025
 
 
    Operating at the Layer-3, RAW does not change the wireless technology
@@ -1173,9 +1173,9 @@ Internet-Draft              RAW Architecture               February 2025
 
 
 
-Thubert                 Expires 1 September 2025               [Page 21]
+Thubert                 Expires 12 December 2025               [Page 21]
 
-Internet-Draft              RAW Architecture               February 2025
+Internet-Draft              RAW Architecture                   June 2025
 
 
    Those capabilities include:
@@ -1219,9 +1219,9 @@ Internet-Draft              RAW Architecture               February 2025
       coordinated senders to add up at the receiver and actually improve
       the signal quality, compensating for either distance or physical
       objects in the Fresnel zone that would reduce the link budget.
-      From a DetNet perspective, this may translate taking into accoun
-      how transmission from on node may intefer with the transmission of
-      another node attached to the same wireless sub-layer network.
+      From a DetNet perspective, this may translate taking into account
+      how transmission from one node may interfere with the transmission
+      of another node attached to the same wireless sub-layer network.
 
 
 
@@ -1229,9 +1229,9 @@ Internet-Draft              RAW Architecture               February 2025
 
 
 
-Thubert                 Expires 1 September 2025               [Page 22]
+Thubert                 Expires 12 December 2025               [Page 22]
 
-Internet-Draft              RAW Architecture               February 2025
+Internet-Draft              RAW Architecture                   June 2025
 
 
    RAW and DetNet serve application flows that require a special
@@ -1255,10 +1255,10 @@ Internet-Draft              RAW Architecture               February 2025
    As opposed to wired networks, the action of installing a path over a
    set of wireless links may be very slow relative to the speed at which
    the radio conditions vary, and it makes sense in the wireless case to
-   provide redundant forwarding solutions along a (see Section 2.3) and
-   to leave it to the Network Plane to select which of those forwarding
-   solutions are to be used for a given packet based on the current
-   conditions.
+   provide redundant forwarding solutions along a alternate paths (see
+   Section 2.3) and to leave it to the Network Plane to select which of
+   those forwarding solutions are to be used for a given packet based on
+   the current conditions.
 
    RAW distinguishes the longer time-scale at which routes are computed
    from the shorter time-scale where forwarding decisions are made.  For
@@ -1278,16 +1278,16 @@ Internet-Draft              RAW Architecture               February 2025
        in OODA) some or all hops along a recovery graph as well as the
        end-to-end packet delivery.
 
-   2.  The DetNet Controller Plane establish primay and protection paths
-       for use by the RAW Network Plane.  The orientation function
+   2.  The DetNet Controller Plane establish primary and protection
+       paths for use by the RAW Network Plane.  The orientation function
        reports data and information such as link statistics to be used
        by the routing function to compute, install, and maintain the
 
 
 
-Thubert                 Expires 1 September 2025               [Page 23]
+Thubert                 Expires 12 December 2025               [Page 23]
 
-Internet-Draft              RAW Architecture               February 2025
+Internet-Draft              RAW Architecture                   June 2025
 
 
        recovery graphs.  The routing function may also generate
@@ -1304,9 +1304,10 @@ Internet-Draft              RAW Architecture               February 2025
    4.  Service protection actions that are actuated or triggered over
        the LL API by the PLR to increase the reliability of the end-to-
        end transmissions.  The RAW architecture also covers in-situ
-       signaling, e.g., via OAM, when the decision is acted (like the A
-       in OODA) upon by a node that is downstream in the recovery graph
-       from the PLR.
+       signaling that is embedded within live user traffic [RFC9378],
+       e.g., via OAM, when the decision is acted (like the A in OODA)
+       upon by a node that is downstream in the recovery graph from the
+       PLR.
 
    The overall OODA Loop optimizes the use of redundancy to achieve the
    required reliability and availability Service Level Agreement (SLA)
@@ -1315,9 +1316,9 @@ Internet-Draft              RAW Architecture               February 2025
 
 4.  The RAW Conceptual Model
 
-   RAW extendss the conceptual model described in section 4 of the
-   DetNet Architecture [DetNet-ARCHI] with the PLR at the service layer,
-   as illustrated in Figure 3.  The PLR (see Section 5.5) is a point of
+   RAW extends the conceptual model described in section 4 of the DetNet
+   Architecture [DetNet-ARCHI] with the PLR at the service layer, as
+   illustrated in Figure 3.  The PLR (see Section 5.5) is a point of
    local reaction to provide additional agility against transmission
    loss.  The PLR can act, e.g., based on indications from the lower
    layer or based on OAM.
@@ -1340,10 +1341,9 @@ Internet-Draft              RAW Architecture               February 2025
 
 
 
-
-Thubert                 Expires 1 September 2025               [Page 24]
+Thubert                 Expires 12 December 2025               [Page 24]
 
-Internet-Draft              RAW Architecture               February 2025
+Internet-Draft              RAW Architecture                   June 2025
 
 
               |  packets going  |        ^  packets coming   ^
@@ -1389,17 +1389,17 @@ Internet-Draft              RAW Architecture               February 2025
    inside the Ingress Edge Nodes) to dynamically adapt the path of the
    packets and optimizes the resource usage.
 
-   In the case of centralized routing operations, the RAW routing CPF
-   interacts with RAW Nodes over a Southbound API.  It consumes data and
-   information from the network and generates knowledge and wisdom to
-   help steer the traffic optimally inside a recovery graph.
+   In the case of centralized routing operations, the RAW Controller
+   Plane Function (CPF) interacts with RAW Nodes over a Southbound API.
+   It consumes data and information from the network and generates
+   knowledge and wisdom to help steer the traffic optimally inside a
+   recovery graph.
 
 
 
-
-Thubert                 Expires 1 September 2025               [Page 25]
+Thubert                 Expires 12 December 2025               [Page 25]
 
-Internet-Draft              RAW Architecture               February 2025
+Internet-Draft              RAW Architecture                   June 2025
 
 
                             DetNet Routing
@@ -1453,9 +1453,9 @@ Internet-Draft              RAW Architecture               February 2025
 
 
 
-Thubert                 Expires 1 September 2025               [Page 26]
+Thubert                 Expires 12 December 2025               [Page 26]
 
-Internet-Draft              RAW Architecture               February 2025
+Internet-Draft              RAW Architecture                   June 2025
 
 
    Based on those metrics, the routing function installs the recovery
@@ -1509,9 +1509,9 @@ Internet-Draft              RAW Architecture               February 2025
 
 
 
-Thubert                 Expires 1 September 2025               [Page 27]
+Thubert                 Expires 12 December 2025               [Page 27]
 
-Internet-Draft              RAW Architecture               February 2025
+Internet-Draft              RAW Architecture                   June 2025
 
 
 4.3.  RAW and DetNet
@@ -1565,9 +1565,9 @@ Internet-Draft              RAW Architecture               February 2025
 
 
 
-Thubert                 Expires 1 September 2025               [Page 28]
+Thubert                 Expires 12 December 2025               [Page 28]
 
-Internet-Draft              RAW Architecture               February 2025
+Internet-Draft              RAW Architecture                   June 2025
 
 
      +-----------------+     +-------------------+
@@ -1621,9 +1621,9 @@ Internet-Draft              RAW Architecture               February 2025
 
 
 
-Thubert                 Expires 1 September 2025               [Page 29]
+Thubert                 Expires 12 December 2025               [Page 29]
 
-Internet-Draft              RAW Architecture               February 2025
+Internet-Draft              RAW Architecture                   June 2025
 
 
    --------------------Flow Direction---------------------------------->
@@ -1677,9 +1677,9 @@ Internet-Draft              RAW Architecture               February 2025
 
 
 
-Thubert                 Expires 1 September 2025               [Page 30]
+Thubert                 Expires 12 December 2025               [Page 30]
 
-Internet-Draft              RAW Architecture               February 2025
+Internet-Draft              RAW Architecture                   June 2025
 
 
    --------------------Flow Direction---------------------------------->
@@ -1733,9 +1733,9 @@ Internet-Draft              RAW Architecture               February 2025
 
 
 
-Thubert                 Expires 1 September 2025               [Page 31]
+Thubert                 Expires 12 December 2025               [Page 31]
 
-Internet-Draft              RAW Architecture               February 2025
+Internet-Draft              RAW Architecture                   June 2025
 
 
    aggregate the behavior of a link over long periods of time, and
@@ -1747,7 +1747,7 @@ Internet-Draft              RAW Architecture               February 2025
    handled by the orientation function, which builds reports to the
    routing function and sends control information in a digested form
    back to the RAW node, to be used inside a forwarding control loop for
-   !  traffic steering.
+   traffic steering.
 
 
                      +----------------+
@@ -1789,25 +1789,25 @@ Internet-Draft              RAW Architecture               February 2025
 
 
 
-Thubert                 Expires 1 September 2025               [Page 32]
+Thubert                 Expires 12 December 2025               [Page 32]
 
-Internet-Draft              RAW Architecture               February 2025
+Internet-Draft              RAW Architecture                   June 2025
 
 
    In the case of wireless, the changes that affect the forwarding
    decision can happen frequently and often for short durations, e.g., a
    mobile object moves between a transmitter and a receiver, and cancels
    the line of sight transmission for a few seconds, or, a radar
-   measures the depth of a pool using rgz S/Nme (say, ISM) band, and
-   interferes on a particular channel for a split second.
+   measures the depth of a pool using the ISM band, and interferes on a
+   particular channel for a split second.
 
    There is thus a desire to separate the long-term computation of the
    route and the short-term forwarding decision.  In that model, the
    routing operation computes a recovery graph that enables multiple
-   Non-Equal Cost Multi-Path (N-ECMP) forwarding solutions along so-
-   called protection paths, and leaves it to the Network Plane to make
-   the per-packet decision of which of these possibilities should be
-   used.
+   Unequal Cost Multi-Path (UCMP) forwarding solutions along so-called
+   protection paths, and leaves it to the Network Plane to make the
+   short-term decision of which of these possibilities should be used
+   for which upcoming packets / flows.
 
    In the context of Traffic Engineering (TE), an alternate path can be
    used upon the detection of a failure in the main path, e.g., using
@@ -1845,9 +1845,9 @@ Internet-Draft              RAW Architecture               February 2025
 
 
 
-Thubert                 Expires 1 September 2025               [Page 33]
+Thubert                 Expires 12 December 2025               [Page 33]
 
-Internet-Draft              RAW Architecture               February 2025
+Internet-Draft              RAW Architecture                   June 2025
 
 
       future packet(s) that are routed along the recovery graph, more in
@@ -1856,8 +1856,8 @@ Internet-Draft              RAW Architecture               February 2025
    Act:  PREOF Dataplane actions are controlled by the PLR over the LL
       API to increase the reliability of the end-to-end transmission.
       The RAW architecture also covers in-situ signaling when the
-      decision is Acted by a node that down the recovery graph from the
-      PLR, more in Section 5.6.
+      decision is Acted by a node that is down the recovery graph from
+      the PLR, more in Section 5.6.
 
                      +-------> Orientation ---------+
                      |        reflex actions        |
@@ -1901,9 +1901,9 @@ Internet-Draft              RAW Architecture               February 2025
 
 
 
-Thubert                 Expires 1 September 2025               [Page 34]
+Thubert                 Expires 12 December 2025               [Page 34]
 
-Internet-Draft              RAW Architecture               February 2025
+Internet-Draft              RAW Architecture                   June 2025
 
 
    This observation feeds the RAW PLR that makes the decision on which
@@ -1957,9 +1957,9 @@ Internet-Draft              RAW Architecture               February 2025
 
 
 
-Thubert                 Expires 1 September 2025               [Page 35]
+Thubert                 Expires 12 December 2025               [Page 35]
 
-Internet-Draft              RAW Architecture               February 2025
+Internet-Draft              RAW Architecture                   June 2025
 
 
 5.4.  Orient: The RAW-extended DetNet Operational Plane
@@ -2013,9 +2013,9 @@ Internet-Draft              RAW Architecture               February 2025
 
 
 
-Thubert                 Expires 1 September 2025               [Page 36]
+Thubert                 Expires 12 December 2025               [Page 36]
 
-Internet-Draft              RAW Architecture               February 2025
+Internet-Draft              RAW Architecture                   June 2025
 
 
    To that effect, RAW defines the Point of Local Repair (PLR), which
@@ -2069,9 +2069,9 @@ Internet-Draft              RAW Architecture               February 2025
 
 
 
-Thubert                 Expires 1 September 2025               [Page 37]
+Thubert                 Expires 12 December 2025               [Page 37]
 
-Internet-Draft              RAW Architecture               February 2025
+Internet-Draft              RAW Architecture                   June 2025
 
 
                |
@@ -2125,9 +2125,9 @@ Internet-Draft              RAW Architecture               February 2025
 
 
 
-Thubert                 Expires 1 September 2025               [Page 38]
+Thubert                 Expires 12 December 2025               [Page 38]
 
-Internet-Draft              RAW Architecture               February 2025
+Internet-Draft              RAW Architecture                   June 2025
 
 
    The RAW Path Selection can be implemented in both centralized and
@@ -2181,9 +2181,9 @@ Internet-Draft              RAW Architecture               February 2025
 
 
 
-Thubert                 Expires 1 September 2025               [Page 39]
+Thubert                 Expires 12 December 2025               [Page 39]
 
-Internet-Draft              RAW Architecture               February 2025
+Internet-Draft              RAW Architecture                   June 2025
 
 
    Geogios Papadopolous:  IMT Atlantique , georgios.papadopoulos@imt-
@@ -2211,7 +2211,8 @@ Internet-Draft              RAW Architecture               February 2025
    during the development of this document.
 
    The authors wish to thank Acee Lindem and Eva Schooler for their
-   reviews and comments during the IETF last call phase.
+   reviews and comments during the IETF last call phase, and Ketan
+   Talaulikar, .. for their IESG reviews.
 
 10.  References
 
@@ -2229,26 +2230,31 @@ Internet-Draft              RAW Architecture               February 2025
               DOI 10.17487/RFC1122, October 1989,
               <https://www.rfc-editor.org/info/rfc1122>.
 
+
+
+
+
+
+
+
+Thubert                 Expires 12 December 2025               [Page 40]
+
+Internet-Draft              RAW Architecture                   June 2025
+
+
    [RFC4427]  Mannie, E., Ed. and D. Papadimitriou, Ed., "Recovery
               (Protection and Restoration) Terminology for Generalized
               Multi-Protocol Label Switching (GMPLS)", RFC 4427,
               DOI 10.17487/RFC4427, March 2006,
               <https://www.rfc-editor.org/info/rfc4427>.
 
-
-
-Thubert                 Expires 1 September 2025               [Page 40]
-
-Internet-Draft              RAW Architecture               February 2025
-
-
    [RAW-TECHNOS]
               Thubert, P., Cavalcanti, D., Vilajosana, X., Schmitt, C.,
-              and J. Farkas, "Reliable and Available Wireless
+              and J. Farkas, "Reliable and Available Wireless (RAW)
               Technologies", Work in Progress, Internet-Draft, draft-
-              ietf-raw-technologies-14, 24 January 2025,
+              ietf-raw-technologies-17, 15 April 2025,
               <https://datatracker.ietf.org/doc/html/draft-ietf-raw-
-              technologies-14>.
+              technologies-17>.
 
    [RAW-USE-CASES]
               Bernardos, C. J., Papadopoulos, G. Z., Thubert, P., and F.
@@ -2280,6 +2286,18 @@ Internet-Draft              RAW Architecture               February 2025
               Statement", RFC 8557, DOI 10.17487/RFC8557, May 2019,
               <https://www.rfc-editor.org/info/rfc8557>.
 
+
+
+
+
+
+
+
+Thubert                 Expires 12 December 2025               [Page 41]
+
+Internet-Draft              RAW Architecture                   June 2025
+
+
    [DetNet-ARCHI]
               Finn, N., Thubert, P., Varga, B., and J. Farkas,
               "Deterministic Networking Architecture", RFC 8655,
@@ -2290,13 +2308,6 @@ Internet-Draft              RAW Architecture               February 2025
               Bryant, "Deterministic Networking (DetNet) Data Plane:
               IP", RFC 8939, DOI 10.17487/RFC8939, November 2020,
               <https://www.rfc-editor.org/info/rfc8939>.
-
-
-
-Thubert                 Expires 1 September 2025               [Page 41]
-
-Internet-Draft              RAW Architecture               February 2025
-
 
    [RFC9049]  Dawkins, S., Ed., "Path Aware Networking: Obstacles to
               Deployment (A Bestiary of Roads Not Taken)", RFC 9049,
@@ -2336,6 +2347,13 @@ Internet-Draft              RAW Architecture               February 2025
               RFC 5714, DOI 10.17487/RFC5714, January 2010,
               <https://www.rfc-editor.org/info/rfc5714>.
 
+
+
+Thubert                 Expires 12 December 2025               [Page 42]
+
+Internet-Draft              RAW Architecture                   June 2025
+
+
    [RFC6378]  Weingarten, Y., Ed., Bryant, S., Osborne, E., Sprecher,
               N., and A. Fulignoli, Ed., "MPLS Transport Profile (MPLS-
               TP) Linear Protection", RFC 6378, DOI 10.17487/RFC6378,
@@ -2346,13 +2364,6 @@ Internet-Draft              RAW Architecture               February 2025
               in Low-Power and Lossy Networks", RFC 6551,
               DOI 10.17487/RFC6551, March 2012,
               <https://www.rfc-editor.org/info/rfc6551>.
-
-
-
-Thubert                 Expires 1 September 2025               [Page 42]
-
-Internet-Draft              RAW Architecture               February 2025
-
 
    [RLFA-FRR] Bryant, S., Filsfils, C., Previdi, S., Shand, M., and N.
               So, "Remote Loop-Free Alternate (LFA) Fast Reroute (FRR)",
@@ -2383,6 +2394,27 @@ Internet-Draft              RAW Architecture               February 2025
               Networking (DetNet)", RFC 9551, DOI 10.17487/RFC9551,
               March 2024, <https://www.rfc-editor.org/info/rfc9551>.
 
+   [RFC9378]  Brockners, F., Ed., Bhandari, S., Ed., Bernier, D., and T.
+              Mizrahi, Ed., "In Situ Operations, Administration, and
+              Maintenance (IOAM) Deployment", RFC 9378,
+              DOI 10.17487/RFC9378, April 2023,
+              <https://www.rfc-editor.org/info/rfc9378>.
+
+
+
+
+
+
+Thubert                 Expires 12 December 2025               [Page 43]
+
+Internet-Draft              RAW Architecture                   June 2025
+
+
+   [RFC8762]  Mirsky, G., Jun, G., Nydell, H., and R. Foote, "Simple
+              Two-Way Active Measurement Protocol", RFC 8762,
+              DOI 10.17487/RFC8762, March 2020,
+              <https://www.rfc-editor.org/info/rfc8762>.
+
    [RFC9633]  Geng, X., Ryoo, Y., Fedyk, D., Rahman, R., and Z. Li,
               "Deterministic Networking (DetNet) YANG Data Model",
               RFC 9633, DOI 10.17487/RFC9633, October 2024,
@@ -2392,9 +2424,9 @@ Internet-Draft              RAW Architecture               February 2025
               Malis, A. G., Geng, X., Chen, M., Varga, B., and C. J.
               Bernardos, "Deterministic Networking (DetNet) Controller
               Plane Framework", Work in Progress, Internet-Draft, draft-
-              ietf-detnet-controller-plane-framework-07, 5 July 2024,
+              ietf-detnet-controller-plane-framework-11, 16 May 2025,
               <https://datatracker.ietf.org/doc/html/draft-ietf-detnet-
-              controller-plane-framework-07>.
+              controller-plane-framework-11>.
 
    [I-D.irtf-panrg-path-properties]
               Enghardt, R. and C. Krähenbühl, "A Vocabulary of Path
@@ -2402,13 +2434,6 @@ Internet-Draft              RAW Architecture               February 2025
               panrg-path-properties-08, 6 March 2023,
               <https://datatracker.ietf.org/doc/html/draft-irtf-panrg-
               path-properties-08>.
-
-
-
-Thubert                 Expires 1 September 2025               [Page 43]
-
-Internet-Draft              RAW Architecture               February 2025
-
 
    [NASA1]    Adams, T., "RELIABILITY: Definition & Quantitative
               Illustration", <https://extapps.ksc.nasa.gov/Reliability/
@@ -2436,29 +2461,4 @@ Author's Address
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Thubert                 Expires 1 September 2025               [Page 44]
+Thubert                 Expires 12 December 2025               [Page 44]

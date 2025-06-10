@@ -14,8 +14,8 @@
 <?rfc subcompact="no"?>
 <?rfc authorship="yes"?>
 <?rfc tocappendix="yes"?>
-<rfc xmlns:xi="http://www.w3.org/2001/XInclude" category="info" docName="draft-ietf-raw-architecture-25"
-     ipr="trust200902" obsoletes="" updates="8655" submissionType="IETF"
+<rfc xmlns:xi="http://www.w3.org/2001/XInclude" category="info" docName="draft-ietf-raw-architecture-26"
+     ipr="trust200902" obsoletes="" submissionType="IETF"
      xml:lang="en" version="3">
   <front>
     <title abbrev="RAW Architecture">Reliable and Available Wireless
@@ -36,7 +36,7 @@
 
     <date/>
     <area>Routing Area</area>
-    <workgroup>RAW</workgroup>
+    <workgroup>DetNet</workgroup>
     <keyword>Draft</keyword>
     <abstract>
       <t>
@@ -106,16 +106,19 @@
    In addition, RAW includes the concept of a lower-layer API (LL
    API), that provides an interface between the
    lower layer (e.g.,  wireless) technology and the DetNet layers. The LL API is
-   technology <xref target="I-D.ietf-raw-technologies"/> dependent as what the lower layers expose towards the DetNet layers may vary. 
+   technology  dependent as what the lower layers expose towards the DetNet layers may vary. 
    Furthermore, the different RAW technologies are equipped with different 
-   reliability features, e.g., short range broadcast, MUMIMO, PHY rate and 
-   other Modulation Coding Scheme adaptation, (H)ARQ, constructive 
-   interference and overhearing. The LL API enables interactions between the
+   reliability features, e.g., short range broadcast, Multiple-User,
+   Multiple-Input, and Multiple-Output (MUMIMO), PHY rate and 
+   other Modulation Coding Scheme (MCS) adaptation, coding and retransmissions methods, constructive 
+   interference and overhearing, see <xref target="I-D.ietf-raw-technologies"/> for details.
+   <!-- The LL API enables interactions between the -->
    reliability functions provided by the lower layer and the 
    reliability functions provided by DetNet. That is, the LL API makes 
    cross-layer optimization possible for the reliability functions of 
    different layers depending on the actual exposure provided via the LL API
-   by the given RAW technology. DLEP <xref target="RFC8175"/> is an
+   by the given RAW technology. 
+   The Dynamic Link Exchange Protocol (DLEP) <xref target="RFC8175"/> is an
    example protocol that can be used to implement the LL API.
     </t>
    <t>This document presents the RAW problem and associated terminology in
@@ -162,7 +165,7 @@
     </t>
     <t>
     The concept of recovery graph is agnostic to
-    the underlaying technology and applies but is not limited to any full or
+    the underlying technology and applies but is not limited to any full or
     partial wireless mesh.
     RAW specifies strict and loose recovery graphs depending on whether the path is fully
     controled by RAW or traverses an opaque network where RAW cannot observe
@@ -624,9 +627,10 @@
     </section>
     <section><name>Limited OAM</name>
     <t>
-     An active OAM packet is a Limited OAM packet when
+       An active OAM packet is a Limited OAM packet when
       it observes the RAW operation over a node, a segment, or a DetNet Path
-      of the recovery graph, though not from Ingress to Egress.  It is injected
+      of the recovery graph, as opposed to the whole recovery graph from Ingress to Egress.
+      The active OAM packet is injected
       in the data path and extracted from the data path around the
       particular function or subnetwork (e.g., around a relay providing
       a Service sub-layer replication point) that is being tested.
@@ -658,8 +662,8 @@
     aggregated information from lower layers about e.g., link quality,
     either via measurement or communication with the lower layer.
     This information may be obtained from inside the device using
-    specialized API (e.g., L2 triggers),  via measurement protocols such as BFD
-    <xref target="RFC5880"/> or via a control protocol exchange with the
+    specialized API (e.g., L2 triggers),  via monitoring and measurement protocols such as BFD
+    <xref target="RFC5880"/> and STAMP <xref target="RFC8762"/>, respectively, or via a control protocol exchange with the
     lower layer via, e.g.,  DLEP
     <xref target="RFC8175"/>. It may then be 
     massaged and exported through OAM messaging or via an YANG model,
@@ -827,8 +831,8 @@
     "Overview and Principles of Internet Traffic Engineering"</xref> discusses
     the importance of measurement for network protection, and provides an 
    abstract method for network survivability with the analysis of a traffic 
-   matrix as observed via a network management YANG model, probing techniques, FTP, IGP link state 
-   advertisements, and more.
+   matrix as observed via a network management YANG model, probing techniques, 
+   file transfers, IGP link state advertisements, and more.
     </t>
 
     <t>
@@ -959,8 +963,7 @@
     <dd>
 
     <t>
-    The optimal transmission happens when the Fresnel Zone between the sender
-    and the receiver is free of obstacles.
+    The Fresnel zone is an elliptical region of space between and around the transmit and receive antennas in a point to point wireless communication. The optimal transmission happens when it is free of obstacles.
     </t>
     <t>
     As long as a physical object (e.g., a metallic trolley between peers) that
@@ -1106,8 +1109,8 @@
     to add up at the receiver and actually improve the signal quality,
     compensating for either distance or physical objects in the Fresnel zone
     that would reduce the link budget. From a DetNet perspective, this
-    may translate taking into accoun how transmission from on node may
-    intefer with the transmission of another node attached to the same
+    may translate taking into account how transmission from one node may
+    interfere with the transmission of another node attached to the same
     wireless sub-layer network.
     </dd>
       </dl>
@@ -1137,7 +1140,7 @@
    networks, the action of installing a path over a set of wireless links
    may be very slow relative to the speed at which the radio conditions vary,
    and it makes sense in the wireless case to provide redundant forwarding
-   solutions along a  (see <xref target="pt"/>) and to leave it
+   solutions along a alternate paths (see <xref target="pt"/>) and to leave it
    to the Network Plane to select which of those forwarding solutions are to be
    used for a given packet based on the current conditions.
       </t>
@@ -1162,7 +1165,7 @@
       the end-to-end packet delivery.
       </li>
       <li>
-      The DetNet Controller Plane establish primay and protection paths
+      The DetNet Controller Plane establish primary and protection paths
       for use by the RAW Network Plane.
      The orientation function reports
       data and information such as link statistics to be used 
@@ -1175,7 +1178,7 @@
      for the future packets that are routed within the recovery graph.
       </li>
       <li> Service protection actions that are actuated or triggered over the LL API by the PLR to increase the reliability of the end-to-end transmissions.
-     The RAW architecture also covers in-situ signaling, e.g., via OAM, when the decision is
+     The RAW architecture also covers in-situ signaling that is embedded within live user traffic <xref target="RFC9378"/>, e.g., via OAM, when the decision is
      acted (like the A in OODA) upon by a node that is downstream in the recovery graph from the PLR.
       </li>
       </ol>
@@ -1193,7 +1196,7 @@
 <section anchor="model" numbered="true" toc="default">
     <name>The RAW Conceptual Model</name>
     <t>
-    RAW extendss the conceptual model described in section 4 of the DetNet
+    RAW extends the conceptual model described in section 4 of the DetNet
     Architecture <xref target="RFC8655"/> with the PLR at the service layer,
    as illustrated in <xref target='FigLayers'/>. The PLR 
    (see <xref target='PLRpce'/>) is a point of local reaction  to
@@ -1250,7 +1253,7 @@
    Edge Nodes) to dynamically adapt the path of the packets and optimizes the
    resource usage.
     </t><t>
-   In the case of centralized routing operations, the RAW routing CPF interacts
+   In the case of centralized routing operations, the RAW Controller Plane Function (CPF) interacts
    with RAW Nodes over a Southbound API. It consumes data and information from
    the network and generates knowledge and wisdom to help steer the traffic optimally  inside a recovery graph.
     </t>
@@ -1566,7 +1569,7 @@
    The interaction between the network nodes and the routing function is handled by the orientation function, which 
    builds reports to the routing function and 
    sends control information in a digested form back to the RAW node, to be used inside a forwarding control loop for
-!    traffic steering.
+   traffic steering.
    
       </t>
 
@@ -1608,16 +1611,16 @@
    In the case of wireless, the changes that affect the forwarding decision can
    happen frequently and often for short durations, e.g., a mobile object moves
    between a transmitter and a receiver, and cancels the line of sight
-   transmission for a few seconds, or, a radar measures the depth of a pool using rgz S/Nme (say, ISM) band, and
+   transmission for a few seconds, or, a radar measures the depth of a pool using the ISM band, and
    interferes on a particular channel for a split second.
       </t>
       <t>
    There is thus a desire to separate the long-term computation of the route and
    the short-term forwarding decision. In that model, the routing operation
-   computes a recovery graph that enables multiple Non-Equal Cost Multi-Path
-   (N-ECMP) forwarding solutions along so-called protection paths, and leaves
+   computes a recovery graph that enables multiple Unequal Cost Multi-Path
+   (UCMP) forwarding solutions along so-called protection paths, and leaves
    it to the Network Plane to make
-   the per-packet decision of which of these possibilities should be used.
+   the short-term decision of which of these possibilities should be used for which upcoming packets / flows.
       </t>
       <t>
    In the context of Traffic Engineering (TE), an alternate path can be used 
@@ -1663,7 +1666,7 @@
       <dt>Act:</dt><dd> PREOF Dataplane
       actions are controlled by the PLR over the LL API to increase the
       reliability of the end-to-end transmission. The RAW architecture also
-      covers in-situ signaling when the decision is Acted by a node that
+      covers in-situ signaling when the decision is Acted by a node that is
       down the recovery graph from the PLR, more in 
      <xref target = "reliability" />.
       </dd>
@@ -2061,7 +2064,8 @@
    the development of this document.
    </t>
    <t>The authors wish to thank Acee Lindem and Eva Schooler for their 
-   reviews and comments during the IETF last call phase.
+   reviews and comments during the IETF last call phase, and 
+   Ketan Talaulikar, .. for their IESG reviews.
    </t>
    </section>
    <!-- Acknowledgments -->
@@ -2179,8 +2183,10 @@
  <!-- Flow and Service Information Model for Deterministic Networking (DetNet) -->
 
 <xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.9551.xml"/>
+<xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.9378.xml"/>
  <!-- Framework of Operations, Administration, and Maintenance (OAM) for Deterministic Networking (DetNet) -->
 
+ <xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.8762.xml"/>
  <xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.9633.xml"/>
 
 <xi:include href="http://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-detnet-controller-plane-framework"/>

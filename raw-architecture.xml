@@ -370,26 +370,29 @@
           <name>Example IoT Recovery Graph to an IoT Gateway with 1+1 Redundancy</name>
        <artwork align="center" name="" type="" alt="">
        <![CDATA[
-             +---------+
-             | IoT G/W |
-             +---------+
-               EGRESS  <=== Elimination at Egress
-                 | |
-         /------/   \-------\    Wired backbone
-         |                  |
-      +--|--+            +--|--+
-      |  |  | Backbone   |  |  | Backbone
-      |  |  | Router     |  |  | Router
-      +--|--+            +--|--+
-         |                  |
-      o   \     o          /  protection path
-    o      o      o---o---o   o      o   o  o
-            \  o /    o          o         o
-     o   o   \  /       o        low power lossy network
-              \/ o           o        o
-         o  INGRESS <=== Replication at recovery graph Ingress
+                _________
+               |         |
+               | IoT G/W |
+               |_________|
+                 EGRESS  <<=== Elimination at Egress
+                  |  |
+      ---+--------+--+--------+--------
+         |      Backbone      |
+       __|__                __|__ 
+      |     | Backbone     |     | Backbone
+      |__ __| Router       |__ __| Router
+         |           #        |
+      #   \     #            /  <-- protection path
+    #      #        #-------#     
+            \  #   /  #         ( Low-power )
+     #   #   \    /      #     ( Lossy Network)
+              \  /           
+        #   INGRESS <<=== Replication at recovery graph Ingress
                |
-               o <- source device
+               # <-- source device
+               
+    #: Low-power device device   
+    
     ]]>
        </artwork>
        </figure>
@@ -1271,16 +1274,15 @@
  _-._-._-._-._-._-._-._-._-._-._-._-._-._-._-._-._-._-._-._-._-._-
 
 
-                 RAW  --/   RAW  --/   RAW  --/   RAW
-             /-- Node  /--  Node  /--  Node  /--  Node --/
-  Ingress --/    /          /                           /-- Egress
-  End           /          /         .. .                   End
-  Node   ---/   /          /       .. ..  .             /-- Node
-           /-- RAW  --/   RAW     ( non-RAW ) -- RAW --/
-               Node  /--  Node --- ( Nodes  )   Node
-                                      ... .
-  --/   wireless           wired
-   /--  link           --- link
+              ___ RAW  ___ RAW  ___ RAW  ___ RAW  __
+             /    Node     Node     Node     Node   \
+  Ingress __/     / \      /                   \     \____Egress
+  End  __        /   \    /       .- -- .       \       ___  End
+  Node   \      /     \  /     .-(        ).     \     /    Node
+          \_ RAW  ___ RAW  ___(Non-RAW Nodes)__ RAW  _/
+             Node     Node   (___.______.____)  Node
+                                
+
 </artwork>
 </figure>
 <t>
@@ -1590,18 +1592,18 @@
                        |             Network Plane
                     Expensive
                        |
-                ....   |  .......
-            ....    .  | .       .......
-         ....          v               ...
-       ..    A-------B-------C---D        ..
-    ...     /  \           /      \      ..
-   .       I ----M-------N--***-- E        ..
-   ..       \         /         /         ...
-     ..      P--***--Q-----M---R        ....
-       ..                              ....
-        .   <----- Fast ------->    ....
-         .......                ....
-                .................
+              __...--- | ----.._.
+           .(          |          )-._          
+          (            v              ).
+        (     A--------B---C----D       )
+    _ -      / \          /      \       --._
+   (        I---M--------N--***-- E           -
+    -_       \          /        /             ) 
+    (         P--***---Q----M---R             .
+      _                                     )- ._
+        -    <------ Fast ------->               )
+       (                                   -._ .-
+        (_.___.._____________.____.._ __-____)
 
 *** = flapping at this time
     ]]>
@@ -1730,17 +1732,16 @@
 
                                Opaque to OAM
                        <---------------------------->
-                                   ...   ..
-                RAN 1  -----  ...      ..  ...
-             /              .    ..          ....
-+-------+  /              .            ..      ....    +------+
+                               .-  .. - ..
+             RAN 1  --------(              ).__
++-------+  /              (                    ).      +------+
 |Ingress|-              __________Tunnel_______________|Egress|
 |  End  |------ RAN 2 --_______________________________  End  |
-|System |-                ..                   .....   |System|
-+-------+  \               .               ......      +------+
-             \               ...   ...     .....
-                RAN n  --------  ...   .....
-
+|System |-               (                        )    |System|
++-------+  \            (                        ).    +------+
+            RAN n ----(                            ) 
+                     (_______...___.__...____....__..)
+                          
         <-------L2------> 
          Observed by OAM       
         <----------------------L3----------------------->
@@ -1987,14 +1988,29 @@
 
     <section anchor="SecurityConsiderations" numbered="true" toc="default">
       <name>Security Considerations</name>
+      
+    <section numbered="true" toc="default">
+      <name>Collocated Denial of Service Attacks</name>
     <t>
-    RAW uses all forms of diversity including radio technology and physical path
+    RAW leverages diversity (e.g., spatial and time diversity, 
+    coding diversity, and frequency diversity), possibly using
+    heterogeneous wired and wireless networking technologies over different physical paths,
     to increase the reliability and availability in the face of unpredictable
     conditions. While this is not done specifically to defeat an attacker, the
-    amount of diversity used in RAW makes an attack harder to achieve.
+    amount of diversity used in RAW defeats possible attacks that would 
+    impact a particular technology or a specific path.
     </t>
-
-
+    
+    <t>
+    Physical actions by a collocated attacker such as a radio interference
+    may still  lower the reliability of an end-to-end RAW transmission by blocking one segment or one 
+    possible path. But if an alternate path with diverse frequency, location, and/or technology, is
+    available, then RAW adapts by rerouting the impacted traffic over the preferred alternates, 
+    which defeats the attack after a limited period of lower reliability.
+    Then again, the security benefit is a side-effect of an action that is taken regardless of whether the source of the 
+    issue is voluntary (an attack) or not.    
+   </t>
+   </section><!-- Collocated Denial of Service Attacks -->
 
 
     <section numbered="true" toc="default">
@@ -2002,9 +2018,9 @@
     <t>
     Radio networks typically encrypt at the MAC layer to protect the
     transmission. If the encryption is per-pair of peers, then certain
-    RAW operations like promiscuous overhearing become impossible.
+    RAW operations like promiscuous overhearing become impossible. 
     </t>
-
+  
       </section><!-- Layer-2 encryption -->
     <section numbered="true" toc="default">
       <name>Forced Access</name>
@@ -2065,7 +2081,7 @@
    </t>
    <t>The authors wish to thank Acee Lindem and Eva Schooler for their 
    reviews and comments during the IETF last call phase, and 
-   Ketan Talaulikar, .. for their IESG reviews.
+   Ketan Talaulikar, Rich Salz, ... for their IESG reviews.
    </t>
    </section>
    <!-- Acknowledgments -->

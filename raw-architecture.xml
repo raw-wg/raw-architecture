@@ -146,7 +146,9 @@
     That document defines a number of concepts like recovery domain that are
     used in the RAW mechanisms, and creates the new term recovery graph.
     A recovery graph associates a topological graph with usage metadata that
-    represents how the paths within the recovery graph are built.
+    represents how the paths are built and used within the recovery graph.
+    The recovery graph provides excess bandwidth for the intended traffic over alternate potential paths, and
+    the use of that bandwidth is optimized dynamically.
     </t>
     <t>
     RAW also reuses terminology defined for RSVP-TE in <xref target=
@@ -157,11 +159,7 @@
     <t>
     RAW also reuses terminology defined for 6TiSCH in <xref target=
     "RFC9030" format="default"/> and equates the 6TiSCH concept of a Track with 
-   that of a recovery graph.
-    </t>
-    <t>In an quantic analogy, a recovery graph is to a path what an atomic orbital is to
-    a planetary orbit, in that the electron has a probability of presence within
-    a known shape as opposed to a deterministic trajectory.
+   that of a recovery graph. 
     </t>
     <t>
     The concept of recovery graph is agnostic to
@@ -218,7 +216,12 @@
     
     <section><name>LQI</name>
     <t>
-    Link-Quality Indication: a cumulative value used in multi-hop networks to assess the cost of a link. LQI values can be modified at each step as the massage propagates through the mesh matrix. Messages taking different paths through a mesh may have different LQI values, the path with the best LQI is chosen for subsequent messages. Outgoing LQI values can be calculated from coherent (demodulated) Packet Error Rates (PER), RSSI and incoming LQI values. The exact method depends on the network stack being used.
+    Link-Quality Indication: 
+    
+    The link quality indicator (LQI) is an indication of the quality of the data packets received by the receiver. 
+    It is typically derived from packet error statistics, the exact method depending on the network stack being used.
+    LQI values may be exposed to the controller plane for each individual hop or cumulated along segments.
+    Outgoing LQI values can be calculated from coherent (demodulated) Packet Error Rates (PER), RSSI and incoming LQI values. 
     </t>
     </section>
     
@@ -236,11 +239,14 @@
     </section>
     <section><name>OODA</name>
     <t>
-    Observe, Orient, Decide, Act. The OODA Loop is a
-    conceptual cyclic model developed by USAF Colonel John Boyd, and that is
-    applicable in multiple domains where agility can provide benefits against
+    OODA (Observe, Orient, Decide, Act) is a generic formalism to represent the
+    operational steps in a Control Loop. The
+    conceptual cyclic model of the OODA Loop was developed by USAF Colonel John Boyd. 
+    It is applicable in multiple domains where agility can provide benefits against
     brute force. In the context of RAW, OODA is applied to network
-    control and convergence. 
+    control and convergence, more in <xref target="ooda"/>.
+    
+
     </t>
     </section>
     <section><name>RSSI</name>
@@ -548,6 +554,19 @@
      </section><!--Deterministic Networking -->
 
 
+     <section><name>DetNet Planes</name>
+      <t>
+   <xref target="RFC8655"/> defines three planes: the Application (User) Plane, the Controller Plane,  and the Network Plane.
+   The DetNet Network Plane is composed of a Data Plane (packet forwarding) and an
+   Operational Plane where OAM operations take place.
+   In the Network Plane, the DetNet service sub-layer
+   focuses on flow protection (e.g., using redundancy) and can be fully operated
+   at Layer-3, while the DetNet forwarding sub-layer establishes the paths, 
+   associates the flows to the paths, and ensures the availability of the 
+   necessary resources, leverages Layer-2 functionalities for timely delivery 
+   to the next DetNet system, more in <xref target='problem'/>.
+      </t>
+    </section>
     <section><name>Reliability and Availability</name>
     <t>
     In the context of the RAW work, Reliability and Availability are defined as
@@ -1042,17 +1061,6 @@
    link awareness (think, link quality) and packet handling (think, scheduling).
       </t>
       <t>
-   <xref target="RFC8655"/> defines three planes: the Application (User) Plane, the Controller Plane,  and the Network Plane.
-   The DetNet Network Plane is composed of a Dataplane (packet forwarding) and an
-   Operational Plane where OAM operations take place.
-   In the Network Plane, the DetNet service sub-layer
-   focuses on flow protection (e.g., using redundancy) and can be fully operated
-   at Layer-3, while the DetNet forwarding sub-layer establishes the paths, 
-   associates the flows to the paths, and ensures the availability of the 
-   necessary resources, leverages Layer-2 functionalities for timely delivery 
-   to the next DetNet system.
-      </t>
-      <t>
    The RAW Architecture extends the DetNet Network Plane, to accommodate one or
    multiple hops of homogeneous or heterogeneous wired and wireless technologies.
    RAW adds reactivity to the DetNet Forwarding sub-layer to compensate the dynamics
@@ -1159,12 +1167,11 @@
    observed and controlled by RAW.
       </t>
       <t>
-   The RAW Architecture is based on an abstract OODA Loop (Observe, Orient, Decide,
-   Act). The generic concept involves:
+   The RAW Architecture is based on an abstract OODA Loop that controls the operation of a Recovery Graph.
+   The generic concept involves:
       </t>
       <ol>
-      <li> Operational Plane measurement protocols for Operations, Administration
-      and Maintenance (OAM) to observe (like the first O in OODA) some or all hops along a recovery graph as well as
+      <li> Operational Plane measurement protocols for OAM to observe (like the first O in OODA) some or all hops along a recovery graph as well as
       the end-to-end packet delivery.
       </li>
       <li>
@@ -1642,16 +1649,14 @@
 <section anchor="ooda" numbered="true" toc="default">
     <name>A OODA Loop</name>
       <t>
-   OODA (Observe, Orient, Decide, Act) is a generic formalism to represent the
-   operational steps in a Control Loop.
+ 
    The RAW Architecture applies the generic OODA model to continuously optimize the
    spectrum and energy used to forward packets within a recovery graph, instantiating the
    OODA steps as follows:
       </t>
       <dl>
       <dt>Observe:</dt><dd> Network Plane measurements, including protocols for
-      Operations, Administration and Maintenance (OAM), to Observe the local
-      state of the links and some or all hops along a recovery graph as well as
+      OAM, to Observe the local state of the links and some or all hops along a recovery graph as well as
       the end-to-end packet delivery, more in <xref target =
       "aom"/>. Information can also be provided by lower-layer
       interfaces such as DLEP;
@@ -1665,7 +1670,7 @@
       for the future packet(s) that are routed along the recovery graph,
       more in <xref target = "PLRpce" />;
       </dd>
-      <dt>Act:</dt><dd> PREOF Dataplane
+      <dt>Act:</dt><dd> PREOF Data Plane
       actions are controlled by the PLR over the LL API to increase the
       reliability of the end-to-end transmission. The RAW architecture also
       covers in-situ signaling when the decision is Acted by a node that is
@@ -2081,7 +2086,7 @@
    </t>
    <t>The authors wish to thank Acee Lindem and Eva Schooler for their 
    reviews and comments during the IETF last call phase, and 
-   Ketan Talaulikar, Rich Salz, ... for their IESG reviews.
+   Ketan Talaulikar, Rich Salz, Wesley Eddy, Behcet Sarikaya, Brian Haberman, Gorry Fairhurst, and Dave Thaler, for their IETF Last Call / IESG reviews.
    </t>
    </section>
    <!-- Acknowledgments -->

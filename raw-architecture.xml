@@ -118,7 +118,7 @@
    cross-layer optimization possible for the reliability functions of 
    different layers depending on the actual exposure provided via the LL API
    by the given RAW technology. 
-   The Dynamic Link Exchange Protocol (DLEP) <xref target="RFC8175"/> is an
+   The <xref target="RFC8175"> Dynamic Link Exchange Protocol (DLEP) </xref> is an
    example protocol that can be used to implement the LL API.
     </t>
    <t>This document presents the RAW problem and associated terminology in
@@ -187,11 +187,6 @@
     </t>
     </section>
         
-    <section><name>ETX</name>
-    <t>
-    Expected Transmission Count: a statistical metric that represents the expected total number of packet transmissions (including retransmissions) required to successfully deliver a packet along a path, used by 6TiSCH <xref target="RFC6551"/>.
-    </t>
-    </section>
     
     <section><name>FEC</name>
     <t>
@@ -202,10 +197,15 @@
     
     <section><name>HARQ</name>
     <t>
-    Hybrid Automatic Repeat Request, combining FEC and ARQ.
+    Hybrid ARQ, combining FEC and ARQ.
     </t>
     </section>
     
+    <section><name>ETX</name>
+    <t>
+    Expected Transmission Count: a statistical metric that represents the expected total number of packet transmissions (including retransmissions) required to successfully deliver a packet along a path, used by 6TiSCH <xref target="RFC6551"/>.
+    </t>
+    </section>
     <section><name>ISM</name>
     <t>
     
@@ -690,8 +690,7 @@
     This information may be obtained from inside the device using
     specialized API (e.g., L2 triggers),  via monitoring and measurement protocols such as BFD
     <xref target="RFC5880"/> and STAMP <xref target="RFC8762"/>, respectively, or via a control protocol exchange with the
-    lower layer via, e.g.,  DLEP
-    <xref target="RFC8175"/>. It may then be 
+    lower layer via, e.g.,  DLEP <xref target="RFC8175"/>. It may then be 
     processed and exported through OAM messaging or via an YANG model,
     and exposed to the Controller Plane.
     </t>
@@ -868,9 +867,9 @@
     Network
     Plane at a faster time-scale with live information on speed, state, etc...
     This live information can be obtained directly from the lower layer, e.g.,
-    using L2 triggers, read from a protocol such as the <xref target="RFC8175">
-    Dynamic Link Exchange Protocol (DLEP)</xref>, or transported over multiple
-    hops using OAM and reverse OAM, as illustrated in <xref target="Figlearn"/>.
+    using L2 triggers, read from a protocol such as DLEP,
+    or transported over multiple hops using OAM and reverse OAM, 
+    as illustrated in <xref target="Figlearn"/>.
     </t>
 
 <!--
@@ -920,7 +919,7 @@
     chances that the unwanted fault event occurs. In data networks,
     this is rarely the case. Packet loss cannot be fully avoided and the
     systems are built to resist to some loss, e.g., using redundancy with Retries
-    (HARQ), Packet Replication and Elimination (PRE), Network Coding (e.g., using 
+    (as in HARQ), Packet Replication and Elimination (PRE) FEC, Network Coding (e.g., using 
     FEC with SCHC <xref target="RFC8724"/> fragments), or, in a typical control
     loop, by linear interpolation from the previous measurements.
     </t>
@@ -1112,7 +1111,7 @@
     the instability of the metrics.
     </dd>
     <dt>ARQ, FEC, and codes:</dt><dd>Though feasible on any technology, proactive
-    (forward) and reactive (ARQ) error correction are typical to the wireless
+    (forward) and reactive (ack-based) error correction are typical to the wireless
     media. Bounded latency can still be obtained on a wireless link while
     operating those technologies, provided that link latency used in
     path selection allows for the extra transmission, or that the introduced delay is
@@ -1362,7 +1361,8 @@
     the ordering of a burst of packets. RAW also inherits PREOF from DetNet, 
     which can be used to reorder packets before delivery to the upper layers.
     As a result, DetNet in general and RAW in particular offer a smoother
-    transport experience for the upper layers with ultra-low jitter and loss.
+    transport experience for the upper layers than the Internet at large
+    with ultra-low jitter and loss.
     </t>
     <t>
     RAW improves the reliability of transmissions and the availability of the
@@ -1752,7 +1752,7 @@
     RAW In-situ OAM operation in the Network Plane may observe either a full
     recovery graph or the DetNet Path that is being used at this time. As packets may be load
     balanced, replicated, eliminated, and / or fragmented for Network Coding
-    (NC) forward error correction (FEC), the RAW In-situ operation needs to be
+    FEC, the RAW In-situ operation needs to be
     able to signal which operation occurred to an individual packet.
     </t>
     <t>
@@ -1986,10 +1986,9 @@
     </t>
     <t>The LL API enriches the DetNet protection services (PREOF)
     with potential possibility to interact with lower-layer one-hop reliability
-   functions that are more typical to wireless than wired, including Automatic 
-   Repeat reQuest (ARQ), Forward Error Correction (FEC), Hybrid ARQ (HARQ) 
-   that includes both, and other techniques such as overhearing and 
-   constructive interferences. Because RAW may be leveraged on wired links, 
+   functions that are more typical to wireless than wired, including ARQ, FEC, 
+   and other techniques such as overhearing and constructive interferences. 
+   Because RAW may be leveraged on wired links, 
    e.g., to save power, it is not expected that all lower layers support all
    those capabilities.
     </t>

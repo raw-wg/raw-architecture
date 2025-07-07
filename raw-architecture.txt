@@ -70,9 +70,9 @@ Table of Contents
    2.  Terminology . . . . . . . . . . . . . . . . . . . . . . . . .   5
      2.1.  Acronyms  . . . . . . . . . . . . . . . . . . . . . . . .   5
        2.1.1.  ARQ . . . . . . . . . . . . . . . . . . . . . . . . .   5
-       2.1.2.  ETX . . . . . . . . . . . . . . . . . . . . . . . . .   6
-       2.1.3.  FEC . . . . . . . . . . . . . . . . . . . . . . . . .   6
-       2.1.4.  HARQ  . . . . . . . . . . . . . . . . . . . . . . . .   6
+       2.1.2.  FEC . . . . . . . . . . . . . . . . . . . . . . . . .   6
+       2.1.3.  HARQ  . . . . . . . . . . . . . . . . . . . . . . . .   6
+       2.1.4.  ETX . . . . . . . . . . . . . . . . . . . . . . . . .   6
        2.1.5.  ISM . . . . . . . . . . . . . . . . . . . . . . . . .   6
        2.1.6.  PER . . . . . . . . . . . . . . . . . . . . . . . . .   6
        2.1.7.  RSSI  . . . . . . . . . . . . . . . . . . . . . . . .   6
@@ -282,21 +282,21 @@ Thubert                  Expires 8 January 2026                 [Page 5]
 Internet-Draft              RAW Architecture                   July 2025
 
 
-2.1.2.  ETX
+2.1.2.  FEC
+
+   Forward Error Correction, adding redundant data to protect against a
+   partial loss without retries.
+
+2.1.3.  HARQ
+
+   Hybrid ARQ, combining FEC and ARQ.
+
+2.1.4.  ETX
 
    Expected Transmission Count: a statistical metric that represents the
    expected total number of packet transmissions (including
    retransmissions) required to successfully deliver a packet along a
    path, used by 6TiSCH [RFC6551].
-
-2.1.3.  FEC
-
-   Forward Error Correction, adding redundant data to protect against a
-   partial loss without retries.
-
-2.1.4.  HARQ
-
-   Hybrid Automatic Repeat Request, combining FEC and ARQ.
 
 2.1.5.  ISM
 
@@ -977,9 +977,8 @@ Internet-Draft              RAW Architecture                   July 2025
    itself operates in the DetNet Network Plane at a faster time-scale
    with live information on speed, state, etc...  This live information
    can be obtained directly from the lower layer, e.g., using L2
-   triggers, read from a protocol such as the Dynamic Link Exchange
-   Protocol (DLEP) [DLEP], or transported over multiple hops using OAM
-   and reverse OAM, as illustrated in Figure 11.
+   triggers, read from a protocol such as DLEP, or transported over
+   multiple hops using OAM and reverse OAM, as illustrated in Figure 11.
 
 3.1.2.  Applying Reliability Concepts to Networking
 
@@ -1002,6 +1001,7 @@ Internet-Draft              RAW Architecture                   July 2025
    this number is proportional to the Mean Time Between Failures (MTBF).
    When a single fault can have dramatic consequences, the MTBF
    expresses the chances that the unwanted fault event occurs.  In data
+   networks, this is rarely the case.  Packet loss cannot be fully
 
 
 
@@ -1010,12 +1010,11 @@ Thubert                  Expires 8 January 2026                [Page 18]
 Internet-Draft              RAW Architecture                   July 2025
 
 
-   networks, this is rarely the case.  Packet loss cannot be fully
    avoided and the systems are built to resist to some loss, e.g., using
-   redundancy with Retries (HARQ), Packet Replication and Elimination
-   (PRE), Network Coding (e.g., using FEC with SCHC [RFC8724]
-   fragments), or, in a typical control loop, by linear interpolation
-   from the previous measurements.
+   redundancy with Retries (as in HARQ), Packet Replication and
+   Elimination (PRE) FEC, Network Coding (e.g., using FEC with SCHC
+   [RFC8724] fragments), or, in a typical control loop, by linear
+   interpolation from the previous measurements.
 
    But the linear interpolation method cannot resist multiple
    consecutive losses, and a high MTBF is desired as a guarantee that
@@ -1058,6 +1057,7 @@ Internet-Draft              RAW Architecture                   July 2025
 
    Co-channel Interference:  Energy in the spectrum used for the
       transmission confuses the receiver.
+
 
 
 
@@ -1200,8 +1200,8 @@ Internet-Draft              RAW Architecture                   July 2025
       instability of the metrics.
 
    ARQ, FEC, and codes:  Though feasible on any technology, proactive
-      (forward) and reactive (ARQ) error correction are typical to the
-      wireless media.  Bounded latency can still be obtained on a
+      (forward) and reactive (ack-based) error correction are typical to
+      the wireless media.  Bounded latency can still be obtained on a
       wireless link while operating those technologies, provided that
       link latency used in path selection allows for the extra
       transmission, or that the introduced delay is compensated along
@@ -1469,7 +1469,8 @@ Internet-Draft              RAW Architecture                   July 2025
    packets.  RAW also inherits PREOF from DetNet, which can be used to
    reorder packets before delivery to the upper layers.  As a result,
    DetNet in general and RAW in particular offer a smoother transport
-   experience for the upper layers with ultra-low jitter and loss.
+   experience for the upper layers than the Internet at large with
+   ultra-low jitter and loss.
 
    RAW improves the reliability of transmissions and the availability of
    the communication resources, and should be seen as a dynamic
@@ -1499,7 +1500,6 @@ Internet-Draft              RAW Architecture                   July 2025
    are needed to match the traffic SLA.  When the availability of the
    physical resource varies, RAW acts on the distribution of the traffic
    to leverage alternates within a finite set of potential resources.
-
 
 
 
@@ -1932,9 +1932,9 @@ Internet-Draft              RAW Architecture                   July 2025
    RAW In-situ OAM operation in the Network Plane may observe either a
    full recovery graph or the DetNet Path that is being used at this
    time.  As packets may be load balanced, replicated, eliminated, and /
-   or fragmented for Network Coding (NC) forward error correction (FEC),
-   the RAW In-situ operation needs to be able to signal which operation
-   occurred to an individual packet.
+   or fragmented for Network Coding FEC, the RAW In-situ operation needs
+   to be able to signal which operation occurred to an individual
+   packet.
 
    Active RAW OAM may be needed to observe the unused segments and
    evaluate the desirability of a rerouting decision.
@@ -2162,11 +2162,10 @@ Internet-Draft              RAW Architecture                   July 2025
    The LL API enriches the DetNet protection services (PREOF) with
    potential possibility to interact with lower-layer one-hop
    reliability functions that are more typical to wireless than wired,
-   including Automatic Repeat reQuest (ARQ), Forward Error Correction
-   (FEC), Hybrid ARQ (HARQ) that includes both, and other techniques
-   such as overhearing and constructive interferences.  Because RAW may
-   be leveraged on wired links, e.g., to save power, it is not expected
-   that all lower layers support all those capabilities.
+   including ARQ, FEC, and other techniques such as overhearing and
+   constructive interferences.  Because RAW may be leveraged on wired
+   links, e.g., to save power, it is not expected that all lower layers
+   support all those capabilities.
 
    RAW provides hints to the lower-layer services on the desired
    outcome, and the lower layer acts on those hints to provide the best
@@ -2177,6 +2176,7 @@ Internet-Draft              RAW Architecture                   July 2025
    some reliability functions are controlled from Layer-3 using an
    abstract interface, while they are really operated at the lower
    layers.
+
 
 
 

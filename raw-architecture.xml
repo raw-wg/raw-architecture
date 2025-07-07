@@ -2158,6 +2158,7 @@
 <xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.9049.xml"/>
 <!-- Path Aware Networking: Obstacles to Deployment  -->
 
+<xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.9551.xml"/>
       </references>
     <!--Normative References-->
 
@@ -2207,7 +2208,6 @@
 <!--xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.9016.xml"/-->
  <!-- Flow and Service Information Model for Deterministic Networking (DetNet) -->
 
-<xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.9551.xml"/>
 <xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.9378.xml"/>
  <!-- Framework of Operations, Administration, and Maintenance (OAM) for Deterministic Networking (DetNet) -->
 

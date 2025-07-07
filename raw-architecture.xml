@@ -166,7 +166,7 @@
     the underlying technology and applies but is not limited to any full or
     partial wireless mesh.
     RAW specifies strict and loose recovery graphs depending on whether the path is fully
-    controled by RAW or traverses an opaque network where RAW cannot observe
+    controlled by RAW or traverses an opaque network where RAW cannot observe
     and control the individual hops.
     </t>
     <t>
@@ -397,7 +397,7 @@
                |
                # <-- source device
                
-    #: Low-power device device   
+    #: Low-power device 
     
     ]]>
        </artwork>
@@ -556,7 +556,8 @@
 
      <section><name>DetNet Planes</name>
       <t>
-   <xref target="RFC8655"/> defines three planes: the Application (User) Plane, the Controller Plane,  and the Network Plane.
+   <xref target="RFC8655"/> defines three planes: the Application (User) Plane, the Controller Plane,
+   and the Network Plane.
    The DetNet Network Plane is composed of a Data Plane (packet forwarding) and an
    Operational Plane where OAM operations take place.
    In the Network Plane, the DetNet service sub-layer
@@ -688,7 +689,7 @@
     <xref target="RFC5880"/> and STAMP <xref target="RFC8762"/>, respectively, or via a control protocol exchange with the
     lower layer via, e.g.,  DLEP
     <xref target="RFC8175"/>. It may then be 
-    massaged and exported through OAM messaging or via an YANG model,
+    processed and exported through OAM messaging or via an YANG model,
     and exposed to the Controller Plane.
     </t>
     </section>
@@ -721,7 +722,7 @@
       <name>High Availability Engineering Principles</name>
 
     <t>
-    The reliability criteria of a critical system pervades through its elements,
+    The reliability criteria of a critical system pervade through its elements,
     and if the system comprises a data network and then the data network is also
     subject to the inherited reliability and availability criteria.
     It is only natural to consider the art of high availability engineering and
@@ -759,13 +760,13 @@
     </t>
     <t>
     IP Routers leverage routing protocols to reroute to alternate routes in case
-    of a failure. There is a rather open-ended issue over alternate routes --
-    for example, when links are cabled through the same conduit, they form a
+    of a failure. When links are cabled through the same conduit, they form a
     shared risk link group (SRLG), and share the same fate if the conduit is
-    cut. The same effect can happen with virtual links that end up in a same
-    physical transport through the games of encapsulation. In a same fashion,
-    an interferer or an obstacle may affect multiple wireless transmissions at
-    the same time, even between different sets of peers.
+    cut, making the reroute operation ineffective.
+    The same effect can happen with virtual links that end up in a same
+    physical transport through the intricacies of nested encapsulation. 
+    In a same fashion, an interferer or an obstacle may affect multiple 
+    wireless transmissions at the same time, even between different sets of peers.
     </t>
     <t>
     Intermediate network Nodes such as routers, switches and APs, wire bundles,
@@ -811,7 +812,7 @@
     </t>
     <t>
     Deterministic flows, on the contrary, are attached to specific paths where
-    dedicated resources are reserved for each flow. Therefore each DetNet path
+    dedicated resources are reserved for each flow. Therefore, each DetNet path
     must inherently provide sufficient redundancy to provide the assured SLA
     at all times.
     The DetNet PREOF typically leverages 1+1 redundancy whereby a packet is sent
@@ -985,7 +986,9 @@
     <dd>
 
     <t>
-    The Fresnel zone is an elliptical region of space between and around the transmit and receive antennas in a point to point wireless communication. The optimal transmission happens when it is free of obstacles.
+    The Fresnel zone is an elliptical region of space between and around the transmit 
+    and receive antennas in a point-to-point wireless communication.
+    The optimal transmission happens when it is free of obstacles.
     </t>
     <t>
     As long as a physical object (e.g., a metallic trolley between peers) that
@@ -1085,7 +1088,7 @@
     </t>
     <dl>
     <dt>Promiscuous Overhearing:</dt><dd> Some wired and wireless
-    technologies allow for multiple lower-layer attached nodes to recieve
+    technologies allow for multiple lower-layer attached nodes to receive
     the same packet sent by another node.  This differs from a
     lower-layer network that is physically point-to-point like a wire.
     With overhearing, more than one
@@ -1140,7 +1143,7 @@
    DetNet Yang Model <xref target="RFC9633"/>, or may be
    computed in a distributed fashion ala
    Resource ReSerVation Protocol (RSVP) <xref target="RFC2205"/>.
-   Either way, the assumption us that it is slow relative to
+   Either way, the assumption is that it is slow relative to
    local forwarding operations in the recovery graph.
    To react fast enough to transient changes in the radio transmissions, RAW leverages DetNet Network Plane enhancements to
    optimize the use of the paths and match the quality of the transmissions over
@@ -1312,7 +1315,8 @@
     </ul>
     <t>
     The information that the orientation function reports to the routing function
-   includes may be a time-aggregated, e.g., statistical fashion, to match the longer term   operation of the routing function.
+   includes may be a time-aggregated, e.g., statistical fashion, to match the longer-term
+   operation of the routing function.
     Example information includes Link-Layer metrics such as Link
     bandwidth (the medium speed depends dynamically on the PHY mode), number of
     flows (bandwidth that can be reserved for a flow depends on the number and
@@ -1325,7 +1329,7 @@
     redundant forwarding solutions to ensure that the Network Plane can reliably
     deliver the packets within a System Level Agreement (SLA) associated to the
     flows that it transports.
-    The SLA defines end-to-end reliability and availability requirements, where
+    The SLA defines end-to-end reliability and availability requirements, in which
     reliability may be expressed as a successful delivery in-order and within a
     bounded delay of at least one copy of a packet.
     </t><t>
@@ -1361,7 +1365,7 @@
     contract with the DetNet sub-layers and the layers below. Excess of
     incoming traffic at the DetNet Ingress may result in dropping or
     queueing of packets, and can entail loss, latency, or jitter, and
-    therefore violate the guarantees that are provided inside the DetNet Network.
+    therefore, violate the guarantees that are provided inside the DetNet Network.
     </t>
     <t>
     When the traffic from upper layers matches the expectation of the lower
@@ -1382,7 +1386,12 @@
   RAW leverages the DetNet Forwarding sub-layer and requires the support of
   OAM in DetNet Transit Nodes (see figure 3 of <xref target="RFC8655"/> for the 
   dynamic acquisition of link capacity and state to maintain a strict RAW
-  service, end-to-end, over a DetNet Network. RAW extends DetNet to improve the
+  service, end-to-end, over a DetNet Network. In turn, DetNet and thus RAW
+  may benefit from / leverage functionality such as provided by TSN at the
+  lower layers.
+</t>
+<t>
+  RAW extends DetNet to improve the
   protection against link errors such as transient flapping that are far more
   common in wireless links. Nevertheless, the RAW methods are for the most part
   applicable to wired links as well, e.g., when energy savings are desirable and
@@ -1418,7 +1427,7 @@
   RAW uses various OAM functionalities at the different layers. For instance,
   the OAM function in the DetNet Service sub-layer (re)generates the OAM 
   information as it is formed and propagated In-Band or Out-of-Band. The RAW
-  functions may be present in Service sub-layer in DetNet Edge and Relay Nodes.
+  functions may be present in the Service sub-layer in DetNet Edge and Relay Nodes.
 </t>
 
 
@@ -1567,11 +1576,11 @@
    consume excessive wireless resources to reconverge to a new optimized state.
 
       </t><t>
-   As a result, the DetNet routing fucntion is not expected to be aware of and to react to
+   As a result, the DetNet routing function is not expected to be aware of and to react to
    very transient changes. The abstraction of a link at the routing level is
    expected to use statistical metrics that aggregate the behavior of a link
    over long periods of time, and  represent its properties as shades of gray as
-   opposed to numerical values such as a link quality indicator, or a boolean
+   opposed to numerical values such as a link quality indicator, or a Boolean
    value for either up or down.
       </t><t>
 
@@ -1634,8 +1643,11 @@
       <t>
    In the context of Traffic Engineering (TE), an alternate path can be used 
    upon the detection of a failure in the main path, e.g., using OAM in 
-   MPLS-TP or BFD over a collection of SD-WAN tunnels. RAW
-   formalizes a forwarding time-scale that is an order(s) of magnitude shorter
+   Multiprotocol Label Switching - Transport Profile (MPLS-TP) or BFD 
+   over a collection of Software-Defined Wide Area Network (SD-WAN) tunnels. 
+      </t>
+      <t>
+   RAW formalizes a forwarding time-scale that is an order(s) of magnitude shorter
    than the Controller Plane routing time-scale, and separates the protocols
    and metrics that are used at both scales.
    Routing can operate on long-term statistics such as delivery

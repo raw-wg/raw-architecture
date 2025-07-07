@@ -54,7 +54,7 @@
       DetNet services.
 
       The loop involves a new Point of Local Repair (PLR) function in
-      the DetNet service sublayer that dynamically selects the DetNet 
+      the DetNet Service sub-layer that dynamically selects the DetNet 
       path(s) for packets to route around local connectivity degradation.
 
       </t>
@@ -112,7 +112,7 @@
    Multiple-Input, and Multiple-Output (MUMIMO), PHY rate and 
    other Modulation Coding Scheme (MCS) adaptation, coding and retransmissions methods, constructive 
    interference and overhearing, see <xref target="I-D.ietf-raw-technologies"/> for details.
-   <!-- The LL API enables interactions between the -->
+   The LL API enables interactions between the
    reliability functions provided by the lower layer and the 
    reliability functions provided by DetNet. That is, the LL API makes 
    cross-layer optimization possible for the reliability functions of 
@@ -143,8 +143,8 @@
     RAW also reuses terminology defined for MPLS in <xref target=
     "RFC4427" format="default"/> such as the term recovery as covering
     both Protection and Restoration, a number of recovery types.
-    That document defines a number of concepts like recovery domain that are
-    used in the RAW mechanisms, and creates the new term recovery graph.
+    That document defines a number of concepts such as recovery domain that are
+    used in the RAW mechanisms, and defines the new term recovery graph.
     A recovery graph associates a topological graph with usage metadata that
     represents how the paths are built and used within the recovery graph.
     The recovery graph provides excess bandwidth for the intended traffic over alternate potential paths, and
@@ -261,7 +261,7 @@
     
     <section><name>SNR</name>
     <t>
-    Signal-Noise Ratio (a.k.a S/N): a measure used in science and engineering that compares the level of a desired signal to the level of background noise. SNR is defined as the ratio of signal power to noise power, often expressed in decibels.
+    Signal-Noise Ratio (a.k.a. S/N): a measure used in science and engineering that compares the level of a desired signal to the level of background noise. SNR is defined as the ratio of signal power to noise power, often expressed in decibels.
     </t>
     </section>
 
@@ -340,7 +340,7 @@
     
     For instance, if C replicates to E and F and D eliminates duplicates,
     a packet from A to B can experience 2 paths, A->C->E->D->B and
-    A->C->F->D->B. Those path are called protection paths. Protection
+    A->C->F->D->B. Those paths are called protection paths. Protection
     paths may be fully non-congruent, and alternatively may intersect at
     replication or elimination points.
     
@@ -369,7 +369,7 @@
     definition of a path above, a recovery graph represents not an actual but a
     potential, it is not necessarily a linear sequence like a simple path, and
     is not
-    necessarily fully traversed (flooded) by all packets of a flow like a Detnet
+    necessarily fully traversed (flooded) by all packets of a flow like a DetNet
     Path. Still, and as a simplification, the casual reader may consider that a
     recovery graph is very much like a DetNet path, aggregating multiple paths that may
     overlap, fork and rejoin, for instance to enable a protection service by the
@@ -419,7 +419,7 @@
     not be computed in advance, but decided upon the detection of a change from
     a clean slate.
     Furthermore, the PLR decision may be distributed, which yields a large
-    combination of possible and dependant decisions, with no node in the network
+    combination of possible and dependent decisions, with no node in the network
     capable of reporting which is the current DetNet Path within the recovery graph.
     </t>
     <t>
@@ -431,14 +431,14 @@
     A recovery graph is a Layer-3 abstraction built upon IP links between routers.
     A router may form multiple IP links over a single radio interface.
     </li><li>
-    A recovery graph has one Ingress and one Egress nodes, which operate as DetNet Edge
+    A recovery graph has one Ingress and one Egress node, which operate as DetNet Edge
     nodes.
     </li><li>
     The graph of a recovery graph is reversible, meaning that packets can be routed against
     the flow of data packets, e.g., to carry OAM measurements or control
     messages back to the Ingress.
     </li><li>
-    The vertices of that graph are DetNet Relay nodes that operate at the
+    The vertices of that graph are DetNet Relay Nodes that operate at the
     DetNet Service sub-layer and provide the PREOF functions.
     </li><li>
     The topological edges of the graph are strict sequences of DetNet Transit
@@ -451,10 +451,10 @@
 
     <t>
     <xref target='TRK'/> illustrates the generic concept of a recovery graph,
-   between an Ingress Node and an Egress Node
+   between an Ingress Node and an Egress Node.
 
     The recovery graph is composed of forward protection paths and forward or crossing
-    Segments, see the definition for those terms in the next sections.
+    Segments (see the definition for those terms in the next sections).
     The recovery graph contains at least 2 protection paths as a main path and a backup path.
 </t>
 <figure anchor='TRK'><name>A Recovery Graph and its Components</name>
@@ -462,14 +462,14 @@
 
  ------------------- forward direction ---------------------->
 
-       a ==> b ==> C -=- F ==> G ==> H     T1       I: Ingress
+       a ==> b ==> C -=- F ==> G ==> h     T1       I: Ingress
      /              \   /      |       \ /          E: Egress
    I                  o        n        E -=- T2    T1, T2, T3:
      \              /   \      |       / \            External
        p ==> q ==> R -=- T ==> U ==> v     T3         Targets
 
 
-      Uppercase: DetNet Relay nodes
+      Uppercase: DetNet Relay Nodes
       Lowercase: DetNet Transit nodes
 
 
@@ -478,8 +478,8 @@
    G | n | U : A crossing Segment to targets G or U
    I -> F -> E : A forward Protection Path to targets T1, T2, and T3
 
-   I, a, b, C, F, G, H, E : a path to T1, T2, and/or T3
-   I, p, q, R, o, F, G, H, E : segment-crossing protection path
+   I, a, b, C, F, G, h, E : a path to T1, T2, and/or T3
+   I, p, q, R, o, F, G, h, E : segment-crossing protection path
 
 ]]></artwork>
 </figure>
@@ -502,7 +502,7 @@
     <t>
     An end-to-end forward path between the Ingress and Egress Nodes of a
     recovery graph. A protection path in a recovery graph is expressed as a strict sequence
-    of DetNet Relay nodes or as a loose sequence of DetNet Relay nodes that are
+    of DetNet Relay Nodes or as a loose sequence of DetNet Relay Nodes that are
     joined by recovery graph Segments.  Background information on the
     concepts related to protection paths can be found in <xref
     target="RFC4427"/> and <xref target="RFC6378"/>
@@ -510,7 +510,7 @@
   </section>
     <section><name>Segment</name>
     <t>
-    A strict sequence of DetNet Transit nodes between 2 DetNet Relay nodes; a
+    A strict sequence of DetNet Transit nodes between 2 DetNet Relay Nodes; a
     Segment of a recovery graph is composed topologically of two vertices of the
     recovery graph and one edge of the recovery graph between those vertices.
     </t>
@@ -527,8 +527,8 @@
     <section><name>Flow</name>
     <t>
     A collection of consecutive IP packets defined by the upper layers and
-    signaled by the same 5 or 6-tuple, see section 5.1 of
-    <xref target="RFC8939"/>. Packets of the same flow must be placed
+    signaled by the same 5 or 6-tuple (see section 5.1 of
+    <xref target="RFC8939"/>). Packets of the same flow must be placed
     on the same recovery graph to receive an equivalent treatment from Ingress to Egress
     within the recovery graph. Multiple flows may be transported along the same recovery graph.
     The DetNet Path that is selected for the flow may change over time under the
@@ -538,7 +538,7 @@
    
     <section><name>L3 Deterministic Flow Identifier </name>
     <t>
-     See section 3.3 of <xref target="RFC8938"/>. The classical IP 5-tuple that
+     See section 3.3 of <xref target="RFC8938"/>. The classic IP 5-tuple that
      identifies a flow comprises the source IP, destination IP, source port,
      destination port, and
      the upper layer protocol (ULP). DetNet uses a 6-tuple where the extra field
@@ -563,7 +563,7 @@
    and the Network Plane.
    The DetNet Network Plane is composed of a Data Plane (packet forwarding) and an
    Operational Plane where OAM operations take place.
-   In the Network Plane, the DetNet service sub-layer
+   In the Network Plane, the DetNet Service sub-layer
    focuses on flow protection (e.g., using redundancy) and can be fully operated
    at Layer-3, while the DetNet forwarding sub-layer establishes the paths, 
    associates the flows to the paths, and ensures the availability of the 
@@ -675,7 +675,7 @@
 
     <section><name>Residence Time</name>
     <t>
-    A residence time (RT) is defined as the time interval between the reception
+    A residence time (RT) is defined as the time interval between when the reception
    of a packet starts and the transmission of the packet begins. In the 
    context of RAW, RT is useful for a transit node, not ingress or egress.
     </t>
@@ -688,10 +688,10 @@
     aggregated information from lower layers about e.g., link quality,
     either via measurement or communication with the lower layer.
     This information may be obtained from inside the device using
-    specialized API (e.g., L2 triggers),  via monitoring and measurement protocols such as BFD
+    specialized APIs (e.g., L2 triggers),  via monitoring and measurement protocols such as BFD
     <xref target="RFC5880"/> and STAMP <xref target="RFC8762"/>, respectively, or via a control protocol exchange with the
     lower layer via, e.g.,  DLEP <xref target="RFC8175"/>. It may then be 
-    processed and exported through OAM messaging or via an YANG model,
+    processed and exported through OAM messaging or via a YANG model,
     and exposed to the Controller Plane.
     </t>
     </section>
@@ -732,7 +732,7 @@
     </t>
 
     <t>
-    There are three principles [pillars] of high availability engineering:
+    There are three principles (pillars) of high availability engineering:
     </t>
      <ol spacing="compact">
      <li>elimination of each single point of failure</li>
@@ -781,7 +781,7 @@
     </t>
     <t>
     From an economics standpoint, executing this principle properly generally
-    increases capitalization expense because of the redundant equipment. In a
+    increases capital expense because of the redundant equipment. In a
     constrained network where the waste of energy and bandwidth should be
     minimized, an excessive use of redundant links must be avoided; for RAW this
     means that the extra bandwidth must be used wisely and efficiently.
@@ -799,14 +799,14 @@
       <name>Reliable Crossover</name>
 
     <t>
-    Having a backup equipment has a limited value unless it can be reliably
+    Having backup equipment has a limited value unless it can be reliably
     switched into use within the down-time parameters.
     IP Routers execute reliable crossover continuously because
     the routers use any alternate routes that are available <xref target=
     "RFC0791"/>. This is due to the stateless nature of IP datagrams and the
     dissociation of the datagrams from the forwarding routes they take.
     The <xref target="RFC5714">"IP Fast Reroute Framework"</xref> analyzes
-    mechanisms for fast failure detection and path repair for IP Fast-Reroute,
+    mechanisms for fast failure detection and path repair for IP Fast-Reroute (FRR),
     and discusses the case of multiple failures and SRLG. Examples of FRR
     techniques include Remote Loop-Free Alternate <xref target="RFC7490"/> and
     backup label-switched path (LSP) tunnels for the local repair of LSP tunnels
@@ -865,7 +865,7 @@
     and make the long-term reactive decision to rebuild a recovery graph based on
     statistical and aggregated information. RAW itself operates in the DetNet
     Network
-    Plane at a faster time-scale with live information on speed, state, etc...
+    Plane at a faster time-scale with live information on speed, state, etc.
     This live information can be obtained directly from the lower layer, e.g.,
     using L2 triggers, read from a protocol such as DLEP,
     or transported over multiple hops using OAM and reverse OAM, 
@@ -918,7 +918,7 @@
     When a single fault can have dramatic consequences, the MTBF expresses the
     chances that the unwanted fault event occurs. In data networks,
     this is rarely the case. Packet loss cannot be fully avoided and the
-    systems are built to resist to some loss, e.g., using redundancy with Retries
+    systems are built to resist some loss, e.g., using redundancy with Retries
     (as in HARQ), Packet Replication and Elimination (PRE) FEC, Network Coding (e.g., using 
     FEC with SCHC <xref target="RFC8724"/> fragments), or, in a typical control
     loop, by linear interpolation from the previous measurements.
@@ -926,7 +926,7 @@
    <t>
     But the linear interpolation method cannot resist multiple consecutive
     losses, and a high MTBF is desired as a guarantee that this does not happen,
-    IOW that the number of losses-in-a-row can be bounded. In that case, what is
+    in other words that the number of losses-in-a-row can be bounded. In that case, what is
     really desired is a Maximum Consecutive Loss (MCL). (See also section 
    5.9.5 in <xref target="RFC8175"/>.)
     If the number of losses in a row passes the MCL, the control loop has to
@@ -935,7 +935,7 @@
     </t>
    <t>
     Engineers that build automated processes may use the network reliability
-    expressed in nines or as an MTBF as a proxy to indicate an MCL, e.g., as
+    expressed in nines as an MTBF as a proxy to indicate an MCL, e.g., as
     described in section 7.4 of the <xref target="RFC8578">"Deterministic
     Networking Use Cases"</xref>.
     </t>
@@ -963,7 +963,7 @@
     The reflections take a longer path and are delayed by the extra distance
     divided by the speed of light in the medium. Depending on the frequency, the
     echo lands with a different phase which may add up to (constructive
-    interference) or cancel the direct signal (destructive interference).
+    interference) or cancel (destructive interference) the direct signal.
     </t>
     <t>
     The affected frequencies depend on the relative position of the sender, the
@@ -992,14 +992,10 @@
     and receive antennas in a point-to-point wireless communication.
     The optimal transmission happens when it is free of obstacles.
     </t>
-    <t>
-    As long as a physical object (e.g., a metallic trolley between peers) that
-    affects the transmission is not removed, the quality of the link is affected.
-    </t>
     </dd>
     </dl>
     <t>
-    In an environment that is rich of metallic structures and mobile objects, a
+    In an environment that is rich in metallic structures and mobile objects, a
     single radio link provides a fuzzy service, meaning that it cannot be 
    trusted to transport the traffic reliably over a long period of time.
     </t>
@@ -1212,7 +1208,7 @@
     <name>The RAW Conceptual Model</name>
     <t>
     RAW extends the conceptual model described in section 4 of the DetNet
-    Architecture <xref target="RFC8655"/> with the PLR at the service layer,
+    Architecture <xref target="RFC8655"/> with the PLR at the Service sub-layer,
    as illustrated in <xref target='FigLayers'/>. The PLR 
    (see <xref target='PLRpce'/>) is a point of local reaction  to
    provide additional agility against transmission loss. The PLR can act, e.g.,
@@ -1261,7 +1257,7 @@
    face of the wireless hops.
 
     </t><t>
-   The RAW Nodes are DetNet relays that operate in the RAW Network Plane and
+   The RAW Nodes are DetNet Relay Nodes that operate in the RAW Network Plane and
    are capable of additional diversity mechanisms and measurement functions
    related to the radio interface.
    RAW leverages an Operational Plane orientation function (that typically operates inside the Ingress
@@ -1320,16 +1316,16 @@
    includes may be a time-aggregated, e.g., statistical fashion, to match the longer-term
    operation of the routing function.
     Example information includes Link-Layer metrics such as Link
-    bandwidth (the medium speed depends dynamically on the PHY mode), number of
+    bandwidth (the medium speed depends dynamically on the mode of the physical (PHY) layer), number of
     flows (bandwidth that can be reserved for a flow depends on the number and
     size of flows sharing the spectrum) and average and mean squared deviation
-    of availability and reliability metrics, such as, Packet Delivery Ratio (PDR)
+    of availability and reliability metrics, such as Packet Delivery Ratio (PDR)
     over long periods of time. It may also report an aggregated expected
     transmission count (ETX), or a variation of it.
     </t><t>
     Based on those metrics, the routing function installs the recovery graph with enough
     redundant forwarding solutions to ensure that the Network Plane can reliably
-    deliver the packets within a System Level Agreement (SLA) associated to the
+    deliver the packets within a System Level Agreement (SLA) associated with the
     flows that it transports.
     The SLA defines end-to-end reliability and availability requirements, in which
     reliability may be expressed as a successful delivery in-order and within a
@@ -1344,7 +1340,7 @@
     diversity schemes is actioned by which RAW Nodes.
     </t><t>
     Once a recovery graph is established, per-segment and end-to-end reliability
-   and availability statistics are periodically reported to the routing function to assure
+   and availability statistics are periodically reported to the routing function to ensure
    that the SLA can be met or if not, then have the recovery graph recomputed.
     </t>
 
@@ -1401,7 +1397,7 @@
     <name>RAW and DetNet</name>
 <t>
   RAW leverages the DetNet Forwarding sub-layer and requires the support of
-  OAM in DetNet Transit Nodes (see figure 3 of <xref target="RFC8655"/> for the 
+  OAM in DetNet Transit Nodes (see Figure 3 of <xref target="RFC8655"/>) for the 
   dynamic acquisition of link capacity and state to maintain a strict RAW
   service, end-to-end, over a DetNet Network. In turn, DetNet and thus RAW
   may benefit from / leverage functionality such as provided by TSN at the
@@ -1416,18 +1412,18 @@
 </t>
 <t>
   RAW adds sub-layer functions that operate in the DetNet Operational Plane, which is part of the Network Plane.
-  The RAW orientation function may run only in the DetNet edge nodes (Ingress Edge
+  The RAW orientation function may run only in the DetNet Edge Nodes (Ingress Edge
   Node or End System), or it also run in DetNet Relay Nodes
   when the RAW operations are distributed along the recovery graph.
-  The RAW service layer includes the PLR, which decides the DetNet Path for the 
+  The RAW Service sub-layer includes the PLR, which decides the DetNet Path for the 
   future packets of a flow along the DetNet Path, Maintenance End Points (MEPs) 
   on edge nodes, and Maintenance Intermediate Points (MIPs) within. The MEPs
-  trigger, and learn from, OAM observations, and feeds the PLR for its
+  trigger, and learn from, OAM observations, and feed the PLR for its
   next decision.
 </t>
 <t>
   As illustrated in <xref target='FigDN'/>, RAW extends the DetNet Stack (see
-  figure 4 of <xref target="RFC8655"/> and <xref target='FigLayers'/>) with 
+  Figure 4 of <xref target="RFC8655"/> and <xref target='FigLayers'/>) with 
   additional functionality at the DetNet Service sub-layer for the actuation of PREOF based on the PLR decision.
   DetNet operates at Layer-3, leveraging abstractions of the
   lower layers and APIs that control those abstractions. For instance,
@@ -1438,7 +1434,7 @@
   abstraction to the DetNet layer that can be used to push reliability
   and timing hints like suggest X retries (min, max) within a time window, or 
   send unicast (one next hop) or multicast (for overhearing). 
-  In the other direction up the stack, the RAW PLR needs hints about the radio conditions like L2 triggers (e.g., RSSI, LQI, or ETX) over all the wireless hops. 
+  In the other direction up the stack, the RAW PLR needs hints about the radio conditions such as L2 triggers (e.g., RSSI, LQI, or ETX) over all the wireless hops. 
   </t>
   <t>
   RAW uses various OAM functionalities at the different layers. For instance,
@@ -1485,10 +1481,10 @@
 </t>
 <t>
   A minimal Forwarding sub-layer service is provided at all DetNet Nodes
-  to ensure that the OAM information flows. Relay Nodes may or may not support
-  RAW services, and the Edge nodes do support RAW. DetNet guarantees, such as,
-  latency are provided end-to-end, and RAW supports the DetNet Service to
-  optimize the use of resources.
+  to ensure that the OAM information flows. DetNet Relay Nodes may or may not support
+  RAW services, whereas the DetNet Edge Nodes are required to support RAW in any case.
+  DetNet guarantees, such as bounded latency, are provided end-to-end. 
+  RAW extends the DetNet Service sub-layer to optimize the use of resources.
 </t>
 
 
@@ -1523,11 +1519,11 @@
 <t> In the second model (loose), illustrated in <xref target="FigDN3"/>, RAW
   operates over a partial DetNet Service where typically only the Ingress and
   the Egress End Systems support RAW. The DetNet Domain may extend beyond the
-  Ingress node, or there may be a DetNet domain starting at an Ingress
+  Ingress Node, or there may be a DetNet domain starting at an Ingress
   Edge Node at the first hop after the End System.
 </t>
 <t>
-  In the loose model, RAW cannot observe the hops in network, and the path
+  In the loose model, RAW cannot observe the hops in the network, and the path
   beyond the first hop is opaque; RAW can still observe the end-to-end
   behavior and use Layer-3 measurements to decide whether to replicate a packet
   and select the first-hop interface(s).
@@ -1688,7 +1684,7 @@
     <!--Routing time-scale vs. Forwarding time-scale-->
 
 <section anchor="ooda" numbered="true" toc="default">
-    <name>A OODA Loop</name>
+    <name>OODA Loop</name>
       <t>
  
    The RAW Architecture applies the generic OODA model to continuously optimize the
@@ -1698,25 +1694,25 @@
       <dl>
       <dt>Observe:</dt><dd> Network Plane measurements, including protocols for
       OAM, to Observe the local state of the links and some or all hops along a recovery graph as well as
-      the end-to-end packet delivery, more in <xref target =
-      "aom"/>. Information can also be provided by lower-layer
+      the end-to-end packet delivery (see more in <xref target = "aom"/>).
+      Information can also be provided by lower-layer
       interfaces such as DLEP;
       </dd>
       <dt>Orient:</dt><dd>
       The orientation function, which reports data and information such as the link
       statistics, and leverages offline-computed wisdom and knowledge to Orient
-      the PLR for its forwarding decision, more in <xref target = "pce" />;
+      the PLR for its forwarding decision (see more in <xref target = "pce" />);
       </dd>
       <dt>Decide:</dt><dd> A local PLR that decides which DetNet Path to use
-      for the future packet(s) that are routed along the recovery graph,
-      more in <xref target = "PLRpce" />;
+      for the future packet(s) that are routed along the recovery graph
+       (see more in <xref target = "PLRpce" />);
       </dd>
       <dt>Act:</dt><dd> PREOF Data Plane
       actions are controlled by the PLR over the LL API to increase the
       reliability of the end-to-end transmission. The RAW architecture also
       covers in-situ signaling when the decision is Acted by a node that is
-      down the recovery graph from the PLR, more in 
-     <xref target = "reliability" />.
+      down the recovery graph from the PLR (see more in 
+     <xref target = "reliability" />).
       </dd>
       </dl>
       <figure anchor="oodaloop">
@@ -1762,7 +1758,7 @@
     </t>
     <t>
     Finally, the RAW Service sub-layer Assurance may observe the individual PREOF
-    operation of a relay node to ensure that it is conforming; this might
+    operation of a DetNet Relay Node to ensure that it is conforming; this might
     require injecting an OAM packet at an upstream point inside the recovery graph and
     extracting that packet at another point downstream before it reaches the
     egress.
@@ -1809,7 +1805,7 @@
     <t>
     The Links that are not observed by OAM are opaque to it, meaning that the
     OAM information is carried across and possibly echoed as data, but there is
-    no information capture in intermediate nodes. In the example above, the
+    no information captured in intermediate nodes. In the example above, the
     Tunnel underlay is opaque and not controlled by RAW; still the RAW OAM measures the
     end-to-end latency and delivery ratio for packets sent via RAN 1, RAN 2, and 
    RAN 3, and determines whether a packet should be sent over either or a 
@@ -1836,23 +1832,23 @@
    <t>
    The recovery graph computation is out of scope, but RAW expects that the CPF
    that installs the recovery graph also provides related knowledge
-   in the form of meta data about the links, segments, and possible DetNet Paths.
-   That meta data can be a pre-digested statistical model, and may include
+   in the form of metadata about the links, segments, and possible DetNet Paths.
+   That metadata can be a pre-digested statistical model, and may include
    prediction of future flaps and packet loss, as well as recommended actions
    when that happens.
    </t>
    <t>
-   The meta data may include:
+   The metadata may include:
    </t>
    <ul>
    <li>
    A set of Pre-Determined DetNet Paths that are prepared to match 
-   expected link-degradation profiles, so the DetNet relay nodes can take reflex rerouting actions when
-   facing a degradation that matches one such profile.
+   expected link-degradation profiles, so the DetNet Relay Nodes can take reflex rerouting actions when
+   facing a degradation that matches one such profile;
    </li>
    <li>
    Link-Quality Statistics history and pre-trained models, e.g., to predict the
-   short-term variation of quality of the links in a recovery graph
+   short-term variation of quality of the links in a recovery graph.
    </li>
    </ul>
    <t>
@@ -1937,7 +1933,7 @@
     </tbody>
     </table>
     <t>
-    The PLR sits in the DetNet Forwarding sub-Layer of Edge and Relay Nodes. 
+    The PLR sits in the DetNet Forwarding sub-layer of Edge and Relay Nodes. 
     The PLR operates on the packet flow, learning the recovery graph and 
     path-selection information from the packet, possibly making a local decision and
     retagging the packet to indicate so. On the other hand, the PLR interacts
@@ -2063,7 +2059,7 @@
     <t>
     Radio networks typically encrypt at the MAC layer to protect the
     transmission. If the encryption is per-pair of peers, then certain
-    RAW operations like promiscuous overhearing become impossible. 
+    RAW operations like promiscuous overhearing become impractical. 
     </t>
   
       </section><!-- Layer-2 encryption -->
@@ -2076,7 +2072,14 @@
     can force an End System to use the paid access and increase the cost of the
     transmission for the user.
     </t>
-
+<t>
+      Similar attacks may also be used to deplete resources in lower-power
+      nodes by forcing additional transmissions for FEC and ARQ, and attack
+      metrics such as battery life of the nodes. By affecting the transmissions 
+      and the associated routing metrics in one area, an attacker may force
+      the traffic and cause congestion along a remote path, thus reducing 
+      the overall throughput of the network.
+</t>
       </section><!-- Forced Access -->
 
     <!--  111111111111111111111    -->
@@ -2097,7 +2100,10 @@
 
     <section numbered="true" toc="default">
       <name>Contributors</name>
-      <t>The editor wishes to thank the document co-authors:
+      
+      <t>The editor wishes to thank the following individuals 
+         for their contributions to the text and ideas exposed in this document:
+      
       </t>
       <dl>
     <dt>Lou Berger:</dt><dd>LabN Consulting, L.L.C, lberger@labn.net</dd>
@@ -2108,8 +2114,6 @@
     <dt>Rex Buddenberg:</dt><dd>retired, buddenbergr@gmail.com</dd>
     <dt>Greg Mirsky:</dt><dd>Ericsson, gregimirsky@gmail.com</dd>
       </dl>
-      <t>for their contributions to the text and ideas exposed in this document.
-      </t>
     </section>
       <!--ConTributors-->
     <!--  000000000000000000000    -->
@@ -2126,7 +2130,8 @@
    </t>
    <t>The authors wish to thank Acee Lindem and Eva Schooler for their 
    reviews and comments during the IETF last call phase, and 
-   Ketan Talaulikar, Rich Salz, Wesley Eddy, Behcet Sarikaya, Brian Haberman, Gorry Fairhurst, and Dave Thaler, for their IETF Last Call / IESG reviews.
+   Ketan Talaulikar, Rich Salz, Wesley Eddy, Behcet Sarikaya, Brian Haberman,
+   Gorry Fairhurst, and Dave Thaler, for their IETF Last Call / IESG reviews.
    </t>
    </section>
    <!-- Acknowledgments -->

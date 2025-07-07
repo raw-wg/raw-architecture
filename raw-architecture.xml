@@ -214,14 +214,26 @@
     </t>
     </section>
     
+    <section><name>PER</name>
+    <t>
+    
+    The Packet Error Rate (PER) is defined as the ratio of the number of packets received in error to the total number of transmitted packets. A packet is considered to be in error if even a single bit within the packet is received incorrectly
+    </t>
+    </section>
+    
+    <section><name>RSSI</name>
+    <t>
+    Received Signal Strength Indication (a.k.a. Energy Detection Level): a measure of incoherent (raw) RF power in a channel. The RF power can come from any source: other transmitters using the same technology, other radio technology using the same band, or background radiation. For a single-hop, RSSI may be used for LQI.
+    </t>
+    </section>
+    
     <section><name>LQI</name>
     <t>
-    Link-Quality Indication: 
     
     The link quality indicator (LQI) is an indication of the quality of the data packets received by the receiver. 
     It is typically derived from packet error statistics, the exact method depending on the network stack being used.
     LQI values may be exposed to the controller plane for each individual hop or cumulated along segments.
-    Outgoing LQI values can be calculated from coherent (demodulated) Packet Error Rates (PER), RSSI and incoming LQI values. 
+    Outgoing LQI values can be calculated from coherent (demodulated) PER, RSSI and incoming LQI values. 
     </t>
     </section>
     
@@ -240,21 +252,12 @@
     <section><name>OODA</name>
     <t>
     OODA (Observe, Orient, Decide, Act) is a generic formalism to represent the
-    operational steps in a Control Loop. The
-    conceptual cyclic model of the OODA Loop was developed by USAF Colonel John Boyd. 
-    It is applicable in multiple domains where agility can provide benefits against
-    brute force. In the context of RAW, OODA is applied to network
+    operational steps in a Control Loop. In the context of RAW, OODA is applied to network
     control and convergence, more in <xref target="ooda"/>.
     
 
     </t>
     </section>
-    <section><name>RSSI</name>
-    <t>
-    Received Signal Strength Indication (a.k.a. Energy Detection Level): a measure of incoherent (raw) RF power in a channel. The RF power can come from any source: other transmitters using the same technology, other radio technology using the same band, or background radiation. For a single-hop, RSSI may be used for LQI.
-    </t>
-    </section>
-    
     
     <section><name>SNR</name>
     <t>
@@ -1351,13 +1354,27 @@
 <section anchor="layers" numbered="true" toc="default">
     <name>RAW vs. Upper and Lower Layers</name>
 
-    <t>RAW builds on DetNet provided scheduling and shaping.
+    <t>RAW builds on DetNet-provided features such as scheduling and shaping.
+    In particular, RAW inherits the DetNet guarantees on end-to-end latency, 
+    which can be tuned to unsure that DetNet and RAW reliability mechanisms have
+    no side effect on upper layers, e.g., on transport-layer packet recovery.
+    RAW operations include possible rerouting, which in turn may affect  
+    the ordering of a burst of packets. RAW also inherits PREOF from DetNet, 
+    which can be used to reorder packets before delivery to the upper layers.
+    As a result, DetNet in general and RAW in particular offer a smoother
+    transport experience for the upper layers with ultra-low jitter and loss.
+    </t>
+    <t>
     RAW improves the reliability of transmissions and the availability of the
     communication resources, and should be seen as a dynamic optimization of the use of
-    redundancy to maintain it within certain boundaries. For instance, ARQ is
-    operated by the lower layers and RAW only abstracts the concept and hints
-    the lower layers on the desired outcome, as opposed to performing the
-    retries at Layer-3.
+    redundancy to maintain it within certain boundaries. 
+    For instance, ARQ, which provides 1-hop reliability through acknowledgements and retries, 
+    and FEC codes such as turbo codes which reduce the PER, are typically operated at Layer-2 and Layer-1 respectively.
+    In both cases, redundant transmissions improve the 1-hop reliability at the expense of energy and latency, which are the resources that RAW must control.
+    In order to achieve its goals, RAW may leverage the lower-layer operations
+    by abstracting the concept and providing hints to the lower layers 
+    on the desired outcome, e.g., in terms of reliability and timeliness, 
+    as opposed to performing the actual operations at Layer-3.
     </t>
     <t>
     Guarantees such as bounded latency depend on the upper layers (Transport or
@@ -1589,6 +1606,18 @@
    sends control information in a digested form back to the RAW node, to be used inside a forwarding control loop for
    traffic steering.
    
+      </t><t>
+   <xref target="Figcontrol"/> illustrates a Network Plane recovery graph
+   with links P-Q and N-E flapping, possibly in a transient fashion
+   due to a short-term interferences, and possibly for a longer time, e.g.,
+   due to obstacles between the sender and the receiver or hardware failures.
+   In order to maintain a received redundancy around a value of, say, 2,
+   RAW may leverage a higher ARQ on these hops if the overall latency permits the extra delay,
+   or enable alternate paths between ingress I and egress E.
+   For instance, RAW may enable protection path I ==> F ==> N ==> Q ==> M ==> R ==> E 
+   that routes around both issues and provides some degree of spatial diversity
+   with protection path I ==> A ==> B ==> C ==> D ==> E.
+   
       </t>
 
          <figure anchor="Figcontrol">
@@ -1613,7 +1642,7 @@
           (            v              ).
         (     A--------B---C----D       )
     _ -      / \          /      \       --._
-   (        I---M--------N--***-- E           -
+   (        I---F--------N--***-- E           -
     -_       \          /        /             ) 
     (         P--***---Q----M---R             .
       _                                     )- ._

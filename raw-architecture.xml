@@ -278,12 +278,11 @@
     </t>
     <t>RAW reuses terminology defined for Operations, Administration, and Maintenance (OAM) protocols
    in Section 1.1 of the <xref target="RFC9551"> "Framework of OAM for DetNet" </xref> and 
-   <xref target="RFC7799">"Active and Passive Metrics and Methods (with Hybrid Types In-Between" </xref>.
-   The reader is encouraged to consider the 
-   <xref target="I-D.ietf-opsawg-oam-characterization">Guidelines for Characterizing "OAM"</xref> 
-   to fully understand the semantics of the terms Active, Passive, Hybrid, and In-Packet OAM, 
-   and usage guideline of the terms In-Band and Out-of-Band OAM that are defined in <xref target="RFC9551"/>
-   but .
+   <xref target="RFC7799">"Active and Passive Metrics and Methods (with Hybrid Types In-Between)" </xref>.
+   <xref target="I-D.ietf-opsawg-oam-characterization">"Guidelines for Characterizing OAM"</xref> 
+   provides additional semantics of the terms Active, Passive, Hybrid, and In-Packet OAM that are consistent with 
+    <xref target="RFC7799"/>. It also warns about potential inconsistencies in the way the terms "in-band" and "out-of-band" are used across the IETF; the DetNet reference for those terms is <xref target="RFC9551"/>.
+   
     </t>
     <t>
     RAW also reuses terminology defined for MPLS in <xref target=
@@ -1907,22 +1906,22 @@
             |
      packet | going
    down the | stack
- +==========v============+=====================+===================+
- |(in-packet OAM + iCTRL)| (L2 Triggers, DLEP) |        (OAM)      |
- +==========v============+=====================+===================+
- |      Learn from       |                     |    Learn from     |
- |     packet tagging    >       Maintain      <    end-to-end     |
- +----------v------------+      Forwarding     |    OAM packets    |
- |  Forwarding decision  <        State        +---------^---------|
- +----------v------------+                     |      Enrich or    |
- +    Retag Packet       |  Learn abstracted   >     Regenerate    |
- |    and Forward        | metrics about Links |     OAM packets   |
- +..........v............+..........^..........+........^.v........+
- |                            Lower layers                         |
- +..........v.......................^...................^.v........+
-      frame | sent            Frame | L2 Ack     Active | | OAM
-       over | wireless          In  |            In and | |  out
-            v                       |                   | v
+ +==========v==========+=====================+===================+
+ |(In-situ OAM + iCTRL)| (L2 Triggers, DLEP) |   (Hybrid OAM)    |
+ +==========v==========+=====================+===================+
+ |     Learn from      |                     |    Learn from     |
+ |    packet tagging   >       Maintain      <    end-to-end     |
+ +----------v----------+      Forwarding     |    OAM packets    |
+ | Forwarding decision <        State        +---------^---------|
+ +----------v----------+                     |      Enrich or    |
+ +    Retag Packet     |  Learn abstracted   >     Regenerate    |
+ |    and Forward      | metrics about Links |     OAM packets   |
+ +..........v..........+..........^..........+........^.v........+
+ |                          Lower layers                         |
+ +..........v.....................^...................^.v........+
+      frame | sent          Frame | L2 Ack     Active | | OAM
+       over | wireless        In  |            In and | |  out
+            v                     |                   | v
 ]]></artwork>
 </figure>
 </section>

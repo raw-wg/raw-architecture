@@ -295,13 +295,13 @@ Internet-Draft              RAW Architecture                   July 2025
    L2-aware routing:  As the quality and speed of a link varies over
       time, the concept of metric must also be revisited.  Shortest-path
       cost loses its absolute value, and hop count turns into a bad idea
-      as the link budget drops with the distance.  Routing over radio
-      requires both 1) a new and more dynamic sense of link metrics,
-      with new protocols such as DLEP and L2-trigger to keep L3 up to
-      date with the link quality and availability, and 2) an approach to
-      multipath routing, where multiple link metrics are considered
-      since simple shortest-path cost loses its meaning with the
-      instability of the metrics.
+      as the link budget drops with the physical distance.  Routing over
+      radio requires both 1) a new and more dynamic sense of link
+      metrics, with new protocols such as DLEP and L2-trigger to keep L3
+      up to date with the link quality and availability, and 2) an
+      approach to multipath routing, where multiple link metrics are
+      considered since simple shortest-path cost loses its meaning with
+      the instability of the metrics.
 
    Redundant transmissions:  Though feasible on any technology,
       proactive (forward) and reactive (ack-based) error correction are
@@ -2247,9 +2247,9 @@ Internet-Draft              RAW Architecture                   July 2025
    for their in-depth reviews during the development of this document.
 
    The authors wish to thank Acee Lindem, Eva Schooler, Rich Salz,
-   Wesley Eddy, Behcet Sarikaya, Brian Haberman, Gorry Fairhurst, and
-   Dave Thaler, for their reviews and comments during the IETF Last Call
-   / IESG review cycle.
+   Wesley Eddy, Behcet Sarikaya, Brian Haberman, Gorry Fairhurst, Eric
+   Vyncke, Erik Kline, Roman Danyliw, and Dave Thaler, for their reviews
+   and comments during the IETF Last Call / IESG review cycle.
 
    Special thanks for Mohamed Boucadair, Giuseppe Fioccola, and Benoit
    Claise, for their help dealing with OAM technologies.

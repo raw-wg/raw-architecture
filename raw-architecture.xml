@@ -14,7 +14,7 @@
 <?rfc subcompact="no"?>
 <?rfc authorship="yes"?>
 <?rfc tocappendix="yes"?>
-<rfc xmlns:xi="http://www.w3.org/2001/XInclude" category="info" docName="draft-ietf-raw-architecture-27"
+<rfc xmlns:xi="http://www.w3.org/2001/XInclude" category="info" docName="draft-ietf-raw-architecture-28"
      ipr="trust200902" obsoletes="" submissionType="IETF"
      xml:lang="en" version="3">
   <front>
@@ -262,10 +262,13 @@
     <t>RAW reuses terminology defined for Operations, Administration, and Maintenance (OAM) protocols
    in Section 1.1 of the <xref target="RFC9551"> "Framework of OAM for DetNet" </xref> and 
    <xref target="RFC7799">"Active and Passive Metrics and Methods (with Hybrid Types In-Between)" </xref>.
+   
+   <!--
    <xref target="I-D.ietf-opsawg-oam-characterization">"Guidelines for Characterizing OAM"</xref> 
    provides additional semantics of the terms Active, Passive, Hybrid, and In-Packet OAM that are consistent with 
     <xref target="RFC7799"/>. It also warns about potential inconsistencies in the way the terms "in-band" and "out-of-band" are used across the IETF; the DetNet reference for those terms is <xref target="RFC9551"/>.
    
+   -->
     </t>
     <t>
     RAW also reuses terminology defined for MPLS in <xref target=
@@ -2232,8 +2235,9 @@
  <xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.8762.xml"/>
  <xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.9473.xml"/>
  <xi:include href="https://xml2rfc.tools.ietf.org/public/rfc/bibxml/reference.RFC.9633.xml"/>
-
+<!--
 <xi:include href="http://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-opsawg-oam-characterization"/>
+-->
 <xi:include href="http://xml2rfc.tools.ietf.org/public/rfc/bibxml3/reference.I-D.ietf-detnet-controller-plane-framework"/>
 
 

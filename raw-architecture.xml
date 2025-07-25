@@ -1401,7 +1401,7 @@
   Nodes or End Systems.
 </t>
     <t>
-       For instance,
+   sIn the second model (loose), RAW may traverse a section of the network that is not serviced by DetNet. RAW / OAM may observe the end-to-end traffic and make the best of the available resources, but it may not expect the DetNet guarantees over all paths.  For instance,
    the packets between two wireless entities may be relayed over a wired
    infrastructure, in which case RAW observes and controls the transmission 
    over the wireless first and last hops, as well as end-to-end metrics such as
